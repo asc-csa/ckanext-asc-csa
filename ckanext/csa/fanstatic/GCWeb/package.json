@@ -1,0 +1,15 @@
+{
+  "name": "wet-boew-theme-canada.ca",
+  "version": "6.0.0",
+  "description": "gcweb theme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wet-boew/themes-cdn.git"
+  },
+  "author": "wet-boew-bot",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wet-boew/gcweb/issues"
+  },
+  "homepage": "https://github.com/wet-boew/themes-cdn#readme"
+}

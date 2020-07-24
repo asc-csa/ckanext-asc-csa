@@ -1,0 +1,48 @@
+{
+  "field_descriptions_version": 1,
+  "about": "these are descriptions of dataset/package fields",
+  "descriptions": [
+    {
+      "field_name": "collection",
+      "description": {
+        "en":  "The collection (domain specific) to which the metadata record belongs, Example: Non-Spatial",
+        "fr": "Collection La région où le jeu de données a été publié initialement. Vous pouvez sélectionner ou désélectionner de multiples options (Ctrl+Clic)"
+      }
+    },
+    {
+      "field_name": "org_title_at_publication",
+      "description": {
+        "en": "The region where the dataset was originally published. You may select or deselect multiple options (Ctrl+Click) ",
+        "fr": "La région où le jeu de données a été publié initialement. Vous pouvez sélectionner ou désélectionner de multiples options (Ctrl+Clic)"
+      }
+    },
+    {
+      "field_name": "org_section",
+      "description": {
+        "en": "The region where the dataset was originally published. You may select or deselect multiple options (Ctrl+Click) ",
+        "fr": "La région où le jeu de données a été publié initialement. Vous pouvez sélectionner ou désélectionner de multiples options (Ctrl+Clic)"
+      }
+    },
+    {
+      "field_name": "creator",
+      "description": {
+        "en": "The region where the dataset was originally published. You may select or deselect multiple options (Ctrl+Click) ",
+        "fr": "La région où le jeu de données a été publié initialement. Vous pouvez sélectionner ou désélectionner de multiples options (Ctrl+Clic)"
+      }
+    },
+    {
+      "field_name": "metadata_contact",
+      "description": {
+        "en": "The region where the dataset was originally published. You may select or deselect multiple options (Ctrl+Click) ",
+        "fr": "La région où le jeu de données a été publié initialement. Vous pouvez sélectionner ou désélectionner de multiples options (Ctrl+Clic)"
+      }
+    },
+    {
+      "field_name": "language_support",
+      "description": {
+        "en": "The language(s) that the data supports. Datasets that are available in both English aand French are of higher-value than unilingual datasets. E.g English & French.",
+        "fr": "La région où le jeu de données a été publié initialement. Vous pouvez sélectionner ou désélectionner de multiples options (Ctrl+Clic)"
+      }
+    }
+  ]
+}

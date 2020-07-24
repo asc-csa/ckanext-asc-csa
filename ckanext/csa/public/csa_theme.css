@@ -1,0 +1,19 @@
+.account-masthead {
+    background-color : rgb(0, 0, 0);
+}
+
+.table-test {
+    color: blue;
+}
+
+.table-test .th {
+    padding-left: 12px;
+}
+
+table>tbody>tr>.big-pads {
+    line-height: 20px;
+}
+
+.search-title {
+    padding-left: 12px;
+}

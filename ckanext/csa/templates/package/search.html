@@ -1,0 +1,23 @@
+{% ckan_extends %}
+
+{% block secondary_content %}
+
+  <aside class="mrgn-tp-lg">
+    <div>
+   <h5 style="padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 12px;"> <a href="{{ h.url_for(controller='package', action='search', q=c.q) }}" class="btn btn-default mrgn-bttm-md btn-block"><span class="glyphicon glyphicon-refresh"></span></span>{{ _(' Clear filters') }}</a>
+   </h5>
+  </div>
+{% snippet 'snippets/dataset_facets.html',
+  organization_facet=h.snippet(
+    'snippets/facet_list.html', title=c.facet_titles['organization'],
+    name='organization') %}
+
+{% block extra_facets %}
+
+{% endblock %}
+
+</aside>
+
+
+
+{% endblock %}

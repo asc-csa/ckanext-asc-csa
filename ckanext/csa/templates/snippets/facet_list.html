@@ -1,0 +1,57 @@
+{% ckan_extends %}
+{% import 'macros/csa_read.html' as cr %}
+
+{% block facet_list %}
+{% with items = items or h.get_facet_items_dict(name, limit=200) %}
+  {% set item_count = items | length %}
+  {% set items = items[0:5] if ( not unlimit) and h.get_param_int('_%s_limit' % name) else items %}
+  
+    {% if items %}
+        {% if within_tertiary %}
+            {% set nav_class = 'nav nav-pills nav-stacked' %}
+            {% set nav_item_class = ' ' %}
+            {% set wrapper_class = 'nav-facet nav-facet-tertiary' %}
+        {% endif %}
+            <section class="{{ wrapper_class or 'module module-narrow module-shallow' }}">
+               <details class="panel panel-default mrgn-bttm-0"> 
+                   <summary class="panel-heading">
+                <h3 class="panel-title">
+
+                    {% set title = title or 'test' %}
+                    {{ title }}
+                </h3>
+            </summary>
+            
+        <nav aria-label="filters">
+            <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}">
+                {% for item in items %}
+                    {% do item.update({'label': h.scheming_choices_label(scheming_choices, item.name)
+                    if scheming_choices else cr.split_bilingual_field(item.display_name, h.lang()) }) %}
+       
+                {% endfor %}
+
+                {%- macro _text_key(d) -%}
+                    {{- h.csa_normalize_strip_accents(d.label) -}}
+                {%- endmacro -%}
+                {%- do items.sort(key=_text_key) -%}
+
+                {% for item in items %}
+
+                    {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
+                    {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
+                    <li class="nav-item{% if item.active %} active{% endif %} facet-item" >
+                        <a href="{{ href }}">
+                        <i class="fa fa-{{ "check-" if item.active else "" }}square-o"></i>&nbsp;
+                        <span>{{ item.label }} {{ count }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </details>
+    </section>
+
+    {% endif %}
+
+{% endwith %}
+{% endblock %}

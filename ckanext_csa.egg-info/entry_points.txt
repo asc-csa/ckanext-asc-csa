@@ -1,0 +1,7 @@
+
+        [ckan.plugins]
+        csa=ckanext.csa.plugin:CsaPlugin
+
+        [babel.extractors]
+        ckan = ckan.lib.extract:extract_ckan
+    

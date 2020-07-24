@@ -1,0 +1,86 @@
+{% set pkg = c.pkg_dict %}
+{% set client_lang = h.lang() %}
+
+<section class="additional-info">
+ {#  <h3>{{ _('Additional Info') }}</h3> #}
+  <table class="table table-bordered">
+    {# <thead>
+      <tr>
+        <th scope="col">{{ _('Field') }}</th>
+        <th scope="col">{{ _('Value') }}</th>
+      </tr>
+    </thead> #}
+    <tbody>
+      {% block package_additional_info %}
+     {# COMMENTING OUT SOURCE, NEED TO FIX URL SHOWING
+      {% if pkg_dict.url %}
+          <tr>
+            <th scope="row" class="dataset-label">{{ _('Source') }}</th>
+            {% if h.is_url(pkg_dict.url) %}
+              <td class="dataset-details" property="foaf:homepage">{{ h.link_to(pkg_dict.url, pkg_dict.url, rel='foaf:homepage', target='_blank') }}</td>
+            {% else %}
+              <td class="dataset-details" property="foaf:homepage">{{ pkg_dict.url }}</td>
+            {% endif %}
+          </tr>
+        {% endif %}
+     #}   
+
+        {% if pkg_dict.version %}
+          <tr>
+            <th scope="row" class="dataset-label">{{ _("Version") }}</th>
+            <td class="dataset-details">{{ pkg_dict.version }}</td>
+          </tr>
+        {% endif %}
+
+        {% if h.check_access('package_update',{'id':pkg_dict.id}) %}
+          <tr>
+            <th scope="row" class="dataset-label">{{ _("State") }}</th>
+            <td class="dataset-details">{{ _(pkg_dict.state) }}</td>
+          </tr>
+        {% endif %}
+        {% if pkg_dict.metadata_modified %}
+          <tr>
+            <th scope="row" class="dataset-label">{{ _("Last Updated") }}</th>
+            <td class="dataset-details">
+                {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.metadata_modified %}
+            </td>
+          </tr>
+        {% endif %}
+        {% if pkg_dict.metadata_created %}
+          <tr>
+            <th scope="row" class="dataset-label">{{ _("Created") }}</th>
+
+            <td class="dataset-details">
+                {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.metadata_created %}
+            </td>
+          </tr>
+        {% endif %}
+        {# ADDING LICENCE IN THIS FIELD #}
+        <tr>
+          <th scope="row" class="dataset-label">{{ _("Licence") }}</th>
+
+          <td class="dataset-details">
+             {% if client_lang == 'fr' %}
+              <a href="{{ c.pkg.license.url_fra }}">{{ c.pkg.license.title_fra }}</a>
+            {% else %}
+              <a href="{{ pkg.license_url }}">{{ pkg.license_title }} </a>
+            {% endif %}
+          </td>
+
+
+        </tr>
+
+      {% block extras scoped %}
+        {% for extra in h.sorted_extras(pkg_dict.extras) %}
+          {% set key, value = extra %}
+          <tr rel="dc:relation" resource="_:extra{{ i }}">
+            <th scope="row" class="dataset-label" property="rdfs:label">{{ _(key|e) }}</th>
+            <td class="dataset-details" property="rdf:value">{{ value }}</td>
+          </tr>
+        {% endfor %}
+      {% endblock %}
+
+      {% endblock %}
+    </tbody>
+  </table>
+</section>

@@ -1,0 +1,157 @@
+{% extends "package/base.html" %}
+
+{% set pkg = c.pkg_dict %}
+{% set schema = h.scheming_get_dataset_schema(pkg.type) %}
+
+{% block subtitle %}{{ h.dataset_display_name(pkg) }} - {{ super() }}{% endblock %}
+
+{% block head_extras -%}
+  {{ super() }}
+  {% set description = h.markdown_extract(pkg.notes, extract_length=200)|forceescape %}
+  <meta property="og:title" content="{{ h.dataset_display_name(pkg) }} - {{ g.site_title }}">
+  <meta property="og:description" content="{{ description|forceescape|trim }}">
+{% endblock -%}
+
+{% block content_action %}
+  {% if h.check_access('package_update', {'id':pkg.id }) %}
+    {% link_for _('Manage'), controller='package', action='edit', id=pkg.name, class_='btn btn-default', icon='wrench' %}
+  {% endif %}
+{% endblock %}
+
+{% block content_primary_nav %}
+  {{ h.build_nav_icon('dataset_read', _('Dataset'), id=pkg.name) }}
+  {{ h.build_nav_icon('dataset_groups', _('Groups'), id=pkg.name) }}
+  {{ h.build_nav_icon('dataset_activity', _('Activity Stream'), id=pkg.name) }}
+{% endblock %}
+
+{% block primary_content_inner %}
+    {% block package_revision_info %}
+      {% if c.revision_date %}
+        <div class="module info alert alert-info">
+          <p class="module-content">
+            {% set timestamp = h.render_datetime(c.revision_date, with_hours=True) %}
+            {% set url = h.url_for(controller='package', action='read', id=pkg.name) %}
+
+            {% trans timestamp=timestamp, url=url %}This is an old revision of this dataset, as edited at {{ timestamp }}. It may differ significantly from the <a href="{{ url }}">current revision</a>.{% endtrans %}
+          </p>
+        </div>
+      {% endif %}
+    {% endblock %}
+{% endblock %}
+
+{% block secondary_content %}
+
+
+  {% block secondary_help_content %}{% endblock %}
+
+  {% block package_info %}
+    {% snippet 'package/snippets/info.html', pkg=pkg %}
+  {% endblock %}
+
+  <div class="panel panel-primary">
+        <div class="panel-heading">
+          <div class="panel-title">
+            {{ _('Additional Information') }}
+          </div>
+        </div>
+        <ul class="list-group">
+          {% set include_labels = [
+            "creator",
+            "maintainer_email",
+            "keywords",
+            "subject",
+            "topic_category",
+            "audience",
+            "place_of_publication",
+            "homepage",
+            "series_title",
+            "series_issue_id",
+            "program_page_url",
+            "data_series_name",
+            "data_series_issue_identification",
+            "edition",
+            "series_publication_dates",
+            "digital_object_identifier",
+            "isbn",
+            "issn",
+            "gc_catalogue_number",
+            "frequency",
+            "issuance",
+            "issuance_frequency",
+            "spatial_representation_type",
+            "status",
+            "date_published",
+            "date_created",
+            "date_captured",
+            "date_modified"
+          ] %}
+          {% for field_to_show in include_labels %}
+            {% set field = h.scheming_field_by_name(schema.dataset_fields, field_to_show) %}
+            {% set field_title = h.scheming_language_text(field.label) %}
+            {% if field_title %}
+              {% set field_value = pkg[field.field_name] %}
+              {% if pkg[field.field_name] is mapping %}
+              {% set field_value = h.scheming_language_text(field_value) %}
+              {% endif %}
+              {% if field_value %}
+                <li class="list-group-item">
+                  <strong>{{ field_title }}:</strong>
+                  {% snippet 'scheming/snippets/display_field.html',
+                    field=field,
+                    data=pkg,
+                    entity_type='dataset',
+                    object_type=pkg.type
+                  %}
+                </li>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          
+         
+        </ul>
+      </div>
+    
+      <div class="panel panel-primary">
+            <div class="panel-heading">
+            <div class="panel-title">{{_('About this Record')}}</div>
+            </div>
+        
+            <ul class="list-group">
+             
+              <li class="list-group-item">
+                <strong>{{ _('Record ID') }}:</strong>
+                {{ pkg.id }}
+              </li>
+              <li class="list-group-item">
+                <strong>{{ _('Metadata') }}:</strong>
+                <ul class="list-group" style="margin-bottom: 0;">
+                  <li class="list-group-item">
+                    <a href="{{h.url_for_static('/', qualified=true)}}api/action/package_show?id={{pkg.id}}" rel="nofollow">
+                      {{ _('Link to JSON format') }}
+                    </a>
+                  </li>
+                         
+                </ul>
+              </li>
+              
+              
+              
+            </ul>
+          </div>
+
+  {% block package_organization %}
+    {% if pkg.organization %}
+      {% set org = h.get_organization(pkg.organization.name) %}
+      {% snippet "snippets/organization.html", organization=org, has_context_title=true %}
+    {% endif %}
+  {% endblock %}
+
+  {% block package_social %}
+    {% snippet "snippets/social.html" %}
+  {% endblock %}
+
+  {% block package_license %}
+    {% snippet "snippets/license.html", pkg_dict=pkg %}
+  {% endblock %}
+
+{% endblock %}

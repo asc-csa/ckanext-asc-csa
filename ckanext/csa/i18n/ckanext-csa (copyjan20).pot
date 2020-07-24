@@ -1,0 +1,1248 @@
+# Translations template for ckanext-csa.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the ckanext-csa project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ckanext-csa 0.0.1\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-01-16 14:49-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: ckanext/csa/plugin.py:221 ckanext/csa/plugin.py:243 ckanext/csa/plugin.py:263
+msgid "Portal Type"
+msgstr ""
+
+#: ckanext/csa/plugin.py:223 ckanext/csa/plugin.py:244 ckanext/csa/plugin.py:264
+msgid "Collection Type"
+msgstr ""
+
+#: ckanext/csa/plugin.py:224 ckanext/csa/plugin.py:225 ckanext/csa/plugin.py:226
+#: ckanext/csa/plugin.py:245 ckanext/csa/plugin.py:246 ckanext/csa/plugin.py:247
+#: ckanext/csa/plugin.py:265 ckanext/csa/plugin.py:266 ckanext/csa/plugin.py:267
+msgid "Keywords"
+msgstr ""
+
+#: ckanext/csa/plugin.py:227 ckanext/csa/plugin.py:248 ckanext/csa/plugin.py:268
+msgid "Subject"
+msgstr ""
+
+#: ckanext/csa/plugin.py:228 ckanext/csa/plugin.py:249 ckanext/csa/plugin.py:269
+msgid "Format"
+msgstr ""
+
+#: ckanext/csa/plugin.py:229 ckanext/csa/plugin.py:250 ckanext/csa/plugin.py:270
+msgid "Resource Type"
+msgstr ""
+
+#: ckanext/csa/plugin.py:230 ckanext/csa/plugin.py:251 ckanext/csa/plugin.py:271
+msgid "Maintenance and Update Frequency"
+msgstr ""
+
+#: ckanext/csa/plugin.py:231 ckanext/csa/plugin.py:252 ckanext/csa/plugin.py:272
+msgid "Topic Categories"
+msgstr ""
+
+#: ckanext/csa/plugin.py:232 ckanext/csa/plugin.py:253 ckanext/csa/plugin.py:273
+msgid "Spatial Representation Type"
+msgstr ""
+
+#: ckanext/csa/plugin.py:233 ckanext/csa/plugin.py:254 ckanext/csa/plugin.py:274
+msgid "Map Viewer"
+msgstr ""
+
+#: ckanext/csa/plugin.py:234 ckanext/csa/plugin.py:255 ckanext/csa/plugin.py:275
+msgid "Record Status"
+msgstr ""
+
+#: ckanext/csa/plugin.py:235 ckanext/csa/plugin.py:256 ckanext/csa/plugin.py:276
+msgid "IMSO Approval"
+msgstr ""
+
+#: ckanext/csa/plugin.py:236 ckanext/csa/plugin.py:257 ckanext/csa/plugin.py:277
+msgid "Jurisdiction"
+msgstr ""
+
+#: ckanext/csa/fanstatic/wet-boew/js/MathJax/config/AM_HTMLorMML-full.js:51
+#: ckanext/csa/fanstatic/wet-boew/js/MathJax/config/MML_HTMLorMML-full.js:51
+#: ckanext/csa/fanstatic/wet-boew/js/MathJax/jax/output/CommonHTML/autoload/mglyph.js:19
+#: ckanext/csa/fanstatic/wet-boew/js/MathJax/jax/output/HTML-CSS/autoload/mglyph.js:19
+#: ckanext/csa/fanstatic/wet-boew/js/MathJax/jax/output/NativeMML/jax.js:19
+#: ckanext/csa/fanstatic/wet-boew/js/MathJax/jax/output/SVG/autoload/mglyph.js:19
+msgid "MathML"
+msgstr ""
+
+#: ckanext/csa/fanstatic/wet-boew/js/MathJax/extensions/HelpDialog.js:19
+msgid "HelpDialog"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:24
+msgid "Main"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:24
+msgid "Menu"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:27
+msgid "Jobs and the workplace"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:33
+msgid "Jobs"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:33 ckanext/csa/templates/header.html:61
+#: ckanext/csa/templates/header.html:93 ckanext/csa/templates/header.html:124
+#: ckanext/csa/templates/header.html:161 ckanext/csa/templates/header.html:190
+#: ckanext/csa/templates/header.html:218 ckanext/csa/templates/header.html:247
+#: ckanext/csa/templates/header.html:304 ckanext/csa/templates/header.html:334
+#: ckanext/csa/templates/header.html:361 ckanext/csa/templates/header.html:388
+#: ckanext/csa/templates/header.html:453
+msgid ": home"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:36
+msgid "Find a job"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:37
+msgid "Training"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:38
+msgid "Hire and manage employees"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:39 ckanext/csa/templates/header.html:127
+msgid "Starting a business"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:40
+msgid "Workplace standards"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:41 ckanext/csa/templates/header.html:424
+msgid "Pensions and retirement"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:42 ckanext/csa/templates/header.html:164
+msgid "Employment Insurance and leave"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:45 ckanext/csa/templates/header.html:76
+#: ckanext/csa/templates/header.html:107 ckanext/csa/templates/header.html:143
+#: ckanext/csa/templates/header.html:174 ckanext/csa/templates/header.html:205
+#: ckanext/csa/templates/header.html:231 ckanext/csa/templates/header.html:260
+#: ckanext/csa/templates/header.html:288 ckanext/csa/templates/header.html:318
+#: ckanext/csa/templates/header.html:345 ckanext/csa/templates/header.html:372
+#: ckanext/csa/templates/header.html:401 ckanext/csa/templates/header.html:436
+#: ckanext/csa/templates/header.html:466
+msgid "Most requested"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:47
+msgid "View your Records of Employment"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:48
+msgid "Apply for a Social Insurance Number (SIN)"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:49
+msgid "Hire a temporary foreign worker"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:50
+msgid "Immigrate as a skilled worker"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:58
+msgid "Immigration and citizenship"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:61
+msgid "Immigration"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:61
+msgid " and citizenship"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:64
+msgid "My application"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:65
+msgid "Visit"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:66
+msgid "Immigrate"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:67
+msgid "Work"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:68
+msgid "Study"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:69
+msgid "Citizenship"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:70
+msgid "New immigrants"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:71
+msgid "Canadians"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:72
+msgid "Refugees and asylum"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:73
+msgid "Enforcement and violations"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:78
+msgid "Sign in or create an account to apply online"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:79
+msgid "Check your application status"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:80
+msgid "Check application processing times"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:81
+msgid "Find an application form"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:82
+msgid "Pay your fees"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:83
+msgid "Find out if you need an eTA or a visa to visit Canada"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:84
+msgid "Have questions? Find answers in the Help Centre"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:90
+msgid "Travel and tourism"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:93
+msgid "Travel"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:93
+msgid "and tourism"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:96
+msgid "Travel advice and advisories"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:97
+msgid "Canadian attractions, events and experiences"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:98
+msgid "Canadian passports"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:99
+msgid "Travelling abroad"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:100
+msgid "Air travel"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:101
+msgid "Returning to Canada"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:102
+msgid "Assistance abroad"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:103
+msgid "Stay connected"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:104
+msgid "Visit Canada"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:109
+msgid "Consent letter for children travelling abroad"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:110
+msgid "Canada - U.S. border wait times"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:111
+msgid "Register as a Canadian abroad"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:112
+msgid "Apply for NEXUS"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:113
+msgid "What you can bring home to Canada"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:114 ckanext/csa/templates/header.html:405
+msgid "Contact an embassy or consulate"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:115
+msgid "Cannabis and international travel"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:121
+msgid "Business and industry"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:124
+msgid "Business"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:124
+msgid "and industry"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:128 ckanext/csa/templates/header.html:432
+msgid "Business grants and financing"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:129
+msgid "Business taxes"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:130
+msgid "Federal corporations"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:131
+msgid "Hiring and managing employees"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:132 ckanext/csa/templates/header.html:395
+msgid "International trade and investment"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:133
+msgid "Permits, licences and regulations"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:134
+msgid "Doing business with government"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:135 ckanext/csa/templates/header.html:460
+msgid "R&amp;D and innovation"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:136
+msgid "Research and business intelligence"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:137 ckanext/csa/templates/header.html:461
+msgid "Intellectual property and copyright"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:138
+msgid "Maintaining your business"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:139
+msgid "Protecting your business"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:140
+msgid "Insolvency for business"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:145
+msgid "Find a corporation"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:146
+msgid "Report your imported goods"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:147
+msgid "Search for trademarks"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:148
+msgid "Review custom tariffs for importing goods"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:149
+msgid "Find a patent"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:150
+msgid "Import and export from Canada"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:151
+msgid "Name a business"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:152
+msgid "Make changes to your corporation (Online Filing Centre)"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:158 ckanext/csa/templates/header.html:161
+msgid "Benefits"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:165
+msgid "Family and caregiving benefits"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:166
+msgid "Public pensions"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:167
+msgid "Education and student aid"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:168
+msgid "Housing benefits"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:169
+msgid "Disability benefits"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:170
+msgid "Benefits finder"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:171
+msgid "Benefit payment dates"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:176
+msgid "Apply for Employment Insurance"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:177
+msgid "Apply for student loans and grants"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:178
+msgid "Sign in to a Government of Canada online account"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:179
+msgid "Sign up for direct deposit"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:180
+msgid "Submit your EI report"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:181
+msgid "Child and family benefits calculators"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:187 ckanext/csa/templates/header.html:190
+msgid "Health"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:193
+msgid "Food and nutrition"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:194
+msgid "Diseases and conditions"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:195
+msgid "Vaccines and immunization"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:196
+msgid "Drug and health products"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:197
+msgid "Product safety"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:198
+msgid "Health risks and safety"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:199
+msgid "Healthy living"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:200
+msgid "Indigenous health"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:201
+msgid "Health system and services"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:202
+msgid "Science, research and data"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:207
+msgid "Licensed cultivators, processors and seller of cannabis"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:208
+msgid "Food and product recalls and safety alerts"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:209
+msgid "Canada's food guide"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:215 ckanext/csa/templates/header.html:218
+#: ckanext/csa/templates/header.html:430
+msgid "Taxes"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:221
+msgid "Income Tax"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:222
+msgid "GST/HST"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:223
+msgid "Payroll"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:224
+msgid "Business number"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:225
+msgid "Savings and pension plans"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:226
+msgid "Child and family benefits"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:227
+msgid "Excise taxes, duties, and levies"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:228
+msgid "Charities and giving"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:233
+msgid "My Account"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:234
+msgid "My Business Account"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:235
+msgid "Represent a Client"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:236
+msgid "File a GST/HST return (NETFILE)"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:237
+msgid "Make a payment to the Canada Revenue Agency"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:238
+msgid "Find the next benefit payment date"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:244
+msgid "Environment and natural resources"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:247
+msgid "Environment"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:247
+msgid "and natural resources"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:250
+msgid "Weather, climate and hazards"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:251
+msgid "Energy"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:252
+msgid "Natural resources"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:253
+msgid "Agricultural practices"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:254
+msgid "Fisheries"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:255
+msgid "Wildlife, plants and species"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:256
+msgid "Pollution and waste management"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:257
+msgid "Environmental conservation and protection"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:262
+msgid "Local weather forecast"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:263
+msgid "Fuel-efficient vehicles"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:264
+msgid "Home energy efficiency"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:265
+msgid "Species at risk"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:266
+msgid "Prepare for severe weather"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:272 ckanext/csa/templates/header.html:275
+msgid "National security and defence"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:275
+msgid "Defence: home"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:278
+msgid "National security"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:279
+msgid "Canadian Armed Forces"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:280
+msgid "Defence equipment purchases and upgrades"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:281
+msgid "Transportation security"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:282
+msgid "Securing the border"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:283
+msgid "Cyber security"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:284
+msgid "Jobs in national security and defence"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:285
+msgid "Services and benefits for the military"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:290
+msgid "Jobs in the Canadian Armed Forces"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:291
+msgid "Military ranks"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:292
+msgid "Defence equipment"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:293
+msgid "Current list of terrorist entities"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:294
+msgid "Join the Cadets"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:295
+msgid "Canada's Defence policy"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:301
+msgid "Culture, history and sport"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:304
+msgid "Culture"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:304
+msgid ", history and sport"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:307
+msgid "Funding - Culture, history and sport"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:308
+msgid "Events, celebrations and commemorations"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:309
+msgid "Cultural landmarks and attractions"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:310
+msgid "Canadian identity and society"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:311
+msgid "Sport"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:312
+msgid "History and heritage"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:313
+msgid "Arts and media"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:314
+msgid "Cultural youth programs"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:315
+msgid "Cultural trade and investment"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:320
+msgid "Visit the Canadian Virtual War Memorial"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:321
+msgid "Anthems and symbols of Canada"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:322
+msgid "Find a CRTC decision"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:323
+msgid "Research your family history"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:324
+msgid "Search census records"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:325
+msgid "Landmarks and attractions in Canada’s capital"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:331
+msgid "Policing, justice and emergencies"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:334 ckanext/csa/templates/header.html:337
+msgid "Policing"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:334
+msgid ", justice and emergencies"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:338
+msgid "Justice"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:339
+msgid "Emergencies"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:340
+msgid "Corrections"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:341
+msgid "Parole, record suspension, expungement and clemency"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:342
+msgid "Victims of crime"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:347
+msgid "Apply/Renew a firearms licence"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:348
+msgid "Get a criminal records check"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:349
+msgid "Apply for a criminal record suspension"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:350
+msgid "What to do during an emergency"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:351
+msgid "Know the law on impaired driving"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:352
+msgid "Help solve a crime"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:358
+msgid "Transport and infrastructure"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:361
+msgid "Transport"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:361
+msgid "and infrastructure"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:364
+msgid "Aviation"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:365
+msgid "Marine transportation"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:366
+msgid "Road transportation"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:367
+msgid "Rail transportation"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:368
+msgid "Dangerous goods"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:369
+msgid "Infrastructure"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:374
+msgid "Drone safety"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:375
+msgid "What you can't bring on an airplane"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:376
+msgid "Register your vessel"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:377
+msgid "Child car seat safety"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:378
+msgid "Transporting dangerous goods - Regulations"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:379
+msgid "Canadian Aviation Regulations"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:385 ckanext/csa/templates/header.html:388
+msgid "Canada and the world"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:391
+msgid "International offices and emergency contacts"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:392
+msgid "Study, work and travel worldwide"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:393
+msgid "Funding for international initiatives"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:394
+msgid "Global issues and international assistance"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:396
+msgid "International relations"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:397
+msgid "Information by countries and territories"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:398
+msgid "Stories"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:403
+msgid "Find a Canadian scholarship as an international student"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:404
+msgid "Find international study or research opportunities in Canada"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:406
+msgid "Authenticate a document"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:407
+msgid "Contact a foreign representative in Canada"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:408
+msgid "International treaties signed by Canada"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:414 ckanext/csa/templates/header.html:417
+msgid "Money and finances"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:417
+msgid "Finance: home"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:420
+msgid "Managing your money"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:421
+msgid "Debt and borrowing"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:422
+msgid "Savings and investments"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:423
+msgid "Education funding"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:425
+msgid "Protection from frauds and scams"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:426
+msgid "Financial tools and calculators"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:427
+msgid "Financial literacy programs"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:428
+msgid "Consumer affairs"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:429
+msgid "Insolvency"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:431
+msgid "Government finances"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:433
+msgid "Financial and money services regulation"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:438
+msgid "Find a bankruptcy or insolvency record"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:439
+msgid "Student loans"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:440
+msgid "Set up direct deposit"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:441
+msgid "Mortgages"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:442
+msgid "Credit report and scores"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:443
+msgid "Make a budget"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:444
+msgid "Rates and contribution limits"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:450
+msgid "Science and innovation"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:453
+msgid "Science"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:453
+msgid "and innovation"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:456
+msgid "Research funding and awards"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:457
+msgid "Science subjects"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:458
+msgid "Open data, statistics and archives"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:459
+msgid "Research institutes and facilities"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:462
+msgid "Directory of scientists and research professionals"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:463
+msgid "Science education resources"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:468
+msgid "National building codes"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:469
+msgid "Official time across Canada"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:470
+msgid "Check sunrise and sunset times"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:471
+msgid "Grants for technological innovation (IRAP)"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:472
+msgid "Federal Science Library"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:473
+msgid "Live view of northern lights cam"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:490
+msgid "You are here:"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:493
+msgid "Home"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:494
+msgid "Departments and Agencies"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:495
+msgid "Canadian Space Agency"
+msgstr ""
+
+#: ckanext/csa/templates/ajax_snippets/example_theme_popover.html:12
+msgid "Followers"
+msgstr ""
+
+#: ckanext/csa/templates/ajax_snippets/example_theme_popover.html:15
+msgid "Resources"
+msgstr ""
+
+#: ckanext/csa/templates/package/read.html:9
+#: ckanext/csa/templates/snippets/package_item_org.html:31
+msgid "Private"
+msgstr ""
+
+#: ckanext/csa/templates/package/read.html:15
+#, python-format
+msgid ""
+" You're currently viewing an old version of this dataset. To see the current "
+"version, click <a href=\"%(url)s\">here</a>. "
+msgstr ""
+
+#: ckanext/csa/templates/package/read.html:26
+#: ckanext/csa/templates/snippets/package_item_org.html:40
+msgid "Draft"
+msgstr ""
+
+#: ckanext/csa/templates/package/read.html:29
+#: ckanext/csa/templates/snippets/package_item_org.html:42
+msgid "Deleted"
+msgstr ""
+
+#: ckanext/csa/templates/package/search copy.html:4
+#: ckanext/csa/templates/package/search.html:4
+msgid "Search Filters"
+msgstr ""
+
+#: ckanext/csa/templates/package/search copy.html:4
+#: ckanext/csa/templates/package/search.html:4
+msgid "Clear All"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/additional_info.html:2
+msgid "Additional Info"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/additional_info.html:14
+msgid "Source"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/additional_info.html:25
+#: ckanext/csa/templates/package/snippets/additional_info.html:30
+msgid "Author"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/additional_info.html:37
+#: ckanext/csa/templates/package/snippets/additional_info.html:42
+msgid "Maintainer"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/additional_info.html:49
+msgid "Version"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/additional_info.html:56
+#: ckanext/csa/templates/scheming/package/snippets/additional_info.html:38
+msgid "State"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/additional_info.html:62
+msgid "Last Updated"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/additional_info.html:70
+msgid "Created"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/facet_list_old.html:80
+msgid "Show More {facet_type}"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/facet_list_old.html:83
+msgid "Show Only Popular {facet_type}"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/facet_list_old.html:87
+msgid "There are no {facet_type} that match this search"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:8
+msgid "Provincial"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:10
+msgid "Federal"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:26
+#: ckanext/csa/templates/snippets/package_item.html:40
+msgid ""
+"This third party metadata element has been translated using an automated "
+"translation tool (DeepL). To report any discrepancies please contact open-"
+"ouvert@tbs-sct.gc.ca"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:44
+#: ckanext/csa/templates/snippets/package_item_org.html:57
+msgid "This dataset has no description"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:49
+msgid "Organization"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:55
+msgid "Issued by"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:63
+msgid "Resource Formats"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:86
+msgid "Add to Map Cart"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:89
+msgid "Remove from Map Cart"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item_org.html:50
+msgid "Popular"
+msgstr ""
+

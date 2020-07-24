@@ -1,0 +1,577 @@
+{
+  "scheming_version": 1,
+  "dataset_type": "dataset",
+  "about": "A reimplementation of the default CKAN dataset schema",
+  "about_url": "http://github.com/ckan/ckanext-scheming",
+  "dataset_fields": [
+    {
+      "preset": "canada_collection"
+    },
+    {
+      "preset": "canada_title"
+    },
+    {
+      "field_name": "name",
+      "label": "URL",
+      "preset": "dataset_slug",
+      "form_placeholder": "eg. my-dataset"
+    },
+    {
+      "preset": "canada_owner_org"
+    },
+    {
+      "field_name": "tag_string",
+      "label": "Tags",
+      "preset": "tag_string_autocomplete",
+      "form_placeholder": "eg. economy, mental health, government"
+    },
+    {
+      "preset": "canada_license_id"
+    },
+    {
+      "field_name": "version",
+      "label": "Version",
+      "validators": "ignore_missing unicode package_version_validator",
+      "form_placeholder": "1.0"
+    },
+    {
+      "field_name": "language_support",
+      "label": "Language Support",
+      "required": "false",
+      "preset": "select",
+      "choices": [
+        {
+          "value": "english",
+          "label": "English"
+        },
+        {
+          "value": "french",
+          "label": "French"
+        },
+        {
+          "value": "bilingual",
+          "label": "Bilingual"
+        },
+        {
+          "value": "no_linguistic_content_not_applicable",
+          "label": "No linguistic content ; Not applicable"
+        },
+        {
+          "value": "others",
+          "label": "Others"
+        }
+      ],
+      "validators": "ignore_missing"
+    },
+    {
+      "field_name": "language_support_specify",
+      "label": "Language Support Specify",
+      "required": "false",
+      "validators": "ignore_missing"
+    },
+    {
+      "field_name": "data_steward",
+      "label": "Data Steward",
+      "required": "false",
+      "validators": "ignore_missing"
+    },
+    {
+      "field_name": "manager_or_supervisor",
+      "label": "Manager or Supervisor",
+      "required": "false",
+      "validators": "ignore_missing"
+    },
+    {
+      "field_name": "diids_no",
+      "label": "DIIDS No",
+      "required": "true"
+    },
+    {
+      "field_name": "directorate",
+      "label": "Directorate",
+      "preset": "select",
+      "choices": [
+        {
+          "value": "communications",
+          "label": "Communications"
+        },
+        {
+          "value": "corporate_services_and_hr",
+          "label": "Corporate Services and Human Resources"
+        },
+        {
+          "value": "finance",
+          "label": "Finance"
+        },
+        {
+          "value": "human_resources",
+          "label": "Human Resources"
+        },
+        {
+          "value": "policy",
+          "label": "Policy"
+        },
+        {
+          "value": "programs_and_integrated_planning",
+          "label": "Programs and Integrated Planning"
+        },
+        {
+          "value": "information_management_and_technology_management",
+          "label": "Information Management and Technology Management"
+        },
+        {
+          "value": "policy",
+          "label": "Policy"
+        },
+        {
+          "value": "space_exploration",
+          "label": "Space Exploration"
+        },
+        {
+          "value": "space_science_and_technology",
+          "label": "Space Science and Technology"
+        },
+        {
+          "value": "space_utilization",
+          "label": "Space Utilization"
+        },
+        {
+          "value": "vicepresidents_office",
+          "label": "Vice President's Office"
+        }
+      ]
+    },
+    {
+      "field_name": "dataset_status",
+      "label": {
+        "en": "Dataset Status",
+        "fr": "Dataset Status French"
+      },
+      "preset": "select",
+      "choices": [
+        {
+          "value": "completed_form_od",
+          "label": {
+            "en": "Completed Form (OD)",
+            "fr": "Completed Form (OD) French"
+          }
+        },
+        {
+          "value": "assigned_to_an_expert",
+          "label": {
+            "en": "Assigned to an expert",
+            "fr": "Assigned to an expert French"
+          }
+        },
+        {
+          "value": "completed_by_the_expert",
+          "label": {
+            "en": "Completed by the expert",
+            "fr": "Completed by the expert French"
+          }
+        },
+        {
+          "value": "new_dataset",
+          "label": {
+            "en": "New dataset",
+            "fr": "New dataset French"
+          }
+        },
+        {
+          "value": "modified_by_the_expert",
+          "label": {
+            "en": "Modified by the expert",
+            "fr": "Modified by the expert French"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "division",
+      "label": "Division",
+      "preset": "select",
+      "choices": [
+        {
+          "value": "cio_acces_to_information_and_open_data",
+          "label": "CIO - Access to information and Open Data"
+        },
+        {
+          "value": "com_public_affairs",
+          "label": "COM - Public Affairs"
+        },
+        {
+          "value": "corh_security_and_facilities",
+          "label": "CORH - Security and Facilities"
+        },
+        {
+          "value": "expl_astronauts_life_sciences_and_space_medicine",
+          "label": "EXPL - Astronauts, Life Sciences and Space Medicine"
+        },
+        {
+          "value": "expl_director_generals_office",
+          "label": "EXPL - Director General's Office"
+        },
+        {
+          "value": "expl_space_exploration_development",
+          "label": "EXPL - Space Exploration Development"
+        },
+        {
+          "value": "expl_space_exploration_operations_and_infrastructure",
+          "label": "EXPL - Space Exploration Operations and Infrastructure"
+        },
+        {
+          "value": "fin_accounting_policies_and_financial_systems",
+          "label": "FIN - Accounting, Policies and Financial Systems"
+        },
+        {
+          "value": "fin_planning_and_management_financial_resources",
+          "label": "FIN - Planning and Management Financial Resources"
+        },
+        {
+          "value": "fin_procurement_and_contract_administration_and_material_management",
+          "label": "FIN - Procurement and Contract Administration, and Material Management"
+        },
+        {
+          "value": "pcy_director_general_office",
+          "label": "PCY - Director General Office"
+        },
+        {
+          "value": "pcy_economic_analysis_international_and_regulatory_affairs",
+          "label": "PCY - Economic Analysis, International and Regulatory Affairs"
+        },
+        {
+          "value": "pcy_strategic_policy_and_domestic_affairs",
+          "label": "PCY - Strategic Policy and Domestic Affairs"
+        },
+        {
+          "value": "pip_director_generals_office",
+          "label": "PIP - Director General's Office"
+        },
+        {
+          "value": "st_david_florida_laboratory",
+          "label": "S&T - David Florida Laboratory"
+        },
+        {
+          "value": "sst_intellectual_property",
+          "label": "SST - Intellectual Property"
+        },
+        {
+          "value": "st_engineering_development",
+          "label": "S&T - Engineering Development"
+        },
+        {
+          "value": "util_satellite_operations_infrastructure_and_applications",
+          "label": "UTIL - Satellite Operations, Infrastructure and Applications"
+        },
+        {
+          "value": "util_space_exploitation",
+          "label": "UTIL - Space Exploitation"
+        },
+        {
+          "value": "util_sunearth_system_sciences",
+          "label": "UTIL - Sun-Earth System Sciences"
+        },
+        {
+          "value": "corh_information_management_and_technology_management",
+          "label": "CORH - Information Management and Technology Management"
+        },
+        {
+          "value": "rh_staff_relations_and_pay_and_benefits",
+          "label": "RH - Staff Relations and Pay and Benefits"
+        },
+        {
+          "value": "rh_staffing_and_systems",
+          "label": "RH - Staffing and Systems"
+        },
+        {
+           "value": "vp_corporate_services_and_human_resources",
+          "label": "VP - Corporate Services and Human Resources"
+        }
+      ]
+    },
+    {
+      "field_name": "data_owner",
+      "label": "Data Owner",
+      "preset": "select",
+      "choices": [
+        {
+          "value": "csa",
+          "label": "CSA"
+        },
+        {
+          "value": "jointly_specify",
+          "label": "Jointly (specify)"
+        },
+        {
+          "value": "third_party",
+          "label": "Third Party"
+        },
+        {
+          "value": "third_party_specify",
+          "label": "Third Party Specify"
+        }
+      ],
+      "required": "false",
+      "validators": "ignore_missing"
+    },
+    {
+      "field_name": "security_classification",
+      "label": "Security Classification",
+      "preset": "select",
+      "choices": [
+        {
+          "value": "unclassified",
+          "label": "Unclassified"
+        },
+        {
+          "value": "protected_a",
+          "label": "Protected A"
+        },
+        {
+          "value": "protected_b",
+          "label": "Protected B"
+        },
+        {
+          "value": "confidential",
+          "label": "Confidential"
+        },
+        {
+          "value": "secret",
+          "label": "Secret"
+        }
+      ]
+    },
+    {
+      "field_name": "data_owner_specify",
+      "label": "Data Owner (specify)",
+      "required": "false",
+      "validators": "ignore_missing"
+    },
+    {
+      "field_name": "registered_on_the_open_data_site",
+      "label": "Registered on the Open Data Site",
+      "preset": "select",
+      "choices": [
+        {
+          "value": "True",
+          "label": "Yes"
+        },
+        {
+          "value": "False",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "field_name": "date_released_on_opencanadaca",
+      "label": "Date released on open.canada.ca",
+      "preset": "date"
+    },
+    {
+      "field_name": "data_is_publicly_availible_within_another_site",
+      "label": "Data is publicly availible within another site",
+      "preset": "select",
+      "choices": [
+        {
+          "value": "True",
+          "label": "Yes"
+        },
+        {
+          "value": "False",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "field_name": "date_published_on_another_site",
+      "label": "Date published on another site",
+      "preset": "date"
+    },
+    {
+      "field_name": "publisher_translated",
+      "preset": "fluent_text",
+      "label": {
+        "en": "Publisher",
+        "fr": "Publisher"
+      },
+      "form_languages": ["en", "fr"]
+    },
+    {
+      "field_name": "personal_information",
+      "label": "Personal Information",
+      "preset": "select",
+      "choices": [
+        {
+          "value": "True",
+          "label": "Yes"
+        },
+        {
+          "value": "False",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "field_name": "eligible_for_release",
+      "label": "Eligible for Release",
+      "preset": "select",
+      "choices": [
+        {
+          "value": "True",
+          "label": "Yes"
+        },
+        {
+          "value": "False",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "field_name": "format_of_source_data",
+      "label": "Format of source data",
+      "required": "false",
+      "validators": "ignore_missing"
+    },
+    {
+      "field_name": "format_of_source_data_details",
+      "label": "Format of source data (details)",
+      "required": "false",
+      "validators": "ignore_missing"
+    },
+    {
+      "field_name": "size",
+      "label": "Size of Dataset",
+      "required": "false",
+      "validators": "ignore_missing"
+    },
+    {
+      "preset": "canada_contributor"
+    },
+    {
+      "preset": "canada_maintainer_email"
+    },
+    {
+      "preset": "canada_notes"
+    },
+    {
+      "preset": "canada_keywords"
+    },
+    {
+      "preset": "canada_subject"
+    },
+    {
+      "preset": "canada_audience"
+    },
+    {
+      "field_name": "place_of_publication",
+      "label": {
+        "en": "Place of Publication",
+        "fr": "Endroit de publication"
+      },
+      "help_text": {
+        "en": "The region where the dataset was originally published. You may select or deselect multiple options (Ctrl+Click) ",
+        "fr": "La région où le jeu de données a été publié initialement. Vous pouvez sélectionner ou désélectionner de multiples options (Ctrl+Clic)"
+      },
+      "preset": "canada_geographic_region"
+    },
+    {
+      "preset": "canada_imso_approval"
+    },
+    {
+      "preset": "canada_restrictions"
+    },
+    {
+      "preset": "canada_jurisdiction"
+    },
+    {
+      "preset": "canada_ready_to_publish"
+    },
+    {
+      "preset": "canada_portal_release_date"
+    },
+    {
+      "preset": "canada_spatial"
+    },
+    {
+      "preset": "canada_geographic_region"
+    },
+    {
+      "preset": "canada_time_period_coverage_start"
+    },
+    {
+      "preset": "canada_time_period_coverage_end"
+    },
+    {
+      "preset": "canada_frequency"
+    },
+    {
+      "preset": "canada_date_published"
+    },
+    {
+      "preset": "canada_date_modified"
+    },
+    {
+      "preset": "canada_program_page_url"
+    },
+    {
+      "preset": "canada_data_series_name"
+    },
+    {
+      "preset": "canada_data_series_issue_identification"
+    },
+    {
+      "preset": "canada_digital_object_identifier"
+    }
+    
+    
+  ],
+  "resource_fields": [
+    {
+      "preset": "canada_resource_unique_identifier"
+    },
+    {
+      "preset": "canada_resource_name"
+    },
+    {
+      "preset": "canada_resource_related_relationship"
+    },
+    {
+      "preset": "canada_resource_related_type"
+    },
+    {
+      "preset": "canada_resource_date_published"
+    },
+    {
+      "preset": "canada_resource_type",
+      "form_restrict_choices_to": [
+        "application",
+        "api",
+        "dataset",
+        "guide",
+        "faq",
+        "specification",
+        "terminology",
+        "tool",
+        "website"
+      ]
+    },
+    {
+      "preset": "canada_resource_size"
+    },
+    {
+      "preset": "canada_resource_character_set"
+    },
+    {
+      "preset": "canada_resource_format"
+    },
+    {
+      "preset": "canada_resource_language"
+    },
+    {
+      "preset": "canada_resource_url"
+    },
+    {
+      "preset": "canada_resource_data_quality"
+    }
+  ]
+}

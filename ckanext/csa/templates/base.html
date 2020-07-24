@@ -1,0 +1,17 @@
+{% ckan_extends %}
+
+{% block styles %}
+    {{ super() }}
+
+    {% resource 'csa/theme.css' %}
+{% endblock %}
+
+<title>
+    {%- block title -%}
+    {% if h.lang() == 'fr' %}
+    ASC Données ouvertes
+    {% else %}
+    CSA Open Data
+    {% endif %} 
+    {%- endblock -%}
+  </title>

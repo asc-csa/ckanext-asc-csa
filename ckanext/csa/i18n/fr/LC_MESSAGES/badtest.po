@@ -1,0 +1,296 @@
+# French translations for ckanext-csa.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the ckanext-csa
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+
+#: ckanext/csa/plugin.py:221 ckanext/csa/plugin.py:243
+#: ckanext/csa/plugin.py:263
+msgid "Portal Type"
+msgstr ""
+
+#: ckanext/csa/plugin.py:223 ckanext/csa/plugin.py:244
+#: ckanext/csa/plugin.py:264
+msgid "Collection Type"
+msgstr ""
+
+#: ckanext/csa/plugin.py:224 ckanext/csa/plugin.py:225
+#: ckanext/csa/plugin.py:226 ckanext/csa/plugin.py:245
+#: ckanext/csa/plugin.py:246 ckanext/csa/plugin.py:247
+#: ckanext/csa/plugin.py:265 ckanext/csa/plugin.py:266
+#: ckanext/csa/plugin.py:267
+msgid "Keywords"
+msgstr ""
+
+#: ckanext/csa/plugin.py:227 ckanext/csa/plugin.py:248
+#: ckanext/csa/plugin.py:268
+msgid "Subject"
+msgstr ""
+
+#: ckanext/csa/plugin.py:228 ckanext/csa/plugin.py:249
+#: ckanext/csa/plugin.py:269
+msgid "Format"
+msgstr ""
+
+#: ckanext/csa/plugin.py:229 ckanext/csa/plugin.py:250
+#: ckanext/csa/plugin.py:270
+msgid "Resource Type"
+msgstr ""
+
+#: ckanext/csa/plugin.py:230 ckanext/csa/plugin.py:251
+#: ckanext/csa/plugin.py:271
+msgid "Maintenance and Update Frequency"
+msgstr ""
+
+#: ckanext/csa/plugin.py:231 ckanext/csa/plugin.py:252
+#: ckanext/csa/plugin.py:272
+msgid "Topic Categories"
+msgstr ""
+
+#: ckanext/csa/plugin.py:232 ckanext/csa/plugin.py:253
+#: ckanext/csa/plugin.py:273
+msgid "Spatial Representation Type"
+msgstr ""
+
+#: ckanext/csa/plugin.py:233 ckanext/csa/plugin.py:254
+#: ckanext/csa/plugin.py:274
+msgid "Map Viewer"
+msgstr ""
+
+#: ckanext/csa/plugin.py:234 ckanext/csa/plugin.py:255
+#: ckanext/csa/plugin.py:275
+msgid "Record Status"
+msgstr ""
+
+#: ckanext/csa/plugin.py:235 ckanext/csa/plugin.py:256
+#: ckanext/csa/plugin.py:276
+msgid "IMSO Approval"
+msgstr ""
+
+#: ckanext/csa/plugin.py:236 ckanext/csa/plugin.py:257
+#: ckanext/csa/plugin.py:277
+msgid "Jurisdiction"
+msgstr ""
+
+#: ckanext/csa/fanstatic/wet-boew/js/MathJax/config/AM_HTMLorMML-full.js:51
+#: ckanext/csa/fanstatic/wet-boew/js/MathJax/config/MML_HTMLorMML-full.js:51
+#: ckanext/csa/fanstatic/wet-boew/js/MathJax/jax/output/CommonHTML/autoload/mglyph.js:19
+#: ckanext/csa/fanstatic/wet-boew/js/MathJax/jax/output/HTML-CSS/autoload/mglyph.js:19
+#: ckanext/csa/fanstatic/wet-boew/js/MathJax/jax/output/NativeMML/jax.js:19
+#: ckanext/csa/fanstatic/wet-boew/js/MathJax/jax/output/SVG/autoload/mglyph.js:19
+msgid "MathML"
+msgstr ""
+
+#: ckanext/csa/fanstatic/wet-boew/js/MathJax/extensions/HelpDialog.js:19
+msgid "HelpDialog"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:24 ckanext/csa/templates/header2.html:24
+msgid "Main"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:24 ckanext/csa/templates/header2.html:24
+msgid "Menu"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:26 ckanext/csa/templates/header2.html:26
+msgid "Jobs and the workplace"
+msgstr "Emplois et milieu de travail"
+
+#: ckanext/csa/templates/header.html:27 ckanext/csa/templates/header2.html:27
+msgid "Immigration and citizenship"
+msgstr "Immigration et citoyenneté"
+
+#: ckanext/csa/templates/header.html:28 ckanext/csa/templates/header2.html:28
+msgid "Travel and tourism"
+msgstr "Voyage et tourisme"
+
+#: ckanext/csa/templates/header.html:29 ckanext/csa/templates/header2.html:29
+msgid "Business and industry"
+msgstr "Entreprises et industrie"
+
+#: ckanext/csa/templates/header.html:30 ckanext/csa/templates/header2.html:30
+msgid "Benefits"
+msgstr "Prestations"
+
+#: ckanext/csa/templates/header.html:31 ckanext/csa/templates/header2.html:31
+msgid "Health"
+msgstr "Santé"
+
+#: ckanext/csa/templates/header.html:32 ckanext/csa/templates/header2.html:32
+msgid "Taxes"
+msgstr "Impôts"
+
+#: ckanext/csa/templates/header.html:33 ckanext/csa/templates/header2.html:33
+msgid "Environment and natural resources"
+msgstr "Environnement et ressources naturelles"
+
+#: ckanext/csa/templates/header.html:34 ckanext/csa/templates/header2.html:34
+msgid "National security and defence"
+msgstr "Sécurité nationale et défense"
+
+#: ckanext/csa/templates/header.html:35 ckanext/csa/templates/header2.html:35
+msgid "Culture, history and sport"
+msgstr "Culture, histoire et sport"
+
+#: ckanext/csa/templates/header.html:36 ckanext/csa/templates/header2.html:36
+msgid "Policing, justice and emergencies"
+msgstr "Services de police, justice et urgences"
+
+#: ckanext/csa/templates/header.html:37 ckanext/csa/templates/header2.html:37
+msgid "Transport and infrastructure"
+msgstr "Transport et infrastructure"
+
+#: ckanext/csa/templates/header.html:38 ckanext/csa/templates/header2.html:38
+msgid "Canada and the world"
+msgstr "Canada et le monde"
+
+#: ckanext/csa/templates/header.html:39 ckanext/csa/templates/header2.html:39
+msgid "Money and finances"
+msgstr "Argent et finances"
+
+#: ckanext/csa/templates/header.html:40 ckanext/csa/templates/header2.html:40
+msgid "Science and innovation"
+msgstr "Science et innovation"
+
+#: ckanext/csa/templates/header.html:45 ckanext/csa/templates/header2.html:45
+msgid "You are here:"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:48 ckanext/csa/templates/header2.html:48
+msgid "Home"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:49 ckanext/csa/templates/header2.html:49
+msgid "Departments and Agencies"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:50 ckanext/csa/templates/header2.html:50
+msgid "Canadian Space Agency"
+msgstr ""
+
+#: ckanext/csa/templates/ajax_snippets/example_theme_popover.html:12
+msgid "Followers"
+msgstr ""
+
+#: ckanext/csa/templates/ajax_snippets/example_theme_popover.html:15
+msgid "Resources"
+msgstr ""
+
+#: ckanext/csa/templates/package/read.html:9
+#: ckanext/csa/templates/snippets/package_item_org.html:31
+msgid "Private"
+msgstr ""
+
+#: ckanext/csa/templates/package/read.html:26
+#: ckanext/csa/templates/snippets/package_item_org.html:40
+msgid "Draft"
+msgstr ""
+
+#: ckanext/csa/templates/package/read.html:29
+#: ckanext/csa/templates/snippets/package_item_org.html:42
+msgid "Deleted"
+msgstr ""
+
+#: ckanext/csa/templates/package/search
+#: ckanext/csa/templates/package/search.html:4 copy.html:4
+msgid "Search Filters"
+msgstr ""
+
+#: ckanext/csa/templates/package/search
+#: ckanext/csa/templates/package/search.html:4 copy.html:4
+msgid "Clear All"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/additional_info.html:2
+msgid "Additional Info"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/additional_info.html:14
+msgid "Source"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/additional_info.html:25
+#: ckanext/csa/templates/package/snippets/additional_info.html:30
+msgid "Author"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/additional_info.html:37
+#: ckanext/csa/templates/package/snippets/additional_info.html:42
+msgid "Maintainer"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/additional_info.html:49
+msgid "Version"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/additional_info.html:56
+#: ckanext/csa/templates/scheming/package/snippets/additional_info.html:38
+msgid "State"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/additional_info.html:62
+msgid "Last Updated"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/additional_info.html:70
+msgid "Created"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/facet_list_old.html:80
+msgid "Show More {facet_type}"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/facet_list_old.html:83
+msgid "Show Only Popular {facet_type}"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/facet_list_old.html:87
+msgid "There are no {facet_type} that match this search"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:8
+msgid "Provincial"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:10
+msgid "Federal"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:26
+#: ckanext/csa/templates/snippets/package_item.html:40
+msgid ""
+"This third party metadata element has been translated using an automated "
+"translation tool (DeepL). To report any discrepancies please contact "
+"open-ouvert@tbs-sct.gc.ca"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:44
+#: ckanext/csa/templates/snippets/package_item_org.html:57
+msgid "This dataset has no description"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:49
+msgid "Organization"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:55
+msgid "Issued by"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:63
+msgid "Resource Formats"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:86
+msgid "Add to Map Cart"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:89
+msgid "Remove from Map Cart"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item_org.html:50
+msgid "Popular"
+msgstr ""
+

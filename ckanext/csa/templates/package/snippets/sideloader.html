@@ -1,0 +1,97 @@
+  <div class="panel panel-primary">
+        <div class="panel-heading">
+          <div class="panel-title">
+            {{ _('Additional Information') }}
+          </div>
+        </div>
+        <ul class="list-group">
+          {% set include_labels = [
+            "creator",
+            "maintainer_email",
+            "keywords",
+            "subject",
+            "topic_category",
+            "audience",
+            "place_of_publication",
+            "homepage",
+            "series_title",
+            "series_issue_id",
+            "program_page_url",
+            "data_series_name",
+            "data_series_issue_identification",
+            "edition",
+            "series_publication_dates",
+            "digital_object_identifier",
+            "isbn",
+            "issn",
+            "gc_catalogue_number",
+            "frequency",
+            "issuance",
+            "issuance_frequency",
+            "spatial_representation_type",
+            "status",
+            "date_published",
+            "date_created",
+            "date_captured",
+            "date_modified"
+          ] %}
+          {% for field_to_show in include_labels %}
+            
+            {% set field_title = h.scheming_language_text(field.label) %}
+            {% if field_title %}
+              {% set field_value = pkg[field.field_name] %}
+              {% if pkg[field.field_name] is mapping %}
+              {% set field_value = h.scheming_language_text(field_value) %}
+              {% endif %}
+              {% if field_value %}
+                <li class="list-group-item">
+                  <strong>{{ field_title }}:</strong>
+                  {% snippet 'scheming/snippets/display_field.html',
+                    field=field,
+                    data=pkg,
+                    entity_type='dataset',
+                    object_type=pkg.type
+                  %}
+                </li>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          
+         
+        </ul>
+      </div>
+    
+      <div class="panel panel-primary">
+            <div class="panel-heading">
+            <div class="panel-title">{{_('About this Record')}}</div>
+            </div>
+        
+            <ul class="list-group">
+              <li class="list-group-item">
+                <strong>{{ _('Record Released') }}:</strong>
+                {{ h.render_datetime(pkg.metadata_created, '%Y-%m-%d') }}
+              </li>
+              <li class="list-group-item">
+                <strong>{{ _('Record Modified') }}:</strong>
+                {{ h.render_datetime(pkg.metadata_modified, '%Y-%m-%d') }}
+              </li>
+              <li class="list-group-item">
+                <strong>{{ _('Record ID') }}:</strong>
+                {{ pkg.id }}
+              </li>
+              <li class="list-group-item">
+                <strong>{{ _('Metadata') }}:</strong>
+                <ul class="list-group" style="margin-bottom: 0;">
+                  <li class="list-group-item">
+                    <a href="{{h.url_for_static('/', qualified=true)}}api/action/package_show?id={{pkg.id}}" rel="nofollow">
+                      {{ _('Link to JSON format') }}
+                    </a>
+                  </li>
+                         
+                </ul>
+              </li>
+              
+              
+              
+            </ul>
+          </div>

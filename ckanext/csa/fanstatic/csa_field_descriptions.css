@@ -1,0 +1,4 @@
+.table .popover .field_description{
+    /* Prevent the words in the description from being wrapped mid-word. */
+    word-break: keep-all;
+ }

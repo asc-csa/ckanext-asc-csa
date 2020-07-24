@@ -1,0 +1,141 @@
+# Translations template for ckanext-csa.
+# Copyright (C) 2019 ORGANIZATION
+# This file is distributed under the same license as the ckanext-csa project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+
+#: ckanext/csa/plugin.py:84
+msgid "Portal Type"
+msgstr ""
+
+#: ckanext/csa/plugin.py:85 ckanext/csa/templates/snippets/package_item.html:49
+msgid "Organization"
+msgstr ""
+
+#: ckanext/csa/plugin.py:86
+msgid "Collection Type"
+msgstr ""
+
+#: ckanext/csa/plugin.py:87 ckanext/csa/plugin.py:88 ckanext/csa/plugin.py:89
+msgid "Keywords"
+msgstr ""
+
+#: ckanext/csa/plugin.py:90
+msgid "Subject"
+msgstr ""
+
+#: ckanext/csa/plugin.py:91
+msgid "Format"
+msgstr ""
+
+#: ckanext/csa/plugin.py:92
+msgid "Resource Type"
+msgstr ""
+
+#: ckanext/csa/plugin.py:93
+msgid "Maintenance and Update Frequency"
+msgstr ""
+
+#: ckanext/csa/plugin.py:94
+msgid "Topic Categories"
+msgstr ""
+
+#: ckanext/csa/plugin.py:95
+msgid "Spatial Representation Type"
+msgstr ""
+
+#: ckanext/csa/plugin.py:96
+msgid "Map Viewer"
+msgstr ""
+
+#: ckanext/csa/plugin.py:97
+msgid "Record Status"
+msgstr ""
+
+#: ckanext/csa/plugin.py:98
+msgid "IMSO Approval"
+msgstr ""
+
+#: ckanext/csa/plugin.py:99
+msgid "Jurisdiction"
+msgstr ""
+
+#: ckanext/csa/plugin.py:109 ckanext/csa/plugin.py:116
+msgid "Data Steward"
+msgstr ""
+
+#: ckanext/csa/templates/package/search copy.html:4
+#: ckanext/csa/templates/package/search.html:4
+msgid "Search Filters"
+msgstr ""
+
+#: ckanext/csa/templates/package/search copy.html:4
+#: ckanext/csa/templates/package/search.html:4
+msgid "Clear All"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/facet_list_old.html:80
+msgid "Show More {facet_type}"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/facet_list_old.html:83
+msgid "Show Only Popular {facet_type}"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/facet_list_old.html:87
+msgid "There are no {facet_type} that match this search"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:8
+msgid "Provincial"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:10
+msgid "Federal"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:26
+#: ckanext/csa/templates/snippets/package_item.html:40
+msgid ""
+"This third party metadata element has been translated using an automated "
+"translation tool (DeepL). To report any discrepancies please contact open-"
+"ouvert@tbs-sct.gc.ca"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:44
+#: ckanext/csa/templates/snippets/package_item_org.html:57
+msgid "This dataset has no description"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:55
+msgid "Issued by"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:63
+msgid "Resource Formats"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:77
+msgid "Add to Map Cart"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item.html:80
+msgid "Remove from Map Cart"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item_org.html:31
+msgid "Private"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item_org.html:40
+msgid "Draft"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item_org.html:42
+msgid "Deleted"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/package_item_org.html:50
+msgid "Popular"
+msgstr ""
+
