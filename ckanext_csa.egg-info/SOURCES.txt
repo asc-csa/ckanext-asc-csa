@@ -14,11 +14,13 @@ ckanext/csa/info.json
 ckanext/csa/loader.py
 ckanext/csa/plugin.py
 ckanext/csa/presets.json
+ckanext/csa/validators.py
 ckanext/csa/fanstatic/csa_field_descriptions (copy).js
 ckanext/csa/fanstatic/csa_field_descriptions.css
 ckanext/csa/fanstatic/csa_field_descriptions.js
 ckanext/csa/fanstatic/example_theme_popover.css
 ckanext/csa/fanstatic/example_theme_popover.js
+ckanext/csa/fanstatic/extra.css
 ckanext/csa/fanstatic/theme.css
 ckanext/csa/fanstatic/themeold.css
 ckanext/csa/fanstatic/GCWeb/package.json
@@ -1536,6 +1538,7 @@ ckanext/csa/templates/base.html
 ckanext/csa/templates/footer.html
 ckanext/csa/templates/header.html
 ckanext/csa/templates/header3.html
+ckanext/csa/templates/page.html
 ckanext/csa/templates/ajax_snippets/csa_field_descriptions.html
 ckanext/csa/templates/ajax_snippets/example_theme_popover.html
 ckanext/csa/templates/home/index.html
@@ -1543,17 +1546,32 @@ ckanext/csa/templates/macros/csa_read.html
 ckanext/csa/templates/package/base.html
 ckanext/csa/templates/package/read.html
 ckanext/csa/templates/package/read_base.html
+ckanext/csa/templates/package/resource_read.html
 ckanext/csa/templates/package/search copy.html
 ckanext/csa/templates/package/search.html
 ckanext/csa/templates/package/snippets/additional_info.html
 ckanext/csa/templates/package/snippets/additional_info_old.html
+ckanext/csa/templates/package/snippets/info.html
+ckanext/csa/templates/package/snippets/resource_item.html
+ckanext/csa/templates/package/snippets/resource_itemMASTER.html
+ckanext/csa/templates/package/snippets/resource_itembackup.html
+ckanext/csa/templates/package/snippets/resource_view.html
+ckanext/csa/templates/package/snippets/resource_view_filters.html
+ckanext/csa/templates/package/snippets/resources_list.html
+ckanext/csa/templates/package/snippets/sideloader.html
 ckanext/csa/templates/scheming/package/read.html
 ckanext/csa/templates/scheming/package/snippets/additional_info.html
 ckanext/csa/templates/snippets/dataset_facets.html
 ckanext/csa/templates/snippets/facet_list.html
 ckanext/csa/templates/snippets/facet_list_old.html
+ckanext/csa/templates/snippets/home_breadcrumb_item.html
+ckanext/csa/templates/snippets/language_selector.html
+ckanext/csa/templates/snippets/license.html
+ckanext/csa/templates/snippets/local_friendly_datetime.html
+ckanext/csa/templates/snippets/organization.html
 ckanext/csa/templates/snippets/package_item.html
 ckanext/csa/templates/snippets/package_item_org.html
+ckanext/csa/templates/snippets/social.html
 ckanext/csa/templates/snippets/sort_by.html
 ckanext/csa/tests/__init__.py
 ckanext/csa/tests/test_plugin.py
