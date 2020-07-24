@@ -777,8 +777,8 @@
         "choices": [
           {
             "label": {
-              "en": "Atmospheric Sci",
-              "fr": "Atmospheric Sci"
+              "en": "Atmospheric Science",
+              "fr": "Science atmosphérique"
             },
             "replaces": [
               "AA"
@@ -788,7 +788,7 @@
           {
             "label": {
               "en": "Atmospheric Science",
-              "fr": "Atmospheric Science"
+              "fr": " Science atmospherique"
             },
             "replaces": [
               "AA"
@@ -798,7 +798,7 @@
           {
             "label": {
               "en": "Earth Observation",
-              "fr": "Earth Observation"
+              "fr": "Observation terrestre"
             },
             "replaces": [
               "AA"
@@ -808,7 +808,7 @@
           {
             "label": {
               "en": "Life Sciences",
-              "fr": "Life Sciences"
+              "fr": "Science de la vie"
             },
             "replaces": [
               "AA"
@@ -818,7 +818,7 @@
           {
             "label": {
               "en": "Space Astronomy",
-              "fr": "Space Astronomy"
+              "fr": "Astronomie spatiale"
             },
             "replaces": [
               "AA"
@@ -828,7 +828,7 @@
           {
             "label": {
               "en": "Space Environment/Space Weather",
-              "fr": "Space Environment/Space Weather"
+              "fr": "Environnement spatial/Météo spatiale"
             },
             "replaces": [
               "AA"
@@ -838,7 +838,7 @@
           {
             "label": {
               "en": "Space Exploration",
-              "fr": "Space Exploration"
+              "fr": "Exploration spatiale"
             },
             "replaces": [
               "AA"
@@ -848,7 +848,7 @@
           {
             "label": {
               "en": "Telemetry",
-              "fr": "Telemetry"
+              "fr": "Télémétrie"
             },
             "replaces": [
               "AA"
@@ -858,7 +858,7 @@
           {
             "label": {
               "en": "Other",
-              "fr": "Other"
+              "fr": "Autre"
             },
             "replaces": [
               "AA"
