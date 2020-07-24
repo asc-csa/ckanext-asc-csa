@@ -566,7 +566,7 @@
         "choices": [
           {
             "label": {
-              "en": "Arts, Music, Literature",
+              "en": "Arts, music, literature",
               "fr": "Arts, musique, littérature"
             },
             "replaces": [
@@ -586,7 +586,7 @@
           },
           {
             "label": {
-              "en": "Economics and Industry",
+              "en": "Economics and industry",
               "fr": "Économie et industrie"
             },
             "replaces": [
@@ -596,7 +596,7 @@
           },
           {
             "label": {
-              "en": "Education and Training",
+              "en": "Education and training",
               "fr": "Éducation et formation"
             },
             "replaces": [
@@ -616,7 +616,7 @@
           },
           {
             "label": {
-              "en": "Government and Politics",
+              "en": "Government and politics",
               "fr": "Gouvernement et vie politique"
             },
             "replaces": [
@@ -626,7 +626,7 @@
           },
           {
             "label": {
-              "en": "Health and Safety",
+              "en": "Health and safety",
               "fr": "Santé et sécurité"
             },
             "replaces": [
@@ -636,7 +636,7 @@
           },
           {
             "label": {
-              "en": "History and Archaeology",
+              "en": "History and archaeology",
               "fr": "Histoire et archéologie"
             },
             "replaces": [
@@ -646,7 +646,7 @@
           },
           {
             "label": {
-              "en": "Information and Communications",
+              "en": "Information and communications",
               "fr": "Information et communication"
             },
             "replaces": [
@@ -666,7 +666,7 @@
           },
           {
             "label": {
-              "en": "Language and Linguistics",
+              "en": "Language and linguistics",
               "fr": "Langue et linguistique"
             },
             "replaces": [
@@ -696,7 +696,7 @@
           },
           {
             "label": {
-              "en": "Nature and Environment",
+              "en": "Nature and environment",
               "fr": "Nature et environnement"
             },
             "replaces": [
@@ -726,7 +726,7 @@
           },
           {
             "label": {
-              "en": "Society and Culture",
+              "en": "Society and culture",
               "fr": "Société et culture"
             },
             "replaces": [
@@ -736,7 +736,7 @@
           },
           {
             "label": {
-              "en": "Science and Technology",
+              "en": "Science and technology",
               "fr": "Sciences et technologie"
             },
             "replaces": [
@@ -777,7 +777,7 @@
         "choices": [
           {
             "label": {
-              "en": "Atmospheric Science",
+              "en": "Atmospheric science",
               "fr": "Science atmosphérique"
             },
             "replaces": [
@@ -787,7 +787,7 @@
           },
           {
             "label": {
-              "en": "Atmospheric Science",
+              "en": "Atmospheric science",
               "fr": " Science atmospherique"
             },
             "replaces": [
@@ -797,7 +797,7 @@
           },
           {
             "label": {
-              "en": "Earth Observation",
+              "en": "Earth observation",
               "fr": "Observation terrestre"
             },
             "replaces": [
@@ -807,7 +807,7 @@
           },
           {
             "label": {
-              "en": "Life Sciences",
+              "en": "Life sciences",
               "fr": "Science de la vie"
             },
             "replaces": [
@@ -817,7 +817,7 @@
           },
           {
             "label": {
-              "en": "Space Astronomy",
+              "en": "Space astronomy",
               "fr": "Astronomie spatiale"
             },
             "replaces": [
@@ -827,7 +827,7 @@
           },
           {
             "label": {
-              "en": "Space Environment/Space Weather",
+              "en": "Space environment/Space weather",
               "fr": "Environnement spatial/Météo spatiale"
             },
             "replaces": [
@@ -837,7 +837,7 @@
           },
           {
             "label": {
-              "en": "Space Exploration",
+              "en": "Space exploration",
               "fr": "Exploration spatiale"
             },
             "replaces": [
