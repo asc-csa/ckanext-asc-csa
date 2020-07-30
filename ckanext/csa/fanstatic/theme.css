@@ -2084,8 +2084,8 @@ th {
   text-align: left; }
 
 .table {
-  width: 100%;
-  max-width: 100%;
+  width: 120%;
+  max-width: 120%;
   margin-bottom: 23px; }
   .table > thead > tr > th,
   .table > thead > tr > td,
