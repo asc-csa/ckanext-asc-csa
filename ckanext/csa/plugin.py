@@ -12,10 +12,10 @@ from ckan.lib.plugins import DefaultTranslation
 from pylons.i18n import _
 from ckanext.csa import helpers
 from ckanext.csa import loader
-from ckanext.csa import validators
+
 # class _CsaMixin(object):
 #     """
-#     Store single plugin instances in class variable
+#     Store single plugin instances in class variable 
 
 #     """
 
@@ -27,7 +27,7 @@ from ckanext.csa import validators
 #         _CsaMixin._presets = {}
 #         for f in reversed(field_descriptions):
 #             for pp in _loadschema(f)['presets']:
-#         _field_descriptions
+#         _field_descriptions 
 
 
 
@@ -57,8 +57,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     p.implements(p.IFacets)
     p.implements(p.ITranslation)
     p.implements(p.IRoutes)
-    p.implements(p.IValidators, inherit=True)
-
+    
     instance = None
     _field_descriptions = None
 
@@ -112,40 +111,23 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
                 raise
         except KeyError:
             current_lang = 'en'
-
+        
         # Dismax search term for French
         if current_lang == 'fr':
             query_fields = 'title_fr^8 text_french^4 title^2 text'
         # code below to potentially search equal parameters English, although currently defaults to CKAN core search
         # else if current_lang == 'en':
         #     query_fields = 'title^8 text^4 title_fr^2 text_french'
-
+        
         if query_fields:
             search_params['qf'] = query_fields
 
         return search_params
 
-
-    def get_validators(self):
-
-        return {
-
-            'canada_validate_generate_uuid':
-                validators.canada_validate_generate_uuid,
-            'canada_tags': validators.canada_tags,
-            'geojson_validator': validators.geojson_validator,
-            'email_validator': validators.email_validator,
-            'canada_copy_from_org_name':
-                validators.canada_copy_from_org_name,
-            'canada_non_related_required':
-                validators.canada_non_related_required,
-            'if_empty_set_to':
-                validators.if_empty_set_to,
-            }
     def after_search(self, search_results, search_params):
         return search_results
 
-
+    
 
     #Before index runs before SOLR does an index/reindex
     #SOLR can be reindexed with the command 'search-index rebuild -r'
@@ -230,7 +212,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             'csa_get_field_description': helpers.csa_get_field_description,
             'get_translated_t' : helpers.get_translated_t,
             }
-
+    
 
     # IFacets
     # Implements custom facetting
@@ -310,3 +292,6 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
 
     def after_map(self, m):
         return m
+    
+
+

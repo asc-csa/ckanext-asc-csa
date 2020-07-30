@@ -36,17 +36,9 @@
       "preset_name": "dataset_organization",
       "values": {
         "validators": "owner_org_validator unicode",
-        "form_snippet": "organization.html",
-
-        "choices": [
-          {
-            "label": {
-              "en": "Canadian Space Agency",
-              "fr": "Agence spatiale canadienne"
-            },
-            "value": "csa"
-      }]
-    }},
+        "form_snippet": "organization.html"
+      }
+    },
     {
       "preset_name": "resource_url_upload",
       "values": {
@@ -394,7 +386,7 @@
         "error_snippet": "fluent_text.html",
         "validators": "fluent_text",
         "output_validators": "fluent_text_output",
-        "form_languages": ["en", "fr"]
+        "form_languages": ["en", "fr"] 
       }
     },
     {
@@ -566,7 +558,7 @@
         "choices": [
           {
             "label": {
-              "en": "Arts, music, literature",
+              "en": "Arts, Music, Literature",
               "fr": "Arts, musique, littérature"
             },
             "replaces": [
@@ -586,7 +578,7 @@
           },
           {
             "label": {
-              "en": "Economics and industry",
+              "en": "Economics and Industry",
               "fr": "Économie et industrie"
             },
             "replaces": [
@@ -596,7 +588,7 @@
           },
           {
             "label": {
-              "en": "Education and training",
+              "en": "Education and Training",
               "fr": "Éducation et formation"
             },
             "replaces": [
@@ -616,7 +608,7 @@
           },
           {
             "label": {
-              "en": "Government and politics",
+              "en": "Government and Politics",
               "fr": "Gouvernement et vie politique"
             },
             "replaces": [
@@ -626,7 +618,7 @@
           },
           {
             "label": {
-              "en": "Health and safety",
+              "en": "Health and Safety",
               "fr": "Santé et sécurité"
             },
             "replaces": [
@@ -636,7 +628,7 @@
           },
           {
             "label": {
-              "en": "History and archaeology",
+              "en": "History and Archaeology",
               "fr": "Histoire et archéologie"
             },
             "replaces": [
@@ -646,7 +638,7 @@
           },
           {
             "label": {
-              "en": "Information and communications",
+              "en": "Information and Communications",
               "fr": "Information et communication"
             },
             "replaces": [
@@ -666,7 +658,7 @@
           },
           {
             "label": {
-              "en": "Language and linguistics",
+              "en": "Language and Linguistics",
               "fr": "Langue et linguistique"
             },
             "replaces": [
@@ -696,7 +688,7 @@
           },
           {
             "label": {
-              "en": "Nature and environment",
+              "en": "Nature and Environment",
               "fr": "Nature et environnement"
             },
             "replaces": [
@@ -726,7 +718,7 @@
           },
           {
             "label": {
-              "en": "Society and culture",
+              "en": "Society and Culture",
               "fr": "Société et culture"
             },
             "replaces": [
@@ -736,7 +728,7 @@
           },
           {
             "label": {
-              "en": "Science and technology",
+              "en": "Science and Technology",
               "fr": "Sciences et technologie"
             },
             "replaces": [
@@ -777,8 +769,8 @@
         "choices": [
           {
             "label": {
-              "en": "Atmospheric science",
-              "fr": "Science atmosphérique"
+              "en": "Atmospheric Sci",
+              "fr": "Atmospheric Sci"
             },
             "replaces": [
               "AA"
@@ -787,8 +779,8 @@
           },
           {
             "label": {
-              "en": "Atmospheric science",
-              "fr": " Science atmospherique"
+              "en": "Atmospheric Science",
+              "fr": "Atmospheric Science"
             },
             "replaces": [
               "AA"
@@ -797,8 +789,8 @@
           },
           {
             "label": {
-              "en": "Earth observation",
-              "fr": "Observation terrestre"
+              "en": "Earth Observation",
+              "fr": "Earth Observation"
             },
             "replaces": [
               "AA"
@@ -807,8 +799,8 @@
           },
           {
             "label": {
-              "en": "Life sciences",
-              "fr": "Science de la vie"
+              "en": "Life Sciences",
+              "fr": "Life Sciences"
             },
             "replaces": [
               "AA"
@@ -817,8 +809,8 @@
           },
           {
             "label": {
-              "en": "Space astronomy",
-              "fr": "Astronomie spatiale"
+              "en": "Space Astronomy",
+              "fr": "Space Astronomy"
             },
             "replaces": [
               "AA"
@@ -827,8 +819,8 @@
           },
           {
             "label": {
-              "en": "Space environment/Space weather",
-              "fr": "Environnement spatial/Météo spatiale"
+              "en": "Space Environment/Space Weather",
+              "fr": "Space Environment/Space Weather"
             },
             "replaces": [
               "AA"
@@ -837,8 +829,8 @@
           },
           {
             "label": {
-              "en": "Space exploration",
-              "fr": "Exploration spatiale"
+              "en": "Space Exploration",
+              "fr": "Space Exploration"
             },
             "replaces": [
               "AA"
@@ -848,7 +840,7 @@
           {
             "label": {
               "en": "Telemetry",
-              "fr": "Télémétrie"
+              "fr": "Telemetry"
             },
             "replaces": [
               "AA"
@@ -858,7 +850,7 @@
           {
             "label": {
               "en": "Other",
-              "fr": "Autre"
+              "fr": "Other"
             },
             "replaces": [
               "AA"

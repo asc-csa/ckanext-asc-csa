@@ -14,7 +14,6 @@ ckanext/csa/info.json
 ckanext/csa/loader.py
 ckanext/csa/plugin.py
 ckanext/csa/presets.json
-ckanext/csa/validators.py
 ckanext/csa/fanstatic/csa_field_descriptions (copy).js
 ckanext/csa/fanstatic/csa_field_descriptions.css
 ckanext/csa/fanstatic/csa_field_descriptions.js
@@ -1553,7 +1552,6 @@ ckanext/csa/templates/package/snippets/additional_info.html
 ckanext/csa/templates/package/snippets/additional_info_old.html
 ckanext/csa/templates/package/snippets/info.html
 ckanext/csa/templates/package/snippets/resource_item.html
-ckanext/csa/templates/package/snippets/resource_itemMASTER.html
 ckanext/csa/templates/package/snippets/resource_itembackup.html
 ckanext/csa/templates/package/snippets/resource_view.html
 ckanext/csa/templates/package/snippets/resource_view_filters.html
