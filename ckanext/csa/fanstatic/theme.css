@@ -2085,7 +2085,7 @@ th {
 
 .table {
   width: 100%;
-  max-width: 10%;
+  max-width: 100%;
   margin-bottom: 23px; }
   .table > thead > tr > th,
   .table > thead > tr > td,
