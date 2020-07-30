@@ -36,7 +36,15 @@
       "preset_name": "dataset_organization",
       "values": {
         "validators": "owner_org_validator unicode",
-        "form_snippet": "organization.html"
+        "form_snippet": "organization.html",
+        "choices": [
+          {
+            "label": {
+              "en": "Consultations",
+              "fr": "Consultations"
+            },
+            "value": "consultations"
+          }],
       }
     },
     {
@@ -386,7 +394,7 @@
         "error_snippet": "fluent_text.html",
         "validators": "fluent_text",
         "output_validators": "fluent_text_output",
-        "form_languages": ["en", "fr"] 
+        "form_languages": ["en", "fr"]
       }
     },
     {
