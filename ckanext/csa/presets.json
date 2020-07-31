@@ -386,7 +386,7 @@
         "error_snippet": "fluent_text.html",
         "validators": "fluent_text",
         "output_validators": "fluent_text_output",
-        "form_languages": ["en", "fr"] 
+        "form_languages": ["en", "fr"]
       }
     },
     {
@@ -769,8 +769,8 @@
         "choices": [
           {
             "label": {
-              "en": "Atmospheric Sci",
-              "fr": "Atmospheric Sci"
+              "en": "Atmospheric ",
+              "fr": "Science atmosphérique"
             },
             "replaces": [
               "AA"
@@ -780,7 +780,7 @@
           {
             "label": {
               "en": "Atmospheric Science",
-              "fr": "Atmospheric Science"
+              "fr": "Science atmosphérique"
             },
             "replaces": [
               "AA"
@@ -790,7 +790,7 @@
           {
             "label": {
               "en": "Earth Observation",
-              "fr": "Earth Observation"
+              "fr": "Observation terrestre"
             },
             "replaces": [
               "AA"
@@ -810,7 +810,7 @@
           {
             "label": {
               "en": "Space Astronomy",
-              "fr": "Space Astronomy"
+              "fr": "Astronomie spatiale"
             },
             "replaces": [
               "AA"
@@ -820,7 +820,7 @@
           {
             "label": {
               "en": "Space Environment/Space Weather",
-              "fr": "Space Environment/Space Weather"
+              "fr": "Environnement spatiale/Météo spatiale"
             },
             "replaces": [
               "AA"
@@ -830,7 +830,7 @@
           {
             "label": {
               "en": "Space Exploration",
-              "fr": "Space Exploration"
+              "fr": "Exploration spatiale"
             },
             "replaces": [
               "AA"
@@ -840,7 +840,7 @@
           {
             "label": {
               "en": "Telemetry",
-              "fr": "Telemetry"
+              "fr": "Télémétrie"
             },
             "replaces": [
               "AA"
