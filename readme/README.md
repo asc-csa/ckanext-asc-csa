@@ -79,14 +79,17 @@ For example, if you logout and login again, or if you close your terminal window
   
  . /usr/lib/ckan/default/bin/activate  
 Install the recommended `setuptools` version:  
-  
+```  
  pip install setuptools==36.1  
+```  
 Install the CKAN source code into your virtualenv.  
-  
- pip install -e 'git+https://github.com/ckan/ckan.git@ckan-2.8.2#egg=ckan'  
+ ```  
+ pip install -e 'git+https://github.com/ckan/ckan.git@ckan-2.8.5#egg=ckan' 
+```  
 Install the Python modules that CKAN requires into your virtualenv:  
-  
+ ```  
  pip install -r /usr/lib/ckan/default/src/ckan/requirements.txt  
+```  
 Deactivate and reactivate your virtualenv, to make sure you’re using the virtualenv’s copies of commands like `paster` rather than any system-wide installed copies:  
   
 ```  
@@ -96,16 +99,19 @@ deactivate
 ###  3. Setup a PostgreSQL database  
   
 Check that PostgreSQL was installed correctly by listing the existing databases:  
-  
+```    
  sudo -u postgres psql -l  
+```  
 Check that the encoding of the databases are `UTF8`, if not internationalisation may be a problem. Since changing the encoding of PostgreSQL may mean deleting existing databases, it is suggested that this is fixed before continuing with the CKAN install.  
   
 Next you’ll need to create a database user if one doesn’t already exist. Create a new PostgreSQL database user called ckan_default, and enter a password for the user when prompted. [make the password: "Alouette1CSA"] You’ll need this password later:  
-  
+ ```  
  sudo -u postgres createuser -S -D -R -P ckan_default  
+```  
 Create a new PostgreSQL database, called ckan_default, owned by the database user you just created:  
-  
+ ```  
  sudo -u postgres createdb -O ckan_default ckan_default -E utf-8  
+```  
 ###  4. Create a CKAN config file  
 Create a directory to contain the site’s config files:  
 ```  
@@ -116,11 +122,13 @@ sudo chown -R `whoami` ~/ckan/etc
   
 Create the CKAN config file:  
 *You may need to install paster using this command below before executing the following command:*  
-  
+ ```  
  pip install paster  
+```  
 If paster is already installed:  
-  
+ ```  
  paster make-config ckan /etc/ckan/default/development.ini  
+```  
 Edit the `development.ini` file in a text editor, changing the following options:  
   
 **sqlalchemy.url**  
@@ -185,8 +193,9 @@ Finally, change the solr_url setting in your CKAN configuration file (/etc/ckan/
  solr_url=http://127.0.0.1:8983/solr  
 ### 6. Link to  `who.ini`  
 `who.ini` (the Repoze.who configuration file) needs to be accessible in the same directory as your CKAN config file, so create a symlink to it:  
-  
+ ```  
  ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini  
+```  
 ###  7. Create database tables  
 Now that you have a configuration file that has the correct settings for your database, you can create the database tables.  
   
@@ -209,14 +218,17 @@ Clarify what datastore
 The DataStore requires a separate PostgreSQL database to save the DataStore resources to.  
   
 List existing databases:  
-  
- sudo -u postgres psql -l  Check that the encoding of databases is `UTF8`, if not internationalisation may be a problem. Since changing the encoding of PostgreSQL may mean deleting existing databases, it is suggested that this is fixed before continuing with the datastore setup.  
+ ```  
+ sudo -u postgres psql -l
+ ```  
+Check that the encoding of databases is `UTF8`, if not internationalisation may be a problem. Since changing the encoding of PostgreSQL may mean deleting existing databases, it is suggested that this is fixed before continuing with the datastore setup.  
   
 #### c. Create users and databases  
   
 Create a database_user called datastore_default. This user will be given read-only access to your DataStore database in the Set Permissions step below:  
-  
+  ```  
  sudo -u postgres createuser -S -D -R -P -l datastore_default  
+ ```  
 Create the database (owned by ckan_default), which we’ll call datastore_default [set password to Canada1Alouette]":  
   
  sudo -u postgres createdb -O ckan_default datastore_default -E utf-8  ####  d. Set URLs  
@@ -258,17 +270,19 @@ cd /usr/lib/ckan/default/src
 ```  
   
 Clone the scheming repository into the directory  
-  
- git clone https://github.com/ckan/ckanext-scheming.git  
+  ```  
+ git clone !!!To be updated!!!!  
+ ```  
 Clone the fluent extension into the directory  
-  
- git clone https://github.com/ckan/ckanext-fluent.git  
+  ```  
+ git clone https://github.com/ckan/ckanext-fluent.git 
+ ```  
 Clone the CSA extension into the directory  
-You will need to create a gccode gitlab account before cloning this file.  
-The link is: [https://gccode.ssc-spc.gc.ca](https://gccode.ssc-spc.gc.ca/) 
-An account can be created with a Government of Canada email address. You may need to contact Étienne (etienne.low-decarie@canada.ca) to gain permissions for this repository.
-  
-`git clone https://gccode.ssc-spc.gc.ca/csa-data-centre-of-expertise/ckanext-csa.git`
+
+ ```   
+git clone  git clone !!!To be updated!!!!  
+```  
+
 In CKAN's configuration file (/etc/ckan/default/development.ini) edit to include these settings. Some of these settings will be existing others will not be and must be added. Make sure that the settings are above the logging configuration settings or they will not be parsed.  
   
 ```  
@@ -279,7 +293,8 @@ ckan.plugins = stats text_view image_view recline_view csa scheming_datasets flu
 scheming.dataset_schemas = ckanext.csa:ckan_dataset.json  
  ckanext.csa:info.json ckanext.csa:doc.json  
 scheming.presets = ckanext.csa:presets.json  
- ckanext.fluent:presets.json  licenses_group_url = http://{ip of CKAN instance}/licenses.json  
+ ckanext.fluent:presets.json  
+licenses_group_url = http://{ip of CKAN instance}/licenses.json  
   
 # Example: licenses_group_url = http://127.0.0.1:5000/licenses.json  
   
@@ -320,6 +335,26 @@ cd /usr/lib/ckan/default/src/ckan
 paster serve /etc/ckan/default/development.ini  
 ```  
   
+## Setting up your installation
+
+You will now want to create a sysadmin user and possibly import organizations to facilitate your work. This section is optionnal but will guide you through that process.
+
+paster sysadmin add seanh email=seanh@localhost name=seanh -c /etc/ckan/default/development.ini
+
+where seah will be replace by your username. You can find more instruction on 
+https://docs.ckan.org/en/2.8/maintaining/getting-started.html#create-admin-user
+
+Once done, you will need to manually copy the file transitional_orgs.json from the ckanext-csa extension to the directory containing the development.ini file. Once in this directory, open a command prompt and use the following commands :
+
+
+You of course need to have activated your python environment for it to work. You will then have imported every organization listed on the Canada open portal website for easier setup. You should now be able to proceed with the harvesting.
+```  
+ . /usr/lib/ckan/default/bin/activate  
+ ```  
+ ```  
+ckanapi load organizations -I transitional_orgs.jsonl
+```  
+
 ##  Deploying a source install  
 After installing source follow this guide to deploy it to a production server.  
 [https://docs.ckan.org/en/2.8/maintaining/installing/deployment.html](https://docs.ckan.org/en/2.8/maintaining/installing/deployment.html)  
