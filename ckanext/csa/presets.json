@@ -3477,7 +3477,7 @@
       "values": {
         "field_name": "date_published",
         "label": {
-          "en": "Date Published",
+          "en": "Date published",
           "fr": "Date de publication"
         },
         "help_text": {
@@ -3617,28 +3617,14 @@
       "values": {
         "field_name": "data_series_name",
         "label": {
-          "en": "Series Title",
-          "fr": "Nom de la série"
+          "en": "Homepage",
+          "fr": "URL de la page d'accueil :"
         },
-        "fluent_form_label": {
-          "en": {
-            "en": "Series Title (English)",
-            "fr": "Nom de la série (anglais)"
-          },
-          "fr": {
-            "en": "Series Title (French)",
-            "fr": "Nom de la série (français)"
-          }
-        },
-        "fluent_help_text": {
-          "en": {
-            "en": "The English name of the series, or aggregate dataset, of which the dataset is a part",
-            "fr": "Nom anglais de la série, ou du jeu de données globales, dont le jeu de données fait partie"
-          },
-          "fr": {
-            "en": "The French name of the series, or aggregate dataset, of which the dataset is a part",
-            "fr": "Nom français de la série, ou du jeu de données globales, dont le jeu de données fait partie"
-          }
+
+        "help_text": {
+            "en": "The URL for the original webpage hosting the dataset",
+            "fr": "L'URL du site web original contenant le jeu de données"
+
         },
         "form_snippet": "fluent_text.html",
         "display_snippet": "fluent_text.html",
@@ -4345,7 +4331,7 @@
       "values": {
         "field_name": "date_published",
         "label": {
-          "en": "Date Published",
+          "en": "Date published",
           "fr": "Date de publication"
         },
         "help_text": {
