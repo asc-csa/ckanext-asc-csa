@@ -16,9 +16,9 @@
   <td class="">
     {% set name, machine_translated = h.get_translated_t(res, 'name') %}
     {% if ' ' not in name %}
-      <span class="wrapall">{{ name }}</span> 
+      <span class="wrapall">{{ name }}</span>
     {% else %}
-      {{ name }} 
+      {{ name }}
     {% endif %}
     {% if machine_translated %}
        <i class="fa fa-language text-muted mrgn-lft-sm" title="{{ _("This third party metadata element has been translated using an automated translation tool (DeepL).  To report any discrepancies please contact open-ouvert@tbs-sct.gc.ca") }}"></i>
@@ -40,6 +40,7 @@
       <a href="{{ res.url }}" title="{{_('Resource') ~ ' ' ~ res_num}}" class="resource-url-analytics btn btn-primary" target="_blank" data-pkg-id="{{ pkg.id }}" data-res-id="{{ res.id }}" data-org-id="{{ pkg.organization.id }}">
           {{ _('Download') }}
         </a>
+        <br></br>
         {% if res.has_views %}
         <a href="{{ url }}" class="btn btn-default" >{{ _('Preview') }}</a>
         {% endif %}
