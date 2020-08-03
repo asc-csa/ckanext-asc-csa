@@ -48,7 +48,7 @@ msgstr "Sujet"
 
 #: ckanext/csa/plugin.py:230
 msgid "Project"
-msgstr ""
+msgstr "Projet"
 
 #: ckanext/csa/plugin.py:231 ckanext/csa/plugin.py:252
 #: ckanext/csa/plugin.py:272
@@ -1205,7 +1205,7 @@ msgstr "Aurores boréales en direct"
 
 #: ckanext/csa/templates/page.html:6
 msgid "Skip to content"
-msgstr ""
+msgstr "Aller au contenu"
 
 #: ckanext/csa/templates/ajax_snippets/example_theme_popover.html:12
 msgid "Followers"
@@ -1213,7 +1213,7 @@ msgstr ""
 
 #: ckanext/csa/templates/ajax_snippets/example_theme_popover.html:15
 msgid "Resources"
-msgstr ""
+msgstr "Ressources"
 
 #: ckanext/csa/templates/macros/csa_read.html:56
 msgid "Keyword"
@@ -1221,11 +1221,11 @@ msgstr "Mots clés"
 
 #: ckanext/csa/templates/macros/csa_read.html:171
 msgid "Remove"
-msgstr ""
+msgstr "Retirer"
 
 #: ckanext/csa/templates/macros/csa_read.html:200
 msgid "Open Data"
-msgstr ""
+msgstr "Données ouvertes"
 
 #: ckanext/csa/templates/macros/csa_read.html:201
 #, fuzzy
@@ -1234,21 +1234,21 @@ msgstr "et innovation"
 
 #: ckanext/csa/templates/macros/csa_read.html:213
 msgid "Proactive Disclosure"
-msgstr ""
+msgstr "Divulgation proactive"
 
 #: ckanext/csa/templates/macros/csa_read.html:237
 msgid "entry"
-msgstr ""
+msgstr "entrée"
 
 #: ckanext/csa/templates/macros/csa_read.html:237
 #, fuzzy
 msgid "entries"
-msgstr "Histoires"
+msgstr "Entrées"
 
 #: ckanext/csa/templates/package/read.html:9
 #: ckanext/csa/templates/snippets/package_item_org.html:31
 msgid "Private"
-msgstr ""
+msgstr "Privé"
 
 #: ckanext/csa/templates/package/read.html:15
 #, python-format
@@ -1256,16 +1256,18 @@ msgid ""
 " You're currently viewing an old version of this dataset. To see the "
 "current version, click <a href=\"%(url)s\">here</a>. "
 msgstr ""
+" Vous regardez présentement une version antérieur de ce jeu de donnée. Pour voir la "
+"version actuelle, cliquez <a href=\"%(url)s\">ici</a>. "
 
 #: ckanext/csa/templates/package/read.html:26
 #: ckanext/csa/templates/snippets/package_item_org.html:40
 msgid "Draft"
-msgstr ""
+msgstr "Brouillon"
 
 #: ckanext/csa/templates/package/read.html:29
 #: ckanext/csa/templates/snippets/package_item_org.html:42
 msgid "Deleted"
-msgstr ""
+msgstr "Supprimé"
 
 #: ckanext/csa/templates/package/read_base.html:17
 #: ckanext/csa/templates/package/resource_read.html:31
@@ -1349,15 +1351,15 @@ msgstr "Extrait du résumé"
 #: ckanext/csa/templates/package/resource_read.html:88
 #, python-format
 msgid "Source: <a href=\"%(url)s\">%(dataset)s</a>"
-msgstr ""
+msgstr "Source : <a href=\"%(url)s\">%(dataset)s</a>"
 
 #: ckanext/csa/templates/package/resource_read.html:127
 msgid "There are no views created for this resource yet."
-msgstr ""
+msgstr "Il n'existe pas encore de visualisation pour cette ressource."
 
 #: ckanext/csa/templates/package/resource_read.html:131
 msgid "Not seeing the views you were expecting?"
-msgstr ""
+msgstr "Vous ne voyez pas la visualisation à laquelle vous vous attendiez?"
 
 #: ckanext/csa/templates/package/resource_read.html:133
 #: ckanext/csa/templates/package/snippets/resource_view.html:34
@@ -1366,11 +1368,11 @@ msgstr "Cliquez ici pour plus d'informations."
 
 #: ckanext/csa/templates/package/resource_read.html:136
 msgid "Here are some reasons you may not be seeing expected views:"
-msgstr ""
+msgstr "Voici quelques raisons pourquoi vous ne voyez peut-être pas la bonne visualisation"
 
 #: ckanext/csa/templates/package/resource_read.html:138
 msgid "No view has been created that is suitable for this resource"
-msgstr ""
+msgstr "Il n'existe pas de visualisation correspondant à cette ressource."
 
 #: ckanext/csa/templates/package/resource_read.html:139
 msgid "The site administrators may not have enabled the relevant view plugins"
@@ -1455,15 +1457,15 @@ msgstr "L'information est erronée"
 
 #: ckanext/csa/templates/package/snippets/resource_view.html:10
 msgid "Fullscreen"
-msgstr ""
+msgstr "Plein écran"
 
 #: ckanext/csa/templates/package/snippets/resource_view.html:18
 msgid "Embed"
-msgstr ""
+msgstr "Intégrer"
 
 #: ckanext/csa/templates/package/snippets/resource_view.html:32
 msgid "This resource view is not available at the moment."
-msgstr ""
+msgstr "La visualisation de cette ressource n'est pas disponible pour le moment"
 
 #: ckanext/csa/templates/package/snippets/resource_view.html:41
 #, fuzzy
@@ -1476,21 +1478,21 @@ msgstr ""
 
 #: ckanext/csa/templates/package/snippets/resource_view.html:74
 msgid "Embed resource view"
-msgstr ""
+msgstr "Intégrer la visualisation de cette ressource"
 
 #: ckanext/csa/templates/package/snippets/resource_view.html:77
 msgid ""
 "You can copy and paste the embed code into a CMS or blog software that "
 "supports raw HTML"
-msgstr ""
+msgstr "Vous pouvez copier-coller le code d'intégration dans un logiciel supportant le format html brut"
 
 #: ckanext/csa/templates/package/snippets/resource_view.html:80
 msgid "Width"
-msgstr ""
+msgstr "Largeur"
 
 #: ckanext/csa/templates/package/snippets/resource_view.html:83
 msgid "Height"
-msgstr ""
+msgstr "Hauteur"
 
 #: ckanext/csa/templates/package/snippets/resource_view.html:86
 msgid "Code"
