@@ -149,7 +149,7 @@ CKAN uses [Solr](https://lucene.apache.org/solr/) as its search platform, and us
   
 Make sure you have permissions for the following file with this command:  
   
- sudo chown -R `whoami` /etc/default/jetty8  
+ sudo chown -R \`whoami\` /etc/default/jetty8  
 Edit the Jetty configuration file (`/etc/default/jetty8` or `/etc/default/jetty`) and change the following variables:  
   
 ```  
