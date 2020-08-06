@@ -70,7 +70,7 @@
           {% endblock %}
         </div>
         {% block resource_content %}
-          {% block resource_read_title %}<h1 class="page-heading">{{ h.resource_display_name(res) | truncate(50) }}</h1>{% endblock %}
+          {% block resource_read_title %}<h1 class="page-heading">{{ h.resource_display_name(res)  }}</h1>{% endblock %}
           {% block resource_read_url %}
             {% if res.url and h.is_url(res.url) %}
               <p class="text-muted ellipsis">{{ _('URL:') }} <a class="resource-url-analytics" href="{{ res.url }}" title="{{ res.url }}">{{ res.url }}</a></p>
@@ -84,7 +84,7 @@
             {% endif %}
             {% if not res.description and c.package.notes %}
               <h3>{{ _('From the dataset abstract') }}</h3>
-              <blockquote>{{ h.markdown_extract(h.get_translated(c.package, 'notes')) }}</blockquote>
+              <blockquote>{{ h.markdown_extract(h.get_translated(c.package, 'notes'), extract_length=0) }}</blockquote>
               <p>{% trans dataset=c.package.title, url=h.url_for(controller='package', action='read', id=c.package['name']) %}Source: <a href="{{ url }}">{{ dataset }}</a>{% endtrans %}
             {% endif %}
           </div>
@@ -152,8 +152,3 @@
     </section>
   {% endblock %}
 {% endblock %}
-
-
-
-
-
