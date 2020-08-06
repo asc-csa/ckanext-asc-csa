@@ -1529,8 +1529,8 @@ ckanext/csa/fanstatic/wet-boew/js/polyfills/svg.js
 ckanext/csa/fanstatic/wet-boew/js/polyfills/svg.min.js
 ckanext/csa/fanstatic/wet-boew/js/polyfills/test.js
 ckanext/csa/fanstatic/wet-boew/js/polyfills/test.min.js
-ckanext/csa/i18n/fr/LC_MESSAGES/ckanext-csa-backup.mo
 ckanext/csa/i18n/fr/LC_MESSAGES/ckanext-csa.mo
+ckanext/csa/i18n/fr/LC_MESSAGES/old/ckanext-csa-backup.mo
 ckanext/csa/public/csa_theme.css
 ckanext/csa/public/licenses.json
 ckanext/csa/templates/base.html
