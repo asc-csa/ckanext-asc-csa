@@ -10,6 +10,7 @@ Example:
 #}
 {% block package_info %}
   {% if pkg %}
+  <!--template/package/info.html start-->
     <section class="module module-narrow">
       <div class="module context-info">
         <div class="module-content">
@@ -18,17 +19,16 @@ Example:
               <h3 class="heading">{{ h.dataset_display_name(pkg) }}</h3>
             {% endblock %}
             {% block nums %}
-             
-              
+
+
             {% endblock %}
-            
+
           {% endblock %}
         </div>
       </div>
     </section>
 
-    
+
   {% endif %}
+  <!--template/package/info.html end-->
 {% endblock %}
-
-

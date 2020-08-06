@@ -1,3 +1,5 @@
+<!--template/macros/csa_read start-->
+
 {%- macro split_bilingual_field(field_text, client_lang) -%}
   {%- if field_text != None and ' | ' in field_text -%}
     {{- field_text.split(' | ')[1 if client_lang == 'fr' else 0] -}}
@@ -28,15 +30,15 @@ Render the organization name
       {{- d -}}
     {%- endif -%}
   {%- endmacro -%}
-  
+
   {%- macro date_field(f, pkg) -%}
     {{- date_format(pkg[f.id]) -}}
   {%- endmacro -%}
-  
+
   {%- macro url_field(f, pkg) -%}
     <a href="{{- pkg[f.id] -}}">{{- pkg[f.id] -}}</a>
   {%- endmacro -%}
-  
+
   {#
   Render a list of keywords for the client language
   #}
@@ -58,7 +60,7 @@ Render the organization name
       {%- endfor -%}
     </ul>
   {%- endmacro -%}
-  
+
   {#
   Render a list of tag vocabulary tags for given field object and client
   language
@@ -72,7 +74,7 @@ Render the organization name
       {%- endfor -%}
     </ul>
   {%- endmacro -%}
-  
+
   {#
   Render the organization name
   #}
@@ -84,7 +86,7 @@ Render the organization name
       {{- org -}}
     {%- endif -%}
   {%- endmacro -%}
-  
+
   {#
   Render a choice field where the choice['key'] is the value stored
   #}
@@ -97,7 +99,7 @@ Render the organization name
       {% endif %}
     {%- endif -%}
   {%- endmacro -%}
-  
+
   {#
   Choose the most appropriate display name for a resource
   #}
@@ -109,7 +111,7 @@ Render the organization name
       {{- res.url -}}
     {%- endif -%}
   {%- endmacro -%}
-  
+
   {#
   Split a bilingual field separated by a pipe
   #}
@@ -120,8 +122,8 @@ Render the organization name
       {{- field_text -}}
     {%- endif -%}
   {%- endmacro -%}
-  
-  
+
+
   {#
   Split a subject or topic category field, which are separated by a double space
   #}
@@ -132,7 +134,7 @@ Render the organization name
       {{- field_text -}}
     {%- endif -%}
   {%- endmacro -%}
-  
+
   {#
   Render a boolean field with a friendly WET checkmark or X
   #}
@@ -143,29 +145,29 @@ Render the organization name
       <span class="wb-icon-x"></span>
     {%- endif -%}
   {%- endmacro -%}
-  
+
   {#
   Render a file download size field with 'O' or 'B' appended for Octets/Bytes
   #}
   {%- macro size_field(f, pkg, client_lang) -%}
     {% set suffix = 'O' if client_lang == 'fr' else 'B' %}
-  
+
     {%- if pkg[f.id] -%}
       {{pkg[f.id]}} {{suffix}}
     {%- else -%}
       0 {{suffix}}
     {%- endif -%}
   {%- endmacro -%}
-  
-  
-  {# 
-  Search Facet Formatters 
+
+
+  {#
+  Search Facet Formatters
   #}
-  
+
   {%- macro subject_label(subject, lang) -%}
     {{- split_subject_field(subject.name, lang) -}}
   {%- endmacro -%}
-  
+
   {% macro active_filter_button(h, field, value, extras, preset_choices) %}
     <a href="{{ h.remove_url_param(field, value, extras=extras) }}"
        class="btn btn-info btn-xs mrgn-lft-sm mrgn-bttm-sm" title="{{ _('Remove') }}">
@@ -193,7 +195,7 @@ Render the organization name
       <span class="glyphicon glyphicon-remove"></span>
     </a>
   {% endmacro %}
-  
+
   {% macro filter_buttons(h, c, field, extras) %}
       {% if field=='portal_type' %}
         {% set preset_choices = [
@@ -211,7 +213,7 @@ Render the organization name
           {# collection is special, see also dataset_facets #}
           {% set collection_choices = preset_choices %}
           {% set preset_choices = [{'value': 'pd', 'label': _('Proactive Disclosure')}] %}
-  
+
               {% for t in collection_choices %}
                 {% do preset_choices.append(t) %}
               {% endfor %}
@@ -231,12 +233,12 @@ Render the organization name
         {% endif %}
       {% endfor %}
   {% endmacro %}
-  
+
   {% macro entries(ungettext, activity) %}
   {% set count = activity.data.count %}
   {{ count|string + ' ' + ungettext(_('entry'), _('entries'), count) }}
   {% endmacro %}
-  
+
   {% macro pd_link(h, activity) %}
   {% set resource_name = activity.data.resource_name %}
   {% set org_name = activity.data.owner_org %}
@@ -248,3 +250,5 @@ Render the organization name
    <a href="{{ resource_link }}">{{ resource_name }}</a>
   </span>
   {% endmacro %}
+
+  <!--template/macros/csa_read end-->

@@ -1,5 +1,5 @@
 {% extends "package/base.html" %}
-
+<!--template/package/rresource_read.html start-->
 {% set res = c.resource %}
 
 {% block head_extras -%}
@@ -83,7 +83,7 @@
               {{ h.render_markdown(res.description) }}
             {% endif %}
             {% if not res.description and c.package.notes %}
-              <h3>{{ _('From the dataset abstract') }}</h3>
+              <h2>{{ _('From the dataset abstract') }}</h2>
               <blockquote>{{ h.markdown_extract(h.get_translated(c.package, 'notes'), extract_length=0) }}</blockquote>
               <p>{% trans dataset=c.package.title, url=h.url_for(controller='package', action='read', id=c.package['name']) %}Source: <a href="{{ url }}">{{ dataset }}</a>{% endtrans %}
             {% endif %}
@@ -151,4 +151,5 @@
       {% endblock %}
     </section>
   {% endblock %}
+  <!--template/package/rresource_read.html end-->
 {% endblock %}

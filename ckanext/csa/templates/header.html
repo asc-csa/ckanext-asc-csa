@@ -1,5 +1,6 @@
 {# {% ckan_extends %} #}
 {% block styles %}
+<!--template/header.html start-->
 <link rel="stylesheet" href="https://wet-boew.github.io/themes-dist/GCWeb/css/theme.min.css">
 <nav aria-label="skiptomaincontent">
 <ul id="wb-tphp" class="wb-init wb-disable-inited"><li class="wb-slc"><a class="wb-sl" href="#wb-cont">Skip to main content</a></li></ul>
@@ -21,15 +22,15 @@
 			{% else %}
 			<div class="brand col-xs-5 col-md-4" property="publisher" typeof="GovernmentOrganization"> <a href="https://www.canada.ca/en.html" property="url"><img src="https://wet-boew.github.io/themes-dist/GCWeb/assets/sig-blk-en.svg" alt="GovernmentofCanadaLogo" property="logo"><span class="wb-inv" property="name"> Government of Canada / <span lang="fr">Gouvernement du Canada</span></span></a>
 				{% endif %}
-				
+
 				<meta property="areaServed" typeof="Country" content="Canada">
 				<link property="logo" href="https://wet-boew.github.io/themes-dist/GCWeb/assets/wmms-blk.svg">
-			</div>	
+			</div>
 
 			{% if h.lang() == 'fr' %}
 			<section id="wb-srch" class="col-lg-8 text-right">
 				<h2>Recherche</h2>
-				
+
 <form action="https://www.canada.ca/fr/sr/srb.html" method="get" name="cse-search-box" role="search" class="form-inline">
 <div class="form-group">
 <label for="wb-srch-q" class="wb-inv">Rechercher dans Canada.ca</label>
@@ -41,7 +42,7 @@
 <input name="s5bm3ts21rch" value="x" type="hidden">
 
 	<input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="q" type="search" value="" size="34" maxlength="170" placeholder="Rechercher dans Canada.ca">
-    
+
 
 <input type="hidden" name="_charset_" value="UTF-8">
 
@@ -59,7 +60,7 @@
 
 			<section id="wb-srch" class="col-lg-8 text-right">
 				<h2>Search</h2>
-				
+
 <form action="https://www.canada.ca/en/sr/srb.html" method="get" name="cse-search-box" role="search" class="form-inline">
 <div class="form-group">
 <label for="wb-srch-q" class="wb-inv">Search Canada.ca</label>
@@ -71,7 +72,7 @@
 <input name="s5bm3ts21rch" value="x" type="hidden">
 
 	<input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="q" type="search" value="" size="34" maxlength="170" placeholder="Search Canada.ca">
-    
+
 
 <input type="hidden" name="_charset_" value="UTF-8">
 
@@ -86,7 +87,7 @@
 			</section>
 			{% endif %}
 		</div>
-		
+
 	</div>
 	<nav class="gcweb-menu" typeof="SiteNavigationElement" aria-label="Main Menu">
 		<div class="container">
@@ -96,9 +97,9 @@
 				<li role="presentation">
 					<a role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-jobs" aria-expanded="false" href="#"> {{ _('Jobs and the workplace') }}</a>
 				<ul id="gc-mnu-jobs" role="menu" aria-orientation="vertical">
-					
-					
-					
+
+
+
 					<li role="presentation">
 					<a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/jobs.html"> {{ _('Jobs') }}<span class="visible-xs-inline visible-sm-inline"> {{ _(': home') }}</span></a>
 					</li>
@@ -123,7 +124,7 @@
 					</ul>
 				</li>
 
-				
+
 				<li role="presentation">
 					<a role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-cit" aria-expanded="false" href="#">{{ _('Immigration and citizenship') }}</a>
 					<ul id="gc-mnu-cit" role="menu" aria-orientation="vertical">
@@ -560,4 +561,5 @@
 	<script src="https://wet-boew.github.io/themes-dist/GCWeb/js/theme.min.js"></script>
 
 </header>
+<!--template/header.html end-->
 {% endblock %}

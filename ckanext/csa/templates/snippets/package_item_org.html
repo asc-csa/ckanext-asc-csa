@@ -19,6 +19,7 @@ Example:
 {% set notes = h.markdown_extract(package.notes, extract_length=truncate) %}
 
 {% block package_item %}
+<!--template/snippets/package_item_org.html start-->
   <li class="{{ item_class or "dataset-item" }}">
     {% block content %}
       <div class="dataset-content">
@@ -75,4 +76,6 @@ Example:
       {% endblock %}
     {% endblock %}
   </li>
+
+  <!--template/snippets/package_item_org.html end-->
 {% endblock %}

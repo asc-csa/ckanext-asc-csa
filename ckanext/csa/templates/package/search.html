@@ -1,7 +1,7 @@
 {% ckan_extends %}
 
 {% block secondary_content %}
-
+ <!--template/package/search.html start-->
   <aside class="mrgn-tp-lg">
     <div>
    <h5 style="padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 12px;"> <a href="{{ h.url_for(controller='package', action='search', q=c.q) }}" class="btn btn-default mrgn-bttm-md btn-block"><span class="glyphicon glyphicon-refresh"></span></span>{{ _(' Clear filters') }}</a>
@@ -19,5 +19,5 @@
 </aside>
 
 
-
+<!--template/package/search.html end-->
 {% endblock %}

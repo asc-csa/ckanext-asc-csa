@@ -1,4 +1,4 @@
-{# 
+{#
 Renders a list of resources with icons and view links.
 
 resources - A list of resources to render
@@ -10,8 +10,9 @@ Example:
 
 #}
 
- 
+
 {% block resource_list %}
+<!--template/package/resource_list.html start-->
 {% if resources %}
 
     {% if pkg.resources %}
@@ -46,4 +47,5 @@ Example:
   </p>
 {% endif %}
 {% endblock %}
+<!--template/package/resource_list.html end-->
 </section>

@@ -1,3 +1,4 @@
+
 {#
 Displays a datetime that can be converted to a users timezone using JavaScript.
 In the data-datetime attribute, the date is rendered in ISO 8601 format.
@@ -9,6 +10,8 @@ Example:
     {% snippet 'snippets/local_friendly_datetime, datetime=pkg_dict.metadata_created %}
 
 #}
+<!--template/snippets/local_friendly_datetime.html start-->
 <span class="automatic-local-datetime" data-datetime="{{ h.render_datetime(datetime_obj, date_format='%Y-%m-%dT%H:%M:%S%z') }}">
     {{ h.render_datetime(datetime_obj, with_hours=True) }}
 </span>
+<!--template/snippets/local_friendly_datetime.html end-->

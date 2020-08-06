@@ -1,5 +1,6 @@
-{% extends "package/base.html" %}
 
+{% extends "package/base.html" %}
+<!--template/package/read_base.html start-->
 {% set pkg = c.pkg_dict %}
 {% set schema = h.scheming_get_dataset_schema(pkg.type) %}
 
@@ -106,18 +107,18 @@
               {% endif %}
             {% endif %}
           {% endfor %}
-          
-         
+
+
         </ul>
       </div>
-    
+
       <div class="panel panel-primary">
             <div class="panel-heading">
             <div class="panel-title">{{_('About this Record')}}</div>
             </div>
-        
+
             <ul class="list-group">
-             
+
               <li class="list-group-item">
                 <strong>{{ _('Record ID') }}:</strong>
                 {{ pkg.id }}
@@ -130,12 +131,12 @@
                       {{ _('Link to JSON format') }}
                     </a>
                   </li>
-                         
+
                 </ul>
               </li>
-              
-              
-              
+
+
+
             </ul>
           </div>
 
@@ -153,5 +154,5 @@
   {% block package_license %}
     {% snippet "snippets/license.html", pkg_dict=pkg %}
   {% endblock %}
-
+<!--template/package/read_base.html end-->
 {% endblock %}

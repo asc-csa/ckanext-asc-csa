@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+<!--template/page.html start-->
 {%- block page -%}
 
   {% block skip %}
@@ -84,7 +84,7 @@
                     <p>Some content for the page</p>
                   {% endblock %}
                 #}
-               
+
                 {% block primary_content %}
                   <article class="module">
                     {# REMOVED GROUPS, ACTIVITY, AND MANAGE BUTTON. USE URL EDIT TO MANAGE.
@@ -138,4 +138,6 @@
       {% resource 'base/tracking.js' %}
     {% endif %}
   {{ super() }}
+
+  <!--template/page.html end-->
 {% endblock -%}

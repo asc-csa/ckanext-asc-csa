@@ -1,11 +1,12 @@
 {% ckan_extends %}
+<!--template/snippets/facet_list.html start-->
 {% import 'macros/csa_read.html' as cr %}
 
 {% block facet_list %}
 {% with items = items or h.get_facet_items_dict(name, limit=200) %}
   {% set item_count = items | length %}
   {% set items = items[0:5] if ( not unlimit) and h.get_param_int('_%s_limit' % name) else items %}
-  
+
     {% if items %}
         {% if within_tertiary %}
             {% set nav_class = 'nav nav-pills nav-stacked' %}
@@ -13,7 +14,7 @@
             {% set wrapper_class = 'nav-facet nav-facet-tertiary' %}
         {% endif %}
             <section class="{{ wrapper_class or 'module module-narrow module-shallow' }}">
-               <details class="panel panel-default mrgn-bttm-0"> 
+               <details class="panel panel-default mrgn-bttm-0">
                    <summary class="panel-heading">
                 <h3 class="panel-title">
 
@@ -21,13 +22,13 @@
                     {{ title }}
                 </h3>
             </summary>
-            
+
         <nav aria-label="filters">
             <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}">
                 {% for item in items %}
                     {% do item.update({'label': h.scheming_choices_label(scheming_choices, item.name)
                     if scheming_choices else cr.split_bilingual_field(item.display_name, h.lang()) }) %}
-       
+
                 {% endfor %}
 
                 {%- macro _text_key(d) -%}
@@ -54,4 +55,5 @@
     {% endif %}
 
 {% endwith %}
+<!--template/snippets/facet_list.html end-->
 {% endblock %}

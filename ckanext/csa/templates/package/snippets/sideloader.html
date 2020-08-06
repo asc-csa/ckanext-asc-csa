@@ -1,3 +1,4 @@
+  <!--template/package/sideloader.html start-->
   <div class="panel panel-primary">
         <div class="panel-heading">
           <div class="panel-title">
@@ -36,7 +37,7 @@
             "date_modified"
           ] %}
           {% for field_to_show in include_labels %}
-            
+
             {% set field_title = h.scheming_language_text(field.label) %}
             {% if field_title %}
               {% set field_value = pkg[field.field_name] %}
@@ -56,16 +57,16 @@
               {% endif %}
             {% endif %}
           {% endfor %}
-          
-         
+
+
         </ul>
       </div>
-    
+
       <div class="panel panel-primary">
             <div class="panel-heading">
             <div class="panel-title">{{_('About this Record')}}</div>
             </div>
-        
+
             <ul class="list-group">
               <li class="list-group-item">
                 <strong>{{ _('Record Released') }}:</strong>
@@ -87,11 +88,12 @@
                       {{ _('Link to JSON format') }}
                     </a>
                   </li>
-                         
+
                 </ul>
               </li>
-              
-              
-              
+
+
+
             </ul>
           </div>
+  <!--template/package/sideloader.html end-->

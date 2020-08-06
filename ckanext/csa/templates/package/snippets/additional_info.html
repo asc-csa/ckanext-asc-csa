@@ -1,6 +1,6 @@
 {% set pkg = c.pkg_dict %}
 {% set client_lang = h.lang() %}
-
+<!--template/package/additional_info.html start-->
 <section class="additional-info">
  {#  <h3>{{ _('Additional Info') }}</h3> #}
   <table class="table table-bordered">
@@ -23,7 +23,7 @@
             {% endif %}
           </tr>
         {% endif %}
-     #}   
+     #}
 
         {% if pkg_dict.version %}
           <tr>
@@ -84,3 +84,4 @@
     </tbody>
   </table>
 </section>
+<!--template/package/additional_info.html end-->

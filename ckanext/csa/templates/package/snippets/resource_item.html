@@ -1,3 +1,4 @@
+<!--template/package/resource_item.html start-->
 {% import 'macros/csa_read.html' as cr %}
 
 {% set url_action = 'resource_edit' if url_is_edit and can_edit else 'resource_read' %}
@@ -12,6 +13,7 @@
 {% set lang_field = h.scheming_field_by_name(schema.resource_fields, 'language') %}
 
 {# FIXME: using tables for formatting #}
+
 <tr>
   <td class="">
     {% set name, machine_translated = h.get_translated_t(res, 'name') %}
@@ -50,3 +52,4 @@
     {% endif %}
   </td>
 </tr>
+<!--template/package/resource_item.html end-->
