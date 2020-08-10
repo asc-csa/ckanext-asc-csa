@@ -41,8 +41,9 @@
         </select>
         {% block search_sortby_button %}
         <button class="btn btn-default" type="submit" name="submit">{{ _('Go') }}</button>
-        </form>
+
         {% endblock %}
+        </form>
       </div>
     {% endif %}
   {% endblock %}
@@ -94,4 +95,3 @@
     <p id="search-error"><strong>There was an error while searching.</strong> Please try again.</p>
   {% endtrans %}
 {% endif %}
-

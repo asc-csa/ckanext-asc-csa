@@ -1,5 +1,5 @@
 {% import 'macros/form.html' as form %}
-<!--template/package/resource_viewt.html start-->
+<!--template/package/snippets/resource_viewt.html start-->
 {% block resource_view %}
   <div id="view-{{ resource_view['id'] }}" class="resource-view" data-id="{{ resource_view['id'] }}" data-title="{{ resource_view['title'] }}" data-description="{{ resource_view['descripion'] }}">
   <div class="actions">
@@ -60,7 +60,7 @@
           {# When previewing we need to stick the whole resource_view as a param as there is no other way to pass to information on to the iframe #}
           {% set src = h.url_for(qualified=true, controller='package', action='resource_view', id=package['name'], resource_id=resource['id']) + '?' + h.urlencode({'resource_view': h.dump_json(resource_view)}) %}
         {% endif %}
-        <iframe src="{{ src }}" frameborder="0" width="100%" data-module="data-viewer">
+        <iframe src="{{ src }}"  width="100%" data-module="data-viewer">
           <p>{{ _('Your browser does not support iframes.') }}</p>
         </iframe>
       {% endif %}
@@ -89,5 +89,5 @@
       </div>
     </div>
   </div>
-  <!--template/package/resource_viewt.html end-->
+  <!--template/package/snippets/resource_viewt.html end-->
 {% endblock %}

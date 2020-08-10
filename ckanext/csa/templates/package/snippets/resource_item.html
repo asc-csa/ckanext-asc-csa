@@ -30,7 +30,7 @@
     {% snippet 'scheming/snippets/display_field.html',
       field=type_field, data=res, entity_type='dataset', object_type=pkg.type %}
   </td>
-  <td nowrap class="td-center">
+  <td  class="td-center">
     {% snippet 'scheming/snippets/display_field.html',
       field=format_field, data=res, entity_type='dataset', object_type=pkg.type %} &nbsp; <span class="format-label" property="dc:format" data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span>
   </td>
@@ -38,7 +38,7 @@
     {% snippet 'scheming/snippets/display_field.html',
       field=lang_field, data=res, entity_type='dataset', object_type=pkg.type %}
   </td>
-  <td nowrap class="td-center">
+  <td class="td-center">
       <a href="{{ res.url }}" title="{{_('Resource') ~ ' ' ~ res_num}}" class="resource-url-analytics btn btn-primary" target="_blank" data-pkg-id="{{ pkg.id }}" data-res-id="{{ res.id }}" data-org-id="{{ pkg.organization.id }}">
           {{ _('Download') }}
         </a>
