@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-csa 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-08-10 12:47-0400\n"
+"POT-Creation-Date: 2020-08-11 14:58-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,66 +17,66 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: ckanext/csa/plugin.py:222 ckanext/csa/plugin.py:246 ckanext/csa/plugin.py:266
+#: ckanext/csa/plugin.py:223 ckanext/csa/plugin.py:247 ckanext/csa/plugin.py:267
 msgid "Portal type"
 msgstr ""
 
-#: ckanext/csa/plugin.py:224 ckanext/csa/plugin.py:247 ckanext/csa/plugin.py:267
+#: ckanext/csa/plugin.py:225 ckanext/csa/plugin.py:248 ckanext/csa/plugin.py:268
 msgid "Collection type"
 msgstr ""
 
-#: ckanext/csa/plugin.py:225
+#: ckanext/csa/plugin.py:226
 msgid "Science data"
 msgstr ""
 
-#: ckanext/csa/plugin.py:226 ckanext/csa/plugin.py:227 ckanext/csa/plugin.py:228
-#: ckanext/csa/plugin.py:248 ckanext/csa/plugin.py:249 ckanext/csa/plugin.py:250
-#: ckanext/csa/plugin.py:268 ckanext/csa/plugin.py:269 ckanext/csa/plugin.py:270
+#: ckanext/csa/plugin.py:227 ckanext/csa/plugin.py:228 ckanext/csa/plugin.py:229
+#: ckanext/csa/plugin.py:249 ckanext/csa/plugin.py:250 ckanext/csa/plugin.py:251
+#: ckanext/csa/plugin.py:269 ckanext/csa/plugin.py:270 ckanext/csa/plugin.py:271
 msgid "Keywords"
 msgstr ""
 
-#: ckanext/csa/plugin.py:229 ckanext/csa/plugin.py:251 ckanext/csa/plugin.py:271
+#: ckanext/csa/plugin.py:230 ckanext/csa/plugin.py:252 ckanext/csa/plugin.py:272
 msgid "Subject"
 msgstr ""
 
-#: ckanext/csa/plugin.py:230
+#: ckanext/csa/plugin.py:231
 msgid "Project"
 msgstr ""
 
-#: ckanext/csa/plugin.py:231 ckanext/csa/plugin.py:252 ckanext/csa/plugin.py:272
+#: ckanext/csa/plugin.py:232 ckanext/csa/plugin.py:253 ckanext/csa/plugin.py:273
 #: ckanext/csa/templates/package/snippets/resources_list.html:27
 msgid "Format"
 msgstr ""
 
-#: ckanext/csa/plugin.py:232 ckanext/csa/plugin.py:253 ckanext/csa/plugin.py:273
+#: ckanext/csa/plugin.py:233 ckanext/csa/plugin.py:254 ckanext/csa/plugin.py:274
 msgid "Resource type"
 msgstr ""
 
-#: ckanext/csa/plugin.py:233 ckanext/csa/plugin.py:254 ckanext/csa/plugin.py:274
+#: ckanext/csa/plugin.py:234 ckanext/csa/plugin.py:255 ckanext/csa/plugin.py:275
 msgid "Maintenance and Update Frequency"
 msgstr ""
 
-#: ckanext/csa/plugin.py:234 ckanext/csa/plugin.py:255 ckanext/csa/plugin.py:275
+#: ckanext/csa/plugin.py:235 ckanext/csa/plugin.py:256 ckanext/csa/plugin.py:276
 msgid "Topic Categories"
 msgstr ""
 
-#: ckanext/csa/plugin.py:235 ckanext/csa/plugin.py:256 ckanext/csa/plugin.py:276
+#: ckanext/csa/plugin.py:236 ckanext/csa/plugin.py:257 ckanext/csa/plugin.py:277
 msgid "Spatial Representation Type"
 msgstr ""
 
-#: ckanext/csa/plugin.py:236 ckanext/csa/plugin.py:257 ckanext/csa/plugin.py:277
+#: ckanext/csa/plugin.py:237 ckanext/csa/plugin.py:258 ckanext/csa/plugin.py:278
 msgid "Map Viewer"
 msgstr ""
 
-#: ckanext/csa/plugin.py:237 ckanext/csa/plugin.py:258 ckanext/csa/plugin.py:278
+#: ckanext/csa/plugin.py:238 ckanext/csa/plugin.py:259 ckanext/csa/plugin.py:279
 msgid "Record Status"
 msgstr ""
 
-#: ckanext/csa/plugin.py:238 ckanext/csa/plugin.py:259 ckanext/csa/plugin.py:279
+#: ckanext/csa/plugin.py:239 ckanext/csa/plugin.py:260 ckanext/csa/plugin.py:280
 msgid "IMSO Approval"
 msgstr ""
 
-#: ckanext/csa/plugin.py:239 ckanext/csa/plugin.py:260 ckanext/csa/plugin.py:280
+#: ckanext/csa/plugin.py:240 ckanext/csa/plugin.py:261 ckanext/csa/plugin.py:281
 msgid "Jurisdiction"
 msgstr ""
 
@@ -1200,7 +1200,6 @@ msgid "Keyword"
 msgstr ""
 
 #: ckanext/csa/templates/macros/csa_read.html:173
-#: ckanext/csa/templates/snippets/search_form.html:74
 msgid "Remove"
 msgstr ""
 
@@ -1524,6 +1523,16 @@ msgstr ""
 msgid "Record Modified"
 msgstr ""
 
+#: ckanext/csa/templates/snippets/facet_list.html:46
+#: ckanext/csa/templates/snippets/facet_list.html:49
+msgid "Remove the filter"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/facet_list.html:51
+#: ckanext/csa/templates/snippets/facet_list.html:54
+msgid "Add the filter"
+msgstr ""
+
 #: ckanext/csa/templates/snippets/facet_list_old.html:80
 msgid "Show More {facet_type}"
 msgstr ""
@@ -1579,20 +1588,13 @@ msgstr ""
 msgid "Go"
 msgstr ""
 
-#: ckanext/csa/templates/snippets/search_form.html:75
-msgid "Remove the filter"
-msgstr ""
-
-#: ckanext/csa/templates/snippets/search_form.html:81
-msgid "Filter Results"
-msgstr ""
-
-#: ckanext/csa/templates/snippets/search_form.html:88
+#: ckanext/csa/templates/snippets/search_form.html:66
 msgid " <p class=\"extra\">Please try another search.</p> "
 msgstr ""
 
-#: ckanext/csa/templates/snippets/search_form.html:94
+#: ckanext/csa/templates/snippets/search_form.html:72
 msgid ""
 " <p id=\"search-error\"><strong>There was an error while searching.</strong> "
 "Please try again.</p> "
 msgstr ""
+

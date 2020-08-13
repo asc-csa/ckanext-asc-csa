@@ -15,7 +15,7 @@ from ckanext.csa import loader
 
 # class _CsaMixin(object):
 #     """
-#     Store single plugin instances in class variable 
+#     Store single plugin instances in class variable
 
 #     """
 
@@ -27,7 +27,7 @@ from ckanext.csa import loader
 #         _CsaMixin._presets = {}
 #         for f in reversed(field_descriptions):
 #             for pp in _loadschema(f)['presets']:
-#         _field_descriptions 
+#         _field_descriptions
 
 
 
@@ -57,7 +57,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     p.implements(p.IFacets)
     p.implements(p.ITranslation)
     p.implements(p.IRoutes)
-    
+
     instance = None
     _field_descriptions = None
 
@@ -111,23 +111,24 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
                 raise
         except KeyError:
             current_lang = 'en'
-        
+
         # Dismax search term for French
         if current_lang == 'fr':
             query_fields = 'title_fr^8 text_french^4 title^2 text'
         # code below to potentially search equal parameters English, although currently defaults to CKAN core search
         # else if current_lang == 'en':
         #     query_fields = 'title^8 text^4 title_fr^2 text_french'
-        
+
         if query_fields:
             search_params['qf'] = query_fields
+
 
         return search_params
 
     def after_search(self, search_results, search_params):
         return search_results
 
-    
+
 
     #Before index runs before SOLR does an index/reindex
     #SOLR can be reindexed with the command 'search-index rebuild -r'
@@ -137,17 +138,21 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     def before_index(self, pkg_dict):
 
         pkg_dict['subject'] = json.loads(pkg_dict.get('subject', '[]'))
+        pkg_dict['project'] = json.loads(pkg_dict.get('project', '[]'))
+
         kw = json.loads(pkg_dict.get('extras_keywords', '{}'))
         pkg_dict['keywords_en'] = kw.get('en', [])
         pkg_dict['keywords_fr'] = kw.get('fr', [])
+
+
 
         notes = json.loads(pkg_dict.get('extras_notes_translated', '{}'))
         pkg_dict['notes_en'] = notes.get('en', u'')
         pkg_dict['notes_fr'] = notes.get('fr', u'')
 
-        titles = json.loads(pkg_dict.get('extras_title_translated', '{}'))
+        titles = json.loads(pkg_dict.get('title_translated', '{}'))
         pkg_dict['title_fr'] = titles.get('fr', u'')
-        pkg_dict['title_en'] = titles.get('en', u'')
+        pkg_dict['title_string'] = titles.get('en', u'')
 
         validated_data_dict = json.loads(pkg_dict.get('validated_data_dict'))
         res_name_fr = []
@@ -212,7 +217,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             'csa_get_field_description': helpers.csa_get_field_description,
             'get_translated_t' : helpers.get_translated_t,
             }
-    
+
 
     # IFacets
     # Implements custom facetting
@@ -238,7 +243,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             'imso_approval': _('IMSO Approval'),
             'jurisdiction': _('Jurisdiction'),
             })
-        # facets_dict['language_support'] = p.toolkit._('Language Support')
+        facets_dict['vocab_project'] = tk._('Project')
         return facets_dict
 
     def group_facets(self, facets_dict, group_type, package_type):
@@ -292,6 +297,3 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
 
     def after_map(self, m):
         return m
-    
-
-

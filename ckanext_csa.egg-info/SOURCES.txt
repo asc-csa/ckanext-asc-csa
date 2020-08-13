@@ -21,6 +21,7 @@ ckanext/csa/fanstatic/example_theme_popover.css
 ckanext/csa/fanstatic/example_theme_popover.js
 ckanext/csa/fanstatic/extra.css
 ckanext/csa/fanstatic/theme.css
+ckanext/csa/fanstatic/theme_old.css
 ckanext/csa/fanstatic/themeold.css
 ckanext/csa/fanstatic/GCWeb/package.json
 ckanext/csa/fanstatic/GCWeb/payload.json
@@ -1569,6 +1570,7 @@ ckanext/csa/templates/snippets/local_friendly_datetime.html
 ckanext/csa/templates/snippets/organization.html
 ckanext/csa/templates/snippets/package_item.html
 ckanext/csa/templates/snippets/package_item_org.html
+ckanext/csa/templates/snippets/search_form.html
 ckanext/csa/templates/snippets/social.html
 ckanext/csa/templates/snippets/sort_by.html
 ckanext/csa/tests/__init__.py

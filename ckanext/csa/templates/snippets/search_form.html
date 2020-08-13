@@ -57,29 +57,7 @@
   {% endblock %}
 
   {% block search_facets %}
-    {% if facets %}
-      <p class="filter-list">
-        {% for field in facets.fields %}
-          {% set search_facets_items = facets.search.get(field)['items'] %}
-          <span class="facet">{{ facets.titles.get(field) }}:</span>
-          {% for value in facets.fields[field] %}
-            <span class="filtered pill">
-              {%- if facets.translated_fields and facets.translated_fields.has_key((field,value)) -%}
-                {{ facets.translated_fields[(field,value)] }}
-
-              {%- else -%}
-                {{ h.list_dict_filter(search_facets_items, 'name', 'display_name', value) }}
-              {%- endif %}
-
-              <a href="{{ facets.remove_field(field, value) }}" class="remove" title="{{ _('Remove')+' '+value }}"><i class="fa fa-times"></i></a>
-              <span class="wb-inv">{{ _('Remove the filter')+' '+value }}</span>
-            </span>
-          {% endfor %}
-        {% endfor %}
-      </p>
-
-      <a class="show-filters btn btn-default">{{ _('Filter Results') }}</a>
-    {% endif %}
+  
   {% endblock %}
 
 </form>
