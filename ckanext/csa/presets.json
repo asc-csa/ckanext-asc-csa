@@ -777,23 +777,14 @@
             ],
             "value": "atmospheric_sci"
           },
-          {
-            "label": {
-              "en": "Atmospheric science",
-              "fr": "Science atmosphérique"
-            },
-            "replaces": [
-              "AA"
-            ],
-            "value": "atmospheric_science"
-          },
+
           {
             "label": {
               "en": "Earth observation",
               "fr": "Observation terrestre"
             },
             "replaces": [
-              "AA"
+              "earth_observation"
             ],
             "value": "earth_observation"
           },

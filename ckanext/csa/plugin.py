@@ -138,9 +138,13 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     def before_index(self, pkg_dict):
 
         pkg_dict['subject'] = json.loads(pkg_dict.get('subject', '[]'))
+        pkg_dict['project'] = json.loads(pkg_dict.get('project', '[]'))
+
         kw = json.loads(pkg_dict.get('extras_keywords', '{}'))
         pkg_dict['keywords_en'] = kw.get('en', [])
         pkg_dict['keywords_fr'] = kw.get('fr', [])
+
+
 
         notes = json.loads(pkg_dict.get('extras_notes_translated', '{}'))
         pkg_dict['notes_en'] = notes.get('en', u'')
@@ -239,7 +243,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             'imso_approval': _('IMSO Approval'),
             'jurisdiction': _('Jurisdiction'),
             })
-        # facets_dict['language_support'] = p.toolkit._('Language Support')
+        facets_dict['vocab_project'] = tk._('Project')
         return facets_dict
 
     def group_facets(self, facets_dict, group_type, package_type):
