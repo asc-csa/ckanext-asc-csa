@@ -176,6 +176,7 @@ schema. In this case the version should be set to the next CKAN version number.
     <!-- Copy the title field into titleString, and treat as a string
          (rather than text type).  This allows us to sort on the titleString -->
     <field name="title_string" type="string" indexed="true" stored="false" />
+    <field name="title_fr" type="string" indexed="true" stored="false" />
 
     <field name="data_dict" type="string" indexed="false" stored="true" />
     <field name="validated_data_dict" type="string" indexed="false" stored="true" />
@@ -192,10 +193,11 @@ schema. In this case the version should be set to the next CKAN version number.
     <field name= "keywords_en" type="string" indexed="true" stored="true" multiValued="true"/>
     <field name= "keywords_fr" type="string" indexed="true" stored="true" multiValued="true"/>
     <field name= "subject" type="string" indexed="true" stored="true" multiValued="true"/>
-    <field name= "title_fr" type="text_fr" indexed="true" stored="true" multiValued="false"/>
+    <field name= "project" type="string" indexed="true" stored="true" multiValued="true"/>
+
     <field name= "notes_fr" type="text_fr" indexed="true" stored="true" multiValued="false"/>
     <field name= "res_name_fr" type="string" indexed="true" stored="true" multiValued="true"/>
-    
+
 
 </fields>
 
@@ -230,5 +232,6 @@ schema. In this case the version should be set to the next CKAN version number.
 <copyField source="notes_fr" dest="text_french"/>
 <copyField source="keywords_fr" dest="text_french"/>
 <copyField source="res_name_fr" dest="text_french"/>
+
 
 </schema>
