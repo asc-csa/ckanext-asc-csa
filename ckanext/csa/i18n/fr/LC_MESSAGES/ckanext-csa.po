@@ -1571,7 +1571,7 @@ msgstr "Retirer le filtre"
 #, fuzzy
 #| msgid "Remove the filter"
 msgid "Add the filter"
-msgstr "Retirer le filtre"
+msgstr "Ajouter le filtre"
 
 #: ckanext/csa/templates/snippets/facet_list_old.html:80
 msgid "Show More {facet_type}"
