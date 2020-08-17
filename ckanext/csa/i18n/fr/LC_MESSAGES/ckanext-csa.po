@@ -1500,7 +1500,7 @@ msgstr "La visualisation de cette ressource n'est pas disponible pour le moment"
 #: ckanext/csa/templates/package/snippets/resource_view.html:41
 #, fuzzy
 msgid "Download resource"
-msgstr "Ressources naturelles"
+msgstr "Télécharger la ressource"
 
 #: ckanext/csa/templates/package/snippets/resource_view.html:64
 msgid "Your browser does not support iframes."
