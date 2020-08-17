@@ -847,6 +847,16 @@
               "AA"
             ],
             "value": "other"
+          },
+          {
+            "label": {
+              "en": "Unlisted",
+              "fr": "Non répertorié"
+            },
+            "replaces": [
+              "AA"
+            ],
+            "value": "unlisted"
           }
         ]
       }
