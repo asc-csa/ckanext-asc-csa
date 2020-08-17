@@ -1437,7 +1437,7 @@ msgid "State"
 msgstr "État"
 
 #: ckanext/csa/templates/package/snippets/additional_info.html:43
-msgid "Last Updated"
+msgid "Last updated"
 msgstr "Dossier modifié"
 
 #: ckanext/csa/templates/package/snippets/additional_info.html:51
