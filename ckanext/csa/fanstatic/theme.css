@@ -220,11 +220,6 @@ td,
 th {
   padding: 0; }
 
-td-center-nowrap {
-  nowrap="nowrap"
-
-}
-
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 @media print {
   *,
@@ -4549,7 +4544,7 @@ a.thumbnail.active {
 
 .list-group {
   padding-left: 0;
-  margin-bottom: 0px; }
+  margin-bottom: 20px; }
 
 .list-group-item {
   position: relative;
@@ -7755,7 +7750,6 @@ button::-moz-focus-inner {
   .mfp-iframe-scaler iframe {
     position: absolute;
     display: block;
-    border:none;"
     top: 0;
     left: 0;
     width: 100%;
@@ -8120,7 +8114,6 @@ body.wb-modal .modal-dialog summary {
 .wb-mltmd video, .wb-mltmd object,
 .wb-mltmd iframe {
   display: block;
-  border:none;"
   width: 100%; }
 
 .wb-mm-cc {
@@ -9174,7 +9167,6 @@ table.dataTable {
   display: block; }
 
 .wb-twitter iframe[style] {
-  border:none;"
   width: 100% !important; }
 
 .wb-enable .wb-twitter .twitter-timeline {
