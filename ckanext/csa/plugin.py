@@ -242,6 +242,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             'ready_to_publish': _('Record status'),
             'imso_approval': _('IMSO approval'),
             'jurisdiction': _('Jurisdiction'),
+            'science_data':_('Scientific data'),
             })
         facets_dict['vocab_project'] = tk._('Project')
         return facets_dict
