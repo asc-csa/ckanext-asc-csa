@@ -6476,6 +6476,37 @@
       }
     },
     {
+    "preset_name": "science_data",
+    "values": {
+      "field_name": "scientific_data",
+      "label": {
+        "en": "Language",
+        "fr": "Langue"
+      },
+      "help_text": {
+        "en": "True if the dataset contains scientific data ; e.g : ",
+        "fr": "Vrai si le jeu de données contient des données Scientifiques"
+      },
+      "required": false,
+      "display_snippet": "br_multiple_choice.html",
+      "choices": [
+        {
+          "label": {
+            "en": "True",
+            "fr": "Vrai"
+          },
+          "value": "true"
+        },
+        {
+          "label": {
+            "en": "False",
+            "fr": "Faux"
+          },
+          "value": "false"
+        }]
+        }
+      },
+    {
       "preset_name": "canada_resource_url",
       "values": {
         "field_name": "url",
