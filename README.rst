@@ -28,88 +28,88 @@
     :target: https://pypi.python.org/pypi/ckanext-csa/
     :alt: License
 
-    =============
-    ckanext-csa ( French will follow)
-    =============
+=============
+ckanext-csa ( French will follow)
+=============
 
-    This ckan extension allows for the implementation of the government of canada theme. It also allows
-    bilingual visualisation of ckan in both english and french while allowing for the previsualisation of data. This
-    extension has been designed to bring the CSA standard to ckan.
-
-
-    ------------
-    Requirements
-    ------------
-
-    This extension is intended for ckan 2.8. Support for CKAN 2.9 has yet to be implemented as it would required
-    major changes at a point where we are still in the development for the support of the 2.8 version.
-
-    This package require ckanext-fluent and a special fork of ckanext-scheming to work
+This ckan extension allows for the implementation of the government of canada theme. It also allows
+bilingual visualisation of ckan in both english and french while allowing for the previsualisation of data. This
+extension has been designed to bring the CSA standard to ckan.
 
 
-    ------------
-    Installation
-    ------------
+------------
+Requirements
+------------
 
-    .. Add any additional install steps to the list below.
-       For example installing any non-Python dependencies or adding any required
-       config settings.
+This extension is intended for ckan 2.8. Support for CKAN 2.9 has yet to be implemented as it would required
+major changes at a point where we are still in the development for the support of the 2.8 version.
 
-    To install ckanext-csa:
-
-    1. Activate your CKAN virtual environment, for example::
-
-         . /usr/lib/ckan/default/bin/activate
-
-    2. Install the ckanext-csa Python package into your virtual environment::
-
-         pip install ckanext-csa
-
-    3. Add ``csa`` to the ``ckan.plugins`` setting in your CKAN
-       config file (by default the config file is located at
-       ``/etc/ckan/default/production.ini``).
-
-    4. Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu::
-
-         sudo service apache2 reload
+This package require ckanext-fluent and a special fork of ckanext-scheming to work
 
 
-    ---------------
-    Config Settings
-    ---------------
+------------
+Installation
+------------
 
-    Document any optional config settings here. For example::
+.. Add any additional install steps to the list below.
+ For example installing any non-Python dependencies or adding any required
+ config settings.
 
-        # The minimum number of hours to wait before re-checking a resource
-        # (optional, default: 24).
-        ckanext.csa.some_setting = some_default_value
+To install ckanext-csa:
+
+1. Activate your CKAN virtual environment, for example::
+
+   . /usr/lib/ckan/default/bin/activate
+
+2. Install the ckanext-csa Python package into your virtual environment::
+
+   pip install ckanext-csa
+
+3. Add ``csa`` to the ``ckan.plugins`` setting in your CKAN
+ config file (by default the config file is located at
+ ``/etc/ckan/default/production.ini``).
+
+4. Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu::
+
+   sudo service apache2 reload
 
 
-    ------------------------
-    Development Installation
-    ------------------------
+---------------
+Config Settings
+---------------
 
-    To install ckanext-csa for development, activate your CKAN virtualenv and
-    do::
+Document any optional config settings here. For example::
 
-        git clone https://github.com/pratickbaral/ckanext-csa.git
-        cd ckanext-csa
-        python setup.py develop
-        pip install -r dev-requirements.txt
+  # The minimum number of hours to wait before re-checking a resource
+  # (optional, default: 24).
+  ckanext.csa.some_setting = some_default_value
 
 
-    -----------------
-    Running the Tests
-    -----------------
+------------------------
+Development Installation
+------------------------
 
-    To run the tests, do::
+To install ckanext-csa for development, activate your CKAN virtualenv and
+do::
 
-        nosetests --nologcapture --with-pylons=test.ini
+  git clone https://github.com/pratickbaral/ckanext-csa.git
+  cd ckanext-csa
+  python setup.py develop
+  pip install -r dev-requirements.txt
 
-    To run the tests and produce a coverage report, first make sure you have
-    coverage installed in your virtualenv (``pip install coverage``) then run::
 
-        nosetests --nologcapture --with-pylons=test.ini --with-coverage --cover-package=ckanext.csa --cover-inclusive --cover-erase --cover-tests
+-----------------
+Running the Tests
+-----------------
+
+To run the tests, do::
+
+  nosetests --nologcapture --with-pylons=test.ini
+
+To run the tests and produce a coverage report, first make sure you have
+coverage installed in your virtualenv (``pip install coverage``) then run::
+
+  nosetests --nologcapture --with-pylons=test.ini --with-coverage --cover-package=ckanext.csa --cover-inclusive --cover-erase --cover-tests
 
 
 -----------------
