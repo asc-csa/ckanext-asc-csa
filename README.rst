@@ -112,9 +112,9 @@
         nosetests --nologcapture --with-pylons=test.ini --with-coverage --cover-package=ckanext.csa --cover-inclusive --cover-erase --cover-tests
 
 
-=============
+-----------------
 ckanext-csa
-=============
+-----------------
 
 Cette extension de ckan permet d'implémenter les standards du gouvernement du Canada à CKAN tout en permettant la
 prévisualisation des données.
