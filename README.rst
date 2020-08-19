@@ -113,7 +113,7 @@
 
 
 -----------------
-ckanext-csa
+ckanext-csa (English preceeds)
 -----------------
 
 Cette extension de ckan permet d'implémenter les standards du gouvernement du Canada à CKAN tout en permettant la
