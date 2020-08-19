@@ -120,13 +120,13 @@ Cette extension de ckan permet d'implémenter les standards du gouvernement du C
 prévisualisation des données.
 
 ------------
-Requirements
+Pré-requis
 ------------
 
 Cette extension est compatible avec ckan 2.8 . Le support pour ckan 2.9 n'est pas encore prévu.
 
 
-Cette extension requiert l'extension ckanext-fluent et une branche spécifique de ckanext-scheming
+Cette extension requiert l'extension ckanext-fluent et une branche spécifique de ckanext-scheming. L'extension scheming nécessaire est d'ailleurs fournis dans ce répertoire
 
 
 ------------
