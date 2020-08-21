@@ -29,7 +29,7 @@
     :alt: License
 
 =============
-ckanext-csa ( French will follow)
+ckanext-csa ( Le francais va suivre)
 =============
 
 This ckan extension allows for the implementation of the government of canada theme. It also allows
