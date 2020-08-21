@@ -346,40 +346,27 @@ where seah will be replace by your username. You can find more instruction on
 https://docs.ckan.org/en/2.8/maintaining/getting-started.html#create-admin-user
 
 Once done, you will need to manually copy the file transitional_orgs.json from the ckanext-csa extension to the directory containing the development.ini file. Once in this directory, open a command prompt and use the following commands :
-
-```
-sudo mkdir -p /var/lib/ckan/default/resources
-
-sudo chmod u+rwx /var/lib/ckan/default/resources
-
-sudo chown www-data /var/lib/ckan/default/resources
-
-sudo mkdir -p /var/lib/ckan/default/storage/uploads/group
-
-sudo chmod u+rwx /var/lib/ckan/default/storage/uploads/group
-
-sudo chown www-data /var/lib/ckan/default/storage/uploads/group
-
-```
+```  
+. /usr/lib/ckan/default/bin/activate  
+ckanapi load organizations -I transitional_orgs.jsonl
+```  
 
 
 In the development.ini file, add
 
 ckan.storage_path = /var/lib/ckan/default
 
+and execute the commands
+```
+paster --plugin=ckan datastore set-permissions -c /etc/ckan/default/development.ini
+```
+
+
 ###Set up the datapusher
 
-go install the datapusher. google it .
-
-
-Then you of course need to have activated your python environment for it to work. You will then have imported every organization listed on the Canada open portal website for easier setup. You should now be able to proceed with the harvesting.
-```  
- . /usr/lib/ckan/default/bin/activate  
- ```  
- ```  
-ckanapi load organizations -I transitional_orgs.jsonl
-```  
-
+The datapusher doesn't require any modification as it runs along ckan and not inside it. You can follow the regular documentation
+for this steps
+https://docs.ckan.org/projects/datapusher/en/latest/
 ##  Deploying a source install  
 After installing source follow this guide to deploy it to a production server.  
 [https://docs.ckan.org/en/2.8/maintaining/installing/deployment.html](https://docs.ckan.org/en/2.8/maintaining/installing/deployment.html)  
@@ -805,9 +792,12 @@ sudo service jetty8 restart
 
 # Authors  
 - Cooper Ang - Initial development of CSA CKAN in 4 month long internship  
-- Jenisha Patel - Started the CSA CKAN project in initial 1 week long pilot  
+- Jenisha Patel - Started the CSA CKAN project in initial 1 week long pilot
+- Patrick Baral - In a 4 month long internship
+- Jonathan Beaulieu-Emond - In a 3 month long internship
 - Canadian Space Agency (Data Center Centre of Expertise) - Supported project with resources
 
 # Acknowledgements  
 - Étienne Low-Décarie - Supervisor of project
 - Wasiq Mohammad - Technical mentor
+
