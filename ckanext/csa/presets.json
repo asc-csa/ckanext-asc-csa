@@ -160,8 +160,8 @@
           },
           {
             "label": {
-              "en": "Non-Spatial",
-              "fr": "Non spatiales"
+              "en": "Non-Spatial data",
+              "fr": "Données non spatiales"
             },
             "value": "primary"
           },
@@ -181,8 +181,8 @@
           },
           {
             "label": {
-              "en": "Geospatial",
-              "fr": "Géospatiales"
+              "en": "Geospatial data",
+              "fr": "Données Géospatiales"
             },
             "value": "geogratis"
           },
@@ -196,7 +196,7 @@
           {
             "label": {
               "en": "Publications",
-              "fr": "Publication"
+              "fr": "Publications"
             },
             "value": "publication"
           },
@@ -4464,7 +4464,7 @@
           },
           {
             "label": {
-              "en": "Assessment - Audit",
+              "en": "Assessment - audit",
               "fr": "Évaluation - audit"
             },
             "value": "audit"
