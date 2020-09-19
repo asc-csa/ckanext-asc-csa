@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-csa 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-09-19 11:28-0400\n"
+"POT-Creation-Date: 2020-09-19 11:58-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1382,34 +1382,29 @@ msgstr ""
 
 #: ckanext/csa/templates/package/search.html:39
 #: ckanext/csa/templates/package/search.html:47
-#: ckanext/csa/templates/snippets/sort_by.html:14
 msgid "Relevance"
 msgstr ""
 
 #: ckanext/csa/templates/package/search.html:40
 #: ckanext/csa/templates/package/search.html:48
 #: ckanext/csa/templates/snippets/search_form.html:4
-#: ckanext/csa/templates/snippets/sort_by.html:15
 msgid "Name Ascending"
 msgstr ""
 
 #: ckanext/csa/templates/package/search.html:41
 #: ckanext/csa/templates/package/search.html:49
 #: ckanext/csa/templates/snippets/search_form.html:4
-#: ckanext/csa/templates/snippets/sort_by.html:16
 msgid "Name Descending"
 msgstr ""
 
 #: ckanext/csa/templates/package/search.html:42
 #: ckanext/csa/templates/package/search.html:50
-#: ckanext/csa/templates/snippets/sort_by.html:17
 msgid "Last Modified"
 msgstr ""
 
 #: ckanext/csa/templates/package/search.html:43
 #: ckanext/csa/templates/package/search.html:51
 #: ckanext/csa/templates/snippets/package_item_org.html:51
-#: ckanext/csa/templates/snippets/sort_by.html:19
 msgid "Popular"
 msgstr ""
 
@@ -1593,13 +1588,11 @@ msgid "Search datasets..."
 msgstr ""
 
 #: ckanext/csa/templates/snippets/search_form.html:34
-#: ckanext/csa/templates/snippets/sort_by.html:12
 msgid "Order by"
 msgstr ""
 
 #: ckanext/csa/templates/snippets/search_form.html:43
-#: ckanext/csa/templates/snippets/sort_by.html:22
-msgid "Go"
+msgid "Sort"
 msgstr ""
 
 #: ckanext/csa/templates/snippets/search_form.html:66
