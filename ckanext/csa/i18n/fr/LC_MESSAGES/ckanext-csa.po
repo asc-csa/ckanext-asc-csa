@@ -1654,7 +1654,7 @@ msgstr "Trier"
 
 #: ckanext/csa/templates/snippets/search_form.html:67
 msgid " <p class=\"extra\">Please try another search.</p> "
-msgstr ""
+msgstr "<p class=\"extra\">Veuillez essayer une autre recherche.</p>"
 
 #: ckanext/csa/templates/snippets/search_form.html:73
 msgid ""
