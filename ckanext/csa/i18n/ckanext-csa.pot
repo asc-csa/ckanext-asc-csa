@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-csa 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-08-18 10:30-0400\n"
+"POT-Creation-Date: 2020-09-19 11:09-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: ckanext/csa/plugin.py:227 ckanext/csa/plugin.py:251 ckanext/csa/plugin.py:271
+#: ckanext/csa/plugin.py:227 ckanext/csa/plugin.py:252 ckanext/csa/plugin.py:272
 msgid "Portal type"
 msgstr ""
 
-#: ckanext/csa/plugin.py:229 ckanext/csa/plugin.py:252 ckanext/csa/plugin.py:272
+#: ckanext/csa/plugin.py:229 ckanext/csa/plugin.py:253 ckanext/csa/plugin.py:273
 msgid "Collection type"
 msgstr ""
 
@@ -30,57 +30,62 @@ msgid "Science data"
 msgstr ""
 
 #: ckanext/csa/plugin.py:231 ckanext/csa/plugin.py:232 ckanext/csa/plugin.py:233
-#: ckanext/csa/plugin.py:253 ckanext/csa/plugin.py:254 ckanext/csa/plugin.py:255
-#: ckanext/csa/plugin.py:273 ckanext/csa/plugin.py:274 ckanext/csa/plugin.py:275
+#: ckanext/csa/plugin.py:254 ckanext/csa/plugin.py:255 ckanext/csa/plugin.py:256
+#: ckanext/csa/plugin.py:274 ckanext/csa/plugin.py:275 ckanext/csa/plugin.py:276
 msgid "Keywords"
 msgstr ""
 
-#: ckanext/csa/plugin.py:234 ckanext/csa/plugin.py:256 ckanext/csa/plugin.py:276
+#: ckanext/csa/plugin.py:234 ckanext/csa/plugin.py:257 ckanext/csa/plugin.py:277
 msgid "Subject"
 msgstr ""
 
-#: ckanext/csa/plugin.py:235 ckanext/csa/plugin.py:246
+#: ckanext/csa/plugin.py:235 ckanext/csa/plugin.py:247
 msgid "Project"
 msgstr ""
 
-#: ckanext/csa/plugin.py:236 ckanext/csa/plugin.py:257 ckanext/csa/plugin.py:277
+#: ckanext/csa/plugin.py:236 ckanext/csa/plugin.py:258 ckanext/csa/plugin.py:278
 #: ckanext/csa/templates/package/snippets/resources_list.html:27
 msgid "Format"
 msgstr ""
 
-#: ckanext/csa/plugin.py:237 ckanext/csa/plugin.py:258 ckanext/csa/plugin.py:278
+#: ckanext/csa/plugin.py:237 ckanext/csa/plugin.py:259 ckanext/csa/plugin.py:279
+#: ckanext/csa/templates/package/snippets/resources_list.html:26
 msgid "Resource type"
 msgstr ""
 
-#: ckanext/csa/plugin.py:238 ckanext/csa/plugin.py:259 ckanext/csa/plugin.py:279
+#: ckanext/csa/plugin.py:238 ckanext/csa/plugin.py:260 ckanext/csa/plugin.py:280
 msgid "Maintenance and update frequency"
 msgstr ""
 
-#: ckanext/csa/plugin.py:239 ckanext/csa/plugin.py:280
+#: ckanext/csa/plugin.py:239 ckanext/csa/plugin.py:281
 msgid "Topic categories"
 msgstr ""
 
-#: ckanext/csa/plugin.py:240 ckanext/csa/plugin.py:261 ckanext/csa/plugin.py:281
+#: ckanext/csa/plugin.py:240 ckanext/csa/plugin.py:262 ckanext/csa/plugin.py:282
 msgid "Spatial representation type"
 msgstr ""
 
-#: ckanext/csa/plugin.py:241 ckanext/csa/plugin.py:262 ckanext/csa/plugin.py:282
+#: ckanext/csa/plugin.py:241 ckanext/csa/plugin.py:263 ckanext/csa/plugin.py:283
 msgid "Map viewer"
 msgstr ""
 
-#: ckanext/csa/plugin.py:242 ckanext/csa/plugin.py:263 ckanext/csa/plugin.py:283
+#: ckanext/csa/plugin.py:242 ckanext/csa/plugin.py:264 ckanext/csa/plugin.py:284
 msgid "Record status"
 msgstr ""
 
-#: ckanext/csa/plugin.py:243 ckanext/csa/plugin.py:264 ckanext/csa/plugin.py:284
+#: ckanext/csa/plugin.py:243 ckanext/csa/plugin.py:265 ckanext/csa/plugin.py:285
 msgid "IMSO approval"
 msgstr ""
 
-#: ckanext/csa/plugin.py:244 ckanext/csa/plugin.py:265 ckanext/csa/plugin.py:285
+#: ckanext/csa/plugin.py:244 ckanext/csa/plugin.py:266 ckanext/csa/plugin.py:286
 msgid "Jurisdiction"
 msgstr ""
 
-#: ckanext/csa/plugin.py:260
+#: ckanext/csa/plugin.py:245
+msgid "Scientific data"
+msgstr ""
+
+#: ckanext/csa/plugin.py:261
 msgid "Topic Categories"
 msgstr ""
 
@@ -1441,12 +1446,16 @@ msgstr ""
 msgid "Resource"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resource_item.html:47
+#: ckanext/csa/templates/package/snippets/resource_item.html:45
+msgid "Download the resource named :"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/resource_item.html:48
 #: ckanext/csa/templates/package/snippets/resource_itembackup.html:32
 msgid "Preview"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resource_item.html:50
+#: ckanext/csa/templates/package/snippets/resource_item.html:51
 #: ckanext/csa/templates/package/snippets/resource_itembackup.html:56
 msgid "Edit"
 msgstr ""
@@ -1502,11 +1511,7 @@ msgid "Code"
 msgstr ""
 
 #: ckanext/csa/templates/package/snippets/resources_list.html:25
-msgid "Resource Name"
-msgstr ""
-
-#: ckanext/csa/templates/package/snippets/resources_list.html:26
-msgid "Resource Type"
+msgid "Resource name"
 msgstr ""
 
 #: ckanext/csa/templates/package/snippets/resources_list.html:28
