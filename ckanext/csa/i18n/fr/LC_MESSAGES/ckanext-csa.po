@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-csa 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-09-19 11:24-0400\n"
+"POT-Creation-Date: 2020-09-19 11:28-0400\n"
 "PO-Revision-Date: 2020-01-23 10:19-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -1310,11 +1310,15 @@ msgid ""
 msgstr ""
 
 #: ckanext/csa/templates/package/read_base.html:55
-msgid "Additional Information"
+#: ckanext/csa/templates/package/snippets/sideloader.html:5
+#, fuzzy
+msgid "Additional information"
 msgstr "Informations additionnelles"
 
 #: ckanext/csa/templates/package/read_base.html:117
-msgid "About this Record"
+#: ckanext/csa/templates/package/snippets/sideloader.html:67
+#, fuzzy
+msgid "About this record"
 msgstr "À propos de cette fiche"
 
 #: ckanext/csa/templates/package/read_base.html:123
@@ -1575,27 +1579,13 @@ msgid ""
 " add some?</a> "
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/sideloader.html:5
-#, fuzzy
-#| msgid "Additional Information"
-msgid "Additional information"
-msgstr "Informations additionnelles"
-
-#: ckanext/csa/templates/package/snippets/sideloader.html:67
-#, fuzzy
-#| msgid "About this Record"
-msgid "About this record"
-msgstr "À propos de cette fiche"
-
 #: ckanext/csa/templates/package/snippets/sideloader.html:72
 #, fuzzy
-#| msgid "Record Released"
 msgid "Record released"
 msgstr "Dossier publié"
 
 #: ckanext/csa/templates/package/snippets/sideloader.html:76
 #, fuzzy
-#| msgid "Record Modified"
 msgid "Record modified"
 msgstr "Date de modification:"
 
@@ -1749,4 +1739,10 @@ msgstr ""
 
 #~ msgid "Resource Type"
 #~ msgstr "Type de ressource"
+
+#~ msgid "Additional Information"
+#~ msgstr "Informations additionnelles"
+
+#~ msgid "About this Record"
+#~ msgstr "À propos de cette fiche"
 
