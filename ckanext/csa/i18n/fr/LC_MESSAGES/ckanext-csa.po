@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-csa 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-09-19 11:58-0400\n"
+"POT-Creation-Date: 2020-09-19 12:08-0400\n"
 "PO-Revision-Date: 2020-01-23 10:19-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -1640,19 +1640,23 @@ msgstr "Supprimer du panier"
 msgid "Search datasets..."
 msgstr "Chercher les jeux de données"
 
-#: ckanext/csa/templates/snippets/search_form.html:34
+#: ckanext/csa/templates/snippets/search_form.html:20
+msgid "Search"
+msgstr "Recherche"
+
+#: ckanext/csa/templates/snippets/search_form.html:35
 msgid "Order by"
 msgstr "Par ordre "
 
-#: ckanext/csa/templates/snippets/search_form.html:43
+#: ckanext/csa/templates/snippets/search_form.html:44
 msgid "Sort"
 msgstr "Trier"
 
-#: ckanext/csa/templates/snippets/search_form.html:66
+#: ckanext/csa/templates/snippets/search_form.html:67
 msgid " <p class=\"extra\">Please try another search.</p> "
 msgstr ""
 
-#: ckanext/csa/templates/snippets/search_form.html:72
+#: ckanext/csa/templates/snippets/search_form.html:73
 msgid ""
 " <p id=\"search-error\"><strong>There was an error while "
 "searching.</strong> Please try again.</p> "
@@ -1741,4 +1745,3 @@ msgstr ""
 
 #~ msgid "Go"
 #~ msgstr ""
-
