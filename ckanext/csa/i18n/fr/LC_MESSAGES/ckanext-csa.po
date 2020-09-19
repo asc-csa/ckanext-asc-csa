@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-csa 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-09-19 11:09-0400\n"
+"POT-Creation-Date: 2020-09-19 11:24-0400\n"
 "PO-Revision-Date: 2020-01-23 10:19-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -104,7 +104,6 @@ msgstr "Juridiction"
 
 #: ckanext/csa/plugin.py:245
 #, fuzzy
-#| msgid "Science data"
 msgid "Scientific data"
 msgstr "Données scientifiques"
 
@@ -1311,12 +1310,10 @@ msgid ""
 msgstr ""
 
 #: ckanext/csa/templates/package/read_base.html:55
-#: ckanext/csa/templates/package/snippets/sideloader.html:5
 msgid "Additional Information"
 msgstr "Informations additionnelles"
 
 #: ckanext/csa/templates/package/read_base.html:117
-#: ckanext/csa/templates/package/snippets/sideloader.html:67
 msgid "About this Record"
 msgstr "À propos de cette fiche"
 
@@ -1491,7 +1488,6 @@ msgstr "Ressources"
 
 #: ckanext/csa/templates/package/snippets/resource_item.html:45
 #, fuzzy
-#| msgid "Download resource"
 msgid "Download the resource named :"
 msgstr "Télécharger la ressource :"
 
@@ -1561,7 +1557,6 @@ msgstr ""
 
 #: ckanext/csa/templates/package/snippets/resources_list.html:25
 #, fuzzy
-#| msgid "Resource Name"
 msgid "Resource name"
 msgstr "Nom"
 
@@ -1580,12 +1575,28 @@ msgid ""
 " add some?</a> "
 msgstr ""
 
+#: ckanext/csa/templates/package/snippets/sideloader.html:5
+#, fuzzy
+#| msgid "Additional Information"
+msgid "Additional information"
+msgstr "Informations additionnelles"
+
+#: ckanext/csa/templates/package/snippets/sideloader.html:67
+#, fuzzy
+#| msgid "About this Record"
+msgid "About this record"
+msgstr "À propos de cette fiche"
+
 #: ckanext/csa/templates/package/snippets/sideloader.html:72
-msgid "Record Released"
+#, fuzzy
+#| msgid "Record Released"
+msgid "Record released"
 msgstr "Dossier publié"
 
 #: ckanext/csa/templates/package/snippets/sideloader.html:76
-msgid "Record Modified"
+#, fuzzy
+#| msgid "Record Modified"
+msgid "Record modified"
 msgstr "Date de modification:"
 
 #: ckanext/csa/templates/snippets/facet_list.html:46
@@ -1738,3 +1749,4 @@ msgstr ""
 
 #~ msgid "Resource Type"
 #~ msgstr "Type de ressource"
+

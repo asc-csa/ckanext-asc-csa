@@ -2,7 +2,7 @@
   <div class="panel panel-primary">
         <div class="panel-heading">
           <div class="panel-title">
-            {{ _('Additional Information') }}
+            {{ _('Additional information') }}
           </div>
         </div>
         <ul class="list-group">
@@ -64,16 +64,16 @@
 
       <div class="panel panel-primary">
             <div class="panel-heading">
-            <div class="panel-title">{{_('About this Record')}}</div>
+            <div class="panel-title">{{_('About this record')}}</div>
             </div>
 
             <ul class="list-group">
               <li class="list-group-item">
-                <strong>{{ _('Record Released') }}:</strong>
+                <strong>{{ _('Record released') }}:</strong>
                 {{ h.render_datetime(pkg.metadata_created, '%Y-%m-%d') }}
               </li>
               <li class="list-group-item">
-                <strong>{{ _('Record Modified') }}:</strong>
+                <strong>{{ _('Record modified') }}:</strong>
                 {{ h.render_datetime(pkg.metadata_modified, '%Y-%m-%d') }}
               </li>
               <li class="list-group-item">

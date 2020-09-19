@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-csa 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-09-19 11:09-0400\n"
+"POT-Creation-Date: 2020-09-19 11:24-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1279,12 +1279,10 @@ msgid ""
 msgstr ""
 
 #: ckanext/csa/templates/package/read_base.html:55
-#: ckanext/csa/templates/package/snippets/sideloader.html:5
 msgid "Additional Information"
 msgstr ""
 
 #: ckanext/csa/templates/package/read_base.html:117
-#: ckanext/csa/templates/package/snippets/sideloader.html:67
 msgid "About this Record"
 msgstr ""
 
@@ -1529,12 +1527,20 @@ msgid ""
 " some?</a> "
 msgstr ""
 
+#: ckanext/csa/templates/package/snippets/sideloader.html:5
+msgid "Additional information"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/sideloader.html:67
+msgid "About this record"
+msgstr ""
+
 #: ckanext/csa/templates/package/snippets/sideloader.html:72
-msgid "Record Released"
+msgid "Record released"
 msgstr ""
 
 #: ckanext/csa/templates/package/snippets/sideloader.html:76
-msgid "Record Modified"
+msgid "Record modified"
 msgstr ""
 
 #: ckanext/csa/templates/snippets/facet_list.html:46
