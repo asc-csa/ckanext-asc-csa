@@ -445,7 +445,7 @@
         "field_name": "maintainer_email",
         "label": {
           "en": "Contact email",
-          "fr": "Courriel - Personne-ressource"
+          "fr": "Personne-ressource"
         },
         "help_text": {
           "en": "The contact person's email for the dataset",
@@ -3619,7 +3619,7 @@
         "field_name": "data_series_name",
         "label": {
           "en": "Homepage",
-          "fr": "URL de la page d'accueil :"
+          "fr": "URL de la page d'accueil "
         },
 
         "help_text": {
