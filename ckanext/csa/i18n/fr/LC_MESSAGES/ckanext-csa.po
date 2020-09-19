@@ -1647,7 +1647,7 @@ msgstr "Chercher les jeux de données"
 #: ckanext/csa/templates/snippets/search_form.html:34
 #: ckanext/csa/templates/snippets/sort_by.html:12
 msgid "Order by"
-msgstr "Par ordre"
+msgstr "Par ordre "
 
 #: ckanext/csa/templates/snippets/search_form.html:43
 #: ckanext/csa/templates/snippets/sort_by.html:22
