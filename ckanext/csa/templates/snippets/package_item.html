@@ -57,11 +57,16 @@
 
     {% block resources_outer %}
       <div class="row">
-        <div class="col-md-3">{{ _('Resource Formats') }}:</div>
+        <div class="col-md-3">{{ _('Resource Formats') }} :</div>
         <div class="col-md-9">
           <ul class="list-inline list-unstyled">
             {% for resource in h.dict_list_reduce(package.resources, 'format') %}
+            {%if resource=='other' and h.lang()=='fr'%}
+            <li><span class="badge">{{ 'Autre' }}</span></li>
+
+            {%else%}
               <li><span class="badge">{{ _(resource) }}</span></li>
+            {%endif%}
             {% endfor %}
           </ul>
         </div>
