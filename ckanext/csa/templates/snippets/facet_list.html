@@ -14,7 +14,25 @@
             {% set wrapper_class = 'nav-facet nav-facet-tertiary' %}
         {% endif %}
             <section class="{{ wrapper_class or 'module module-narrow module-shallow' }}">
-               <details class="panel panel-default mrgn-bttm-0">
+
+              {%- macro _text_key(d) -%}
+                  {{- h.csa_normalize_strip_accents(d.label) -}}
+              {%- endmacro -%}
+              {%- do items.sort(key=_text_key) -%}
+              {% set open_facet=[] %}
+              {% for item in items %}
+                {% do item.update({'label': h.scheming_choices_label(scheming_choices, item.name)
+                if scheming_choices else cr.split_bilingual_field(item.display_name, h.lang()) }) %}
+
+                  {%if item.active%}
+
+                  {% do open_facet.append(1) %}
+
+                  {%endif%}
+              {% endfor %}
+              
+               <details class="panel panel-default mrgn-bttm-0" {% if open_facet %} open="" {% endif %} >
+
                    <summary class="panel-heading">
                 <h3 class="panel-title">
 
@@ -25,16 +43,9 @@
 
         <nav aria-label="filters">
             <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}">
-                {% for item in items %}
-                    {% do item.update({'label': h.scheming_choices_label(scheming_choices, item.name)
-                    if scheming_choices else cr.split_bilingual_field(item.display_name, h.lang()) }) %}
 
-                {% endfor %}
 
-                {%- macro _text_key(d) -%}
-                    {{- h.csa_normalize_strip_accents(d.label) -}}
-                {%- endmacro -%}
-                {%- do items.sort(key=_text_key) -%}
+
 
                 {% for item in items %}
 
