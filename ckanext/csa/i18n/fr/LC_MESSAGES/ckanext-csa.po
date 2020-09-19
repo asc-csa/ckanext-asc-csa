@@ -1317,7 +1317,7 @@ msgstr "Informations additionnelles"
 #: ckanext/csa/templates/package/read_base.html:117
 #: ckanext/csa/templates/package/snippets/sideloader.html:67
 msgid "About this Record"
-msgstr "À propos de ce site"
+msgstr "À propos de cette fiche"
 
 #: ckanext/csa/templates/package/read_base.html:123
 #: ckanext/csa/templates/package/snippets/sideloader.html:80
