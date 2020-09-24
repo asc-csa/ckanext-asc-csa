@@ -227,7 +227,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             'portal_type': _('Portal type'),
             # 'organization': _('Organization'),
             'collection': _('Collection type'),
-            'science_admin': _('Science data'),
+            'science_admin': _('Scientific data'),
             'keywords_en': _('Keywords'),
             'keywords_fr': _('Keywords'),
             'keywords': _('Keywords'),
@@ -242,7 +242,6 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             'ready_to_publish': _('Record status'),
             'imso_approval': _('IMSO approval'),
             'jurisdiction': _('Jurisdiction'),
-            'science_data':_('Scientific data'),
             })
         facets_dict['vocab_project'] = tk._('Project')
         return facets_dict
@@ -251,6 +250,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
         facets_dict.update({
             'portal_type': _('Portal type'),
             'collection': _('Collection type'),
+            'science_admin': _('Scientific data'),
             'keywords_en': _('Keywords'),
             'keywords_fr': _('Keywords'),
             'keywords': _('Keywords'),
@@ -271,6 +271,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
         facets_dict.update({
             'portal_type': _('Portal type'),
             'collection': _('Collection type'),
+            'science_admin': _('Scientific data'),
             'keywords_en': _('Keywords'),
             'keywords_fr': _('Keywords'),
             'keywords': _('Keywords'),

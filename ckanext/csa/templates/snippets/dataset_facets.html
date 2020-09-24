@@ -1,4 +1,9 @@
 <!--template/snippets/dataset_facets.html start-->
+
+{% set type_choices = [
+    {'value': 'False', 'label': _('False')},
+    {'value': 'True', 'label': _('True')},
+    ] %}
 {% snippet 'snippets/facet_list.html',
   title=c.facet_titles['subject'],
   name='subject',
@@ -39,11 +44,13 @@
   scheming_choices=h.scheming_get_preset('canada_resource_format').choices,
   extras=extras %}
 
+
   {% snippet 'snippets/facet_list.html',
   title=c.facet_titles['science_admin'],
   name='science_admin',
-  scheming_choices=h.scheming_get_preset('science_admin').choices,
+  scheming_choices=type_choices,
   extras=extras %}
+
 
   {% snippet 'snippets/facet_list.html',
   title=c.facet_titles['project'],
@@ -52,9 +59,4 @@
   extras=extras %}
 
 
-    {% snippet 'snippets/facet_list.html',
-    title=c.facet_titles['science_data'],
-    name='science_data',
-    scheming_choices=h.scheming_get_preset('science_data').choices,
-    extras=extras %}
 <!--template/snippets/dataset_facets.html end-->

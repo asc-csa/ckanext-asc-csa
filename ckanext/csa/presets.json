@@ -6476,33 +6476,36 @@
       }
     },
     {
-    "preset_name": "science_data",
+    "preset_name": "science_admin",
     "values": {
       "field_name": "scientific_data",
       "label": {
-        "en": "Language",
-        "fr": "Langue"
+        "en": "Scientific data",
+        "fr": "Données scientifiques"
       },
       "help_text": {
         "en": "True if the dataset contains scientific data ; e.g : ",
         "fr": "Vrai si le jeu de données contient des données Scientifiques"
       },
       "required": false,
-      "display_snippet": "br_multiple_choice.html",
+      "form_snippet": "multiple_select.html",
+      "display_snippet": "list_inline.html",
+      "validators": "scheming_multiple_choice",
+      "output_validators": "scheming_multiple_choice_output",
       "choices": [
         {
           "label": {
             "en": "True",
             "fr": "Vrai"
           },
-          "value": "true"
+          "value": "True"
         },
         {
           "label": {
             "en": "False",
             "fr": "Faux"
           },
-          "value": "false"
+          "value": "False"
         }]
         }
       },

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-csa 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-09-19 12:08-0400\n"
+"POT-Creation-Date: 2020-09-24 16:08-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,72 +17,68 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: ckanext/csa/plugin.py:227 ckanext/csa/plugin.py:252 ckanext/csa/plugin.py:272
+#: ckanext/csa/plugin.py:227 ckanext/csa/plugin.py:251 ckanext/csa/plugin.py:272
 msgid "Portal type"
 msgstr ""
 
-#: ckanext/csa/plugin.py:229 ckanext/csa/plugin.py:253 ckanext/csa/plugin.py:273
+#: ckanext/csa/plugin.py:229 ckanext/csa/plugin.py:252 ckanext/csa/plugin.py:273
 msgid "Collection type"
 msgstr ""
 
-#: ckanext/csa/plugin.py:230
-msgid "Science data"
+#: ckanext/csa/plugin.py:230 ckanext/csa/plugin.py:253 ckanext/csa/plugin.py:274
+msgid "Scientific data"
 msgstr ""
 
 #: ckanext/csa/plugin.py:231 ckanext/csa/plugin.py:232 ckanext/csa/plugin.py:233
 #: ckanext/csa/plugin.py:254 ckanext/csa/plugin.py:255 ckanext/csa/plugin.py:256
-#: ckanext/csa/plugin.py:274 ckanext/csa/plugin.py:275 ckanext/csa/plugin.py:276
+#: ckanext/csa/plugin.py:275 ckanext/csa/plugin.py:276 ckanext/csa/plugin.py:277
 msgid "Keywords"
 msgstr ""
 
-#: ckanext/csa/plugin.py:234 ckanext/csa/plugin.py:257 ckanext/csa/plugin.py:277
+#: ckanext/csa/plugin.py:234 ckanext/csa/plugin.py:257 ckanext/csa/plugin.py:278
 msgid "Subject"
 msgstr ""
 
-#: ckanext/csa/plugin.py:235 ckanext/csa/plugin.py:247
+#: ckanext/csa/plugin.py:235 ckanext/csa/plugin.py:246
 msgid "Project"
 msgstr ""
 
-#: ckanext/csa/plugin.py:236 ckanext/csa/plugin.py:258 ckanext/csa/plugin.py:278
+#: ckanext/csa/plugin.py:236 ckanext/csa/plugin.py:258 ckanext/csa/plugin.py:279
 #: ckanext/csa/templates/package/snippets/resources_list.html:27
 msgid "Format"
 msgstr ""
 
-#: ckanext/csa/plugin.py:237 ckanext/csa/plugin.py:259 ckanext/csa/plugin.py:279
+#: ckanext/csa/plugin.py:237 ckanext/csa/plugin.py:259 ckanext/csa/plugin.py:280
 #: ckanext/csa/templates/package/snippets/resources_list.html:26
 msgid "Resource type"
 msgstr ""
 
-#: ckanext/csa/plugin.py:238 ckanext/csa/plugin.py:260 ckanext/csa/plugin.py:280
+#: ckanext/csa/plugin.py:238 ckanext/csa/plugin.py:260 ckanext/csa/plugin.py:281
 msgid "Maintenance and update frequency"
 msgstr ""
 
-#: ckanext/csa/plugin.py:239 ckanext/csa/plugin.py:281
+#: ckanext/csa/plugin.py:239 ckanext/csa/plugin.py:282
 msgid "Topic categories"
 msgstr ""
 
-#: ckanext/csa/plugin.py:240 ckanext/csa/plugin.py:262 ckanext/csa/plugin.py:282
+#: ckanext/csa/plugin.py:240 ckanext/csa/plugin.py:262 ckanext/csa/plugin.py:283
 msgid "Spatial representation type"
 msgstr ""
 
-#: ckanext/csa/plugin.py:241 ckanext/csa/plugin.py:263 ckanext/csa/plugin.py:283
+#: ckanext/csa/plugin.py:241 ckanext/csa/plugin.py:263 ckanext/csa/plugin.py:284
 msgid "Map viewer"
 msgstr ""
 
-#: ckanext/csa/plugin.py:242 ckanext/csa/plugin.py:264 ckanext/csa/plugin.py:284
+#: ckanext/csa/plugin.py:242 ckanext/csa/plugin.py:264 ckanext/csa/plugin.py:285
 msgid "Record status"
 msgstr ""
 
-#: ckanext/csa/plugin.py:243 ckanext/csa/plugin.py:265 ckanext/csa/plugin.py:285
+#: ckanext/csa/plugin.py:243 ckanext/csa/plugin.py:265 ckanext/csa/plugin.py:286
 msgid "IMSO approval"
 msgstr ""
 
-#: ckanext/csa/plugin.py:244 ckanext/csa/plugin.py:266 ckanext/csa/plugin.py:286
+#: ckanext/csa/plugin.py:244 ckanext/csa/plugin.py:266 ckanext/csa/plugin.py:287
 msgid "Jurisdiction"
-msgstr ""
-
-#: ckanext/csa/plugin.py:245
-msgid "Scientific data"
 msgstr ""
 
 #: ckanext/csa/plugin.py:261
@@ -1532,13 +1528,21 @@ msgstr ""
 msgid "Record modified"
 msgstr ""
 
-#: ckanext/csa/templates/snippets/facet_list.html:46
-#: ckanext/csa/templates/snippets/facet_list.html:49
+#: ckanext/csa/templates/snippets/dataset_facets.html:4
+msgid "False"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/dataset_facets.html:5
+msgid "True"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/facet_list.html:61
+#: ckanext/csa/templates/snippets/facet_list.html:64
 msgid "Remove the filter"
 msgstr ""
 
-#: ckanext/csa/templates/snippets/facet_list.html:51
-#: ckanext/csa/templates/snippets/facet_list.html:54
+#: ckanext/csa/templates/snippets/facet_list.html:66
+#: ckanext/csa/templates/snippets/facet_list.html:69
 msgid "Add the filter"
 msgstr ""
 
@@ -1575,11 +1579,11 @@ msgstr ""
 msgid "Resource Formats"
 msgstr ""
 
-#: ckanext/csa/templates/snippets/package_item.html:77
+#: ckanext/csa/templates/snippets/package_item.html:82
 msgid "Add to Map Cart"
 msgstr ""
 
-#: ckanext/csa/templates/snippets/package_item.html:80
+#: ckanext/csa/templates/snippets/package_item.html:85
 msgid "Remove from Map Cart"
 msgstr ""
 

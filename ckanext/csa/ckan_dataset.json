@@ -194,17 +194,26 @@
     },
 {
       "field_name": "science_admin",
-      "label": "Science data",
+      "label": {
+        "en" :"Scientific data",
+        "fr" : "Données scientifiques"
+      },
       "preset": "select",
       "choices": [
         {
           "value": "True",
-          "label": "Yes"
+          "label": {
+            "en" :"True",
+            "fr" : "Vrai"
+            }
         },
         {
           "value": "False",
-          "label": "No"
+          "label": {
+            "en" :"False",
+            "fr" : "Faux"
         }
+      }
       ]
     },
     {
@@ -1085,8 +1094,8 @@
         }
       ]
     }
-    
-    
+
+
   ],
   "resource_fields": [
     {

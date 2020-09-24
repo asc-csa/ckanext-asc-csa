@@ -21,7 +21,9 @@
               {%- do items.sort(key=_text_key) -%}
               {% set open_facet=[] %}
               {% for item in items %}
+
                 {% do item.update({'label': h.scheming_choices_label(scheming_choices, item.name)
+
                 if scheming_choices else cr.split_bilingual_field(item.display_name, h.lang()) }) %}
 
                   {%if item.active%}
@@ -29,8 +31,10 @@
                   {% do open_facet.append(1) %}
 
                   {%endif%}
+            
+
               {% endfor %}
-              
+
                <details class="panel panel-default mrgn-bttm-0" {% if open_facet %} open="" {% endif %} >
 
                    <summary class="panel-heading">
