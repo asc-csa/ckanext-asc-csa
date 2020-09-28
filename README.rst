@@ -39,9 +39,13 @@ Pour installer ckanext-csa:
 
 2. Installer l'extension dans votre environnement virtuel::
 
-     pip install ckanext-csa
+     pip install ckanext-csa #la version pip n'est pas encore disponible. Il faut pour l'instant cloner le répertoire github( voir installation à fin de développement)
+     
+2.2 Installer l'extension modifié ckanext-asc-csa-scheming situé sur 
 
-3. Ajouter ``csa`` à la liste dans le paramètre ``ckan.plugins`` situé dans le fiichier de
+    https://github.com/asc-csa/ckanext-asc-csa-scheming
+
+3. Ajouter ``csa`` à la liste dans le paramètre ``ckan.plugins`` situé dans le fichier de
 configuration de ckan (par défaut :
    ``/etc/ckan/default/production.ini``).
 
@@ -55,7 +59,7 @@ configuration de ckan (par défaut :
 
 Pour installer ckanext à des fins de développement::
 
-    git clone https://github.com/pratickbaral/ckanext-csa.git
+    git clone https://github.com/asc-csa/ckanext-asc-csa
     cd ckanext-csa
     python setup.py develop
     pip install -r dev-requirements.txt
@@ -112,7 +116,14 @@ To install ckanext-csa:
 
 2. Install the ckanext-csa Python package into your virtual environment::
 
-   pip install ckanext-csa
+   pip install ckanext-csa #The pip method of installation is not yet available. Proceed with the development installation for now
+
+2.2 Install the custom scheming extension 
+
+git clone https://github.com/asc-csa/ckanext-asc-csa-scheming
+cd ckanext-asc-csa-scheming
+python setup.py develop
+pip install -r dev-requirements.txt
 
 3. Add ``csa`` to the ``ckan.plugins`` setting in your CKAN
  config file (by default the config file is located at
