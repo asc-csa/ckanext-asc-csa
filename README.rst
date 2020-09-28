@@ -28,8 +28,87 @@
     :target: https://pypi.python.org/pypi/ckanext-csa/
     :alt: License
 
+
+
+.. image:: https://github.com/asc-csa/ckanext-asc-csa/blob/master/CKAN_homepage1.png
+   
+    :alt: CKAN homepage
+    
+
+.. image:: https://github.com/asc-csa/ckanext-asc-csa/blob/master/ckan_dataset.png
+   
+    :alt: CKAN dataset page
+-----------------
+ckanext-csa (English follows)
+-----------------
+
+Cette extension de ckan permet d'implémenter les standards du gouvernement du Canada à CKAN tout en permettant la
+prévisualisation des données.
+
+------------
+Pré-requis
+------------
+
+Cette extension est compatible avec ckan 2.8 . Le support pour ckan 2.9 n'est pas encore prévu.
+
+
+Cette extension requiert l'extension ckanext-fluent et une branche spécifique de ckanext-scheming. L'extension scheming nécessaire est d'ailleurs fournis dans ce répertoire
+
+
+------------
+Installation
+------------
+
+
+
+Pour installer ckanext-csa:
+
+1. Activer votre environnement virtuel, par exemple::
+
+     . /usr/lib/ckan/default/bin/activate
+
+2. Installer l'extension dans votre environnement virtuel::
+
+     pip install ckanext-csa
+
+3. Ajouter ``csa`` à la liste dans le paramètre ``ckan.plugins`` situé dans le fiichier de
+configuration de ckan (par défaut :
+   ``/etc/ckan/default/production.ini``).
+
+4. Redémarrez CKAN. Par eemple, si vous avez déployer CKAN avec apache sur Ubuntu::
+
+     sudo service apache2 reload
+
+------------------------
+ Installation à fin de développement
+------------------------
+
+Pour installer ckanext à des fins de développement::
+
+    git clone https://github.com/pratickbaral/ckanext-csa.git
+    cd ckanext-csa
+    python setup.py develop
+    pip install -r dev-requirements.txt
+
+
+-----------------
+Tester l'extension
+-----------------
+
+Pour lancer les tests::
+
+    nosetests --nologcapture --with-pylons=test.ini
+
+Pour exécuter les tests et produire un rapport de 'coverage', assurez-vous d'abord
+ que 'coverage' est installé dans votre environnement virtuel (`` pip install coverage '') puis exécutez::
+
+    nosetests --nologcapture --with-pylons=test.ini --with-coverage --cover-package=ckanext.csa --cover-inclusive --cover-erase --cover-tests
+    
+    
+    
+  
 =============
-ckanext-csa ( Le francais va suivre)
+ckanext-csa ( Le francais précède)
 =============
 
 This ckan extension allows for the implementation of the government of canada theme. It also allows
@@ -111,71 +190,5 @@ coverage installed in your virtualenv (``pip install coverage``) then run::
 
   nosetests --nologcapture --with-pylons=test.ini --with-coverage --cover-package=ckanext.csa --cover-inclusive --cover-erase --cover-tests
 
-
------------------
-ckanext-csa (English preceeds)
------------------
-
-Cette extension de ckan permet d'implémenter les standards du gouvernement du Canada à CKAN tout en permettant la
-prévisualisation des données.
-
-------------
-Pré-requis
-------------
-
-Cette extension est compatible avec ckan 2.8 . Le support pour ckan 2.9 n'est pas encore prévu.
-
-
-Cette extension requiert l'extension ckanext-fluent et une branche spécifique de ckanext-scheming. L'extension scheming nécessaire est d'ailleurs fournis dans ce répertoire
-
-
-------------
-Installation
-------------
-
-
-
-Pour installer ckanext-csa:
-
-1. Activer votre environnement virtuel, par exemple::
-
-     . /usr/lib/ckan/default/bin/activate
-
-2. Installer l'extension dans votre environnement virtuel::
-
-     pip install ckanext-csa
-
-3. Ajouter ``csa`` à la liste dans le paramètre ``ckan.plugins`` situé dans le fiichier de
-configuration de ckan (par défaut :
-   ``/etc/ckan/default/production.ini``).
-
-4. Redémarrez CKAN. Par eemple, si vous avez déployer CKAN avec apache sur Ubuntu::
-
-     sudo service apache2 reload
-
-------------------------
- Installation à fin de développement
-------------------------
-
-Pour installer ckanext à des fins de développement::
-
-    git clone https://github.com/pratickbaral/ckanext-csa.git
-    cd ckanext-csa
-    python setup.py develop
-    pip install -r dev-requirements.txt
-
-
------------------
-Tester l'extension
------------------
-
-Pour lancer les tests::
-
-    nosetests --nologcapture --with-pylons=test.ini
-
-Pour exécuter les tests et produire un rapport de 'coverage', assurez-vous d'abord
- que 'coverage' est installé dans votre environnement virtuel (`` pip install coverage '') puis exécutez::
-
-    nosetests --nologcapture --with-pylons=test.ini --with-coverage --cover-package=ckanext.csa --cover-inclusive --cover-erase --cover-tests
 
 
