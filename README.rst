@@ -1,12 +1,12 @@
 
 
-.. image:: https://raw.githubusercontent.com/asc-csa/ckanext-asc-csa/master/CKAN_homepage1.png
-   
+.. image:: CKAN_homepage1.png
+    :width: 400
     :alt: CKAN homepage
     
 
-.. image:: https://raw.githubusercontent.com/asc-csa/ckanext-asc-csa/master/ckan_dataset.png
-   
+.. image:: ckan_dataset.png
+    :width: 400
     :alt: CKAN dataset page
 -----------------
 ckanext-csa (English follows)
