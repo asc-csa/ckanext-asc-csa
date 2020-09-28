@@ -1,12 +1,12 @@
 
 
 .. image:: CKAN_homepage1.png
-    :width: 400
+    :width: 200
     :alt: CKAN homepage
     
 
 .. image:: ckan_dataset.png
-    :width: 400
+    :width: 200
     :alt: CKAN dataset page
 -----------------
 ckanext-csa (English follows)
