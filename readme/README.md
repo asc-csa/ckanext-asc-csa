@@ -313,9 +313,11 @@ Enter into each extension directory and build the extension
  cd ckanext-scheming 
  pip install -r requirements.txt 
  python setup.py develop 
+ 
  cd ..     
  cd ckanext-fluent  
  python setup.py develop 
+ 
  cd ..     
  cd ckanext-csa  
  python setup.py develop 
