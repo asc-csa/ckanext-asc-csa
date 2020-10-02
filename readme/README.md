@@ -310,18 +310,16 @@ Before continuing you should build each extension. You should be in the ckan src
  cd /usr/lib/ckan/default/src  
 Enter into each extension directory and build the extension  
 
- cd ckanext-scheming 
- pip install -r requirements.txt 
- python setup.py develop 
- 
- cd ..     
- cd ckanext-fluent  
- python setup.py develop 
- 
- cd ..     
- cd ckanext-csa  
- python setup.py develop 
- cd ..  
+ cd ckanext-scheming <br/>
+ pip install -r requirements.txt <br/>
+ python setup.py develop <br/>
+ cd ..  <br/>
+ cd ckanext-fluent  <br/>
+ python setup.py develop <br/>
+ cd ..     <br/>
+ cd ckanext-csa  <br/>
+ python setup.py develop <br/>
+ cd ..  <br/>
  
 ###  2. Modify `schema.xml` file for custom CKAN search  
 Copy the contents of the `schema.xml` file from the CSA extension into the original `schema.xml` file.  
