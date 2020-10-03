@@ -87,10 +87,35 @@
             "date_modified"
           ] %}
           {% for field_to_show in include_labels %}
-            {% set field = h.scheming_field_by_name(schema.dataset_fields, field_to_show) %}
-            {% set field_title = h.scheming_language_text(field.label) %}
+              {% set field = h.scheming_field_by_name(schema.dataset_fields, field_to_show) %}
+
+              {% set field_title = h.scheming_language_text(field.label) %}
+
+              {% if field_title %}
+                {% set field_value = pkg[field.field_name] %}
+
+                {%endif%}
+
+            {%if field_to_show=='keywords'%}
+
+
+
+            <!-- I had to cheat here a bit to make the keywords appear... go check the read_base.html file to see-->
+            {% set field_value=field_value[h.lang()]%}
+
+            <li class="list-group-item">
+            <strong>{{ field_title }} :</strong>
+            {%for value in field_value%}
+
+            {% set href="/"+h.lang()+"/dataset?keyword_en="+ value %}
+            <a class="btn btn-default btn-xs mrgn-bttm-sm mrgn-rght-sm" href={{href}}>{{value}}</a>
+            {%endfor%}
+
+          {% else %}
+
+
             {% if field_title %}
-              {% set field_value = pkg[field.field_name] %}
+
               {% if pkg[field.field_name] is mapping %}
               {% set field_value = h.scheming_language_text(field_value) %}
               {% endif %}
@@ -105,8 +130,16 @@
                   %}
                 </li>
               {% endif %}
+              {% endif %}
+
             {% endif %}
-          {% endfor %}
+
+
+            {%endfor%}
+
+
+
+
 
 
         </ul>

@@ -1572,7 +1572,6 @@ ckanext/csa/templates/snippets/package_item.html
 ckanext/csa/templates/snippets/package_item_org.html
 ckanext/csa/templates/snippets/search_form.html
 ckanext/csa/templates/snippets/social.html
-ckanext/csa/templates/snippets/sort_by.html
 ckanext/csa/tests/__init__.py
 ckanext/csa/tests/test_plugin.py
 ckanext_csa.egg-info/PKG-INFO
