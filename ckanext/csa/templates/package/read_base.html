@@ -105,10 +105,18 @@
 
             <li class="list-group-item">
             <strong>{{ field_title }} :</strong>
+
             {%for value in field_value%}
 
-            {% set href="/"+h.lang()+"/dataset?keyword_en="+ value %}
-            <a class="btn btn-default btn-xs mrgn-bttm-sm mrgn-rght-sm" href={{href}}>{{value}}</a>
+            {%if h.lang() =='en'%}
+
+            {%set name='keywords_en' %}
+            {%else%}
+            {%set name='keywords_fr' %}
+
+            {%endif%}
+            {%set url=h.add_url_param(new_params={name: value}, extras=extras, alternative_url=h.url_for('search')) %}
+            <a class="btn btn-default btn-xs mrgn-bttm-sm mrgn-rght-sm" href={{url}}>{{value}}</a>
             {%endfor%}
 
           {% else %}
