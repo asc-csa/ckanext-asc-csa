@@ -11,9 +11,7 @@ Example:
 {% block package_info %}
   {% if pkg %}
   <!--template/package/snippets/info.html start-->
-    <section class="module module-narrow">
-      <div class="module context-info">
-        <div class="module-content">
+
           {% block package_info_inner %}
             {% block heading %}
               <!-- <h3 class="heading">{{ h.dataset_display_name(pkg) }}</h3> -->
@@ -24,9 +22,7 @@ Example:
             {% endblock %}
 
           {% endblock %}
-        </div>
-      </div>
-    </section>
+      
 
 
   {% endif %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-csa 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-09-24 16:08-0400\n"
+"POT-Creation-Date: 2020-10-12 16:06-0400\n"
 "PO-Revision-Date: 2020-01-23 10:19-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -1307,29 +1307,24 @@ msgid ""
 msgstr ""
 
 #: ckanext/csa/templates/package/read_base.html:55
-#: ckanext/csa/templates/package/snippets/sideloader.html:5
 #, fuzzy
 msgid "Additional information"
 msgstr "Informations additionnelles"
 
-#: ckanext/csa/templates/package/read_base.html:117
-#: ckanext/csa/templates/package/snippets/sideloader.html:67
+#: ckanext/csa/templates/package/read_base.html:158
 #, fuzzy
 msgid "About this record"
 msgstr "À propos de cette fiche"
 
-#: ckanext/csa/templates/package/read_base.html:123
-#: ckanext/csa/templates/package/snippets/sideloader.html:80
+#: ckanext/csa/templates/package/read_base.html:164
 msgid "Record ID"
 msgstr "Identificateur du dossier"
 
-#: ckanext/csa/templates/package/read_base.html:127
-#: ckanext/csa/templates/package/snippets/sideloader.html:84
+#: ckanext/csa/templates/package/read_base.html:168
 msgid "Metadata"
 msgstr "Métadonnées"
 
-#: ckanext/csa/templates/package/read_base.html:131
-#: ckanext/csa/templates/package/snippets/sideloader.html:88
+#: ckanext/csa/templates/package/read_base.html:172
 msgid "Link to JSON format"
 msgstr "Lien au format JSON"
 
@@ -1443,6 +1438,10 @@ msgstr "Date de modification:"
 #: ckanext/csa/templates/snippets/package_item_org.html:51
 msgid "Popular"
 msgstr "Populaire"
+
+#: ckanext/csa/templates/package/snippets/additional_info.html:5
+msgid "More on this record"
+msgstr "Plus d'information sur cette fiche"
 
 #: ckanext/csa/templates/package/snippets/additional_info.html:30
 msgid "Version"
@@ -1571,16 +1570,6 @@ msgid ""
 " add some?</a> "
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/sideloader.html:72
-#, fuzzy
-msgid "Record released"
-msgstr "Dossier publié"
-
-#: ckanext/csa/templates/package/snippets/sideloader.html:76
-#, fuzzy
-msgid "Record modified"
-msgstr "Date de modification:"
-
 #: ckanext/csa/templates/snippets/dataset_facets.html:4
 msgid "False"
 msgstr "Faux"
@@ -1611,10 +1600,6 @@ msgstr ""
 #: ckanext/csa/templates/snippets/facet_list_old.html:87
 msgid "There are no {facet_type} that match this search"
 msgstr ""
-
-#: ckanext/csa/templates/snippets/home_breadcrumb_item.html:5
-msgid "Canadian Space Agency"
-msgstr "Agence spatiale canadienne"
 
 #: ckanext/csa/templates/snippets/package_item.html:41
 #: ckanext/csa/templates/snippets/package_item_org.html:58
@@ -1753,3 +1738,9 @@ msgstr ""
 
 #~ msgid "Science data"
 #~ msgstr "Données scientifiques"
+
+#~ msgid "Record released"
+#~ msgstr "Dossier publié"
+
+#~ msgid "Record modified"
+#~ msgstr "Date de modification:"
