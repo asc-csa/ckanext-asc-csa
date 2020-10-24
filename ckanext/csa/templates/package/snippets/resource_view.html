@@ -60,8 +60,8 @@
           {# When previewing we need to stick the whole resource_view as a param as there is no other way to pass to information on to the iframe #}
           {% set src = h.url_for(qualified=true, controller='package', action='resource_view', id=package['name'], resource_id=resource['id']) + '?' + h.urlencode({'resource_view': h.dump_json(resource_view)}) %}
         {% endif %}
-        <iframe src="{{ src }}"  width="100%" data-module="data-viewer">
-          <p>{{ _('Your browser does not support iframes.') }}</p>
+        <iframe src="{{ src }}"  allowfullscreen="" data-module="data-viewer">
+
         </iframe>
       {% endif %}
     </div>
