@@ -1533,6 +1533,7 @@ ckanext/csa/fanstatic/wet-boew/js/polyfills/test.min.js
 ckanext/csa/i18n/fr/LC_MESSAGES/ckanext-csa.mo
 ckanext/csa/i18n/fr/LC_MESSAGES/old/ckanext-csa-backup.mo
 ckanext/csa/public/csa_theme.css
+ckanext/csa/public/en_api.html
 ckanext/csa/public/licenses.json
 ckanext/csa/templates/base.html
 ckanext/csa/templates/footer.html
@@ -1541,6 +1542,7 @@ ckanext/csa/templates/header3.html
 ckanext/csa/templates/page.html
 ckanext/csa/templates/ajax_snippets/csa_field_descriptions.html
 ckanext/csa/templates/ajax_snippets/example_theme_popover.html
+ckanext/csa/templates/content/api.html
 ckanext/csa/templates/home/index.html
 ckanext/csa/templates/macros/csa_read.html
 ckanext/csa/templates/package/base.html
@@ -1550,14 +1552,12 @@ ckanext/csa/templates/package/resource_read.html
 ckanext/csa/templates/package/search copy.html
 ckanext/csa/templates/package/search.html
 ckanext/csa/templates/package/snippets/additional_info.html
-ckanext/csa/templates/package/snippets/additional_info_old.html
 ckanext/csa/templates/package/snippets/info.html
 ckanext/csa/templates/package/snippets/resource_item.html
 ckanext/csa/templates/package/snippets/resource_itembackup.html
 ckanext/csa/templates/package/snippets/resource_view.html
 ckanext/csa/templates/package/snippets/resource_view_filters.html
 ckanext/csa/templates/package/snippets/resources_list.html
-ckanext/csa/templates/package/snippets/sideloader.html
 ckanext/csa/templates/scheming/package/read.html
 ckanext/csa/templates/scheming/package/snippets/additional_info.html
 ckanext/csa/templates/snippets/dataset_facets.html

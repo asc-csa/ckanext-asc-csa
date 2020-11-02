@@ -13,6 +13,9 @@ from pylons.i18n import _
 from ckanext.csa import helpers
 from ckanext.csa import loader
 
+
+import ckan.lib.base as base
+import routes.mapper
 # class _CsaMixin(object):
 #     """
 #     Store single plugin instances in class variable
@@ -289,13 +292,23 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
         return facets_dict
 
     #IRoutesl
-    def before_map(self, m):
+    def before_map(self, route_map):
         # Redirect home to datasets instead
-        m.redirect('/', '/dataset')
+
+
+        route_map.redirect('/', '/dataset')
+        with routes.mapper.SubMapper(route_map,controller='ckanext.csa.plugin:CSAController') as m:
+                 m.connect('API', '/API', action='API')
         # Attempt to remove /user functionality and rename to different subdomain
         # m.redirect('/hgljkdhfsqhjfhgaslkhjfkjusadh', '/user')
         # m.redirect('/user', '/dataset')
-        return m
+        return route_map
 
     def after_map(self, m):
         return m
+
+
+class CSAController(base.BaseController):
+
+    def API(self):
+        return base.render('content/api.html')

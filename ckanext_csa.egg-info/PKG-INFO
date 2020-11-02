@@ -6,38 +6,91 @@ Home-page: https://github.com//ckanext-csa
 Author: UNKNOWN
 Author-email: UNKNOWN
 License: AGPL
-Description: .. You should enable this project on travis-ci.org and coveralls.io to make
-           these badges work. The necessary Travis and Coverage config files have been
-           generated for you.
+Description: 
         
-        .. image:: https://travis-ci.org//ckanext-csa.svg?branch=master
-            :target: https://travis-ci.org//ckanext-csa
+        .. image:: CKAN_homepage1.png
+            :width: 200
+            :alt: CKAN homepage
+            
         
-        .. image:: https://coveralls.io/repos//ckanext-csa/badge.svg
-          :target: https://coveralls.io/r//ckanext-csa
+        .. image:: ckan_dataset.png
+            :width: 200
+            :alt: CKAN dataset page
+        -----------------
+        ckanext-csa (English follows)
+        -----------------
         
-        .. image:: https://pypip.in/download/ckanext-csa/badge.svg
-            :target: https://pypi.python.org/pypi//ckanext-csa/
-            :alt: Downloads
+        Cette extension de ckan permet d'implémenter les standards du gouvernement du Canada à CKAN tout en permettant la
+        prévisualisation des données.
         
-        .. image:: https://pypip.in/version/ckanext-csa/badge.svg
-            :target: https://pypi.python.org/pypi/ckanext-csa/
-            :alt: Latest Version
+        ------------
+        Pré-requis
+        ------------
         
-        .. image:: https://pypip.in/py_versions/ckanext-csa/badge.svg
-            :target: https://pypi.python.org/pypi/ckanext-csa/
-            :alt: Supported Python versions
+        Cette extension est compatible avec ckan 2.8 . Le support pour ckan 2.9 n'est pas encore prévu.
         
-        .. image:: https://pypip.in/status/ckanext-csa/badge.svg
-            :target: https://pypi.python.org/pypi/ckanext-csa/
-            :alt: Development Status
         
-        .. image:: https://pypip.in/license/ckanext-csa/badge.svg
-            :target: https://pypi.python.org/pypi/ckanext-csa/
-            :alt: License
+        Cette extension requiert l'extension ckanext-fluent et une branche spécifique de ckanext-scheming. L'extension scheming nécessaire est d'ailleurs fournis dans ce répertoire
         
+        
+        ------------
+        Installation
+        ------------
+        
+        
+        
+        Pour installer ckanext-csa:
+        
+        1. Activer votre environnement virtuel, par exemple::
+        
+             . /usr/lib/ckan/default/bin/activate
+        
+        2. Installer l'extension dans votre environnement virtuel::
+        
+             pip install ckanext-csa #la version pip n'est pas encore disponible. Il faut pour l'instant cloner le répertoire github( voir installation à fin de développement)
+             
+        2.2 Installer l'extension modifié ckanext-asc-csa-scheming situé sur 
+        
+            https://github.com/asc-csa/ckanext-asc-csa-scheming
+        
+        3. Ajouter ``csa`` à la liste dans le paramètre ``ckan.plugins`` situé dans le fichier de
+        configuration de ckan (par défaut :
+           ``/etc/ckan/default/production.ini``).
+        
+        4. Redémarrez CKAN. Par eemple, si vous avez déployer CKAN avec apache sur Ubuntu::
+        
+             sudo service apache2 reload
+        
+        ------------------------
+         Installation à fin de développement
+        ------------------------
+        
+        Pour installer ckanext à des fins de développement::
+        
+            git clone https://github.com/asc-csa/ckanext-asc-csa
+            cd ckanext-csa
+            python setup.py develop
+            pip install -r dev-requirements.txt
+        
+        
+        -----------------
+        Tester l'extension
+        -----------------
+        
+        Pour lancer les tests::
+        
+            nosetests --nologcapture --with-pylons=test.ini
+        
+        Pour exécuter les tests et produire un rapport de 'coverage', assurez-vous d'abord
+         que 'coverage' est installé dans votre environnement virtuel (`` pip install coverage '') puis exécutez::
+        
+            nosetests --nologcapture --with-pylons=test.ini --with-coverage --cover-package=ckanext.csa --cover-inclusive --cover-erase --cover-tests
+            
+            
+            
+          
         =============
-        ckanext-csa ( Le francais va suivre)
+        ckanext-csa ( Le francais précède)
         =============
         
         This ckan extension allows for the implementation of the government of canada theme. It also allows
@@ -71,7 +124,14 @@ Description: .. You should enable this project on travis-ci.org and coveralls.io
         
         2. Install the ckanext-csa Python package into your virtual environment::
         
-           pip install ckanext-csa
+           pip install ckanext-csa #The pip method of installation is not yet available. Proceed with the development installation for now
+        
+        2.2 Install the custom scheming extension 
+        
+        git clone https://github.com/asc-csa/ckanext-asc-csa-scheming
+        cd ckanext-asc-csa-scheming
+        python setup.py develop
+        pip install -r dev-requirements.txt
         
         3. Add ``csa`` to the ``ckan.plugins`` setting in your CKAN
          config file (by default the config file is located at
@@ -119,72 +179,6 @@ Description: .. You should enable this project on travis-ci.org and coveralls.io
         
           nosetests --nologcapture --with-pylons=test.ini --with-coverage --cover-package=ckanext.csa --cover-inclusive --cover-erase --cover-tests
         
-        
-        -----------------
-        ckanext-csa (English preceeds)
-        -----------------
-        
-        Cette extension de ckan permet d'implémenter les standards du gouvernement du Canada à CKAN tout en permettant la
-        prévisualisation des données.
-        
-        ------------
-        Pré-requis
-        ------------
-        
-        Cette extension est compatible avec ckan 2.8 . Le support pour ckan 2.9 n'est pas encore prévu.
-        
-        
-        Cette extension requiert l'extension ckanext-fluent et une branche spécifique de ckanext-scheming. L'extension scheming nécessaire est d'ailleurs fournis dans ce répertoire
-        
-        
-        ------------
-        Installation
-        ------------
-        
-        
-        
-        Pour installer ckanext-csa:
-        
-        1. Activer votre environnement virtuel, par exemple::
-        
-             . /usr/lib/ckan/default/bin/activate
-        
-        2. Installer l'extension dans votre environnement virtuel::
-        
-             pip install ckanext-csa
-        
-        3. Ajouter ``csa`` à la liste dans le paramètre ``ckan.plugins`` situé dans le fiichier de
-        configuration de ckan (par défaut :
-           ``/etc/ckan/default/production.ini``).
-        
-        4. Redémarrez CKAN. Par eemple, si vous avez déployer CKAN avec apache sur Ubuntu::
-        
-             sudo service apache2 reload
-        
-        ------------------------
-         Installation à fin de développement
-        ------------------------
-        
-        Pour installer ckanext à des fins de développement::
-        
-            git clone https://github.com/pratickbaral/ckanext-csa.git
-            cd ckanext-csa
-            python setup.py develop
-            pip install -r dev-requirements.txt
-        
-        
-        -----------------
-        Tester l'extension
-        -----------------
-        
-        Pour lancer les tests::
-        
-            nosetests --nologcapture --with-pylons=test.ini
-        
-        Pour exécuter les tests et produire un rapport de 'coverage', assurez-vous d'abord
-         que 'coverage' est installé dans votre environnement virtuel (`` pip install coverage '') puis exécutez::
-        
-            nosetests --nologcapture --with-pylons=test.ini --with-coverage --cover-package=ckanext.csa --cover-inclusive --cover-erase --cover-tests
         
         
         
