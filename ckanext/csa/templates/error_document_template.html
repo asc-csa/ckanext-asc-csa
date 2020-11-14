@@ -1,0 +1,30 @@
+{% extends "package/base.html" %}
+
+
+{% block primary_content %}
+
+  <section class="module">
+    <div class="module-content">
+
+      <h1> {{_("Error 404 - Not found")}} </h1>
+      <h3>
+        {{_("The server cannot find anything matching the requested URL")}}
+      </h3>
+
+
+  </section>
+
+{% endblock %}
+{% block secondary_content %}
+<div class="filters">
+  <div>
+
+  </div>
+  <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
+</div>
+{% endblock %}
+
+{% block flash %}
+  {# eat the flash messages caused by the 404 #}
+  {% set flash_messages = h.flash.pop_messages() %}
+{% endblock %}

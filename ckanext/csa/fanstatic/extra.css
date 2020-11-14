@@ -9,7 +9,7 @@
     border-top: 1px solid #dddddd;
     border-bottom: 1px solid #dddddd;
   }
-  
+
   a {
     background-color: white;
   }
@@ -20,8 +20,22 @@
       background: white;
     }
   }
-    @media (min-width: 768px) {
-      .hero {
-        background: white url("../../../base/images/background-tile.png");
-      }
+
+
+  .wrapper {
+       border: 0px solid #fff;
+       border-radius: 0px;
+      -webkit-box-shadow: 0 0 0 0px rgba(0, 0, 0, 0);
+       box-shadow: 0 0 0 0px rgba(0, 0, 0, 0);
+      position: relative;
+      min-height: 300px;
+      background-color: #fff;
     }
+
+@media (min-width: 768px) {
+          [role=main],
+          .main {
+            padding-top: 10px;
+            background: #fff;
+          }
+        }
