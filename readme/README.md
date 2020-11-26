@@ -4,7 +4,7 @@ This project was to create a web-based data Portal to centralize data, and impro
 
 
 # Introduction  
-This document highlights what has been done for the CSA CKAN Open Data Portlal, and should serve as a high level guide to anyone who works on the development of CSA CKAN in the future.  
+This document highlights what has been done for the CSA CKAN Open Data Portal, and should serve as a high level guide to anyone who works on the development of CSA CKAN in the future.  
 
 This document is structured in 2 main sections:  
 - Installation and deployment  
@@ -12,7 +12,7 @@ This document is structured in 2 main sections:
 
 The "Installation and deployment" section of this document is a step by step guide on how to install a source install of CKAN and extend it further with CSA developed features.  
 
-The "Development notes" section of this document goes into specifics about each developed feature of CKAN. It was originally meant as a "write as you go" document so at times it may seem a bit unclear. Development notes also includes a section at the bottom if you are using the current VM image of the CKAN install.  
+The "Development notes" section of this document goes into specifics about each developed feature of CKAN. It was originally meant as a "write as you go" document so at times it may seem a bit unclear. Development notes also includes a section at the bottom if you are using the current Virtual Machine (VM) image of the CKAN install.  
 
 There is a short guide that might be of importance called "Directory Structures" near the bottom of the document which may be useful if you want to get up and running fast.  
 
@@ -36,6 +36,9 @@ If you are using the VM image to continue development you can skip this step and
 The VM got a bit messed up after a power outage and now does not have a menu bar so everything will need to be launched from terminal.  
 
 To launch CKAN on the VM image, right click on desktop, open a terminal window, from the home directory: `cd code/bash_scripts && bash start_ckan.sh`   
+
+If you are not using an existing VM, you will need to create one using a software such as [VirtualBox](https://www.virtualbox.org/). Configure this VM to run Ubuntu 16.04. You can find additional instructions on how to do this [here](https://www.wikihow.com/Install-Ubuntu-on-VirtualBox).  
+
 ## What is CKAN  
 CKAN, is the world's leading Open Source data portal platform. Information about CKAN can be found on their website:  
 [ckan](https://ckan.org)  
@@ -48,11 +51,14 @@ Copied with some modifications from: [https://docs.ckan.org/en/2.8/maintaining/i
 
 ###  1. Install the required packages  
 If you’re using a Debian-based operating system (such as Ubuntu) install the required packages with this command for Ubuntu 16.04:  
-
+``` 
  sudo apt-get install python-dev postgresql libpq-dev python-pip python-virtualenv git-core solr-jetty openjdk-8-jdk redis-server  
+``` 
 or for Ubuntu 14.04:  
-
- sudo apt-get install python-dev postgresql libpq-dev python-pip python-virtualenv git-core solr-jetty openjdk-6-jdk redis-server  ###  2. Install CKAN into a Python virtual environment  
+``` 
+sudo apt-get install python-dev postgresql libpq-dev python-pip python-virtualenv git-core solr-jetty openjdk-6-jdk redis-server  
+``` 
+ ###  2. Install CKAN into a Python virtual environment  
 Run these commands to create a symlink between the directories used in this install and to your home directory.  
 
 ```  
@@ -76,8 +82,9 @@ The final command above activates your virtualenv. The virtualenv has to remain 
 
  (default) $ _  
 For example, if you logout and login again, or if you close your terminal window and open it again, your virtualenv will no longer be activated. You can always reactivate the virtualenv with this command:  
-
+``` 
  . /usr/lib/ckan/default/bin/activate  
+ ``` 
 Install the recommended `setuptools` version:  
 ```  
  pip install setuptools==36.1  
@@ -133,23 +140,27 @@ Edit the `development.ini` file in a text editor, changing the following options
 
 **sqlalchemy.url**  
 This should refer to the database we created in above: 3. Setup a PostgreSQL database.  
-
+``` 
  sqlalchemy.url = postgresql://ckan_default:Alouette1CSA@localhost/ckan_default  
+ ``` 
 **site_id**  
-
+``` 
  ckan.site_id = default  
+ ``` 
 **site_url**  
 Provide the site’s URL (used when putting links to the site into the FileStore, notification emails etc). If you are unsure of the url this should be the default:  
-
- ckan.site_url = http://127.0.0.1:5000  
-Do not add a trailing slash to the URL.  
+``` 
+ckan.site_url = http://127.0.0.1:5000  
+``` 
+*Note: do not add a trailing slash to the URL.  
 
 ###  5. Setup Solr  
 CKAN uses [Solr](https://lucene.apache.org/solr/) as its search platform, and uses a customized Solr schema file that takes into account CKAN’s specific search needs. Now that we have CKAN installed, we need to install and configure Solr.  
 
 Make sure you have permissions for the following file with this command:  
-
+``` 
  sudo chown -R \`whoami\` /etc/default/jetty8  
+ ``` 
 Edit the Jetty configuration file (`/etc/default/jetty8` or `/etc/default/jetty`) and change the following variables:  
 
 ```  
@@ -162,37 +173,45 @@ JETTY_PORT=8983       # (line 19)
 Start or restart the Jetty server.  
 
 For Ubuntu 16.04:  
-
- sudo service jetty8 restart  
+``` 
+sudo service jetty8 restart  
+``` 
 Or for Ubuntu 14.04:  
-
- sudo service jetty restart  
+``` 
+sudo service jetty restart  
+``` 
 You should now see a welcome page from Solr if you open [http://localhost:8983/solr/](http://localhost:8983/solr/) in your web browser (replace localhost with your server address if needed).  
 
 Note:  
 If you get the message  `Could  not  start  Jetty  servlet  engine  because  no  Java  Development  Kit  (JDK)  was  found.` then you will have to edit the  `JAVA_HOME` setting in  `/etc/default/jetty` to point to your machine’s JDK install location. For example:  
-
- JAVA_HOME=/usr/lib/jvm/java-6-openjdk-amd64/  
+``` 
+JAVA_HOME=/usr/lib/jvm/java-6-openjdk-amd64/  
+``` 
 or:  
-
- JAVA_HOME=/usr/lib/jvm/java-6-openjdk-i386/  
+``` 
+JAVA_HOME=/usr/lib/jvm/java-6-openjdk-i386/  
+``` 
 Replace the default `schema.xml` file with a symlink to the CKAN schema file included in the sources.  
 
 ```  
 sudo mv /etc/solr/conf/schema.xml /etc/solr/conf/schema.xml.bak  
 sudo ln -s /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema.xml /etc/solr/conf/schema.xml  
 ```  
-Now restart Solr:  
+Now restart Solr:
 For Ubuntu 16.04:  
-
- sudo service jetty8 restart  
+``` 
+sudo service jetty8 restart  
+``` 
 or for Ubuntu 14.04:  
-
- sudo service jetty restartCheck that Solr is running by opening [http://localhost:8983/solr/](http://localhost:8983/solr/).  
+``` 
+sudo service jetty restart
+``` 
+Check that Solr is running by opening [http://localhost:8983/solr/](http://localhost:8983/solr/).  
 
 Finally, change the solr_url setting in your CKAN configuration file (/etc/ckan/default/development.ini) to point to your Solr server, for example:  
-
- solr_url=http://127.0.0.1:8983/solr  
+``` 
+solr_url=http://127.0.0.1:8983/solr  
+``` 
 ### 6. Link to  `who.ini`  
 `who.ini` (the Repoze.who configuration file) needs to be accessible in the same directory as your CKAN config file, so create a symlink to it:  
  ```  
@@ -209,13 +228,13 @@ paster db init -c /etc/ckan/default/development.ini
 You should see `Initialising  DB:  SUCCESS`.  
 
 ###  8. Set up the DataStore  
-Clarify what datastore  
+Datastore is a CKAN extension that allows you to store the structured data from your CKAN resources in a database. This database can then be queried using the web-accessible Data API. This is vital if you want to visualize data in the web browser (ie. before downloading it). 
 
 #### a. Enable the plugin  
-  Add the `datastore` plugin to your CKAN config file (/etc/ckan/default/development.ini) :  
-
-
- ckan.plugins = datastore  
+Add the `datastore` plugin to your CKAN config file (/etc/ckan/default/development.ini) :  
+```
+ckan.plugins = datastore  
+```
 #### b. Set-up the database  
 The DataStore requires a separate PostgreSQL database to save the DataStore resources to.  
 
@@ -228,23 +247,25 @@ Check that the encoding of databases is `UTF8`, if not internationalisation may 
 #### c. Create users and databases  
 
 Create a database_user called datastore_default. This user will be given read-only access to your DataStore database in the Set Permissions step below:  
-  ```  
- sudo -u postgres createuser -S -D -R -P -l datastore_default  
- ```  
+```  
+sudo -u postgres createuser -S -D -R -P -l datastore_default  
+```  
 Create the database (owned by ckan_default), which we’ll call datastore_default [set password to Canada1Alouette]":  
-
- sudo -u postgres createdb -O ckan_default datastore_default -E utf-8  ####  d. Set URLs  
-
+```
+sudo -u postgres createdb -O ckan_default datastore_default -E utf-8  ####  d. Set URLs  
+```
 Now, uncomment the ckan.datastore.write_url and ckan.datastore.read_url lines in your CKAN config file and edit them if necessary, for example:  
-
- ckan.datastore.write_url = postgresql://ckan_default:[pass@localhost/]datastore_default ckan.datastore.read_url = postgresql://datastore_default:[pass@localhost/]datastore_default  
+```
+ckan.datastore.write_url = postgresql://ckan_default:[pass@localhost/]datastore_default ckan.datastore.read_url = postgresql://datastore_default:[pass@localhost/]datastore_default  
+```
 Replace `pass` with the passwords you created for your ckan_default [should be "Alouette1CSA"] and datastore_default [should be "Canada1Alouette"] database users.  
 
 #### e. Set permissions  
 
 Once the DataStore database and the users are created, the permissions on the DataStore and CKAN database have to be set. CKAN provides a paster command to help you correctly set these permissions.  
-
- paster  --plugin=ckan  datastore  set-permissions  -c  /etc/ckan/default/development.ini  |  sudo  -u  postgres  psql  --set  ON_ERROR_STOP=1  
+```
+paster  --plugin=ckan  datastore  set-permissions  -c  /etc/ckan/default/development.ini  |  sudo  -u  postgres  psql  --set  ON_ERROR_STOP=1  
+```
 ### 9. Test the setup so far  
 You can now use the Paste development server to serve CKAN from the command-line. This is a simple and lightweight way to serve CKAN that is useful for development and testing:  
 
@@ -263,10 +284,10 @@ The sections "Installing CKAN from source" and "Deploying a source install" abov
 To install Scheming, Fluent, and CSA extensions you will need git to clone the necessary files into the CKAN extensions directory. Git should have been installed in the above steps. If the CKAN server is running, turn the server off with `CTRL C`.  
 
 Before starting make sure that the python virtual environment is running.  
-
- . /usr/lib/ckan/default/bin/activate  
+```
+. /usr/lib/ckan/default/bin/activate  
+```
 Now navigate to CKAN's extension directory  
-
 ```  
 cd /usr/lib/ckan/default/src  
 ```  
@@ -285,7 +306,7 @@ Clone the CSA extension into the directory
 git clone  git clone !!!To be updated!!!!  
 ```  
 
-In CKAN's configuration file (/etc/ckan/default/development.ini) edit to include these settings. Some of these settings will be existing others will not be and must be added. Make sure that the settings are above the logging configuration settings or they will not be parsed.  
+In CKAN's configuration file (`/etc/ckan/default/development.ini`) edit to include these settings. Some of these settings will be existing others will not be and must be added. Make sure that the settings are above the logging configuration settings or they will not be parsed.  
 
 ```  
 ckan.plugins = stats text_view image_view recline_view csa scheming_datasets fluent datastore  
@@ -306,10 +327,11 @@ ckan.locales_offered = en fr
 ```  
 
 Before continuing you should build each extension. You should be in the ckan src directory, if not execute:  
-
- cd /usr/lib/ckan/default/src  
+```
+cd /usr/lib/ckan/default/src  
+```
 Enter into each extension directory and build the extension  
-
+```
  cd ckanext-scheming <br/>
  pip install -r requirements.txt <br/>
  python setup.py develop <br/>
@@ -320,7 +342,7 @@ Enter into each extension directory and build the extension
  cd ckanext-csa  <br/>
  python setup.py develop <br/>
  cd ..  <br/>
- 
+```
 ###  2. Modify `schema.xml` file for custom CKAN search  
 Copy the contents of the `schema.xml` file from the CSA extension into the original `schema.xml` file.  
 
@@ -332,13 +354,15 @@ You can also do this manually by copy and pasting the contents of the `schema.xm
 Restart jetty after editing the `schema.xml` file  
 
 For Ubuntu 16.04:  
-
- sudo service jetty8 restart  
+```
+sudo service jetty8 restart  
+```
 Or for Ubuntu 14.04:  
-
- sudo service jetty restart###  3. Test the extensions  
+```
+sudo service jetty restart###  
+```
+3. Test the extensions  
 Restart the CKAN server and access the site from a browser. CSA features should now be present on the page.  
-
 ```  
 . /usr/lib/ckan/default/bin/activate  
 cd /usr/lib/ckan/default/src/ckan  
@@ -349,9 +373,9 @@ paster serve /etc/ckan/default/development.ini
 
 You will now want to create a sysadmin user and possibly import organizations to facilitate your work. This section is optionnal but will guide you through that process.
 
-
+```
 paster sysadmin add seanh email=seanh@localhost name=seanh -c /etc/ckan/default/development.ini
-
+```
 where seah will be replace by your username. You can find more instruction on
 https://docs.ckan.org/en/2.8/maintaining/getting-started.html#create-admin-user
 
@@ -363,9 +387,9 @@ ckanapi load organizations -I transitional_orgs.jsonl
 
 
 In the development.ini file, add
-
+```
 ckan.storage_path = /var/lib/ckan/default
-
+```
 and execute the commands
 ```
 paster --plugin=ckan datastore set-permissions -c /etc/ckan/default/development.ini
@@ -374,9 +398,11 @@ paster --plugin=ckan datastore set-permissions -c /etc/ckan/default/development.
 
 ###Set up the datapusher
 
-The datapusher doesn't require any modification as it runs along ckan and not inside it. You can follow the regular documentation
-for this steps
-https://docs.ckan.org/projects/datapusher/en/latest/
+The datapusher doesn't require any modification as it runs along ckan and not inside it. You can follow the steps onthe project's github page for this step.
+https://github.com/ckan/datapusher
+
+*Note: it is a good idea to install datapusher in a different environment (virtual or otherwise) than the one you used for CKAN. This is because they require different versions of various python libraries. If you install the datapusher requirements in your CKAN directory, you will probably temporarily break your CKAN installation. If you have done this, do not fret - it is an easy fix. Just reinstall your CKAN requirements.txt in that virtual environment and restart the datapusher setup process in a different environment. 
+
 ##  Deploying a source install  
 After installing source follow this guide to deploy it to a production server.  
 [https://docs.ckan.org/en/2.8/maintaining/installing/deployment.html](https://docs.ckan.org/en/2.8/maintaining/installing/deployment.html)  
