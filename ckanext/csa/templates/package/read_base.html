@@ -119,6 +119,41 @@
             <a class="btn btn-default btn-xs mrgn-bttm-sm mrgn-rght-sm" href={{url}}>{{value}}</a>
             {%endfor%}
 
+
+
+
+                        {%elif field_to_show=='homepage'%}
+
+
+                                    {% if field_title %}
+
+                                      {% if pkg[field.field_name] is mapping %}
+                                      {% set field_value = h.scheming_language_text(field_value) %}
+                                      {% endif %}
+                                      {% if field_value %}
+                                        <li class="list-group-item">
+                                          <strong>{{ field_title }}:</strong>
+                                          {% snippet 'scheming/snippets/display_field.html',
+                                            field=field,
+                                            data=pkg,
+                                            entity_type='dataset',
+                                            object_type=pkg.type
+                                          %}
+                                        </li>
+                                      {% endif %}
+                                      {% endif %}
+                                      <!--
+                                      {%if h.scheming_language_text(field_value,prefer_lang='en')== h.scheming_language_text(field_value,prefer_lang='fr')%}
+
+                                      <p>{{_('English only')}}</p>
+                                      {%endif%}
+                                      -->
+
+
+
+
+
+
           {% else %}
 
 
@@ -181,6 +216,8 @@
             </ul>
           </div>
 
+
+
   {% block package_organization %}
     {% if pkg.organization %}
       {% set org = h.get_organization(pkg.organization.name) %}
@@ -194,6 +231,7 @@
 
   {% block package_license %}
     {% snippet "snippets/license.html", pkg_dict=pkg %}
+
   {% endblock %}
 <!--template/package/read_base.html end-->
 {% endblock %}
