@@ -87,6 +87,11 @@
               <blockquote>{{ h.markdown_extract(h.get_translated(c.package, 'notes'), extract_length=6000) }}</blockquote>
               <p>{% trans dataset=c.package.title, url=h.url_for(controller='package', action='read', id=c.package['name']) %}Source: <a href="{{ url }}">{{ dataset }}</a>{% endtrans %}
             {% endif %}
+
+            <h3>{{_('This page is still experimental. Some parts may ot yet be fully functionnal/translated. We appreciate your support and feedback and we will continue to
+            work hard to provide you with the best experience possible.')}}</h3>
+
+            
           </div>
         {% endblock %}
       {% block data_preview %}

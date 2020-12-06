@@ -45,7 +45,7 @@
         <span class="wb-inv">{{_('Download the resource named :')}} {{ name }} </span>
         <br></br>
         {% if res.has_views %}
-        <a href="{{ url }}" class="btn btn-default" >{{ _('Preview') }}</a>
+        <a href="{{ url }}" class="btn btn-default" >{{ _('Preview')}} {{_("(experimental)") }}</a>
         {% endif %}
         {% if can_edit %}
         {% link_for _('Edit'), controller='package', action='resource_edit', id=pkg.name, resource_id=res.id, class_='btn btn-default' %}
