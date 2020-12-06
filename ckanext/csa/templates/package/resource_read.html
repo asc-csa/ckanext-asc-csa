@@ -4,8 +4,6 @@
 
 {% block head_extras -%}
   {{ super() }}
-
-
   {% set description = h.markdown_extract(h.get_translated(res, 'description'), extract_length=6000) if res.description else h.markdown_extract(h.get_translated(c.package, 'notes'), extract_length=6000) %}
   <meta property="og:title" content="{{ h.dataset_display_name(c.package) }} - {{ h.resource_display_name(res) }} - {{ g.site_title }}">
   <meta property="og:description" content="{{ description|forceescape }}">
@@ -85,14 +83,10 @@
               {{ h.render_markdown(res.description) }}
             {% endif %}
             {% if not res.description and c.package.notes %}
-
               <h2>{{ _('From the dataset abstract') }}</h2>
               <blockquote>{{ h.markdown_extract(h.get_translated(c.package, 'notes'), extract_length=6000) }}</blockquote>
               <p>{% trans dataset=c.package.title, url=h.url_for(controller='package', action='read', id=c.package['name']) %}Source: <a href="{{ url }}">{{ dataset }}</a>{% endtrans %}
             {% endif %}
-
-            <h3>{{_('This page is still experimental. Some parts may ot yet be fully functionnal/translated. We appreciate your support and feedback and we will continue to
-              work hard to provide you with the best experience possible.')}}</h3>
           </div>
         {% endblock %}
       {% block data_preview %}
