@@ -25,24 +25,14 @@
 
           {%for field_to_show in ["preview"]%}
 
-              {% set field = h.scheming_field_by_name(schema.dataset_fields, field_to_show) %}
+                      {% set field = h.scheming_field_by_name(schema.dataset_fields, field_to_show) %}
 
-              {% set field_title = h.scheming_language_text(field.label) %}
+                      {% set field_title = h.scheming_language_text(field.label) %}
 
-              {% if field_title %}
-
-                {% if pkg[field.field_name] is mapping %}
-                  {% set field_value = pkg[field.field_name][0] %}
-                {%endif%}
-
-
-            
-              {% if field_value %}
-              {%set dummy=custom_variables.update({"preview" : field_value})%}
-
-              {% endif %}
-
-              {% endif %}
+                      {% if field_title %}
+                        {% set field_value = pkg[field.field_name][0] %}
+                          {%set dummy=custom_variables.update({"preview" : field_value})%}
+                        {%endif%}
 
               {%endfor%}
 
@@ -78,12 +68,13 @@
         <span class="wb-inv">{{_('Download the resource named :')}} {{ name }} </span>
         <br></br>
         {% if res.has_views %}
-        {%if custom_variables['preview']=="false" or can_edit%}
+    
+        {%if custom_variables['preview']=="True" or can_edit%}
 
         <a href="{{ url }}" class="btn btn-default" >{{ _('Preview')}} {{_("(experimental)") }}</a>
         {% endif %}
         {% endif %}
-        {% if can_edit %}
+        {% if can_edit%}
         {% link_for _('Edit'), controller='package', action='resource_edit', id=pkg.name, resource_id=res.id, class_='btn btn-default' %}
 
     {% endif %}

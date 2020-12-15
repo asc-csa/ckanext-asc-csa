@@ -592,11 +592,81 @@
       "preset": "canada_program_page_url"
     },
     {
-      "preset": "link_language"
-    },
+    "preset_name": "link_language",
+    "values": {
+      "field_name": "link_language",
+      "label": {
+        "en": "link_language",
+        "fr": "link_language"
+      },
+      "help_text": {
+        "en": "Is the homepage language bilingual",
+        "fr": "Est-ce que la page d'accueil est bilingue"
+      },
+      "required": false,
+      "form_snippet": "select.html",
+      "display_snippet": "list_inline.html",
+      "validators": "scheming_multiple_choice",
+      "output_validators": "scheming_multiple_choice_output",
+      "choices": [
+        {
+          "label": {
+            "en": "English only",
+            "fr": "Anglais seulement"
+          },
+          "value": "english"
+        },
+        {
+          "label": {
+            "en": "French only",
+            "fr": "Francais seulement"
+          },
+          "value": "french"
+        },
+
+        {
+          "label": {
+            "en": "bilingual",
+            "fr": "bilingue"
+          },
+          "value": "bilingual"
+        }]
+        }
+      },
     {
-      "preset": "preview"
-    },
+    "preset_name": "preview",
+    "values": {
+      "field_name": "preview",
+      "label": {
+        "en": "preview",
+        "fr": "preview"
+      },
+      "help_text": {
+        "en": "This attribute will allow the access to the previsualisation of the data. This feature is experimental ",
+        "fr": "Cet attribut activera la prévisualisation des données. Cette fonctionnalité est expérimentale"
+      },
+      "required": false,
+      "form_snippet": "select.html",
+      "display_snippet": "list_inline.html",
+      "validators": "scheming_multiple_choice",
+      "output_validators": "scheming_multiple_choice_output",
+      "choices": [
+        {
+          "label": {
+            "en": "True",
+            "fr": "Vrai"
+          },
+          "value": "True"
+        },
+        {
+          "label": {
+            "en": "False",
+            "fr": "Faux"
+          },
+          "value": "False"
+        }]
+        }
+      },
     {
       "preset": "canada_data_series_name"
     },

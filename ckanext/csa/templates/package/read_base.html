@@ -87,10 +87,10 @@
             "date_modified"
           ] %}
 
-          {%set custom_variables={"language_link" : "bilingual"}%}
+          {%set custom_variables={"link_language" : "bilingual"}%}
 
 
-        {%for field_to_show in ["language_link"]%}
+        {%for field_to_show in ["link_language"]%}
 
             {% set field = h.scheming_field_by_name(schema.dataset_fields, field_to_show) %}
 
@@ -98,7 +98,7 @@
 
             {% if field_title %}
               {% set field_value = pkg[field.field_name][0] %}
-                {%set dummy=custom_variables.update({"language_link" : field_value})%}
+                {%set dummy=custom_variables.update({"link_language" : field_value})%}
               {%endif%}
 
 
@@ -187,15 +187,15 @@
             <a class="btn btn-default btn-xs mrgn-bttm-sm mrgn-rght-sm" href={{url}}>{{value}}</a>
             {%endfor%}
 
-            {%if custom_variables["language_link"]=="english" or custom_variables["language_link"]=="french"%}
+            {%if custom_variables["link_language"]=="english" or custom_variables["link_language"]=="french"%}
             {%set custom_link=True%}
             {%endif%}
             {%elif field_to_show=='program_page_url' and custom_link%}
-
-                                  {%if custom_variables["language_link"]=="english"%}
+            
+                                  {%if custom_variables["link_language"]=="english"%}
                                   {%set display=field_title+" ("+_("english only")+")"%}
 
-                                  {%elif custom_variables["language_link"]=="french"%}
+                                  {%elif custom_variables["link_language"]=="french"%}
                                   {%set display=field_title+" ("+_(" french only")+")"%}
                                   {%endif%}
 
