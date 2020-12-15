@@ -14,15 +14,11 @@ ckanext/csa/info.json
 ckanext/csa/loader.py
 ckanext/csa/plugin.py
 ckanext/csa/presets.json
-ckanext/csa/fanstatic/csa_field_descriptions (copy).js
 ckanext/csa/fanstatic/csa_field_descriptions.css
 ckanext/csa/fanstatic/csa_field_descriptions.js
 ckanext/csa/fanstatic/example_theme_popover.css
 ckanext/csa/fanstatic/example_theme_popover.js
 ckanext/csa/fanstatic/extra.css
-ckanext/csa/fanstatic/theme.css
-ckanext/csa/fanstatic/theme_old.css
-ckanext/csa/fanstatic/themeold.css
 ckanext/csa/fanstatic/GCWeb/package.json
 ckanext/csa/fanstatic/GCWeb/payload.json
 ckanext/csa/fanstatic/GCWeb/css/ie8-theme-srv.css
@@ -1533,9 +1529,9 @@ ckanext/csa/fanstatic/wet-boew/js/polyfills/test.min.js
 ckanext/csa/i18n/fr/LC_MESSAGES/ckanext-csa.mo
 ckanext/csa/i18n/fr/LC_MESSAGES/old/ckanext-csa-backup.mo
 ckanext/csa/public/csa_theme.css
-ckanext/csa/public/en_api.html
 ckanext/csa/public/licenses.json
 ckanext/csa/templates/base.html
+ckanext/csa/templates/error_document_template.html
 ckanext/csa/templates/footer.html
 ckanext/csa/templates/header.html
 ckanext/csa/templates/header3.html
@@ -1549,12 +1545,10 @@ ckanext/csa/templates/package/base.html
 ckanext/csa/templates/package/read.html
 ckanext/csa/templates/package/read_base.html
 ckanext/csa/templates/package/resource_read.html
-ckanext/csa/templates/package/search copy.html
 ckanext/csa/templates/package/search.html
 ckanext/csa/templates/package/snippets/additional_info.html
 ckanext/csa/templates/package/snippets/info.html
 ckanext/csa/templates/package/snippets/resource_item.html
-ckanext/csa/templates/package/snippets/resource_itembackup.html
 ckanext/csa/templates/package/snippets/resource_view.html
 ckanext/csa/templates/package/snippets/resource_view_filters.html
 ckanext/csa/templates/package/snippets/resources_list.html
@@ -1562,7 +1556,6 @@ ckanext/csa/templates/scheming/package/read.html
 ckanext/csa/templates/scheming/package/snippets/additional_info.html
 ckanext/csa/templates/snippets/dataset_facets.html
 ckanext/csa/templates/snippets/facet_list.html
-ckanext/csa/templates/snippets/facet_list_old.html
 ckanext/csa/templates/snippets/home_breadcrumb_item.html
 ckanext/csa/templates/snippets/language_selector.html
 ckanext/csa/templates/snippets/license.html

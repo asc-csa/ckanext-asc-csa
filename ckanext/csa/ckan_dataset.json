@@ -592,6 +592,12 @@
       "preset": "canada_program_page_url"
     },
     {
+      "preset": "link_language"
+    },
+    {
+      "preset": "preview"
+    },
+    {
       "preset": "canada_data_series_name"
     },
     {

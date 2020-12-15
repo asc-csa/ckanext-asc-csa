@@ -64,7 +64,7 @@
             "topic_category",
             "audience",
             "place_of_publication",
-            "homepage",
+
             "series_title",
             "series_issue_id",
             "program_page_url",
@@ -86,6 +86,74 @@
             "date_captured",
             "date_modified"
           ] %}
+
+          {%set custom_variables={"language_link" : "bilingual"}%}
+
+
+        {%for field_to_show in ["language_link"]%}
+
+            {% set field = h.scheming_field_by_name(schema.dataset_fields, field_to_show) %}
+
+            {% set field_title = h.scheming_language_text(field.label) %}
+
+            {% if field_title %}
+              {% set field_value = pkg[field.field_name][0] %}
+                {%set dummy=custom_variables.update({"language_link" : field_value})%}
+              {%endif%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           {% for field_to_show in include_labels %}
               {% set field = h.scheming_field_by_name(schema.dataset_fields, field_to_show) %}
 
@@ -119,6 +187,45 @@
             <a class="btn btn-default btn-xs mrgn-bttm-sm mrgn-rght-sm" href={{url}}>{{value}}</a>
             {%endfor%}
 
+            {%if custom_variables["language_link"]=="english" or custom_variables["language_link"]=="french"%}
+            {%set custom_link=True%}
+            {%endif%}
+            {%elif field_to_show=='program_page_url' and custom_link%}
+
+                                  {%if custom_variables["language_link"]=="english"%}
+                                  {%set display=field_title+" ("+_("english only")+")"%}
+
+                                  {%elif custom_variables["language_link"]=="french"%}
+                                  {%set display=field_title+" ("+_(" french only")+")"%}
+                                  {%endif%}
+
+
+                                  {%set field_title=field_title%}
+
+
+                                   {% if field_title %}
+
+                                     {% if pkg[field.field_name] is mapping %}
+                                     {% set field_value = h.scheming_language_text(field_value) %}
+                                     {% endif %}
+
+                                     {% if field_value %}
+                                       <li class="list-group-item">
+                                         <strong>{{ display }}:</strong>
+
+                                        <a href={{field_value}} rel="" style="word-wrap: break-word">{{field_value}}</a>
+
+                                       </li>
+
+                                     {% endif %}
+                                     {% endif %}
+                                     <!--
+                                     {%if h.scheming_language_text(field_value,prefer_lang='en')== h.scheming_language_text(field_value,prefer_lang='fr')%}
+
+                                     <p>{{_('English only')}}</p>
+                                     {%endif%}
+                                     -->
+
           {% else %}
 
 
@@ -144,7 +251,7 @@
 
 
             {%endfor%}
-
+            {%endfor%}
 
 
 
