@@ -6572,19 +6572,20 @@
       "output_validators": "scheming_multiple_choice_output",
       "choices": [
         {
+          "value": "True",
           "label": {
-            "en": "True",
-            "fr": "Vrai"
-          },
-          "value": "True"
+            "en" :"scientific mission",
+            "fr" : "mission scientifique"
+            }
         },
         {
+          "value": "False",
           "label": {
-            "en": "False",
-            "fr": "Faux"
-          },
-          "value": "False"
-        }]
+            "en" :"administration/management",
+            "fr" : "administration/gestion"
+        }
+      }
+      ]
         }
       },
     {

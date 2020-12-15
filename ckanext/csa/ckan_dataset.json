@@ -203,15 +203,15 @@
         {
           "value": "True",
           "label": {
-            "en" :"True",
-            "fr" : "Vrai"
+            "en" :"scientific mission",
+            "fr" : "mission scientifique"
             }
         },
         {
           "value": "False",
           "label": {
-            "en" :"False",
-            "fr" : "Faux"
+            "en" :"administration/management",
+            "fr" : "administration/gestion"
         }
       }
       ]
