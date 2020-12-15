@@ -3579,8 +3579,8 @@
       "values": {
         "field_name": "program_page_url",
         "label": {
-          "en": "Homepage",
-          "fr": "URL de la page d'accueil"
+          "en": "Homepage ",
+          "fr": "URL de la page d'accueil "
         },
         "fluent_form_label": {
           "en": {
