@@ -595,8 +595,8 @@
 
     "field_name": "link_language",
     "label": {
-        "en": "link_language",
-        "fr": "link_language"
+        "en": "Homepage Link Language",
+        "fr": "Langue de la page d'accueil"
       },
       "help_text": {
         "en": "Is the homepage language bilingual",
@@ -625,8 +625,8 @@
 
         {
           "label": {
-            "en": "bilingual",
-            "fr": "bilingue"
+            "en": "Bilingual",
+            "fr": "Bilingue"
           },
           "value": "bilingual"
 
@@ -637,12 +637,12 @@
 
 
       "label": {
-        "en": "preview",
-        "fr": "preview"
+        "en": "Data Visualisation",
+        "fr": "Visualisation des données"
       },
       "help_text": {
-        "en": "This attribute will allow the access to the previsualisation of the data. This feature is experimental ",
-        "fr": "Cet attribut activera la prévisualisation des données. Cette fonctionnalité est expérimentale"
+        "en": "This attribute will allow the access to the previsualisation of the data when set to 'true'. This feature is experimental ",
+        "fr": "Cet attribut activera la prévisualisation des données lorsque la valeur est 'vrai'. Cette fonctionnalité est expérimentale"
       },
       "required": false,
       "form_snippet": "select.html",
