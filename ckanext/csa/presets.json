@@ -3627,32 +3627,35 @@
         "fr": "Est-ce que la page d'accueil est bilingue"
       },
       "required": false,
-      "form_snippet": "select.html",
+      "form_snippet": "multiple_select.html",
       "display_snippet": "list_inline.html",
       "validators": "scheming_multiple_choice",
       "output_validators": "scheming_multiple_choice_output",
       "choices": [
         {
+          "value": "english",
           "label": {
             "en": "English only",
             "fr": "Anglais seulement"
-          },
-          "value": "english"
+          }
+
         },
         {
+          "value": "french",
           "label": {
             "en": "French only",
             "fr": "Francais seulement"
-          },
-          "value": "french"
+          }
+
         },
 
         {
+          "value": "bilingual",
           "label": {
             "en": "bilingual",
             "fr": "bilingue"
-          },
-          "value": "bilingual"
+          }
+
         }]
         }
       },
@@ -3670,24 +3673,26 @@
           "fr": "Cet attribut activera la prévisualisation des données. Cette fonctionnalité est expérimentale"
         },
         "required": false,
-        "form_snippet": "select.html",
+        "form_snippet": "multiple_select.html",
         "display_snippet": "list_inline.html",
         "validators": "scheming_multiple_choice",
         "output_validators": "scheming_multiple_choice_output",
         "choices": [
           {
+            "value": "True",
             "label": {
               "en": "True",
               "fr": "Vrai"
-            },
-            "value": "True"
+            }
+
           },
           {
+            "value": "False",
             "label": {
               "en": "False",
               "fr": "Faux"
-            },
-            "value": "False"
+            }
+
           }]
           }
         },

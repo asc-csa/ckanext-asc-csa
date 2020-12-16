@@ -592,11 +592,9 @@
       "preset": "canada_program_page_url"
     },
     {
-    "preset_name": "link_language",
-    "field_name": "link_language",
-    "values": {
 
-      "label": {
+    "field_name": "link_language",
+    "label": {
         "en": "link_language",
         "fr": "link_language"
       },
@@ -631,13 +629,12 @@
             "fr": "bilingue"
           },
           "value": "bilingual"
+
         }]
-        }
       },
     {
-    "preset_name": "preview",
     "field_name": "preview",
-    "values": {
+
 
       "label": {
         "en": "preview",
@@ -667,7 +664,7 @@
           },
           "value": "False"
         }]
-        }
+
       },
     {
       "preset": "canada_data_series_name"

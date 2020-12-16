@@ -30,8 +30,10 @@
                       {% set field_title = h.scheming_language_text(field.label) %}
 
                       {% if field_title %}
+                      {%if pkg[field.field_name]%}
                         {% set field_value = pkg[field.field_name][0] %}
                           {%set dummy=custom_variables.update({"preview" : field_value})%}
+                        {%endif%}
                         {%endif%}
 
               {%endfor%}
@@ -68,7 +70,7 @@
         <span class="wb-inv">{{_('Download the resource named :')}} {{ name }} </span>
         <br></br>
         {% if res.has_views %}
-    
+
         {%if custom_variables['preview']=="True" or can_edit%}
 
         <a href="{{ url }}" class="btn btn-default" >{{ _('Preview')}} {{_("(experimental)") }}</a>
