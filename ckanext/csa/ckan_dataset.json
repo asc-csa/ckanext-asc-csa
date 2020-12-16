@@ -593,8 +593,9 @@
     },
     {
     "preset_name": "link_language",
+    "field_name": "link_language",
     "values": {
-      "field_name": "link_language",
+
       "label": {
         "en": "link_language",
         "fr": "link_language"
@@ -635,8 +636,9 @@
       },
     {
     "preset_name": "preview",
+    "field_name": "preview",
     "values": {
-      "field_name": "preview",
+
       "label": {
         "en": "preview",
         "fr": "preview"
