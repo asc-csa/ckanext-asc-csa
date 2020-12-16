@@ -230,7 +230,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             'portal_type': _('Portal type'),
             # 'organization': _('Organization'),
             'collection': _('Collection type'),
-            'science_admin': _('Scientific data'),
+            'science_admin': _('Data category'),
             'keywords_en': _('Keywords'),
             'keywords_fr': _('Keywords'),
             'keywords': _('Keywords'),
@@ -253,7 +253,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
         facets_dict.update({
             'portal_type': _('Portal type'),
             'collection': _('Collection type'),
-            'science_admin': _('Scientific data'),
+            'science_admin': _('Data category'),
             'keywords_en': _('Keywords'),
             'keywords_fr': _('Keywords'),
             'keywords': _('Keywords'),
@@ -274,7 +274,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
         facets_dict.update({
             'portal_type': _('Portal type'),
             'collection': _('Collection type'),
-            'science_admin': _('Scientific data'),
+            'science_admin': _('Data category'),
             'keywords_en': _('Keywords'),
             'keywords_fr': _('Keywords'),
             'keywords': _('Keywords'),

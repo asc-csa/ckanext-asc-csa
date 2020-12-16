@@ -195,23 +195,23 @@
 {
       "field_name": "science_admin",
       "label": {
-        "en" :"Scientific data",
-        "fr" : "Données scientifiques"
+        "en" :"Data category",
+        "fr" : "Catégorie des données"
       },
       "preset": "select",
       "choices": [
         {
           "value": "True",
           "label": {
-            "en" :"scientific mission",
-            "fr" : "mission scientifique"
+            "en" :"Science",
+            "fr" : "Sciences"
             }
         },
         {
           "value": "False",
           "label": {
-            "en" :"administration/management",
-            "fr" : "administration/gestion"
+            "en" :"Management/operations",
+            "fr" : "Gestion/opérations"
         }
       }
       ]

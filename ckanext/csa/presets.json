@@ -6563,8 +6563,8 @@
     "values": {
       "field_name": "scientific_data",
       "label": {
-        "en": "Scientific data",
-        "fr": "Données scientifiques"
+        "en": "Data category",
+        "fr": "Catégorie des données"
       },
       "help_text": {
         "en": "True if the dataset contains scientific data ; e.g : ",
@@ -6579,15 +6579,15 @@
         {
           "value": "True",
           "label": {
-            "en" :"scientific mission",
-            "fr" : "mission scientifique"
+            "en" :"Science",
+            "fr" : "Sciences"
             }
         },
         {
           "value": "False",
           "label": {
-            "en" :"administration/management",
-            "fr" : "administration/gestion"
+            "en" :"Management/operations",
+            "fr" : "Gestion/opérations"
         }
       }
       ]
