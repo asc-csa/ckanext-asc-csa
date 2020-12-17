@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-csa 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-12-15 13:33-0500\n"
+"POT-Creation-Date: 2020-12-17 11:50-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgid "Collection type"
 msgstr ""
 
 #: ckanext/csa/plugin.py:233 ckanext/csa/plugin.py:256 ckanext/csa/plugin.py:277
-msgid "Scientific data"
+msgid "Data category"
 msgstr ""
 
 #: ckanext/csa/plugin.py:234 ckanext/csa/plugin.py:235 ckanext/csa/plugin.py:236
@@ -1286,31 +1286,28 @@ msgstr ""
 msgid "Additional information"
 msgstr ""
 
-#: ckanext/csa/templates/package/read_base.html:195
-msgid "english only"
-msgstr ""
-
-#: ckanext/csa/templates/package/read_base.html:198
-msgid " french only"
-msgstr ""
-
-#: ckanext/csa/templates/package/read_base.html:224
+#: ckanext/csa/templates/package/read_base.html:199
+#: ckanext/csa/templates/package/read_base.html:228
 msgid "English only"
 msgstr ""
 
-#: ckanext/csa/templates/package/read_base.html:264
+#: ckanext/csa/templates/package/read_base.html:202
+msgid "French only"
+msgstr ""
+
+#: ckanext/csa/templates/package/read_base.html:268
 msgid "About this record"
 msgstr ""
 
-#: ckanext/csa/templates/package/read_base.html:270
+#: ckanext/csa/templates/package/read_base.html:274
 msgid "Record ID"
 msgstr ""
 
-#: ckanext/csa/templates/package/read_base.html:274
+#: ckanext/csa/templates/package/read_base.html:278
 msgid "Metadata"
 msgstr ""
 
-#: ckanext/csa/templates/package/read_base.html:278
+#: ckanext/csa/templates/package/read_base.html:282
 msgid "Link to JSON format"
 msgstr ""
 
@@ -1327,7 +1324,7 @@ msgid "Go to resource"
 msgstr ""
 
 #: ckanext/csa/templates/package/resource_read.html:44
-#: ckanext/csa/templates/package/snippets/resource_item.html:74
+#: ckanext/csa/templates/package/snippets/resource_item.html:68
 msgid "Download"
 msgstr ""
 
@@ -1457,7 +1454,7 @@ msgstr ""
 msgid "Licence"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resource_item.html:57
+#: ckanext/csa/templates/package/snippets/resource_item.html:51
 #: ckanext/csa/templates/snippets/package_item.html:23
 #: ckanext/csa/templates/snippets/package_item.html:37
 msgid ""
@@ -1466,23 +1463,23 @@ msgid ""
 "ouvert@tbs-sct.gc.ca"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resource_item.html:73
+#: ckanext/csa/templates/package/snippets/resource_item.html:67
 msgid "Resource"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resource_item.html:76
+#: ckanext/csa/templates/package/snippets/resource_item.html:70
 msgid "Download the resource named :"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resource_item.html:81
+#: ckanext/csa/templates/package/snippets/resource_item.html:76
 msgid "Preview"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resource_item.html:81
+#: ckanext/csa/templates/package/snippets/resource_item.html:76
 msgid "(experimental)"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resource_item.html:85
+#: ckanext/csa/templates/package/snippets/resource_item.html:80
 msgid "Edit"
 msgstr ""
 
@@ -1541,14 +1538,6 @@ msgstr ""
 msgid ""
 " <p class=\"empty\">This dataset has no data, <a href=\"%(url)s\">why not add"
 " some?</a> "
-msgstr ""
-
-#: ckanext/csa/templates/snippets/dataset_facets.html:4
-msgid "False"
-msgstr ""
-
-#: ckanext/csa/templates/snippets/dataset_facets.html:5
-msgid "True"
 msgstr ""
 
 #: ckanext/csa/templates/snippets/facet_list.html:61

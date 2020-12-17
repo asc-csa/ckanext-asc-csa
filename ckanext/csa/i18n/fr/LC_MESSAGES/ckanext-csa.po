@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-csa 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-12-15 13:33-0500\n"
+"POT-Creation-Date: 2020-12-17 11:50-0800\n"
 "PO-Revision-Date: 2020-01-23 10:19-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -31,9 +31,8 @@ msgstr "Type de collection"
 
 #: ckanext/csa/plugin.py:233 ckanext/csa/plugin.py:256
 #: ckanext/csa/plugin.py:277
-#, fuzzy
-msgid "Scientific data"
-msgstr "Données scientifiques"
+msgid "Data category"
+msgstr "Catégorie des données"
 
 #: ckanext/csa/plugin.py:234 ckanext/csa/plugin.py:235
 #: ckanext/csa/plugin.py:236 ckanext/csa/plugin.py:257
@@ -1319,32 +1318,29 @@ msgstr ""
 msgid "Additional information"
 msgstr "Informations additionnelles"
 
-#: ckanext/csa/templates/package/read_base.html:195
-msgid "english only"
-msgstr "anglais seulement"
-
-#: ckanext/csa/templates/package/read_base.html:198
-msgid " french only"
-msgstr "francais seulement"
-
-#: ckanext/csa/templates/package/read_base.html:224
+#: ckanext/csa/templates/package/read_base.html:199
+#: ckanext/csa/templates/package/read_base.html:228
 msgid "English only"
 msgstr "Anglais seulement"
 
-#: ckanext/csa/templates/package/read_base.html:264
+#: ckanext/csa/templates/package/read_base.html:202
+msgid "French only"
+msgstr "Français seulement"
+
+#: ckanext/csa/templates/package/read_base.html:268
 #, fuzzy
 msgid "About this record"
 msgstr "À propos de cette fiche"
 
-#: ckanext/csa/templates/package/read_base.html:270
+#: ckanext/csa/templates/package/read_base.html:274
 msgid "Record ID"
 msgstr "Identificateur du dossier"
 
-#: ckanext/csa/templates/package/read_base.html:274
+#: ckanext/csa/templates/package/read_base.html:278
 msgid "Metadata"
 msgstr "Métadonnées"
 
-#: ckanext/csa/templates/package/read_base.html:278
+#: ckanext/csa/templates/package/read_base.html:282
 msgid "Link to JSON format"
 msgstr "Lien au format JSON"
 
@@ -1362,7 +1358,7 @@ msgid "Go to resource"
 msgstr "Aller à la ressource"
 
 #: ckanext/csa/templates/package/resource_read.html:44
-#: ckanext/csa/templates/package/snippets/resource_item.html:74
+#: ckanext/csa/templates/package/snippets/resource_item.html:68
 msgid "Download"
 msgstr "Télécharger"
 
@@ -1387,13 +1383,11 @@ msgid ""
 "continue to work hard to provide you with the best experience possible. "
 "Please report any issues to asc.donnees-data.csa@canada.ca."
 msgstr ""
-"Cette page est encore expérimentale. Certaines fonctionnalités "
-"peuvent ne pas être complètement traduite/fonctionnelle. Nous "
-"apprécions votre support et retour et nous continuerons de "
-"travailler fort pour vous apporter la meilleure expérience possible."
-" Merci d'indiquer tout problème à asc.donnees-data.csa@canada.ca"
-
-
+"Cette page est encore expérimentale. Certaines fonctionnalités peuvent ne"
+" pas être complètement traduite/fonctionnelle. Nous apprécions votre "
+"support et retour et nous continuerons de travailler fort pour vous "
+"apporter la meilleure expérience possible. Merci d'indiquer tout problème"
+" à asc.donnees-data.csa@canada.ca"
 
 #: ckanext/csa/templates/package/resource_read.html:131
 msgid "There are no views created for this resource yet."
@@ -1505,7 +1499,7 @@ msgstr "Dossier publié"
 msgid "Licence"
 msgstr "Licence"
 
-#: ckanext/csa/templates/package/snippets/resource_item.html:57
+#: ckanext/csa/templates/package/snippets/resource_item.html:51
 #: ckanext/csa/templates/snippets/package_item.html:23
 #: ckanext/csa/templates/snippets/package_item.html:37
 msgid ""
@@ -1517,25 +1511,25 @@ msgstr ""
 "l'aide d'un outil de traduction automatisée (DeepL). Pour signaler toute "
 "anomalie, veuillez communiquer avec nous à open-ouvert@tbs-sct.gc.ca"
 
-#: ckanext/csa/templates/package/snippets/resource_item.html:73
+#: ckanext/csa/templates/package/snippets/resource_item.html:67
 #, fuzzy
 msgid "Resource"
 msgstr "Ressources"
 
-#: ckanext/csa/templates/package/snippets/resource_item.html:76
+#: ckanext/csa/templates/package/snippets/resource_item.html:70
 #, fuzzy
 msgid "Download the resource named :"
 msgstr "Télécharger la ressource :"
 
-#: ckanext/csa/templates/package/snippets/resource_item.html:81
+#: ckanext/csa/templates/package/snippets/resource_item.html:76
 msgid "Preview"
 msgstr "Aperçu"
 
-#: ckanext/csa/templates/package/snippets/resource_item.html:81
+#: ckanext/csa/templates/package/snippets/resource_item.html:76
 msgid "(experimental)"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resource_item.html:85
+#: ckanext/csa/templates/package/snippets/resource_item.html:80
 msgid "Edit"
 msgstr "Éditer"
 
@@ -1599,14 +1593,6 @@ msgid ""
 " <p class=\"empty\">This dataset has no data, <a href=\"%(url)s\">why not"
 " add some?</a> "
 msgstr ""
-
-#: ckanext/csa/templates/snippets/dataset_facets.html:4
-msgid "False"
-msgstr "Faux"
-
-#: ckanext/csa/templates/snippets/dataset_facets.html:5
-msgid "True"
-msgstr "Vrai"
 
 #: ckanext/csa/templates/snippets/facet_list.html:61
 #: ckanext/csa/templates/snippets/facet_list.html:64
@@ -1788,10 +1774,16 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "This page is still experimental. Some"
-#~ " parts may ot yet be fully "
-#~ "functionnal/translated. We appreciate your "
-#~ "support and feedback and we will "
-#~ "continue to work hard to provide "
-#~ "you with the best experience possible."
 #~ msgstr ""
+
+#~ msgid "Scientific data"
+#~ msgstr "Données scientifiques"
+
+#~ msgid "english only"
+#~ msgstr "anglais seulement"
+
+#~ msgid "False"
+#~ msgstr "Faux"
+
+#~ msgid "True"
+#~ msgstr "Vrai"

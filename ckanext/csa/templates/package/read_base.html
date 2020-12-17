@@ -97,7 +97,7 @@
             {% set field_title = h.scheming_language_text(field.label) %}
 
             {% if field_title %}
-          
+
             {% if pkg[field.field_name]%}
               {% set field_value = pkg[field.field_name][0] %}
                 {%set dummy=custom_variables.update({"link_language" : field_value})%}
@@ -196,10 +196,10 @@
             {%elif field_to_show=='program_page_url' and custom_link%}
 
                                   {%if custom_variables["link_language"]=="english"%}
-                                  {%set display=field_title+" ("+_("english only")+")"%}
+                                  {%set display=field_title+" ("+_("English only")+")"%}
 
                                   {%elif custom_variables["link_language"]=="french"%}
-                                  {%set display=field_title+" ("+_(" french only")+")"%}
+                                  {%set display=field_title+" ("+_("French only")+")"%}
                                   {%endif%}
 
 
