@@ -45,7 +45,7 @@ msgstr "Mots clés"
 #: ckanext/csa/plugin.py:237 ckanext/csa/plugin.py:260
 #: ckanext/csa/plugin.py:281
 msgid "Subject"
-msgstr "Sujet"
+msgstr "Sujet "
 
 #: ckanext/csa/plugin.py:238 ckanext/csa/plugin.py:249
 msgid "Project"
@@ -67,7 +67,7 @@ msgstr "Type de ressource"
 #: ckanext/csa/plugin.py:284
 #, fuzzy
 msgid "Maintenance and update frequency"
-msgstr "Fréquence d'entretien et de mise à jour"
+msgstr "Fréquence d'entretien et de mise à jour "
 
 #: ckanext/csa/plugin.py:242 ckanext/csa/plugin.py:285
 #, fuzzy
@@ -134,7 +134,7 @@ msgstr "Signaler un problème ou une erreur sur cette page"
 
 #: ckanext/csa/templates/footer.html:19
 msgid "Date modified:"
-msgstr "Date de modification:"
+msgstr "Date de modification :"
 
 #: ckanext/csa/templates/footer.html:27
 msgid "About government"
@@ -1328,7 +1328,6 @@ msgid "French only"
 msgstr "Français seulement"
 
 #: ckanext/csa/templates/package/read_base.html:268
-#, fuzzy
 msgid "About this record"
 msgstr "À propos de cette fiche"
 
@@ -1517,7 +1516,6 @@ msgid "Resource"
 msgstr "Ressources"
 
 #: ckanext/csa/templates/package/snippets/resource_item.html:70
-#, fuzzy
 msgid "Download the resource named :"
 msgstr "Télécharger la ressource :"
 
@@ -1575,7 +1573,6 @@ msgid "Code"
 msgstr ""
 
 #: ckanext/csa/templates/package/snippets/resources_list.html:25
-#, fuzzy
 msgid "Resource name"
 msgstr "Nom"
 
