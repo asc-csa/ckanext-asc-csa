@@ -5,7 +5,7 @@
 {% block facet_list %}
 {% with items = items or h.get_facet_items_dict(name, limit=200) %}
   {% set item_count = items | length %}
-  {% set items = items[0:5] if ( not unlimit) and h.get_param_int('_%s_limit' % name) else items %}
+  {% set items = items[0:200] if ( not unlimit) and h.get_param_int('_%s_limit' % name) else items %}
 
     {% if items %}
         {% if within_tertiary %}
