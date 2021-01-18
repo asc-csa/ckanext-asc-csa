@@ -1,16 +1,10 @@
 <!--template/snippets/dataset_facets.html start-->
 
 {% snippet 'snippets/facet_list.html',
-  title=c.facet_titles['subject'],
-  name='subject',
-  scheming_choices=h.scheming_get_preset('canada_subject').choices,
-  extras=extras %}
-
-{% snippet 'snippets/facet_list.html',
-  title=c.facet_titles['res_type'],
-  name='res_type',
-  scheming_choices=h.scheming_get_preset('canada_resource_type').choices,
-  extras=extras %}
+title=c.facet_titles['portal_type'],
+name='portal_type',
+scheming_choices=h.scheming_get_preset('portal_type').choices,
+extras=extras %}
 
 {% snippet 'snippets/facet_list.html',
   title=c.facet_titles['collection'],

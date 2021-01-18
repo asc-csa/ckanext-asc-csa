@@ -224,20 +224,18 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
 
     # IFacets
     # Implements custom facetting
+
     def dataset_facets(self, facets_dict, package_type):
         # facets_dict['division'] = p.toolkit._('Division')
         facets_dict.update({
             'portal_type': _('Portal type'),
-            # 'organization': _('Organization'),
             'collection': _('Collection type'),
-            'science_admin': _('Data category'),
+            'science_admin': _('CSA Science category'),
             'keywords_en': _('Keywords'),
             'keywords_fr': _('Keywords'),
             'keywords': _('Keywords'),
-            'subject': _('Subject'),
             'project': _('Project'),
             'res_format': _('Format'),
-            'res_type': _('Resource type'),
             'frequency': _('Maintenance and update frequency'),
             'topic_category': _('Topic categories'),
             'spatial_representation_type': _('Spatial representation type'),
