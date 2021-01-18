@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-csa 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-12-17 11:50-0800\n"
+"POT-Creation-Date: 2021-01-18 10:22-0800\n"
 "PO-Revision-Date: 2020-01-23 10:19-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -19,91 +19,92 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: ckanext/csa/plugin.py:230 ckanext/csa/plugin.py:254
-#: ckanext/csa/plugin.py:275
+#: ckanext/csa/plugin.py:231 ckanext/csa/plugin.py:252
+#: ckanext/csa/plugin.py:273
 msgid "Portal type"
 msgstr "Type de portail"
 
-#: ckanext/csa/plugin.py:232 ckanext/csa/plugin.py:255
-#: ckanext/csa/plugin.py:276
+#: ckanext/csa/plugin.py:232 ckanext/csa/plugin.py:253
+#: ckanext/csa/plugin.py:274
 msgid "Collection type"
 msgstr "Type de collection"
 
-#: ckanext/csa/plugin.py:233 ckanext/csa/plugin.py:256
-#: ckanext/csa/plugin.py:277
-msgid "Data category"
-msgstr "Catégorie des données"
+#: ckanext/csa/plugin.py:233
+msgid "CSA Science category"
+msgstr "Catégorie scientifique ASC"
 
 #: ckanext/csa/plugin.py:234 ckanext/csa/plugin.py:235
-#: ckanext/csa/plugin.py:236 ckanext/csa/plugin.py:257
-#: ckanext/csa/plugin.py:258 ckanext/csa/plugin.py:259
-#: ckanext/csa/plugin.py:278 ckanext/csa/plugin.py:279
-#: ckanext/csa/plugin.py:280
+#: ckanext/csa/plugin.py:236 ckanext/csa/plugin.py:255
+#: ckanext/csa/plugin.py:256 ckanext/csa/plugin.py:257
+#: ckanext/csa/plugin.py:276 ckanext/csa/plugin.py:277
+#: ckanext/csa/plugin.py:278
 msgid "Keywords"
 msgstr "Mots clés"
 
-#: ckanext/csa/plugin.py:237 ckanext/csa/plugin.py:260
-#: ckanext/csa/plugin.py:281
-msgid "Subject"
-msgstr "Sujet "
-
-#: ckanext/csa/plugin.py:238 ckanext/csa/plugin.py:249
+#: ckanext/csa/plugin.py:237 ckanext/csa/plugin.py:247
 msgid "Project"
 msgstr "Projet"
 
-#: ckanext/csa/plugin.py:239 ckanext/csa/plugin.py:261
-#: ckanext/csa/plugin.py:282
+#: ckanext/csa/plugin.py:238 ckanext/csa/plugin.py:259
+#: ckanext/csa/plugin.py:280
 #: ckanext/csa/templates/package/snippets/resources_list.html:27
 msgid "Format"
 msgstr "Format"
 
-#: ckanext/csa/plugin.py:240 ckanext/csa/plugin.py:262
-#: ckanext/csa/plugin.py:283
-#: ckanext/csa/templates/package/snippets/resources_list.html:26
-msgid "Resource type"
-msgstr "Type de ressource"
-
-#: ckanext/csa/plugin.py:241 ckanext/csa/plugin.py:263
-#: ckanext/csa/plugin.py:284
+#: ckanext/csa/plugin.py:239 ckanext/csa/plugin.py:261
+#: ckanext/csa/plugin.py:282
 #, fuzzy
 msgid "Maintenance and update frequency"
 msgstr "Fréquence d'entretien et de mise à jour "
 
-#: ckanext/csa/plugin.py:242 ckanext/csa/plugin.py:285
+#: ckanext/csa/plugin.py:240 ckanext/csa/plugin.py:283
 #, fuzzy
 msgid "Topic categories"
 msgstr "Catégorie thématique"
 
-#: ckanext/csa/plugin.py:243 ckanext/csa/plugin.py:265
-#: ckanext/csa/plugin.py:286
+#: ckanext/csa/plugin.py:241 ckanext/csa/plugin.py:263
+#: ckanext/csa/plugin.py:284
 #, fuzzy
 msgid "Spatial representation type"
 msgstr "Type de représentation spatiale"
 
-#: ckanext/csa/plugin.py:244 ckanext/csa/plugin.py:266
-#: ckanext/csa/plugin.py:287
+#: ckanext/csa/plugin.py:242 ckanext/csa/plugin.py:264
+#: ckanext/csa/plugin.py:285
 #, fuzzy
 msgid "Map viewer"
 msgstr "Visualisateur de carte"
 
-#: ckanext/csa/plugin.py:245 ckanext/csa/plugin.py:267
-#: ckanext/csa/plugin.py:288
+#: ckanext/csa/plugin.py:243 ckanext/csa/plugin.py:265
+#: ckanext/csa/plugin.py:286
 #, fuzzy
 msgid "Record status"
 msgstr "État du dossier"
 
-#: ckanext/csa/plugin.py:246 ckanext/csa/plugin.py:268
-#: ckanext/csa/plugin.py:289
+#: ckanext/csa/plugin.py:244 ckanext/csa/plugin.py:266
+#: ckanext/csa/plugin.py:287
 #, fuzzy
 msgid "IMSO approval"
 msgstr "Approbation du CSGI"
 
-#: ckanext/csa/plugin.py:247 ckanext/csa/plugin.py:269
-#: ckanext/csa/plugin.py:290
+#: ckanext/csa/plugin.py:245 ckanext/csa/plugin.py:267
+#: ckanext/csa/plugin.py:288
 msgid "Jurisdiction"
 msgstr "Juridiction"
 
-#: ckanext/csa/plugin.py:264
+#: ckanext/csa/plugin.py:254 ckanext/csa/plugin.py:275
+msgid "Data category"
+msgstr ""
+
+#: ckanext/csa/plugin.py:258 ckanext/csa/plugin.py:279
+msgid "Subject"
+msgstr "Sujet "
+
+#: ckanext/csa/plugin.py:260 ckanext/csa/plugin.py:281
+#: ckanext/csa/templates/package/snippets/resources_list.html:26
+msgid "Resource type"
+msgstr "Type de ressource"
+
+#: ckanext/csa/plugin.py:262
 msgid "Topic Categories"
 msgstr "Catégorie thématique"
 

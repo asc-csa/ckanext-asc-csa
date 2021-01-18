@@ -1,14 +1,14 @@
 # Translations template for ckanext-csa.
-# Copyright (C) 2020 ORGANIZATION
+# Copyright (C) 2021 ORGANIZATION
 # This file is distributed under the same license as the ckanext-csa project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-csa 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-12-17 11:50-0800\n"
+"POT-Creation-Date: 2021-01-18 10:22-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,71 +17,75 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: ckanext/csa/plugin.py:230 ckanext/csa/plugin.py:254 ckanext/csa/plugin.py:275
+#: ckanext/csa/plugin.py:231 ckanext/csa/plugin.py:252 ckanext/csa/plugin.py:273
 msgid "Portal type"
 msgstr ""
 
-#: ckanext/csa/plugin.py:232 ckanext/csa/plugin.py:255 ckanext/csa/plugin.py:276
+#: ckanext/csa/plugin.py:232 ckanext/csa/plugin.py:253 ckanext/csa/plugin.py:274
 msgid "Collection type"
 msgstr ""
 
-#: ckanext/csa/plugin.py:233 ckanext/csa/plugin.py:256 ckanext/csa/plugin.py:277
-msgid "Data category"
+#: ckanext/csa/plugin.py:233
+msgid "CSA Science category"
 msgstr ""
 
 #: ckanext/csa/plugin.py:234 ckanext/csa/plugin.py:235 ckanext/csa/plugin.py:236
-#: ckanext/csa/plugin.py:257 ckanext/csa/plugin.py:258 ckanext/csa/plugin.py:259
-#: ckanext/csa/plugin.py:278 ckanext/csa/plugin.py:279 ckanext/csa/plugin.py:280
+#: ckanext/csa/plugin.py:255 ckanext/csa/plugin.py:256 ckanext/csa/plugin.py:257
+#: ckanext/csa/plugin.py:276 ckanext/csa/plugin.py:277 ckanext/csa/plugin.py:278
 msgid "Keywords"
 msgstr ""
 
-#: ckanext/csa/plugin.py:237 ckanext/csa/plugin.py:260 ckanext/csa/plugin.py:281
-msgid "Subject"
-msgstr ""
-
-#: ckanext/csa/plugin.py:238 ckanext/csa/plugin.py:249
+#: ckanext/csa/plugin.py:237 ckanext/csa/plugin.py:247
 msgid "Project"
 msgstr ""
 
-#: ckanext/csa/plugin.py:239 ckanext/csa/plugin.py:261 ckanext/csa/plugin.py:282
+#: ckanext/csa/plugin.py:238 ckanext/csa/plugin.py:259 ckanext/csa/plugin.py:280
 #: ckanext/csa/templates/package/snippets/resources_list.html:27
 msgid "Format"
 msgstr ""
 
-#: ckanext/csa/plugin.py:240 ckanext/csa/plugin.py:262 ckanext/csa/plugin.py:283
+#: ckanext/csa/plugin.py:239 ckanext/csa/plugin.py:261 ckanext/csa/plugin.py:282
+msgid "Maintenance and update frequency"
+msgstr ""
+
+#: ckanext/csa/plugin.py:240 ckanext/csa/plugin.py:283
+msgid "Topic categories"
+msgstr ""
+
+#: ckanext/csa/plugin.py:241 ckanext/csa/plugin.py:263 ckanext/csa/plugin.py:284
+msgid "Spatial representation type"
+msgstr ""
+
+#: ckanext/csa/plugin.py:242 ckanext/csa/plugin.py:264 ckanext/csa/plugin.py:285
+msgid "Map viewer"
+msgstr ""
+
+#: ckanext/csa/plugin.py:243 ckanext/csa/plugin.py:265 ckanext/csa/plugin.py:286
+msgid "Record status"
+msgstr ""
+
+#: ckanext/csa/plugin.py:244 ckanext/csa/plugin.py:266 ckanext/csa/plugin.py:287
+msgid "IMSO approval"
+msgstr ""
+
+#: ckanext/csa/plugin.py:245 ckanext/csa/plugin.py:267 ckanext/csa/plugin.py:288
+msgid "Jurisdiction"
+msgstr ""
+
+#: ckanext/csa/plugin.py:254 ckanext/csa/plugin.py:275
+msgid "Data category"
+msgstr ""
+
+#: ckanext/csa/plugin.py:258 ckanext/csa/plugin.py:279
+msgid "Subject"
+msgstr ""
+
+#: ckanext/csa/plugin.py:260 ckanext/csa/plugin.py:281
 #: ckanext/csa/templates/package/snippets/resources_list.html:26
 msgid "Resource type"
 msgstr ""
 
-#: ckanext/csa/plugin.py:241 ckanext/csa/plugin.py:263 ckanext/csa/plugin.py:284
-msgid "Maintenance and update frequency"
-msgstr ""
-
-#: ckanext/csa/plugin.py:242 ckanext/csa/plugin.py:285
-msgid "Topic categories"
-msgstr ""
-
-#: ckanext/csa/plugin.py:243 ckanext/csa/plugin.py:265 ckanext/csa/plugin.py:286
-msgid "Spatial representation type"
-msgstr ""
-
-#: ckanext/csa/plugin.py:244 ckanext/csa/plugin.py:266 ckanext/csa/plugin.py:287
-msgid "Map viewer"
-msgstr ""
-
-#: ckanext/csa/plugin.py:245 ckanext/csa/plugin.py:267 ckanext/csa/plugin.py:288
-msgid "Record status"
-msgstr ""
-
-#: ckanext/csa/plugin.py:246 ckanext/csa/plugin.py:268 ckanext/csa/plugin.py:289
-msgid "IMSO approval"
-msgstr ""
-
-#: ckanext/csa/plugin.py:247 ckanext/csa/plugin.py:269 ckanext/csa/plugin.py:290
-msgid "Jurisdiction"
-msgstr ""
-
-#: ckanext/csa/plugin.py:264
+#: ckanext/csa/plugin.py:262
 msgid "Topic Categories"
 msgstr ""
 
