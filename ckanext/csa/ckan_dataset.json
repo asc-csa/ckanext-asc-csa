@@ -195,8 +195,8 @@
 {
       "field_name": "science_admin",
       "label": {
-        "en" :"Data category",
-        "fr" : "Catégorie des données"
+        "en" :"CSA Science category",
+        "fr" : "Catégorie des sciences ASC"
       },
       "preset": "select",
       "choices": [
@@ -216,6 +216,30 @@
       }
       ]
     },
+    {
+          "field_name": "portal_type",
+          "label": {
+            "en" :"Portal type",
+            "fr" : "Type de portail"
+          },
+          "preset": "select",
+          "choices": [
+            {
+              "value": "data",
+              "label": {
+                "en" :"Open Data",
+                "fr" :"Données ouvertes"
+                }
+            },
+            {
+              "value": "info",
+              "label": {
+                "en" :"Open Information",
+                "fr" : "Information ouverte"
+            }
+          }
+          ]
+        },
     {
       "field_name": "dataset_status",
       "label": {

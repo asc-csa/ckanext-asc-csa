@@ -6593,6 +6593,41 @@
       ]
         }
       },
+      {
+      "preset_name": "portal_type",
+      "values": {
+        "field_name": "portal_data_info",
+        "label": {
+          "en": "Portal type",
+          "fr": "Type de portail"
+        },
+        "help_text": {
+          "en": "Differentiates between Open Data and Open Information.",
+          "fr": "Fait la distinction entre les données ouvertes et l'information ouverte."
+        },
+        "required": true,
+        "form_snippet": "multiple_select.html",
+        "display_snippet": "list_inline.html",
+        "validators": "scheming_multiple_choice",
+        "output_validators": "scheming_multiple_choice_output",
+        "choices": [
+          {
+            "value": "data",
+            "label": {
+              "en" :"Open Data",
+              "fr" : "Données ouvertes"
+              }
+          },
+          {
+            "value": "info",
+            "label": {
+              "en" :"Open Information",
+              "fr" : "Information ouverte"
+          }
+        }
+        ]
+          }
+        },
     {
       "preset_name": "canada_resource_url",
       "values": {
