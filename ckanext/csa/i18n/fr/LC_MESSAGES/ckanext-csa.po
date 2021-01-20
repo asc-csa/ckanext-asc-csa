@@ -127,7 +127,7 @@ msgstr "Erreur 404 - La page que vous recherchez semble introuvable"
 
 #: ckanext/csa/templates/error_document_template.html:11
 msgid "The server cannot find anything matching the requested URL"
-msgstr "Le serveur ne trouve aucun réultat pour l'URL demandé"
+msgstr "Le serveur ne trouve aucun résultat pour l'URL demandée"
 
 #: ckanext/csa/templates/footer.html:8 ckanext/csa/templates/footer.html:10
 msgid "Report a problem on this page"
@@ -1315,7 +1315,6 @@ msgid ""
 msgstr ""
 
 #: ckanext/csa/templates/package/read_base.html:55
-#, fuzzy
 msgid "Additional information"
 msgstr "Informations additionnelles"
 
@@ -1526,7 +1525,7 @@ msgstr "Aperçu"
 
 #: ckanext/csa/templates/package/snippets/resource_item.html:76
 msgid "(experimental)"
-msgstr ""
+msgstr "(expérimental)"
 
 #: ckanext/csa/templates/package/snippets/resource_item.html:80
 msgid "Edit"
