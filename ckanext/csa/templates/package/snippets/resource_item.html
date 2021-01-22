@@ -66,9 +66,9 @@
   <td class="td-center">
       <a href="{{ res.url }}" title="{{_('Resource') ~ ' ' ~ res_num}}" class="resource-url-analytics btn btn-primary" target="_blank" data-pkg-id="{{ pkg.id }}" data-res-id="{{ res.id }}" data-org-id="{{ pkg.organization.id }}">
           {{ _('Download') }}
-        </a>
         <span class="wb-inv">{{_('Download the resource named :')}} {{ name }} </span>
-        <br></br>
+        </a>
+        <br>
         {% if res.has_views %}
 
         {%if custom_variables['preview']=="True" or can_edit%}
