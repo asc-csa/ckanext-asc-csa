@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-csa 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-01-18 10:22-0800\n"
+"POT-Creation-Date: 2021-01-29 07:20-0800\n"
 "PO-Revision-Date: 2020-01-23 10:19-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -47,7 +47,7 @@ msgstr "Projet"
 
 #: ckanext/csa/plugin.py:238 ckanext/csa/plugin.py:259
 #: ckanext/csa/plugin.py:280
-#: ckanext/csa/templates/package/snippets/resources_list.html:27
+#: ckanext/csa/templates/package/snippets/resources_list.html:28
 msgid "Format"
 msgstr "Format"
 
@@ -100,7 +100,7 @@ msgid "Subject"
 msgstr "Sujet "
 
 #: ckanext/csa/plugin.py:260 ckanext/csa/plugin.py:281
-#: ckanext/csa/templates/package/snippets/resources_list.html:26
+#: ckanext/csa/templates/package/snippets/resources_list.html:27
 msgid "Resource type"
 msgstr "Type de ressource"
 
@@ -1515,7 +1515,7 @@ msgstr ""
 msgid "Resource"
 msgstr "Ressources"
 
-#: ckanext/csa/templates/package/snippets/resource_item.html:70
+#: ckanext/csa/templates/package/snippets/resource_item.html:69
 msgid "Download the resource named :"
 msgstr "Télécharger la ressource :"
 
@@ -1572,19 +1572,24 @@ msgstr "Hauteur"
 msgid "Code"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resources_list.html:25
+#: ckanext/csa/templates/package/snippets/resources_list.html:23
+#| msgid "Resource type"
+msgid "Resource list table"
+msgstr "Tableau des ressources"
+
+#: ckanext/csa/templates/package/snippets/resources_list.html:26
 msgid "Resource name"
 msgstr "Nom"
 
-#: ckanext/csa/templates/package/snippets/resources_list.html:28
+#: ckanext/csa/templates/package/snippets/resources_list.html:29
 msgid "Language"
 msgstr "Langue"
 
-#: ckanext/csa/templates/package/snippets/resources_list.html:29
+#: ckanext/csa/templates/package/snippets/resources_list.html:30
 msgid "Links"
 msgstr "Liens"
 
-#: ckanext/csa/templates/package/snippets/resources_list.html:44
+#: ckanext/csa/templates/package/snippets/resources_list.html:45
 #, python-format
 msgid ""
 " <p class=\"empty\">This dataset has no data, <a href=\"%(url)s\">why not"
@@ -1784,3 +1789,4 @@ msgstr ""
 
 #~ msgid "True"
 #~ msgstr "Vrai"
+

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-csa 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-01-18 10:22-0800\n"
+"POT-Creation-Date: 2021-01-29 07:20-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,7 +40,7 @@ msgid "Project"
 msgstr ""
 
 #: ckanext/csa/plugin.py:238 ckanext/csa/plugin.py:259 ckanext/csa/plugin.py:280
-#: ckanext/csa/templates/package/snippets/resources_list.html:27
+#: ckanext/csa/templates/package/snippets/resources_list.html:28
 msgid "Format"
 msgstr ""
 
@@ -81,7 +81,7 @@ msgid "Subject"
 msgstr ""
 
 #: ckanext/csa/plugin.py:260 ckanext/csa/plugin.py:281
-#: ckanext/csa/templates/package/snippets/resources_list.html:26
+#: ckanext/csa/templates/package/snippets/resources_list.html:27
 msgid "Resource type"
 msgstr ""
 
@@ -1471,7 +1471,7 @@ msgstr ""
 msgid "Resource"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resource_item.html:70
+#: ckanext/csa/templates/package/snippets/resource_item.html:69
 msgid "Download the resource named :"
 msgstr ""
 
@@ -1525,19 +1525,23 @@ msgstr ""
 msgid "Code"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resources_list.html:25
+#: ckanext/csa/templates/package/snippets/resources_list.html:23
+msgid "Resource list table"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/resources_list.html:26
 msgid "Resource name"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resources_list.html:28
+#: ckanext/csa/templates/package/snippets/resources_list.html:29
 msgid "Language"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resources_list.html:29
+#: ckanext/csa/templates/package/snippets/resources_list.html:30
 msgid "Links"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resources_list.html:44
+#: ckanext/csa/templates/package/snippets/resources_list.html:45
 #, python-format
 msgid ""
 " <p class=\"empty\">This dataset has no data, <a href=\"%(url)s\">why not add"
