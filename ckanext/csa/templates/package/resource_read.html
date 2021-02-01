@@ -85,12 +85,12 @@
             {% if not res.description and c.package.notes %}
               <h2>{{ _('From the dataset abstract') }}</h2>
               <blockquote>{{ h.markdown_extract(h.get_translated(c.package, 'notes'), extract_length=6000) }}</blockquote>
-              <p>{% trans dataset=c.package.title, url=h.url_for(controller='package', action='read', id=c.package['name']) %}Source: <a href="{{ url }}">{{ dataset }}</a>{% endtrans %}
+              <p>{% trans dataset=h.get_translated(c.package, 'title'), url=h.url_for(controller='package', action='read', id=c.package['name']) %}Source: <a href="{{ url }}">{{ dataset }}</a>{% endtrans %}
             {% endif %}
 
             <h3>{{_('This page is still experimental. Some parts may not be fully functional/translated yet. We appreciate your support and feedback as we continue to work hard to provide you with the best experience possible. Please report any issues to asc.donnees-data.csa@canada.ca.')}}</h3>
 
-            
+
           </div>
         {% endblock %}
       {% block data_preview %}
