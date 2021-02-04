@@ -445,7 +445,7 @@
         "field_name": "maintainer_email",
         "label": {
           "en": "Contact email",
-          "fr": "Personne-ressource"
+          "fr": "Personne-ressource "
         },
         "help_text": {
           "en": "The contact person's email for the dataset",
@@ -502,7 +502,7 @@
         "field_name": "keywords",
         "label": {
           "en": "Keywords",
-          "fr": "Mots clés"
+          "fr": "Mots clés "
         },
         "fluent_form_label": {
           "en": {
@@ -544,7 +544,7 @@
         "field_name": "subject",
         "label": {
           "en": "Subject",
-          "fr": "Sujet"
+          "fr": "Sujet "
         },
         "help_text": {
           "en": "The topic of the content of the dataset. You may select or deselect multiple subjects (Ctrl+Click)",
@@ -3298,7 +3298,7 @@
         },
         "label": {
           "en": "Maintenance and update frequency",
-          "fr": "Fréquence d'entretien et de mise à jour"
+          "fr": "Fréquence d'entretien et de mise à jour "
         },
         "required": true,
         "form_include_blank_choice": true,
@@ -3479,7 +3479,7 @@
         "field_name": "date_published",
         "label": {
           "en": "Date published",
-          "fr": "Date de publication"
+          "fr": "Date de publication "
         },
         "help_text": {
           "en": "The date of issuance (e.g., publication) of the dataset (YYYY-MM-DD)",

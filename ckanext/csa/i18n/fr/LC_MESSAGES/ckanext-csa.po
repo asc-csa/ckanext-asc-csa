@@ -1333,11 +1333,11 @@ msgstr "À propos de cette fiche"
 
 #: ckanext/csa/templates/package/read_base.html:274
 msgid "Record ID"
-msgstr "Identificateur du dossier"
+msgstr "Identificateur du dossier "
 
 #: ckanext/csa/templates/package/read_base.html:278
 msgid "Metadata"
-msgstr "Métadonnées"
+msgstr "Métadonnées "
 
 #: ckanext/csa/templates/package/read_base.html:282
 msgid "Link to JSON format"
@@ -1475,7 +1475,7 @@ msgstr ""
 
 #: ckanext/csa/templates/package/snippets/additional_info.html:5
 msgid "More on this record"
-msgstr "Plus d'information sur cette fiche"
+msgstr "Plus d'information sur cette fiche "
 
 #: ckanext/csa/templates/package/snippets/additional_info.html:30
 msgid "Version"
@@ -1614,7 +1614,7 @@ msgstr "Aucune description disponible pour cet ensemble de données"
 
 #: ckanext/csa/templates/snippets/package_item.html:46
 msgid "Organization"
-msgstr "Organisation"
+msgstr "Organisation "
 
 #: ckanext/csa/templates/snippets/package_item.html:52
 msgid "Issued by"
@@ -1622,7 +1622,7 @@ msgstr "Publiée par"
 
 #: ckanext/csa/templates/snippets/package_item.html:60
 msgid "Resource Formats"
-msgstr "Formats des ressources"
+msgstr "Formats des ressources "
 
 #: ckanext/csa/templates/snippets/package_item.html:82
 msgid "Add to Map Cart"
@@ -1789,4 +1789,3 @@ msgstr ""
 
 #~ msgid "True"
 #~ msgstr "Vrai"
-
