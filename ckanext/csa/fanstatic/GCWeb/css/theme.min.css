@@ -153,6 +153,10 @@ input[type=search]::-webkit-search-cancel-button, input[type=search]::-webkit-se
   -webkit-appearance: none
 }
 
+label::after {
+	content: ": ";
+}
+
 textarea {
   overflow: auto
 }
@@ -4341,6 +4345,18 @@ tbody.collapse.in {
 .nav-tabs-justified>.active>a, .nav-tabs-justified>.active>a:focus, .nav-tabs-justified>.active>a:hover, .nav-tabs.nav-justified>.active>a, .nav-tabs.nav-justified>.active>a:focus, .nav-tabs.nav-justified>.active>a:hover {
   border: 1px solid #ddd
 }
+
+.search-form {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  border-bottom: 1px dotted #ddd
+}
+
+.search-form .control-order-by label, .search-form .control-order-by select {
+  display: inline
+}
+
+
 
 @media (min-width:768px) {
   .nav-tabs-justified>li>a, .nav-tabs.nav-justified>li>a {
@@ -11176,8 +11192,8 @@ button.mfp-arrow, button.mfp-close {
 }
 
 button::-moz-focus-inner {
-  padding: 0;
-  border: 0
+  padding: 10;
+  border: 10
 }
 
 .mfp-close {
@@ -14653,6 +14669,10 @@ h1 {
 
 .form-control, form .btn:not(.btn-call-to-action) {
   padding: 6px 12px
+}
+
+.form-select label {
+  margin-right: 0px
 }
 
 legend {
