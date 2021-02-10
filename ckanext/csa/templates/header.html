@@ -1,566 +1,89 @@
 {# {% ckan_extends %} #}
 {% block styles %}
 
-<!--template/header.html start-->
-<!--<link rel="stylesheet" href="https://wet-boew.github.io/themes-dist/GCWeb/css/theme.min.css">-->
-<nav aria-label="skiptomaincontent">
-<ul id="wb-tphp" class="wb-init wb-disable-inited"><li class="wb-slc"><a class="wb-sl" href="#wb-cont">Skip to main content</a></li></ul>
-</nav>
+<!DOCTYPE html>
+<html class="no-js" lang="en" dir="ltr">
+<head>
+	<meta charset="utf-8">
+	<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expériencse-search-boxce Web (BOEW)
+		wet-boew.github.io/wet-boew/License-en_(.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+	<title>Static header and footer - Bootstrap 3 - Canada.ca</title>
+	<meta content="width=device-width,initial-scale=1" name="viewport">
+	<meta name="description" content="Static header and footer on Bootstrap 3 with the mega menu. Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable.">
+	<link href="https://wet-boew.github.io/themes-dist/GCWeb/assets/favicon.ico" rel="icon" type="image/x-icon">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://wet-boew.github.io/themes-dist/GCWeb/css/theme.min.css">
+	<noscript><link rel="stylesheet" href="https://wet-boew.github.io/themes-dist/GCWeb/wet-boew/css/noscript.min.css" /></noscript>
+</head>
+<body vocab="http://schema.org/"  resource="#wb-webpage" typeof="WebPage">
+
 <header style="background-color: white;">
 	<div id="wb-bnr" class="container">
-		<section id="wb-lng-txt" class="text-right">
-			<h2 class="wb-inv">Language selection</h2>
-			<ul class="list-inline margin-bottom-none">
-				<li> {% block footer_lang %} {% snippet "snippets/language_selector.html" %} {% endblock %} </li> <!-- add ckan translate button here-->
-			</ul>
-		</section>
 		<div class="row">
-
-			{% if h.lang() == 'fr' %}
-			<div class="brand col-xs-5 col-md-4" property="publisher" typeof="GovernmentOrganization"> <a href="https://www.canada.ca/fr.html" property="url"><img src="https://wet-boew.github.io/themes-dist/GCWeb/assets/sig-blk-fr.svg" alt="GouvernmentduCanadaLogo" property="logo"><span class="wb-inv" property="name"> Government of Canada / <span lang="fr">Gouvernement du Canada</span></span></a>
-
-
-			{% else %}
-			<div class="brand col-xs-5 col-md-4" property="publisher" typeof="GovernmentOrganization"> <a href="https://www.canada.ca/en.html" property="url"><img src="https://wet-boew.github.io/themes-dist/GCWeb/assets/sig-blk-en.svg" alt="GovernmentofCanadaLogo" property="logo"><span class="wb-inv" property="name"> Government of Canada / <span lang="fr">Gouvernement du Canada</span></span></a>
-				{% endif %}
-
+			<section id="wb-lng" class="col-xs-3 col-sm-12 pull-right text-right">
+				<h2 class="wb-inv">{{ _("Language selection") }}</h2>
+				<ul class="list-inline mrgn-bttm-0">
+					<li> {% block footer_lang %} {% snippet "snippets/language_selector.html" %} {% endblock %} </li> <!-- add ckan translate button here-->
+				</ul>
+			</section>
+			<div class="brand col-xs-9 col-sm-5 col-md-4" property="publisher" resource="#wb-publisher" typeof="GovernmentOrganization">
+				<a href= {{ _('https://www.canada.ca/en.html') }} property="url">
+					<img src="https://wet-boew.github.io/themes-dist/GCWeb/assets/sig-blk-en.svg" alt="" property="logo"><span class="wb-inv" property="name"> Government of Canada / <span lang="fr">Gouvernement du Canada</span></span>
+				</a>
 				<meta property="areaServed" typeof="Country" content="Canada">
 				<link property="logo" href="https://wet-boew.github.io/themes-dist/GCWeb/assets/wmms-blk.svg">
 			</div>
 
-			{% if h.lang() == 'fr' %}
-			<section id="wb-srch" class="col-lg-8 text-right">
-				<h2>Recherche</h2>
-
-<form action="https://www.canada.ca/fr/sr/srb.html" method="get" name="cse-search-box" role="search" class="form-inline">
-<div class="form-group">
-<label for="wb-srch-q" class="wb-inv">Rechercher dans Canada.ca</label>
-<input name="cdn" value="canada" type="hidden">
-<input name="st" value="s" type="hidden">
-<input name="num" value="10" type="hidden">
-<input name="langs" value="fr" type="hidden">
-<input name="st1rt" value="1" type="hidden">
-<input name="s5bm3ts21rch" value="x" type="hidden">
-
-	<input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="q" type="search" value="" size="34" maxlength="170" placeholder="Rechercher dans Canada.ca">
 
 
-<input type="hidden" name="_charset_" value="UTF-8">
 
-<datalist id="wb-srch-q-ac">
-</datalist>
-</div>
-<div class="form-group submit">
-<button type="submit" id="wb-srch-sub" class="btn btn-primary btn-small" name="wb-srch-sub" style="margin-top: 4px;"><span class="glyphicon-search glyphicon"></span><span class="wb-inv">Recherche</span></button>
-</div>
-</form>
+			<section id="wb-srch" class="col-lg-offset-4 col-md-offset-4 col-sm-offset-2 col-xs-12 col-sm-5 col-md-4">
+				<h2>{{ _("Search Canada.ca") }}</h2>
+				<form action={{ _("https://www.canada.ca/en/sr/srb.html") }} method="post" name="cse-search-box" role="search">
+					<div class="form-group wb-srch-qry">
+						<label for="wb-srch-q" class="wb-inv">{{ _("Search Canada.ca") }}</label>
 
+
+						{% if h.lang() == 'fr' %}
+						<input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="q" type="search" value="" size="34" maxlength="170" placeholder= "Rechercher dans Canada.ca">
+						{% else %}
+						<input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="q" type="search" value="" size="34" maxlength="170" placeholder= "Search Canada.ca">
+						{% endif %}
+
+
+						<datalist id="wb-srch-q-ac">
+						</datalist>
+					</div>
+					<div class="form-group submit">
+						<button type="submit" id="wb-srch-sub" class="btn btn-primary btn-small" name="wb-srch-sub"><span class="glyphicon-search glyphicon"></span><span class="wb-inv">{{ _("Search Canada.ca") }}</span></button>
+					</div>
+				</form>
 			</section>
-
-			{% else %}
-
-			<section id="wb-srch" class="col-lg-8 text-right">
-				<h2>Search</h2>
-
-<form action="https://www.canada.ca/en/sr/srb.html" method="get" name="cse-search-box" role="search" class="form-inline">
-<div class="form-group">
-<label for="wb-srch-q" class="wb-inv">Search Canada.ca</label>
-<input name="cdn" value="canada" type="hidden">
-<input name="st" value="s" type="hidden">
-<input name="num" value="10" type="hidden">
-<input name="langs" value="en" type="hidden">
-<input name="st1rt" value="1" type="hidden">
-<input name="s5bm3ts21rch" value="x" type="hidden">
-
-	<input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="q" type="search" value="" size="34" maxlength="170" placeholder="Search Canada.ca">
-
-
-<input type="hidden" name="_charset_" value="UTF-8">
-
-<datalist id="wb-srch-q-ac">
-</datalist>
-</div>
-<div class="form-group submit">
-<button type="submit" id="wb-srch-sub" class="btn btn-primary btn-small" name="wb-srch-sub" style="padding-top: 6px;margin-top: 4px;"><span class="glyphicon-search glyphicon"></span><span class="wb-inv">Search</span></button>
-</div>
-</form>
-
-			</section>
-			{% endif %}
 		</div>
-
 	</div>
-	<nav class="gcweb-menu" typeof="SiteNavigationElement" aria-label="Main Menu">
+	<nav class="gcweb-menu" typeof="SiteNavigationElement">
 		<div class="container">
 			<h2 class="wb-inv">Menu</h2>
-			<button id="mainmenubutton" type="button" aria-haspopup="true" aria-expanded="false"><span class="wb-inv"> {{ _('Main') }} </span> {{ _('Menu') }} <span class="expicon glyphicon glyphicon-chevron-down"></span></button>
-			<ul role="menu" aria-orientation="vertical">
-				<li role="presentation">
-					<a role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-jobs" aria-expanded="false" href="#"> {{ _('Jobs and the workplace') }}</a>
-				<ul id="gc-mnu-jobs" role="menu" aria-orientation="vertical">
-
-
-
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/jobs.html"> {{ _('Jobs') }}<span class="visible-xs-inline visible-sm-inline"> {{ _(': home') }}</span></a>
-					</li>
-					<li role="separator"></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/jobs/opportunities.html"> {{ _('Find a job') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/jobs/training.html"> {{ _('Training') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/business-management"> {{ _('Hire and manage employees') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/start-business"> {{ _('Starting a business') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/jobs/workplace.html"> {{ _('Workplace standards') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/finance/pensions.html"> {{ _('Pensions and retirement') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/benefits/ei.html"> {{ _('Employment Insurance and leave') }}</a></li>
-					<li role="separator" aria-orientation="vertical"></li>
-					<li role="presentation">
-					<a data-keep-expanded="md-min" href="#" role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-jobs-sub" aria-expanded="true"> {{ _('Most requested') }}</a>
-					<ul id="gc-mnu-jobs-sub" role="menu" aria-orientation="vertical">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/employment-social-development/programs/ei/ei-list/ei-roe/access-roe.html"> {{ _('View your Records of Employment') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/employment-social-development/services/sin.html"> {{ _('Apply for a Social Insurance Number (SIN)') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/employment-social-development/services/foreign-workers.html"> {{ _('Hire a temporary foreign worker') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry.html"> {{ _('Immigrate as a skilled worker') }}</a></li>
-					</ul>
-					</li>
-					</ul>
-				</li>
-
-
-				<li role="presentation">
-					<a role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-cit" aria-expanded="false" href="#">{{ _('Immigration and citizenship') }}</a>
-					<ul id="gc-mnu-cit" role="menu" aria-orientation="vertical">
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/immigration-citizenship.html">{{ _('Immigration') }}<span class="hidden-xs hidden-sm">{{ _(' and citizenship') }}</span><span class="visible-xs-inline visible-sm-inline">{{ _(': home') }}</span></a>
-					</li>
-					<li role="separator"></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application.html">{{ _('My application') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada.html">{{ _('Visit') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada.html">{{ _('Immigrate') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/work-canada.html">{{ _('Work') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html">{{ _('Study') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/canadian-citizenship.html">{{ _('Citizenship') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/new-immigrants.html">{{ _('New immigrants') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/canadians.html">{{ _('Canadians') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/refugees.html">{{ _('Refugees and asylum') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/immigration-citizenship/enforcement-violations.html">{{ _('Enforcement and violations') }}</a></li>
-					<li role="separator" aria-orientation="vertical"></li>
-					<li role="presentation">
-					<a data-keep-expanded="md-min" href="#" role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-cit-sub" aria-expanded="true">{{ _('Most requested') }}</a>
-					<ul id="gc-mnu-cit-sub" role="menu" aria-orientation="vertical">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/account.html">{{ _('Sign in or create an account to apply online') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/check-status.html">{{ _('Check your application status') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/check-processing-times.html">{{ _('Check application processing times') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/application-forms-guides.html">{{ _('Find an application form') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="http://www.cic.gc.ca/english/information/fees/index.asp">{{ _('Pay your fees') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="http://www.cic.gc.ca/english/visit/visas.asp">{{ _('Find out if you need an eTA or a visa to visit Canada') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="http://www.cic.gc.ca/english/helpcentre/index-featured-can.asp">{{ _('Have questions? Find answers in the Help Centre') }}</a></li>
-					</ul>
-					</li>
-					</ul>
-					</li>
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-travel" aria-expanded="false" href="#">{{ _('Travel and tourism') }}</a>
-					<ul id="gc-mnu-travel" role="menu" aria-orientation="vertical">
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" href="https://travel.gc.ca/">{{ _('Travel') }}<span class="hidden-xs hidden-sm"> {{ _('and tourism') }}</span><span class="visible-xs-inline visible-sm-inline">{{ _(': home') }}</span></a>
-					</li>
-					<li role="separator"></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://travel.gc.ca/travelling/advisories">{{ _('Travel advice and advisories') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://travel.gc.ca/canadian-tourism">{{ _('Canadian attractions, events and experiences') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/canadian-passports.html">{{ _('Canadian passports') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://travel.gc.ca/travelling">{{ _('Travelling abroad') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://travel.gc.ca/air">{{ _('Air travel') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://travel.gc.ca/returning">{{ _('Returning to Canada') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://travel.gc.ca/assistance">{{ _('Assistance abroad') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://travel.gc.ca/stay-connected">{{ _('Stay connected') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/visit">{{ _('Visit Canada') }}</a></li>
-					<li role="separator" aria-orientation="vertical"></li>
-					<li role="presentation">
-					<a data-keep-expanded="md-min" href="#" role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-travel-sub" aria-expanded="true">{{ _('Most requested') }}</a>
-					<ul id="gc-mnu-travel-sub" role="menu" aria-orientation="vertical">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://travel.gc.ca/travelling/children/consent-letter">{{ _('Consent letter for children travelling abroad') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.cbsa-asfc.gc.ca/bwt-taf/menu-eng.html">{{ _('Canada - U.S. border wait times') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://travel.gc.ca/travelling/registration">{{ _('Register as a Canadian abroad') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.cbsa-asfc.gc.ca/prog/nexus/application-demande-eng.html">{{ _('Apply for NEXUS') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://travel.gc.ca/returning/customs/what-you-can-bring-home-to-canada">{{ _('What you can bring home to Canada') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://travel.gc.ca/assistance/embassies-consulates">{{ _('Contact an embassy or consulate') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://travel.gc.ca/travelling/cannabis-and-international-travel">{{ _('Cannabis and international travel') }}</a></li>
-					</ul>
-					</li>
-					</ul>
-					</li>
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-biz" aria-expanded="false" href="#">{{ _('Business and industry') }}</a>
-					<ul id="gc-mnu-biz" role="menu" aria-orientation="vertical">
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/business.html">{{ _('Business') }}<span class="hidden-xs hidden-sm"> {{ _('and industry') }}</span><span class="visible-xs-inline visible-sm-inline">{{ _(': home') }}</span></a>
-					</li>
-					<li role="separator"></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/business/start.html">{{ _('Starting a business') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/business/grants.html">{{ _('Business grants and financing') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/business/taxes.html">{{ _('Business taxes') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/business/federal-corporations.html">{{ _('Federal corporations') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/business/hire.html">{{ _('Hiring and managing employees') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/business/trade.html">{{ _('International trade and investment') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/business/permits.html">{{ _('Permits, licences and regulations') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/business/doing-business.html">{{ _('Doing business with government') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/science/innovation.html">{{ _('R&amp;D and innovation') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/business/research.html">{{ _('Research and business intelligence') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/business/ip.html">{{ _('Intellectual property and copyright') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/business/maintaingrowimprovebusiness.html">{{ _('Maintaining your business') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/business/protecting.html">{{ _('Protecting your business') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/business/bankruptcy.html">{{ _('Insolvency for business') }}</a></li>
-					<li role="separator" aria-orientation="vertical"></li>
-					<li role="presentation">
-					<a data-keep-expanded="md-min" href="#" role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-biz-sub" aria-expanded="true">{{ _('Most requested') }}</a>
-					<ul id="gc-mnu-biz-sub" role="menu" aria-orientation="vertical">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.ic.gc.ca/app/scr/cc/CorporationsCanada/fdrlCrpSrch.html?locale=en_CA">{{ _('Find a corporation') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.cbsa-asfc.gc.ca/prog/manif/portal-portail-eng.html">{{ _('Report your imported goods') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.ic.gc.ca/app/opic-cipo/trdmrks/srch/home?lang=eng">{{ _('Search for trademarks') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.cbsa-asfc.gc.ca/trade-commerce/tariff-tarif/2018/html/tblmod-1-eng.html">{{ _('Review custom tariffs for importing goods') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.ic.gc.ca/opic-cipo/cpd/eng/introduction.html">{{ _('Find a patent') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.cbsa-asfc.gc.ca/comm-eng.html">{{ _('Import and export from Canada') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.ic.gc.ca/eic/site/075.nsf/eng/home">{{ _('Name a business') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.ic.gc.ca/app/scr/cc/CorporationsCanada/hm.html?locale=en_CA">{{ _('Make changes to your corporation (Online Filing Centre)') }}</a></li>
-					</ul>
-					</li>
-					</ul>
-					</li>
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-benny" aria-expanded="false" href="#"> {{ _('Benefits') }}</a>
-					<ul id="gc-mnu-benny" role="menu" aria-orientation="vertical">
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/benefits.html">{{ _('Benefits') }}<span class="visible-xs-inline visible-sm-inline">{{ _(': home') }}</span></a>
-					</li>
-					<li role="separator"></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/benefits/ei.html">{{ _('Employment Insurance and leave') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/benefits/family.html">{{ _('Family and caregiving benefits') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/benefits/publicpensions.html">{{ _('Public pensions') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/benefits/education.html">{{ _('Education and student aid') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/benefits/housing.html">{{ _('Housing benefits') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/benefits/disability.html">{{ _('Disability benefits') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="http://www.canadabenefits.gc.ca">{{ _('Benefits finder') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/benefits/calendar.html">{{ _('Benefit payment dates') }}</a></li>
-					<li role="separator" aria-orientation="vertical"></li>
-					<li role="presentation">
-					<a data-keep-expanded="md-min" href="#" role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-benny-sub" aria-expanded="true">{{ _('Most requested') }}</a>
-					<ul id="gc-mnu-benny-sub" role="menu" aria-orientation="vertical">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/benefits/ei/ei-regular-benefit.html">{{ _('Apply for Employment Insurance') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/benefits/education/student-aid/grants-loans.html">{{ _('Apply for student loans and grants') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/government/sign-in-online-account.html">{{ _('Sign in to a Government of Canada online account') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.tpsgc-pwgsc.gc.ca/recgen/txt/depot-deposit-eng.html">{{ _('Sign up for direct deposit') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/benefits/ei/ei-internet-reporting.html">{{ _('Submit your EI report') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="http://www.cra-arc.gc.ca/bnfts/clcltr/cfbc-eng.html">{{ _('Child and family benefits calculators') }}</a></li>
-					</ul>
-					</li>
-					</ul>
-					</li>
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-health" aria-expanded="false" href="#">{{ _('Health') }}</a>
-					<ul id="gc-mnu-health" role="menu" aria-orientation="vertical">
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/health.html">{{ _('Health') }}<span class="visible-xs-inline visible-sm-inline">{{ _(': home') }}</span></a>
-					</li>
-					<li role="separator"></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/health/food-nutrition.html">{{ _('Food and nutrition') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/public-health/services/diseases.html">{{ _('Diseases and conditions') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/public-health/topics/immunization-vaccines.html">{{ _('Vaccines and immunization') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/health/drug-health-products.html">{{ _('Drug and health products') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/health/product-safety.html">{{ _('Product safety') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/health/health-risks-safety.html">{{ _('Health risks and safety') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/health/healthy-living.html">{{ _('Healthy living') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/health/aboriginal-health.html">{{ _('Indigenous health') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/health/health-system-services.html">{{ _('Health system and services') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/health/science-research-data.html">{{ _('Science, research and data') }}</a></li>
-					<li role="separator" aria-orientation="vertical"></li>
-					<li role="presentation">
-					<a data-keep-expanded="md-min" href="#" role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-health-sub" aria-expanded="true">{{ _('Most requested') }}</a>
-					<ul id="gc-mnu-health-sub" role="menu" aria-orientation="vertical">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/health-canada/services/drugs-medication/cannabis/industry-licensees-applicants/licensed-cultivators-processors-sellers.html">{{ _('Licensed cultivators, processors and seller of cannabis') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="http://healthycanadians.gc.ca/recall-alert-rappel-avis/index-eng.php">{{ _('Food and product recalls and safety alerts') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/health-canada/services/canada-food-guides.html"> {{ _('Canada\'s food guide') }}</a></li>
-					</ul>
-					</li>
-					</ul>
-					</li>
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-taxes" aria-expanded="false" href="#">{{ _('Taxes') }}</a>
-					<ul id="gc-mnu-taxes" role="menu" aria-orientation="vertical">
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/taxes.html">{{ _('Taxes') }}<span class="visible-xs-inline visible-sm-inline">{{ _(': home') }}</span></a>
-					</li>
-					<li role="separator"></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/taxes/income-tax.html">{{ _('Income Tax') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/gst-hst-businesses.html">{{ _('GST/HST') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/payroll.html">{{ _('Payroll') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/taxes/business-number.html">{{ _('Business number') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/taxes/savings-and-pension-plans.html">{{ _('Savings and pension plans') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/taxes/child-and-family-benefits.html">{{ _('Child and family benefits') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/taxes/excise-taxes-duties-and-levies.html">{{ _('Excise taxes, duties, and levies') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/taxes/charities.html">{{ _('Charities and giving') }}</a></li>
-					<li role="separator" aria-orientation="vertical"></li>
-					<li role="presentation">
-					<a data-keep-expanded="md-min" href="#" role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-taxes-sub" aria-expanded="true">{{ _('Most requested') }}</a>
-					<ul id="gc-mnu-taxes-sub" role="menu" aria-orientation="vertical">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/revenue-agency/services/e-services/e-services-individuals/account-individuals.html">{{ _('My Account') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/revenue-agency/services/e-services/e-services-businesses/business-account.html">{{ _('My Business Account') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/revenue-agency/services/e-services/represent-a-client.html">{{ _('Represent a Client') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/revenue-agency/services/e-services/e-services-businesses/gst-hst-netfile.html">{{ _('File a GST/HST return (NETFILE)') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/revenue-agency/services/make-a-payment-canada-revenue-agency.html">{{ _('Make a payment to the Canada Revenue Agency') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/revenue-agency/services/child-family-benefits/benefit-payment-dates.html">{{ _('Find the next benefit payment date') }}</a></li>
-					</ul>
-					</li>
-					</ul>
-					</li>
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-enviro" aria-expanded="false" href="#">{{ _('Environment and natural resources') }}</a>
-					<ul id="gc-mnu-enviro" role="menu" aria-orientation="vertical">
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/environment.html">{{ _('Environment') }}<span class="hidden-xs hidden-sm">{{ _('and natural resources') }}</span><span class="visible-xs-inline visible-sm-inline">{{ _(': home') }}</span></a>
-					</li>
-					<li role="separator"></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/environment/weather.html">{{ _('Weather, climate and hazards') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/environment/energy.html">{{ _('Energy') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/environment/natural-resources.html">{{ _('Natural resources') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/environment/agricultural-practices.html">{{ _('Agricultural practices') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/environment/fisheries.html">{{ _('Fisheries') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/environment/wildlife-plants-species.html">{{ _('Wildlife, plants and species') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/environment/pollution-waste-management.html">{{ _('Pollution and waste management') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/environment/conservation.html">{{ _('Environmental conservation and protection') }}</a></li>
-					<li role="separator" aria-orientation="vertical"></li>
-					<li role="presentation">
-					<a data-keep-expanded="md-min" href="#" role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-enviro-sub" aria-expanded="true">{{ _('Most requested') }}</a>
-					<ul id="gc-mnu-enviro-sub" role="menu" aria-orientation="vertical">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://weather.gc.ca/canada_e.html">{{ _('Local weather forecast') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.nrcan.gc.ca/energy/efficiency/transportation/20996">{{ _('Fuel-efficient vehicles') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.nrcan.gc.ca/homes">{{ _('Home energy efficiency') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.registrelep-sararegistry.gc.ca/species/default_e.cfm">{{ _('Species at risk') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/environment-climate-change/services/seasonal-weather-hazards.html">{{ _('Prepare for severe weather') }}</a></li>
-					</ul>
-					</li>
-					</ul>
-					</li>
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-defence" aria-expanded="false" href="#">{{ _('National security and defence') }}</a>
-					<ul id="gc-mnu-defence" role="menu" aria-orientation="vertical">
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/defence.html"><span class="hidden-xs hidden-sm">{{ _('National security and defence') }}</span><span class="visible-xs-inline visible-sm-inline">{{ _('Defence: home') }}</span></a>
-					</li>
-					<li role="separator"></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/defence/nationalsecurity.html">{{ _('National security') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/defence/caf.html">{{ _('Canadian Armed Forces') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/defence/defence-equipment-purchases-upgrades.html">{{ _('Defence equipment purchases and upgrades') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.tc.gc.ca/en/services/transportation-security.html">{{ _('Transportation security') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/defence/securingborder.html">{{ _('Securing the border') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/defence/cybersecurity.html">{{ _('Cyber security') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/defence/jobs.html">{{ _('Jobs in national security and defence') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/government/publicservice/benefitsmilitary.html">{{ _('Services and benefits for the military') }}</a></li>
-					<li role="separator" aria-orientation="vertical"></li>
-					<li role="presentation">
-					<a data-keep-expanded="md-min" href="#" role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-defence-sub" aria-expanded="true">{{ _('Most requested') }}</a>
-					<ul id="gc-mnu-defence-sub" role="menu" aria-orientation="vertical">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/department-national-defence/services/caf-jobs/browse-jobs.html">{{ _('Jobs in the Canadian Armed Forces') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/department-national-defence/services/military-history/history-heritage/insignia-flags/ranks/rank-appointment-insignia.html">{{ _('Military ranks') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/defence/caf/equipment.html">{{ _('Defence equipment') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.publicsafety.gc.ca/cnt/ntnl-scrt/cntr-trrrsm/lstd-ntts/crrnt-lstd-ntts-en.aspx">{{ _('Current list of terrorist entities') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="http://www.cadets.ca/en/join/cadets.page">{{ _('Join the Cadets') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="http://dgpaapp.forces.gc.ca/en/canada-defence-policy/index.asp">{{ _('Canada\'s Defence policy') }}</a></li>
-					</ul>
-					</li>
-					</ul>
-					</li>
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-culture" aria-expanded="false" href="#">{{ _('Culture, history and sport') }}</a>
-					<ul id="gc-mnu-culture" role="menu" aria-orientation="vertical">
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/culture.html">{{ _('Culture') }}<span class="hidden-xs hidden-sm">{{ _(', history and sport') }}</span><span class="visible-xs-inline visible-sm-inline">{{ _(': home') }}</span></a>
-					</li>
-					<li role="separator"></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/canadian-heritage/services/funding.html">{{ _('Funding - Culture, history and sport') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/culture/events-celebrations-commemorations.html">{{ _('Events, celebrations and commemorations') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/culture/cultural-attractions.html">{{ _('Cultural landmarks and attractions') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/culture/canadian-identity-society.html">{{ _('Canadian identity and society') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/culture/sport.html">{{ _('Sport') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/culture/history-heritage.html">{{ _('History and heritage') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/culture/arts-media.html">{{ _('Arts and media') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/culture/cultural-youth-programs.html">{{ _('Cultural youth programs') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/culture/cultural-trade-investment.html">{{ _('Cultural trade and investment') }}</a></li>
-					<li role="separator" aria-orientation="vertical"></li>
-					<li role="presentation">
-					<a data-keep-expanded="md-min" href="#" role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-culture-sub" aria-expanded="true">{{ _('Most requested') }}</a>
-					<ul id="gc-mnu-culture-sub" role="menu" aria-orientation="vertical">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.veterans.gc.ca/eng/remembrance/memorials/canadian-virtual-war-memorial">{{ _('Visit the Canadian Virtual War Memorial') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/culture/canadian-identity-society/anthems-symbols.html">{{ _('Anthems and symbols of Canada') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://crtc.gc.ca/eng/8045/d2018.htm">{{ _('Find a CRTC decision') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.bac-lac.gc.ca/eng/search/Pages/ancestors-search.aspx">{{ _('Research your family history') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.bac-lac.gc.ca/eng/census/Pages/census.aspx">{{ _('Search census records') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/culture/cultural-attractions/attractions-canada-capital.html">{{ _('Landmarks and attractions in Canada’s capital') }}</a></li>
-					</ul>
-					</li>
-					</ul>
-					</li>
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-policing" aria-expanded="false" href="#">{{ _('Policing, justice and emergencies') }}</a>
-					<ul id="gc-mnu-policing" role="menu" aria-orientation="vertical">
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/policing.html">{{ _('Policing') }}<span class="hidden-xs hidden-sm">{{ _(', justice and emergencies') }}</span><span class="visible-xs-inline visible-sm-inline">{{ _(': home') }}</span></a>
-					</li>
-					<li role="separator"></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/policing/police/index.html">{{ _('Policing') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/policing/justice.html">{{ _('Justice') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/policing/emergencies.html">{{ _('Emergencies') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/policing/corrections.html">{{ _('Corrections') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/policing/parole.html">{{ _('Parole, record suspension, expungement and clemency') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/policing/victims.html">{{ _('Victims of crime') }}</a></li>
-					<li role="separator" aria-orientation="vertical"></li>
-					<li role="presentation">
-					<a data-keep-expanded="md-min" href="#" role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-policing-sub" aria-expanded="true">{{ _('Most requested') }}</a>
-					<ul id="gc-mnu-policing-sub" role="menu" aria-orientation="vertical">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="http://www.rcmp-grc.gc.ca/cfp-pcaf/online_en-ligne/index-eng.htm">{{ _('Apply/Renew a firearms licence') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="http://www.rcmp-grc.gc.ca/en/criminal-record-checks">{{ _('Get a criminal records check') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/parole-board/services/record-suspensions/official-pbc-application-guide-and-forms.html">{{ _('Apply for a criminal record suspension') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.getprepared.gc.ca/cnt/hzd/drng-en.aspx">{{ _('What to do during an emergency') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/policing/police/community-safety-policing/impaired-driving.html">{{ _('Know the law on impaired driving') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/policing/police/help-solve-crime.html">{{ _('Help solve a crime') }}</a></li>
-					</ul>
-					</li>
-					</ul>
-					</li>
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-trans" aria-expanded="false" href="#">{{ _('Transport and infrastructure') }}</a>
-					<ul id="gc-mnu-trans" role="menu" aria-orientation="vertical">
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/transport.html">{{ _('Transport') }}<span class="hidden-xs hidden-sm"> {{ _('and infrastructure') }}</span><span class="visible-xs-inline visible-sm-inline">{{ _(': home') }}</span></a>
-					</li>
-					<li role="separator"></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.tc.gc.ca/en/services/aviation.html">{{ _('Aviation') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.tc.gc.ca/en/services/marine.html">{{ _('Marine transportation') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.tc.gc.ca/en/services/road.html">{{ _('Road transportation') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.tc.gc.ca/en/services/rail.html">{{ _('Rail transportation') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.tc.gc.ca/en/services/dangerous-goods.html">{{ _('Dangerous goods') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.tc.gc.ca/en/services/infrastructure.html">{{ _('Infrastructure') }}</a></li>
-					<li role="separator" aria-orientation="vertical"></li>
-					<li role="presentation">
-					<a data-keep-expanded="md-min" href="#" role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-trans-sub" aria-expanded="true">{{ _('Most requested') }}</a>
-					<ul id="gc-mnu-trans-sub" role="menu" aria-orientation="vertical">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.tc.gc.ca/en/services/aviation/drone-safety.html">{{ _('Drone safety') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.tc.gc.ca/eng/aviationsecurity/page-147.htm">{{ _('What you can\'t bring on an airplane') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.tc.gc.ca/eng/marinesafety/oep-vesselreg-menu-728.htm">{{ _('Register your vessel') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.tc.gc.ca/en/services/road/child-car-seat-safety.html">{{ _('Child car seat safety') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.tc.gc.ca/eng/tdg/clear-tofc-211.htm">{{ _('Transporting dangerous goods - Regulations') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.tc.gc.ca/eng/acts-regulations/regulations-sor96-433.htm">{{ _('Canadian Aviation Regulations') }}</a></li>
-					</ul>
-					</li>
-					</ul>
-					</li>
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-canworld" aria-expanded="false" href="#">{{ _('Canada and the world') }}</a>
-					<ul id="gc-mnu-canworld" role="menu" aria-orientation="vertical">
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" href="https://international.gc.ca/world-monde/index.aspx?lang=eng">{{ _('Canada and the world') }}<span class="visible-xs-inline visible-sm-inline">{{ _(': home') }}</span></a>
-					</li>
-					<li role="separator"></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://international.gc.ca/world-monde/offices-bureaux/index.aspx?lang=eng">{{ _('International offices and emergency contacts') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://international.gc.ca/world-monde/study_work_travel-etude_travail_voyage/index.aspx?lang=eng">{{ _('Study, work and travel worldwide') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://international.gc.ca/world-monde/funding-financement/index.aspx?lang=eng">{{ _('Funding for international initiatives') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://international.gc.ca/world-monde/issues_development-enjeux_developpement/index.aspx?lang=eng">{{ _('Global issues and international assistance') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/business/trade/index.html">{{ _('International trade and investment') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://international.gc.ca/world-monde/international_relations-relations_internationales/index.aspx?lang=eng">{{ _('International relations') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://international.gc.ca/world-monde/country-pays/index.aspx?lang=eng">{{ _('Information by countries and territories') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://international.gc.ca/world-monde/stories-histoires/index.aspx?lang=eng">{{ _('Stories') }}</a></li>
-					<li role="separator" aria-orientation="vertical"></li>
-					<li role="presentation">
-					<a data-keep-expanded="md-min" href="#" role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-canworld-sub" aria-expanded="true">{{ _('Most requested') }}</a>
-					<ul id="gc-mnu-canworld-sub" role="menu" aria-orientation="vertical">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://scholarships-bourses.gc.ca/scholarships-bourses/non_can/opportunities-opportunites.aspx?lang=eng">{{ _('Find a Canadian scholarship as an international student') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://educanada.ca/index.aspx?lang=eng">{{ _('Find international study or research opportunities in Canada') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://travel.gc.ca/assistance/embassies-consulates">{{ _('Contact an embassy or consulate') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://international.gc.ca/world-monde/study_work_travel-etude_travail_voyage/authentication-authentification/index.aspx?lang=eng">{{ _('Authenticate a document') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://international.gc.ca/protocol-protocole/reps.aspx?lang=eng">{{ _('Contact a foreign representative in Canada') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://treaty-accord.gc.ca/index.aspx">{{ _('International treaties signed by Canada') }}</a></li>
-					</ul>
-					</li>
-					</ul>
-					</li>
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-money" aria-expanded="false" href="#">{{ _('Money and finances') }}</a>
-					<ul id="gc-mnu-money" role="menu" aria-orientation="vertical">
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/finance.html"><span class="hidden-xs hidden-sm">{{ _('Money and finances') }}</span><span class="visible-xs-inline visible-sm-inline">{{ _('Finance: home') }}</span></a>
-					</li>
-					<li role="separator"></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/finance/manage.html">{{ _('Managing your money') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/finance/debt.html">{{ _('Debt and borrowing') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/finance/savings.html">{{ _('Savings and investments') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/finance/educationfunding.html">{{ _('Education funding') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/finance/pensions.html">{{ _('Pensions and retirement') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/finance/fraud.html">{{ _('Protection from frauds and scams') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/finance/tools.html">{{ _('Financial tools and calculators') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/financial-consumer-agency/services/financial-literacy-programs.html">{{ _('Financial literacy programs') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/finance/consumer-affairs.html">{{ _('Consumer affairs') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/finance/bankruptcy.html">{{ _('Insolvency') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/taxes.html">{{ _('Taxes') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/government/system/finances.html">{{ _('Government finances') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/business/grants.html">{{ _('Business grants and financing') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/business/permits/federallyregulatedindustrysectors/financialservicesregulation.html">{{ _('Financial and money services regulation') }}</a></li>
-					<li role="separator" aria-orientation="vertical"></li>
-					<li role="presentation">
-					<a data-keep-expanded="md-min" href="#" role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-money-sub" aria-expanded="true">{{ _('Most requested') }}</a>
-					<ul id="gc-mnu-money-sub" role="menu" aria-orientation="vertical">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.ic.gc.ca/app/scr/bsf-osb/ins/login.html?lang=eng">{{ _('Find a bankruptcy or insolvency record') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/jobs/education/student-financial-aid/student-loan.html">{{ _('Student loans') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.tpsgc-pwgsc.gc.ca/recgen/txt/depot-deposit-eng.html">{{ _('Set up direct deposit') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/financial-consumer-agency/services/mortgages.html">{{ _('Mortgages') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/financial-consumer-agency/services/credit-reports-score.html">{{ _('Credit report and scores') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://itools-ioutils.fcac-acfc.gc.ca/BC-CB/NetInc-RevNet-eng.aspx">{{ _('Make a budget') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/revenue-agency/services/tax/registered-plans-administrators/pspa/mp-rrsp-dpsp-tfsa-limits-ympe.html">{{ _('Rates and contribution limits') }}</a></li>
-					</ul>
-					</li>
-					</ul>
-					</li>
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-science" aria-expanded="false" href="#">{{ _('Science and innovation') }}</a>
-					<ul id="gc-mnu-science" role="menu" aria-orientation="vertical">
-					<li role="presentation">
-					<a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/science.html">{{ _('Science') }}<span class="hidden-xs hidden-sm"> {{ _('and innovation') }}</span><span class="visible-xs-inline visible-sm-inline">{{ _(': home') }}</span></a>
-					</li>
-					<li role="separator"></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/science/researchfunding.html">{{ _('Research funding and awards') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/science/sciencesubjects.html">{{ _('Science subjects') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/science/open-data.html">{{ _('Open data, statistics and archives') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/science/institutes.html">{{ _('Research institutes and facilities') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/science/innovation.html">{{ _('R&amp;D and innovation') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/business/ip.html">{{ _('Intellectual property and copyright') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/science/scientistsdirectory.html">{{ _('Directory of scientists and research professionals') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.canada.ca/en/services/science/educationalresources.html">{{ _('Science education resources') }}</a></li>
-					<li role="separator" aria-orientation="vertical"></li>
-					<li role="presentation">
-					<a data-keep-expanded="md-min" href="#" role="menuitem" tabindex="-1" aria-haspopup="true" aria-controls="gc-mnu-science-sub" aria-expanded="true">{{ _('Most requested') }}</a>
-					<ul id="gc-mnu-science-sub" role="menu" aria-orientation="vertical">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.nrc-cnrc.gc.ca/eng/publications/codes_centre/2015_national_building_code.html">{{ _('National building codes') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.nrc-cnrc.gc.ca/eng/services/time/web_clock.html#tzpanel-4">{{ _('Official time across Canada') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.nrc-cnrc.gc.ca/eng/services/sunrise/index.html">{{ _('Check sunrise and sunset times') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.nrc-cnrc.gc.ca/eng/irap/services/financial_assistance.html">{{ _('Grants for technological innovation (IRAP)') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="https://science-libraries.canada.ca/eng/home/">{{ _('Federal Science Library') }}</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="http://asc-csa.gc.ca/eng/astronomy/auroramax/hd-480.asp">{{ _('Live view of northern lights cam') }}</a></li>
-					</ul>
-					</li>
-					</ul>
-					</li>
+			<button type="button" aria-haspopup="true" aria-expanded="false"><span class="wb-inv">Main </span>Menu <span class="expicon glyphicon glyphicon-chevron-down"></span></button>
+			<ul role="menu" aria-orientation="vertical" data-ajax-replace="#https://www.canada.ca/content/dam/canada/sitemenu/sitemenu-v2-en.html">
+				<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/jobs.html">Jobs and the workplace</a></li>
+				<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/immigration-citizenship.html">Immigration and citizenship</a></li>
+				<li role="presentation"><a role="menuitem" href="https://travel.gc.ca/">Travel and tourism</a></li>
+				<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/business.html">Business and industry</a></li>
+				<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/benefits.html">Benefits</a></li>
+				<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/health.html">Health</a></li>
+				<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/taxes.html">Taxes</a></li>
+				<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/environment.html">Environment and natural resources</a></li>
+				<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/defence.html">National security and defence</a></li>
+				<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/culture.html">Culture, history and sport</a></li>
+				<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/policing.html">Policing, justice and emergencies</a></li>
+				<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/transport.html">Transport and infrastructure</a></li>
+				<li role="presentation"><a role="menuitem" href="https://international.gc.ca/world-monde/index.aspx?lang=eng">Canada and the world</a></li>
+				<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/finance.html">Money and finances</a></li>
+				<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/science.html">Science and innovation</a></li>
 			</ul>
 		</div>
 	</nav>
-
-
-
-
-
-
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
-	<script src="https://wet-boew.github.io/themes-dist/GCWeb/wet-boew/js/wet-boew.min.js"></script>
-	<script src="https://wet-boew.github.io/themes-dist/GCWeb/js/theme.min.js"></script>
-
 </header>
-<!--template/header.html end-->
+<!-- Static header ends -->
 {% endblock %}
