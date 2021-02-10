@@ -31,7 +31,13 @@
 					</ul>
 				</nav>
 				<div class="col-xs-6 visible-sm visible-xs tofpg"> <a href="#wb-cont">{{ _('Top of Page') }} <span class="glyphicon glyphicon-chevron-up"></span></a> </div>
-				<div class="col-xs-6 col-md-3 col-lg-2 text-right"> <img src="https://wet-boew.github.io/themes-dist/GCWeb/assets/wmms-blk.svg" alt={{ _("Symbol of the Government of Canada") }}> </div>
+
+				{% if h.lang() == 'fr' %}
+				<div class="col-xs-6 col-md-3 col-lg-2 text-right"> <img src="https://wet-boew.github.io/themes-dist/GCWeb/assets/wmms-blk.svg" alt="Symbole du gouvernement du Canada"> </div>
+				{% else %}
+				<div class="col-xs-6 col-md-3 col-lg-2 text-right"> <img src="https://wet-boew.github.io/themes-dist/GCWeb/assets/wmms-blk.svg" alt="Symbol of the Government of Canada"> </div>
+				{% endif %}
+
 			</div>
 		</div>
 	</div>
