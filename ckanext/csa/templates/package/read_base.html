@@ -42,7 +42,6 @@
 
 {% block secondary_content %}
 
-
   {% block secondary_help_content %}{% endblock %}
 
   {% block package_info %}
@@ -90,6 +89,8 @@
           {%set custom_variables={"link_language" : "bilingual"}%}
 
 
+
+
         {%for field_to_show in ["link_language"]%}
 
             {% set field = h.scheming_field_by_name(schema.dataset_fields, field_to_show) %}
@@ -103,58 +104,6 @@
                 {%set dummy=custom_variables.update({"link_language" : field_value})%}
               {%endif%}
               {%endif%}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
           {% for field_to_show in include_labels %}

@@ -867,7 +867,7 @@
         "field_name": "audience",
         "label": {
           "en": "Audience",
-          "fr": "Audience"
+          "fr": "Audience "
         },
         "help_text": {
           "en": "A description of the audience or group of people for whom the described dataset is intended or useful. You may select or deselect multiple options (Ctrl+Click)",
