@@ -4,8 +4,8 @@
  <!--template/package/search.html start-->
   <aside class="mrgn-tp-lg">
     <div>
-   <h5 style="padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 12px;"> <a href="{{ h.url_for(controller='package', action='search', q=c.q) }}" class="btn btn-default mrgn-bttm-md btn-block"><span class="glyphicon glyphicon-refresh"></span>{{ _(' Clear filters') }}</a>
-   </h5>
+   <h2 style="padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 12px;"> <a href="{{ h.url_for(controller='package', action='search', q=c.q) }}" class="btn btn-default mrgn-bttm-md btn-block"><span class="glyphicon glyphicon-refresh"></span>{{ _(' Clear filters') }}</a>
+   </h2>
   </div>
 {% snippet 'snippets/dataset_facets.html',
   organization_facet=h.snippet(
@@ -71,14 +71,14 @@
         {% endtrans %}
       {% else %}
 
-        <h4>
+        <h3>
         {%if h.lang()=='en'%}
           You can also access this registry using the {{ api_doc_link}}.
 
         {%else%}
         Vous pouvez également accéder à cette base de données grâce à  l'{{ api_doc_link}}.
         {%endif%}
-        </h4>
+        </h3>
 
       {%- endif %}
 
