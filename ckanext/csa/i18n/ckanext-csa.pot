@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-csa 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-02-09 13:08-0800\n"
+"POT-Creation-Date: 2021-02-11 06:17-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -234,10 +234,6 @@ msgstr ""
 msgid "Top of Page"
 msgstr ""
 
-#: ckanext/csa/templates/footer.html:34
-msgid "Symbol of the Government of Canada"
-msgstr ""
-
 #: ckanext/csa/templates/footer_old.html:8 ckanext/csa/templates/footer_old.html:10
 msgid "Report a problem on this page"
 msgstr ""
@@ -246,33 +242,157 @@ msgstr ""
 msgid "Date modified:"
 msgstr ""
 
-#: ckanext/csa/templates/header.html:24
+#: ckanext/csa/templates/header.html:15
 msgid "Language selection"
 msgstr ""
 
-#: ckanext/csa/templates/header.html:30
+#: ckanext/csa/templates/header.html:19
 msgid "https://www.canada.ca/en.html"
 msgstr ""
 
-#: ckanext/csa/templates/header.html:41 ckanext/csa/templates/header.html:44
-#: ckanext/csa/templates/header.html:58
+#: ckanext/csa/templates/header.html:30 ckanext/csa/templates/header.html:33
+#: ckanext/csa/templates/header.html:47
 msgid "Search Canada.ca"
 msgstr ""
 
-#: ckanext/csa/templates/header.html:42
+#: ckanext/csa/templates/header.html:31
 msgid "https://www.canada.ca/en/sr/srb.html"
 msgstr ""
 
-#: ckanext/csa/templates/header_old.html:96
-msgid "Main"
-msgstr ""
-
+#: ckanext/csa/templates/header.html:55 ckanext/csa/templates/header.html:56
 #: ckanext/csa/templates/header_old.html:96
 msgid "Menu"
 msgstr ""
 
-#: ckanext/csa/templates/header_old.html:99
+#: ckanext/csa/templates/header.html:56 ckanext/csa/templates/header_old.html:96
+msgid "Main"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:58
+msgid "https://www.canada.ca/en/services/jobs.html"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:58 ckanext/csa/templates/header_old.html:99
 msgid "Jobs and the workplace"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:59
+msgid "https://www.canada.ca/en/services/immigration-citizenship.html"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:59 ckanext/csa/templates/header_old.html:130
+msgid "Immigration and citizenship"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:60
+msgid "https://travel.gc.ca/"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:60 ckanext/csa/templates/header_old.html:162
+msgid "Travel and tourism"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:61
+msgid "https://www.canada.ca/en/services/business.html"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:61 ckanext/csa/templates/header_old.html:193
+msgid "Business and industry"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:62
+msgid "https://www.canada.ca/en/services/benefits.html"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:62 ckanext/csa/templates/header_old.html:230
+#: ckanext/csa/templates/header_old.html:233
+msgid "Benefits"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:63
+msgid "https://www.canada.ca/en/services/health.html"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:63 ckanext/csa/templates/header_old.html:259
+#: ckanext/csa/templates/header_old.html:262
+msgid "Health"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:64
+msgid "https://www.canada.ca/en/services/taxes.html"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:64 ckanext/csa/templates/header_old.html:287
+#: ckanext/csa/templates/header_old.html:290
+#: ckanext/csa/templates/header_old.html:502
+msgid "Taxes"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:65
+msgid "https://www.canada.ca/en/services/environment.html"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:65 ckanext/csa/templates/header_old.html:316
+msgid "Environment and natural resources"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:66
+msgid "https://www.canada.ca/en/services/defence.html"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:66 ckanext/csa/templates/header_old.html:344
+#: ckanext/csa/templates/header_old.html:347
+msgid "National security and defence"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:67
+msgid "https://www.canada.ca/en/services/culture.html"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:67 ckanext/csa/templates/header_old.html:373
+msgid "Culture, history and sport"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:68
+msgid "https://www.canada.ca/en/services/policing.html"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:68 ckanext/csa/templates/header_old.html:403
+msgid "Policing, justice and emergencies"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:69
+msgid "https://www.canada.ca/en/services/transport.html"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:69 ckanext/csa/templates/header_old.html:430
+msgid "Transport and infrastructure"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:70
+msgid "https://international.gc.ca/world-monde/index.aspx?lang=eng"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:70 ckanext/csa/templates/header_old.html:457
+#: ckanext/csa/templates/header_old.html:460
+msgid "Canada and the world"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:71
+msgid "https://www.canada.ca/en/services/finance.html"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:71 ckanext/csa/templates/header_old.html:486
+#: ckanext/csa/templates/header_old.html:489
+msgid "Money and finances"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:72
+msgid "https://www.canada.ca/en/services/science.html"
+msgstr ""
+
+#: ckanext/csa/templates/header.html:72 ckanext/csa/templates/header_old.html:522
+msgid "Science and innovation"
 msgstr ""
 
 #: ckanext/csa/templates/header_old.html:105
@@ -360,10 +480,6 @@ msgstr ""
 msgid "Immigrate as a skilled worker"
 msgstr ""
 
-#: ckanext/csa/templates/header_old.html:130
-msgid "Immigration and citizenship"
-msgstr ""
-
 #: ckanext/csa/templates/header_old.html:133
 msgid "Immigration"
 msgstr ""
@@ -440,10 +556,6 @@ msgstr ""
 msgid "Have questions? Find answers in the Help Centre"
 msgstr ""
 
-#: ckanext/csa/templates/header_old.html:162
-msgid "Travel and tourism"
-msgstr ""
-
 #: ckanext/csa/templates/header_old.html:165
 msgid "Travel"
 msgstr ""
@@ -515,10 +627,6 @@ msgstr ""
 
 #: ckanext/csa/templates/header_old.html:187
 msgid "Cannabis and international travel"
-msgstr ""
-
-#: ckanext/csa/templates/header_old.html:193
-msgid "Business and industry"
 msgstr ""
 
 #: ckanext/csa/templates/header_old.html:196
@@ -617,11 +725,6 @@ msgstr ""
 msgid "Make changes to your corporation (Online Filing Centre)"
 msgstr ""
 
-#: ckanext/csa/templates/header_old.html:230
-#: ckanext/csa/templates/header_old.html:233
-msgid "Benefits"
-msgstr ""
-
 #: ckanext/csa/templates/header_old.html:237
 msgid "Family and caregiving benefits"
 msgstr ""
@@ -674,11 +777,6 @@ msgstr ""
 msgid "Child and family benefits calculators"
 msgstr ""
 
-#: ckanext/csa/templates/header_old.html:259
-#: ckanext/csa/templates/header_old.html:262
-msgid "Health"
-msgstr ""
-
 #: ckanext/csa/templates/header_old.html:265
 msgid "Food and nutrition"
 msgstr ""
@@ -729,12 +827,6 @@ msgstr ""
 
 #: ckanext/csa/templates/header_old.html:281
 msgid "Canada's food guide"
-msgstr ""
-
-#: ckanext/csa/templates/header_old.html:287
-#: ckanext/csa/templates/header_old.html:290
-#: ckanext/csa/templates/header_old.html:502
-msgid "Taxes"
 msgstr ""
 
 #: ckanext/csa/templates/header_old.html:293
@@ -791,10 +883,6 @@ msgstr ""
 
 #: ckanext/csa/templates/header_old.html:310
 msgid "Find the next benefit payment date"
-msgstr ""
-
-#: ckanext/csa/templates/header_old.html:316
-msgid "Environment and natural resources"
 msgstr ""
 
 #: ckanext/csa/templates/header_old.html:319
@@ -857,11 +945,6 @@ msgstr ""
 msgid "Prepare for severe weather"
 msgstr ""
 
-#: ckanext/csa/templates/header_old.html:344
-#: ckanext/csa/templates/header_old.html:347
-msgid "National security and defence"
-msgstr ""
-
 #: ckanext/csa/templates/header_old.html:347
 msgid "Defence: home"
 msgstr ""
@@ -920,10 +1003,6 @@ msgstr ""
 
 #: ckanext/csa/templates/header_old.html:367
 msgid "Canada's Defence policy"
-msgstr ""
-
-#: ckanext/csa/templates/header_old.html:373
-msgid "Culture, history and sport"
 msgstr ""
 
 #: ckanext/csa/templates/header_old.html:376
@@ -994,10 +1073,6 @@ msgstr ""
 msgid "Landmarks and attractions in Canada’s capital"
 msgstr ""
 
-#: ckanext/csa/templates/header_old.html:403
-msgid "Policing, justice and emergencies"
-msgstr ""
-
 #: ckanext/csa/templates/header_old.html:406
 #: ckanext/csa/templates/header_old.html:409
 msgid "Policing"
@@ -1049,10 +1124,6 @@ msgstr ""
 
 #: ckanext/csa/templates/header_old.html:424
 msgid "Help solve a crime"
-msgstr ""
-
-#: ckanext/csa/templates/header_old.html:430
-msgid "Transport and infrastructure"
 msgstr ""
 
 #: ckanext/csa/templates/header_old.html:433
@@ -1111,11 +1182,6 @@ msgstr ""
 msgid "Canadian Aviation Regulations"
 msgstr ""
 
-#: ckanext/csa/templates/header_old.html:457
-#: ckanext/csa/templates/header_old.html:460
-msgid "Canada and the world"
-msgstr ""
-
 #: ckanext/csa/templates/header_old.html:463
 msgid "International offices and emergency contacts"
 msgstr ""
@@ -1162,11 +1228,6 @@ msgstr ""
 
 #: ckanext/csa/templates/header_old.html:480
 msgid "International treaties signed by Canada"
-msgstr ""
-
-#: ckanext/csa/templates/header_old.html:486
-#: ckanext/csa/templates/header_old.html:489
-msgid "Money and finances"
 msgstr ""
 
 #: ckanext/csa/templates/header_old.html:489
@@ -1243,10 +1304,6 @@ msgstr ""
 
 #: ckanext/csa/templates/header_old.html:516
 msgid "Rates and contribution limits"
-msgstr ""
-
-#: ckanext/csa/templates/header_old.html:522
-msgid "Science and innovation"
 msgstr ""
 
 #: ckanext/csa/templates/header_old.html:525
@@ -1661,6 +1718,10 @@ msgstr ""
 #: ckanext/csa/templates/snippets/facet_list.html:66
 #: ckanext/csa/templates/snippets/facet_list.html:69
 msgid "Add the filter"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/language_selector.html:4
+msgid "Language selection link"
 msgstr ""
 
 #: ckanext/csa/templates/snippets/package_item.html:41
