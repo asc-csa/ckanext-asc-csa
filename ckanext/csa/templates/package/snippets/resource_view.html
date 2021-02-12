@@ -61,7 +61,16 @@
           {# When previewing we need to stick the whole resource_view as a param as there is no other way to pass to information on to the iframe #}
           {% set src = h.url_for(qualified=true, controller='package', action='resource_view', id=package['name'], resource_id=resource['id']) + '?' + h.urlencode({'resource_view': h.dump_json(resource_view)}) %}
         {% endif %}
-        <iframe src="{{ src }}"  allowfullscreen="" data-module="data-viewer" style="width:900px">
+        {% set res_name = h.get_translated(c.resource, "name") %}
+        {% set dataset_name = h.get_translated(c.package, "title") %}
+
+        {% if h.lang() == 'fr' %}
+
+        <iframe src="{{ src }}"  allowfullscreen="" data-module="data-viewer" style="width:1110px" title= "Visualisation des données de la ressource {{res_name}} (dans l'ensemble de données {{dataset_name}})"">
+        {% else %}
+        <iframe src="{{ src }}"  allowfullscreen="" data-module="data-viewer" style="width:1110px" title= "Visualization of the data contained within the resource {{res_name}} (within the {{dataset_name}} dataset)">
+        {% endif %}
+
 
         </iframe>
       {% endif %}
