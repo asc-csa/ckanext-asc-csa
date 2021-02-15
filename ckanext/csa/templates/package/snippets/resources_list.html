@@ -17,9 +17,7 @@ Example:
 
     {% if pkg.resources %}
     {% block resource_list_inner %}
-      <table class="wb-tables table table-striped resource-list"
-          data-wb-tables='{"searching":false, "info":false,
-                  "columnDefs": [ { "orderable": false, "targets": 4 }]}'>
+      <table class="table table-striped resource-list">
         <caption class="wb-inv">{{_('Resource list table') }}</caption>
         <thead>
           <tr>
