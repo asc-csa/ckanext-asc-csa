@@ -1,0 +1,10 @@
+{% set res_name = h.get_translated(c.resource, "name") %}
+
+{% if h.lang() == 'fr' %}
+
+  <img style="margin:auto; max-height:100%; display:block" src="{{ resource_view.get('image_url') or resource.get('url') }}"" alt = "Image provenant de la ressource {{res_name}} " />
+{% else %}
+
+  <img style="margin:auto; max-height:100%; display:block" src="{{ resource_view.get('image_url') or resource.get('url') }}"" alt = "Image from the {{ res_name }}" />
+
+ {% endif %}
