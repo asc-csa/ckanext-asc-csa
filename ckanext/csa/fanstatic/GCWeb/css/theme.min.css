@@ -5876,6 +5876,9 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:focus, a.list-g
 
 .panel-primary {
   border-color: #2572b4
+  word-wrap: break-word
+  -ms-word-wrap:break-word
+
 }
 
 .panel-primary>.panel-heading {
