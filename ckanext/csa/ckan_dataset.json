@@ -626,11 +626,7 @@
         "en": "Is the homepage language bilingual",
         "fr": "Est-ce que la page d'accueil est bilingue"
       },
-      "required": false,
-      "form_snippet": "select.html",
-      "display_snippet": "list_inline.html",
-      "validators": "scheming_multiple_choice",
-      "output_validators": "scheming_multiple_choice_output",
+      "preset": "select",
       "choices": [
         {
           "label": {
@@ -668,11 +664,7 @@
         "en": "This attribute will allow the access to the previsualisation of the data when set to 'true'. This feature is experimental ",
         "fr": "Cet attribut activera la prévisualisation des données lorsque la valeur est 'vrai'. Cette fonctionnalité est expérimentale"
       },
-      "required": false,
-      "form_snippet": "select.html",
-      "display_snippet": "list_inline.html",
-      "validators": "scheming_multiple_choice",
-      "output_validators": "scheming_multiple_choice_output",
+      "preset": "select",
       "choices": [
         {
           "label": {
