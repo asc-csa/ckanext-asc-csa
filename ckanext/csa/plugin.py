@@ -228,13 +228,13 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     def dataset_facets(self, facets_dict, package_type):
         # facets_dict['division'] = p.toolkit._('Division')
         facets_dict.update({
-            'portal_type': _('Portal type'),
+            'portal_type': _('Data or information'),
             'collection': _('Collection type'),
-            'science_admin': _('CSA Science category'),
+            'science_admin': _('Science or management'),
             'keywords_en': _('Keywords'),
             'keywords_fr': _('Keywords'),
             'keywords': _('Keywords'),
-            'project': _('Project'),
+            'project': _('CSA Science category'),
             'res_format': _('Format'),
             'frequency': _('Maintenance and update frequency'),
             'topic_category': _('Topic categories'),

@@ -7,6 +7,18 @@ scheming_choices=h.scheming_get_preset('portal_type').choices,
 extras=extras %}
 
 {% snippet 'snippets/facet_list.html',
+title=c.facet_titles['science_admin'],
+name='science_admin',
+scheming_choices=h.scheming_get_preset('science_admin').choices,
+extras=extras %}
+
+{% snippet 'snippets/facet_list.html',
+title=c.facet_titles['project'],
+name='project',
+scheming_choices=h.scheming_get_preset('canada_project').choices,
+extras=extras %}
+
+{% snippet 'snippets/facet_list.html',
   title=c.facet_titles['collection'],
   name='collection',
   scheming_choices=h.scheming_get_preset('canada_collection').choices,
@@ -20,13 +32,6 @@ extras=extras %}
 
 {{ organization_facet }} #}
 
-{% if h.lang() == 'en' %}
-  {% snippet 'snippets/facet_list.html', title=c.facet_titles['keywords_en'],
-  name='keywords_en', extras=extras %}
-{% elif h.lang() == 'fr' %}
-  {% snippet 'snippets/facet_list.html', title=c.facet_titles['keywords_fr'],
-  name='keywords_fr', extras=extras %}
-{% endif %}
 
 {% snippet 'snippets/facet_list.html',
   title=c.facet_titles['res_format'],
@@ -34,19 +39,12 @@ extras=extras %}
   scheming_choices=h.scheming_get_preset('canada_resource_format').choices,
   extras=extras %}
 
-
-  {% snippet 'snippets/facet_list.html',
-  title=c.facet_titles['science_admin'],
-  name='science_admin',
-  scheming_choices=h.scheming_get_preset('science_admin').choices,
-  extras=extras %}
-
-
-  {% snippet 'snippets/facet_list.html',
-  title=c.facet_titles['project'],
-  name='project',
-  scheming_choices=h.scheming_get_preset('canada_project').choices,
-  extras=extras %}
-
+  {% if h.lang() == 'en' %}
+    {% snippet 'snippets/facet_list.html', title=c.facet_titles['keywords_en'],
+    name='keywords_en', extras=extras %}
+  {% elif h.lang() == 'fr' %}
+    {% snippet 'snippets/facet_list.html', title=c.facet_titles['keywords_fr'],
+    name='keywords_fr', extras=extras %}
+  {% endif %}
 
 <!--template/snippets/dataset_facets.html end-->

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-csa 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-02-11 06:17-0800\n"
+"POT-Creation-Date: 2021-02-17 07:07-0800\n"
 "PO-Revision-Date: 2020-01-23 10:19-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -19,10 +19,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: ckanext/csa/plugin.py:231 ckanext/csa/plugin.py:252
-#: ckanext/csa/plugin.py:273
-msgid "Portal type"
-msgstr "Type de portail"
+#: ckanext/csa/plugin.py:231
+#| msgid "Additional information"
+msgid "Data or information"
+msgstr "Données ou information"
 
 #: ckanext/csa/plugin.py:232 ckanext/csa/plugin.py:253
 #: ckanext/csa/plugin.py:274
@@ -30,8 +30,8 @@ msgid "Collection type"
 msgstr "Type de collection"
 
 #: ckanext/csa/plugin.py:233
-msgid "CSA Science category"
-msgstr "Catégorie scientifique ASC"
+msgid "Science or management"
+msgstr "Sciences ou gestion"
 
 #: ckanext/csa/plugin.py:234 ckanext/csa/plugin.py:235
 #: ckanext/csa/plugin.py:236 ckanext/csa/plugin.py:255
@@ -41,13 +41,13 @@ msgstr "Catégorie scientifique ASC"
 msgid "Keywords"
 msgstr "Mots clés"
 
-#: ckanext/csa/plugin.py:237 ckanext/csa/plugin.py:247
-msgid "Project"
-msgstr "Projet"
+#: ckanext/csa/plugin.py:237
+msgid "CSA Science category"
+msgstr "Catégorie scientifique ASC"
 
 #: ckanext/csa/plugin.py:238 ckanext/csa/plugin.py:259
 #: ckanext/csa/plugin.py:280
-#: ckanext/csa/templates/package/snippets/resources_list.html:28
+#: ckanext/csa/templates/package/snippets/resources_list.html:26
 msgid "Format"
 msgstr "Format"
 
@@ -91,6 +91,14 @@ msgstr "Approbation du CSGI"
 msgid "Jurisdiction"
 msgstr "Juridiction"
 
+#: ckanext/csa/plugin.py:247
+msgid "Project"
+msgstr "Projet"
+
+#: ckanext/csa/plugin.py:252 ckanext/csa/plugin.py:273
+msgid "Portal type"
+msgstr "Type de portail"
+
 #: ckanext/csa/plugin.py:254 ckanext/csa/plugin.py:275
 msgid "Data category"
 msgstr ""
@@ -100,7 +108,7 @@ msgid "Subject"
 msgstr "Sujet "
 
 #: ckanext/csa/plugin.py:260 ckanext/csa/plugin.py:281
-#: ckanext/csa/templates/package/snippets/resources_list.html:27
+#: ckanext/csa/templates/package/snippets/resources_list.html:25
 msgid "Resource type"
 msgstr "Type de ressource"
 
@@ -304,7 +312,6 @@ msgid "Main"
 msgstr "Accueuil"
 
 #: ckanext/csa/templates/header.html:58
-#| msgid "https://www.canada.ca/en/sr/srb.html"
 msgid "https://www.canada.ca/en/services/jobs.html"
 msgstr "https://www.canada.ca/fr/services/emplois.html"
 
@@ -314,7 +321,6 @@ msgid "Jobs and the workplace"
 msgstr "Emplois et milieu de travail"
 
 #: ckanext/csa/templates/header.html:59
-#| msgid "https://www.canada.ca/en/sr/srb.html"
 msgid "https://www.canada.ca/en/services/immigration-citizenship.html"
 msgstr "https://www.canada.ca/fr/services/immigration-citoyennete.html"
 
@@ -324,7 +330,6 @@ msgid "Immigration and citizenship"
 msgstr "Immigration et citoyenneté"
 
 #: ckanext/csa/templates/header.html:60
-#| msgid "https://pm.gc.ca/eng"
 msgid "https://travel.gc.ca/"
 msgstr "https://voyage.gc.ca/"
 
@@ -334,7 +339,6 @@ msgid "Travel and tourism"
 msgstr "Voyage et tourisme"
 
 #: ckanext/csa/templates/header.html:61
-#| msgid "https://www.canada.ca/en/sr/srb.html"
 msgid "https://www.canada.ca/en/services/business.html"
 msgstr "https://www.canada.ca/fr/services/entreprises.html"
 
@@ -344,7 +348,6 @@ msgid "Business and industry"
 msgstr "Entreprises et industrie"
 
 #: ckanext/csa/templates/header.html:62
-#| msgid "https://www.canada.ca/en/sr/srb.html"
 msgid "https://www.canada.ca/en/services/benefits.html"
 msgstr "https://www.canada.ca/fr/services/prestations.html"
 
@@ -355,7 +358,6 @@ msgid "Benefits"
 msgstr "Prestations"
 
 #: ckanext/csa/templates/header.html:63
-#| msgid "https://www.canada.ca/en/social.html"
 msgid "https://www.canada.ca/en/services/health.html"
 msgstr "https://www.canada.ca/fr/services/sante.html"
 
@@ -366,7 +368,6 @@ msgid "Health"
 msgstr "Santé"
 
 #: ckanext/csa/templates/header.html:64
-#| msgid "https://www.canada.ca/en/sr/srb.html"
 msgid "https://www.canada.ca/en/services/taxes.html"
 msgstr "https://www.canada.ca/fr/services/impots.html"
 
@@ -378,7 +379,6 @@ msgid "Taxes"
 msgstr "Impôts"
 
 #: ckanext/csa/templates/header.html:65
-#| msgid "https://www.canada.ca/en/sr/srb.html"
 msgid "https://www.canada.ca/en/services/environment.html"
 msgstr "https://www.canada.ca/fr/services/environnement.html"
 
@@ -388,7 +388,6 @@ msgid "Environment and natural resources"
 msgstr "Environnement et ressources naturelles"
 
 #: ckanext/csa/templates/header.html:66
-#| msgid "https://www.canada.ca/en/sr/srb.html"
 msgid "https://www.canada.ca/en/services/defence.html"
 msgstr "https://www.canada.ca/fr/services/defense.html"
 
@@ -399,7 +398,6 @@ msgid "National security and defence"
 msgstr "Sécurité nationale et défense"
 
 #: ckanext/csa/templates/header.html:67
-#| msgid "https://www.canada.ca/en/sr/srb.html"
 msgid "https://www.canada.ca/en/services/culture.html"
 msgstr "https://www.canada.ca/fr/services/culture.html"
 
@@ -409,7 +407,6 @@ msgid "Culture, history and sport"
 msgstr "Culture, histoire et sport"
 
 #: ckanext/csa/templates/header.html:68
-#| msgid "https://www.canada.ca/en/social.html"
 msgid "https://www.canada.ca/en/services/policing.html"
 msgstr "https://www.canada.ca/fr/services/police.html"
 
@@ -419,7 +416,6 @@ msgid "Policing, justice and emergencies"
 msgstr "Services de police, justice et urgences"
 
 #: ckanext/csa/templates/header.html:69
-#| msgid "https://www.canada.ca/en/sr/srb.html"
 msgid "https://www.canada.ca/en/services/transport.html"
 msgstr "https://www.canada.ca/fr/services/transport.html"
 
@@ -439,7 +435,6 @@ msgid "Canada and the world"
 msgstr "Le Canada et le monde"
 
 #: ckanext/csa/templates/header.html:71
-#| msgid "https://www.canada.ca/en/social.html"
 msgid "https://www.canada.ca/en/services/finance.html"
 msgstr "https://www.canada.ca/fr/services/finance.html"
 
@@ -450,7 +445,6 @@ msgid "Money and finances"
 msgstr "Argent et finances"
 
 #: ckanext/csa/templates/header.html:72
-#| msgid "https://www.canada.ca/en/sr/srb.html"
 msgid "https://www.canada.ca/en/services/science.html"
 msgstr "https://www.canada.ca/fr/services/science.html"
 
@@ -1629,9 +1623,9 @@ msgid ""
 "enabled, or the data may not have been pushed to the DataStore, or the "
 "DataStore hasn't finished processing the data yet"
 msgstr ""
-"Si une vue nécessite le DataStore, le plugin DataStore peut ne pas"
-"être activé, ou les données peuvent ne pas avoir été poussées vers"
-"le DataStore, ou le DataStore n'a pas encore fini de traiter les données"
+"Si une vue nécessite le DataStore, le plugin DataStore peut ne pasêtre "
+"activé, ou les données peuvent ne pas avoir été poussées versle "
+"DataStore, ou le DataStore n'a pas encore fini de traiter les données"
 
 #: ckanext/csa/templates/package/search.html:7
 msgid " Clear filters"
@@ -1681,8 +1675,8 @@ msgid ""
 " You can also access this registry using the %(api_doc_link)s) or "
 "download a %(dump_link)s. "
 msgstr ""
-"Vous pouvez également accéder à ce registre en utilisant les liens"
-"%(api_doc_link)s) ou télécharger un %(dump_link)s. "
+"Vous pouvez également accéder à ce registre en utilisant les "
+"liens%(api_doc_link)s) ou télécharger un %(dump_link)s. "
 
 #: ckanext/csa/templates/package/snippets/additional_info.html:5
 msgid "More on this record"
@@ -1759,11 +1753,11 @@ msgstr "La visualisation de cette ressource n'est pas disponible pour le moment"
 msgid "Download resource"
 msgstr "Télécharger la ressource"
 
-#: ckanext/csa/templates/package/snippets/resource_view.html:75
+#: ckanext/csa/templates/package/snippets/resource_view.html:84
 msgid "Embed resource view"
 msgstr "Intégrer la visualisation de cette ressource"
 
-#: ckanext/csa/templates/package/snippets/resource_view.html:78
+#: ckanext/csa/templates/package/snippets/resource_view.html:87
 msgid ""
 "You can copy and paste the embed code into a CMS or blog software that "
 "supports raw HTML"
@@ -1771,43 +1765,46 @@ msgstr ""
 "Vous pouvez copier-coller le code d'intégration dans un logiciel "
 "supportant le format html brut"
 
-#: ckanext/csa/templates/package/snippets/resource_view.html:81
+#: ckanext/csa/templates/package/snippets/resource_view.html:90
 msgid "Width"
 msgstr "Largeur"
 
-#: ckanext/csa/templates/package/snippets/resource_view.html:84
+#: ckanext/csa/templates/package/snippets/resource_view.html:93
 msgid "Height"
 msgstr "Hauteur"
 
-#: ckanext/csa/templates/package/snippets/resource_view.html:87
+#: ckanext/csa/templates/package/snippets/resource_view.html:96
 msgid "Code"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resources_list.html:23
+#: ckanext/csa/templates/package/snippets/resource_views_list_item.html:16
+msgid "Data Explorer"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/resources_list.html:21
 msgid "Resource list table"
 msgstr "Tableau des ressources"
 
-#: ckanext/csa/templates/package/snippets/resources_list.html:26
+#: ckanext/csa/templates/package/snippets/resources_list.html:24
 msgid "Resource name"
 msgstr "Nom"
 
-#: ckanext/csa/templates/package/snippets/resources_list.html:29
+#: ckanext/csa/templates/package/snippets/resources_list.html:27
 msgid "Language"
 msgstr "Langue"
 
-#: ckanext/csa/templates/package/snippets/resources_list.html:30
+#: ckanext/csa/templates/package/snippets/resources_list.html:28
 msgid "Links"
 msgstr "Liens"
 
-#: ckanext/csa/templates/package/snippets/resources_list.html:45
+#: ckanext/csa/templates/package/snippets/resources_list.html:43
 #, python-format
 msgid ""
 " <p class=\"empty\">This dataset has no data, <a href=\"%(url)s\">why not"
 " add some?</a> "
 msgstr ""
-" <p class=\"empty\">Cet ensemble de données n'a pas de données,, <a href=\"%(url)s\">"
-" pourquoi ne pas en ajouter?</a>"
-
+" <p class=\"empty\">Cet ensemble de données n'a pas de données,, <a "
+"href=\"%(url)s\"> pourquoi ne pas en ajouter?</a>"
 
 #: ckanext/csa/templates/snippets/facet_list.html:61
 #: ckanext/csa/templates/snippets/facet_list.html:64
@@ -1821,7 +1818,6 @@ msgid "Add the filter"
 msgstr "Ajouter le filtre"
 
 #: ckanext/csa/templates/snippets/language_selector.html:4
-#| msgid "Language selection"
 msgid "Language selection link"
 msgstr "Sélection de langue"
 
@@ -1875,8 +1871,8 @@ msgid ""
 " <p id=\"search-error\"><strong>There was an error while "
 "searching.</strong> Please try again.</p> "
 msgstr ""
-" <p id=\"search-error\"><strong>Il y a eu une erreur lors  "
-"de la recherche.</strong> Veuillez réessayer.</p> "
+" <p id=\"search-error\"><strong>Il y a eu une erreur lors  de la "
+"recherche.</strong> Veuillez réessayer.</p> "
 
 #~ msgid "Please select all that apply:"
 #~ msgstr "Veuillez sélectionner toutes les cases qui s'appliquent:"
@@ -2012,3 +2008,6 @@ msgstr ""
 
 #~ msgid "Symbol of the Government of Canada"
 #~ msgstr "Symbole du gouvernement du Canada"
+
+#~ msgid "Information or data"
+#~ msgstr ""

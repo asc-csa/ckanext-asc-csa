@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-csa 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-02-11 06:17-0800\n"
+"POT-Creation-Date: 2021-02-17 07:07-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: ckanext/csa/plugin.py:231 ckanext/csa/plugin.py:252 ckanext/csa/plugin.py:273
-msgid "Portal type"
+#: ckanext/csa/plugin.py:231
+msgid "Data or information"
 msgstr ""
 
 #: ckanext/csa/plugin.py:232 ckanext/csa/plugin.py:253 ckanext/csa/plugin.py:274
@@ -26,7 +26,7 @@ msgid "Collection type"
 msgstr ""
 
 #: ckanext/csa/plugin.py:233
-msgid "CSA Science category"
+msgid "Science or management"
 msgstr ""
 
 #: ckanext/csa/plugin.py:234 ckanext/csa/plugin.py:235 ckanext/csa/plugin.py:236
@@ -35,12 +35,12 @@ msgstr ""
 msgid "Keywords"
 msgstr ""
 
-#: ckanext/csa/plugin.py:237 ckanext/csa/plugin.py:247
-msgid "Project"
+#: ckanext/csa/plugin.py:237
+msgid "CSA Science category"
 msgstr ""
 
 #: ckanext/csa/plugin.py:238 ckanext/csa/plugin.py:259 ckanext/csa/plugin.py:280
-#: ckanext/csa/templates/package/snippets/resources_list.html:28
+#: ckanext/csa/templates/package/snippets/resources_list.html:26
 msgid "Format"
 msgstr ""
 
@@ -72,6 +72,14 @@ msgstr ""
 msgid "Jurisdiction"
 msgstr ""
 
+#: ckanext/csa/plugin.py:247
+msgid "Project"
+msgstr ""
+
+#: ckanext/csa/plugin.py:252 ckanext/csa/plugin.py:273
+msgid "Portal type"
+msgstr ""
+
 #: ckanext/csa/plugin.py:254 ckanext/csa/plugin.py:275
 msgid "Data category"
 msgstr ""
@@ -81,7 +89,7 @@ msgid "Subject"
 msgstr ""
 
 #: ckanext/csa/plugin.py:260 ckanext/csa/plugin.py:281
-#: ckanext/csa/templates/package/snippets/resources_list.html:27
+#: ckanext/csa/templates/package/snippets/resources_list.html:25
 msgid "Resource type"
 msgstr ""
 
@@ -1665,45 +1673,49 @@ msgstr ""
 msgid "Download resource"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resource_view.html:75
+#: ckanext/csa/templates/package/snippets/resource_view.html:84
 msgid "Embed resource view"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resource_view.html:78
+#: ckanext/csa/templates/package/snippets/resource_view.html:87
 msgid ""
 "You can copy and paste the embed code into a CMS or blog software that "
 "supports raw HTML"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resource_view.html:81
+#: ckanext/csa/templates/package/snippets/resource_view.html:90
 msgid "Width"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resource_view.html:84
+#: ckanext/csa/templates/package/snippets/resource_view.html:93
 msgid "Height"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resource_view.html:87
+#: ckanext/csa/templates/package/snippets/resource_view.html:96
 msgid "Code"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resources_list.html:23
+#: ckanext/csa/templates/package/snippets/resource_views_list_item.html:16
+msgid "Data Explorer"
+msgstr ""
+
+#: ckanext/csa/templates/package/snippets/resources_list.html:21
 msgid "Resource list table"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resources_list.html:26
+#: ckanext/csa/templates/package/snippets/resources_list.html:24
 msgid "Resource name"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resources_list.html:29
+#: ckanext/csa/templates/package/snippets/resources_list.html:27
 msgid "Language"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resources_list.html:30
+#: ckanext/csa/templates/package/snippets/resources_list.html:28
 msgid "Links"
 msgstr ""
 
-#: ckanext/csa/templates/package/snippets/resources_list.html:45
+#: ckanext/csa/templates/package/snippets/resources_list.html:43
 #, python-format
 msgid ""
 " <p class=\"empty\">This dataset has no data, <a href=\"%(url)s\">why not add"
