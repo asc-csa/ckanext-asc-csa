@@ -86,7 +86,10 @@
     },
     {
       "field_name": "language_support",
-      "label": "Language Support",
+      "label": {
+        "en": "Language Support",
+        "fr": "Soutien linguistique"
+      },
       "required": "false",
       "preset": "select",
       "choices": [
@@ -115,19 +118,28 @@
     },
     {
       "field_name": "language_support_specify",
-      "label": "Language Support Specify",
+      "label": {
+        "en": "Language Support Specify",
+        "fr": "Précisions par rapport au soutien linguistique "
+      },
       "required": "false",
       "validators": "ignore_missing"
     },
     {
       "field_name": "data_steward",
-      "label": "Data Steward",
+      "label": {
+        "en": "Data Steward",
+        "fr": "Responsable des données"
+      },
       "required": "false",
       "validators": "ignore_missing"
     },
     {
       "field_name": "manager_or_supervisor",
-      "label": "Manager or Supervisor",
+      "label": {
+        "en":"Manager or Supervisor",
+        "fr": "Gestionnaire ou superviseur"
+        },
       "required": "false",
       "validators": "ignore_missing"
     },
@@ -139,7 +151,10 @@
     },
     {
       "field_name": "directorate",
-      "label": "Directorate",
+      "label": {
+        "en": "Directorate",
+        "fr": "Direction"
+      },
       "preset": "select",
       "choices": [
         {
@@ -244,7 +259,7 @@
       "field_name": "dataset_status",
       "label": {
         "en": "Dataset Status",
-        "fr": "Dataset Status French"
+        "fr": "Statut de l'ensemble de données"
       },
       "preset": "select",
       "choices": [
@@ -252,35 +267,35 @@
           "value": "completed_form_od",
           "label": {
             "en": "Completed Form (OD)",
-            "fr": "Completed Form (OD) French"
+            "fr": "Formulaire complété  (OD)"
           }
         },
         {
           "value": "assigned_to_an_expert",
           "label": {
             "en": "Assigned to an expert",
-            "fr": "Assigned to an expert French"
+            "fr": "Assigné à un expert"
           }
         },
         {
           "value": "completed_by_the_expert",
           "label": {
             "en": "Completed by the expert",
-            "fr": "Completed by the expert French"
+            "fr": "Complété par l'expert"
           }
         },
         {
           "value": "new_dataset",
           "label": {
             "en": "New dataset",
-            "fr": "New dataset French"
+            "fr": "Nouveau jeu de données"
           }
         },
         {
           "value": "modified_by_the_expert",
           "label": {
             "en": "Modified by the expert",
-            "fr": "Modified by the expert French"
+            "fr": "Modifié par l'expert"
           }
         }
       ]
@@ -390,20 +405,32 @@
     },
     {
       "field_name": "data_owner",
-      "label": "Data Owner",
+      "label": {
+        "en": "Data Owner",
+        "fr": "Propriétaire des données"
+        },
       "preset": "select",
       "choices": [
         {
           "value": "csa",
-          "label": "CSA"
+          "label": {
+            "en":"CSA",
+            "fr":"ASC"
+          }
         },
         {
           "value": "jointly_specify",
-          "label": "Jointly (specify)"
+          "label": {
+            "en": "Jointly (specify)",
+            "fr": "En commun (préciser)"
+          }
         },
         {
           "value": "third_party",
-          "label": "Third Party"
+          "label": {
+            "en": "Third Party",
+            "fr": "Tierce partie"
+            }
         },
         {
           "value": "third_party_specify",
@@ -448,7 +475,10 @@
     },
     {
       "field_name": "registered_on_the_open_data_site",
-      "label": "Registered on the Open Data Site",
+      "label":{
+        "en": "Registered on the Open Data Site",
+        "fr": "Enregistré sur le site Open Data"
+      },
       "preset": "select",
       "choices": [
         {

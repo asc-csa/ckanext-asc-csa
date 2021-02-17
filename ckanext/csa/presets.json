@@ -3701,13 +3701,13 @@
       "values": {
         "field_name": "data_series_name",
         "label": {
-          "en": "Homepage",
-          "fr": "URL de la page d'accueil "
+          "en": "Data Series Name",
+          "fr": "Nom de la série de données "
         },
 
         "help_text": {
-            "en": "The URL for the original webpage hosting the dataset",
-            "fr": "L'URL du site web original contenant le jeu de données"
+            "en": "The name of the data series to which this dataset belongs (if applicable).",
+            "fr": "Le nom de la série de données à laquelle cet ensemble de données appartient (le cas échéant)."
 
         },
         "form_snippet": "fluent_text.html",
