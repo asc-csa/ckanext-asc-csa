@@ -244,8 +244,8 @@
           },
           {
             "label": {
-              "en": "Federated open data",
-              "fr": "Fédérée de données"
+              "en": "Federated data",
+              "fr": "Données fédérées"
             },
             "value": "federated"
           }
@@ -811,7 +811,7 @@
           {
             "label": {
               "en": "Space environment/Space weather",
-              "fr": "Environnement spatiale/Météo spatiale"
+              "fr": "Environnement spatiale/météo spatiale"
             },
             "replaces": [
               "AA"
