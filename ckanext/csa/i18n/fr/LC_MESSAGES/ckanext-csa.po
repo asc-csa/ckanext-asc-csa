@@ -1779,7 +1779,7 @@ msgstr ""
 
 #: ckanext/csa/templates/package/snippets/resource_views_list_item.html:16
 msgid "Data Explorer"
-msgstr ""
+msgstr "Explorateur de données"
 
 #: ckanext/csa/templates/package/snippets/resources_list.html:21
 msgid "Resource list table"
@@ -1813,7 +1813,6 @@ msgstr "Retirer le filtre"
 
 #: ckanext/csa/templates/snippets/facet_list.html:66
 #: ckanext/csa/templates/snippets/facet_list.html:69
-#, fuzzy
 msgid "Add the filter"
 msgstr "Ajouter le filtre"
 
