@@ -31,7 +31,7 @@
 
                       {% if field_title %}
                       {%if pkg[field.field_name]%}
-                        {% set field_value = pkg[field.field_name][0] %}
+                        {% set field_value = pkg[field.field_name] %}
                           {%set dummy=custom_variables.update({"preview" : field_value})%}
                         {%endif%}
                         {%endif%}

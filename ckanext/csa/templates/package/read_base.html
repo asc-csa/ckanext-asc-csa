@@ -100,7 +100,8 @@
             {% if field_title %}
 
             {% if pkg[field.field_name]%}
-              {% set field_value = pkg[field.field_name][0] %}
+              {% set field_value = pkg[field.field_name]%}
+
                 {%set dummy=custom_variables.update({"link_language" : field_value})%}
               {%endif%}
               {%endif%}
@@ -138,7 +139,7 @@
             {%set url=h.add_url_param(new_params={name: value}, extras=extras, alternative_url=h.url_for('search')) %}
             <a class="btn btn-default btn-xs mrgn-bttm-sm mrgn-rght-sm" href="{{url}}">{{value}}</a>
             {%endfor%}
-
+            <!--Add custom language flag for external links based on the link_language parameter -->
             {%if custom_variables["link_language"]=="english" or custom_variables["link_language"]=="french"%}
             {%set custom_link=True%}
             {%endif%}
