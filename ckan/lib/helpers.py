@@ -1370,10 +1370,17 @@ class Page(paginate.Page):
     def _pagerlink(self, page, text, extra_attributes = None):
         anchor = super(Page, self)._pagerlink(page, text)
         language = lang()
+
         if language == "fr":
-            extra_attributes = {'aria-label':'Voir la page %s'%text}
+            if str(self.page) == text:
+                extra_attributes = {'aria-label':'(page actuelle) Voir la page %s'%text, 'class' : 'active'}
+            else:
+                extra_attributes = {'aria-label':'Voir la page %s'%text}
         else:
-            extra_attributes = {'aria-label':'Go to page %s'%text}
+            if str(self.page) == text:
+                extra_attributes = {'aria-label':'(current) Go to page %s'%text, 'class' : 'active'}
+            else:
+                extra_attributes = {'aria-label':'Go to page %s'%text}
         return HTML.li(anchor, **extra_attributes)
 
     # Change 'current page' link from <span> to <li><a>
