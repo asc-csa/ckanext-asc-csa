@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-csa 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-02-17 07:07-0800\n"
+"POT-Creation-Date: 2021-02-26 12:33-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1460,28 +1460,28 @@ msgstr ""
 msgid "Additional information"
 msgstr ""
 
-#: ckanext/csa/templates/package/read_base.html:148
-#: ckanext/csa/templates/package/read_base.html:177
+#: ckanext/csa/templates/package/read_base.html:149
+#: ckanext/csa/templates/package/read_base.html:178
 msgid "English only"
 msgstr ""
 
-#: ckanext/csa/templates/package/read_base.html:151
+#: ckanext/csa/templates/package/read_base.html:152
 msgid "French only"
 msgstr ""
 
-#: ckanext/csa/templates/package/read_base.html:217
+#: ckanext/csa/templates/package/read_base.html:218
 msgid "About this record"
 msgstr ""
 
-#: ckanext/csa/templates/package/read_base.html:223
+#: ckanext/csa/templates/package/read_base.html:224
 msgid "Record ID"
 msgstr ""
 
-#: ckanext/csa/templates/package/read_base.html:227
+#: ckanext/csa/templates/package/read_base.html:228
 msgid "Metadata"
 msgstr ""
 
-#: ckanext/csa/templates/package/read_base.html:231
+#: ckanext/csa/templates/package/read_base.html:232
 msgid "Link to JSON format"
 msgstr ""
 
@@ -1765,23 +1765,27 @@ msgstr ""
 msgid "Search datasets..."
 msgstr ""
 
-#: ckanext/csa/templates/snippets/search_form.html:19
+#: ckanext/csa/templates/snippets/search_form.html:12
+msgid "Search the list of datasets"
+msgstr ""
+
+#: ckanext/csa/templates/snippets/search_form.html:20
 msgid "Search"
 msgstr ""
 
-#: ckanext/csa/templates/snippets/search_form.html:35
+#: ckanext/csa/templates/snippets/search_form.html:36
 msgid "Order by"
 msgstr ""
 
-#: ckanext/csa/templates/snippets/search_form.html:44
+#: ckanext/csa/templates/snippets/search_form.html:45
 msgid "Sort"
 msgstr ""
 
-#: ckanext/csa/templates/snippets/search_form.html:67
+#: ckanext/csa/templates/snippets/search_form.html:68
 msgid " <p class=\"extra\">Please try another search.</p> "
 msgstr ""
 
-#: ckanext/csa/templates/snippets/search_form.html:73
+#: ckanext/csa/templates/snippets/search_form.html:74
 msgid ""
 " <p id=\"search-error\"><strong>There was an error while searching.</strong> "
 "Please try again.</p> "

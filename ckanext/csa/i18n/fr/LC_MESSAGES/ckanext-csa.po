@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-csa 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-02-17 07:07-0800\n"
+"POT-Creation-Date: 2021-02-26 12:33-0800\n"
 "PO-Revision-Date: 2020-01-23 10:19-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -20,7 +20,6 @@ msgstr ""
 "Generated-By: Babel 2.3.4\n"
 
 #: ckanext/csa/plugin.py:231
-#| msgid "Additional information"
 msgid "Data or information"
 msgstr "Données ou information"
 
@@ -1519,28 +1518,28 @@ msgstr ""
 msgid "Additional information"
 msgstr "Informations additionnelles"
 
-#: ckanext/csa/templates/package/read_base.html:148
-#: ckanext/csa/templates/package/read_base.html:177
+#: ckanext/csa/templates/package/read_base.html:149
+#: ckanext/csa/templates/package/read_base.html:178
 msgid "English only"
 msgstr "Anglais seulement"
 
-#: ckanext/csa/templates/package/read_base.html:151
+#: ckanext/csa/templates/package/read_base.html:152
 msgid "French only"
 msgstr "Français seulement"
 
-#: ckanext/csa/templates/package/read_base.html:217
+#: ckanext/csa/templates/package/read_base.html:218
 msgid "About this record"
 msgstr "À propos de cette fiche"
 
-#: ckanext/csa/templates/package/read_base.html:223
+#: ckanext/csa/templates/package/read_base.html:224
 msgid "Record ID"
 msgstr "Identificateur du dossier "
 
-#: ckanext/csa/templates/package/read_base.html:227
+#: ckanext/csa/templates/package/read_base.html:228
 msgid "Metadata"
 msgstr "Métadonnées "
 
-#: ckanext/csa/templates/package/read_base.html:231
+#: ckanext/csa/templates/package/read_base.html:232
 msgid "Link to JSON format"
 msgstr "Lien au format JSON"
 
@@ -1849,23 +1848,28 @@ msgstr "Supprimer du panier"
 msgid "Search datasets..."
 msgstr "Chercher les jeux de données"
 
-#: ckanext/csa/templates/snippets/search_form.html:19
+#: ckanext/csa/templates/snippets/search_form.html:12
+#| msgid "Search datasets..."
+msgid "Search the list of datasets"
+msgstr "Rechercher dans la liste des ensembles de données"
+
+#: ckanext/csa/templates/snippets/search_form.html:20
 msgid "Search"
 msgstr "Recherche"
 
-#: ckanext/csa/templates/snippets/search_form.html:35
+#: ckanext/csa/templates/snippets/search_form.html:36
 msgid "Order by"
 msgstr "Par ordre "
 
-#: ckanext/csa/templates/snippets/search_form.html:44
+#: ckanext/csa/templates/snippets/search_form.html:45
 msgid "Sort"
 msgstr "Trier"
 
-#: ckanext/csa/templates/snippets/search_form.html:67
+#: ckanext/csa/templates/snippets/search_form.html:68
 msgid " <p class=\"extra\">Please try another search.</p> "
 msgstr "<p class=\"extra\">Veuillez essayer une autre recherche.</p>"
 
-#: ckanext/csa/templates/snippets/search_form.html:73
+#: ckanext/csa/templates/snippets/search_form.html:74
 msgid ""
 " <p id=\"search-error\"><strong>There was an error while "
 "searching.</strong> Please try again.</p> "
