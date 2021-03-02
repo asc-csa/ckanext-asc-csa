@@ -67,7 +67,7 @@
       {% if g.dumps_url -%}
         {% set dump_link = h.link_to(_('full {format} dump').format(format=g.dumps_format), g.dumps_url) %}
         {% trans %}
-          You can also access this registry using the {{ api_doc_link }}) or download a {{ dump_link }}.
+          You can also access these datasets using the {{ api_doc_link }}) or download a {{ dump_link }}.
         {% endtrans %}
       {% else %}
 
@@ -76,7 +76,7 @@
           You can also access this registry using the {{ api_doc_link}}.
 
         {%else%}
-        Vous pouvez également accéder à cette base de données grâce à  l'{{ api_doc_link}}.
+        Vous pouvez également accéder à ces bases de données grâce à  l'{{ api_doc_link}}.
         {%endif%}
         </h3>
 
