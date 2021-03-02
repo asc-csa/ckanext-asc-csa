@@ -1,20 +1,19 @@
 {# {% ckan_extends %} #}
 {% block styles %}
 
-<!DOCTYPE html>
-<html class="no-js" lang="en" dir="ltr">
+
 <!-- Web Experience Toolkit (WET) / Boîte à outils de l'expériencse-search-boxce Web (BOEW)
 		wet-boew.github.io/wet-boew/License-en_(.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-
-<body vocab="http://schema.org/"  resource="#wb-webpage" typeof="WebPage">
 
 <header style="background-color: white;">
 	<div id="wb-bnr" class="container">
 		<div class="row">
 			<section id="wb-lng" class="col-xs-3 col-sm-12 pull-right text-right">
 				<h2 class="wb-inv">{{ _("Language selection") }}</h2>
-				<ul class="list-inline mrgn-bttm-0">
-					<li> {% block footer_lang %} {% snippet "snippets/language_selector.html" %} {% endblock %} </li> <!-- add ckan translate button here-->
+
+					{% block footer_lang %} {% snippet "snippets/language_selector.html" %} {% endblock %}  <!-- add ckan translate button here-->
+
+
 			<div class="brand col-xs-9 col-sm-5 col-md-4" property="publisher" resource="#wb-publisher" typeof="GovernmentOrganization">
 				<a href= {{ _('https://www.canada.ca/en.html') }} property="url">
 					<img src="https://wet-boew.github.io/themes-dist/GCWeb/assets/sig-blk-en.svg" alt="" property="logo"><span class="wb-inv" property="name"> Government of Canada / <span lang="fr">Gouvernement du Canada</span></span>
@@ -62,12 +61,12 @@
 				<li role="presentation"><a role="menuitem" href={{ _("https://www.canada.ca/en/services/benefits.html") }}>{{ _("Benefits") }}</a></li>
 				<li role="presentation"><a role="menuitem" href={{ _("https://www.canada.ca/en/services/health.html") }}>{{ _("Health") }}</a></li>
 				<li role="presentation"><a role="menuitem" href={{ _("https://www.canada.ca/en/services/taxes.html") }}>{{ _("Taxes") }}</a></li>
-				<li role="presentation"><a role="menuitem" href={{ _("https://www.canada.ca/en/services/environment.html") }}">{{ _("Environment and natural resources") }}</a></li>
+				<li role="presentation"><a role="menuitem" href={{ _("https://www.canada.ca/en/services/environment.html") }}>{{ _("Environment and natural resources") }}</a></li>
 				<li role="presentation"><a role="menuitem" href={{ _("https://www.canada.ca/en/services/defence.html") }}>{{ _("National security and defence") }}</a></li>
 				<li role="presentation"><a role="menuitem" href={{ _("https://www.canada.ca/en/services/culture.html") }}>{{ _("Culture, history and sport") }}</a></li>
 				<li role="presentation"><a role="menuitem" href={{ _("https://www.canada.ca/en/services/policing.html") }}>{{ _("Policing, justice and emergencies") }}</a></li>
 				<li role="presentation"><a role="menuitem" href={{ _("https://www.canada.ca/en/services/transport.html") }}>{{ _("Transport and infrastructure") }}</a></li>
-				<li role="presentation"><a role="menuitem" href={{ _("https://international.gc.ca/world-monde/index.aspx?lang=eng") }}>{{ _("Canada and the world") }}</a></li>
+				<li role="presentation"><a role="menuitem" href={{ _("https://www.international.gc.ca/world-monde/index.aspx?lang=eng") }}>{{ _("Canada and the world") }}</a></li>
 				<li role="presentation"><a role="menuitem" href={{ _("https://www.canada.ca/en/services/finance.html") }}>{{ _("Money and finances") }}</a></li>
 				<li role="presentation"><a role="menuitem" href={{ _("https://www.canada.ca/en/services/science.html") }}>{{ _("Science and innovation") }}</a></li>
 			</ul>
