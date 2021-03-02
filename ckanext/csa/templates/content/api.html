@@ -1,78 +1,76 @@
 {% extends "package/base.html" %}
 
 
-{% block primary_content %}
+{% block content %}
   <section class="module">
-    <div class="module-content">
+    <div class = "row wrapper">
+    <div class="module-content" style="width: 1200px; margin: auto">
 
       {%if h.lang()=='en'%}
 
                         <h1> API guide </h1>
-                        <h3>
-                          This page will give a quick explaination on how to use the API
-                          to access and download data from this website.
-                        </h3>
+
+                        <h2>
+                          This page provides a brief explanation of how to use the API (application programming interface) to access and download data from this website.
+                        </h2>
 
                         <p>
-                          The Canadian space agency uses the open-source app name CKAN to  manage this website and its datasets. To use the CKAN API, different examples
-                          in python are available. For example :
+                          The Canadian Space Agency uses an open-source data management system called CKAN (Comprehensive Knowledge Archive Network) to manage this website and
+                          its datasets. Since CKAN is widely used, there are many resources and scripts online that show how to use its API. The script below is an example of this,
+                          written in Python.
                         </p>
 
 
-                  <script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fasc-csa%2Fckanext-asc-csa%2Fblob%2FAPI-page%2FHarvester_example.py&style=github-gist&showBorder=on&showLineNumbers=on&showFileMeta=on"></script>
+                  <script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fasc-csa%2Fckanext-asc-csa%2Fblob%2Fmaster%2FHarvester_example.py&style=github&showBorder=on&showLineNumbers=on&showFileMeta=on"></script>
+                  <noscript>
+                    Your browser does not support JavaScript. <a href = "https://github.com/asc-csa/ckanext-asc-csa/blob/master/Harvester_example.py"> You can view this script on CSA's GitHub page</a>
+                  </noscript>
 
-                      <h4>Other available resources on the CKAN API :</h4>
+                      <h3>Additional resources for the CKAN API:</h3>
                       <ul>
-                        <a href="https://docs.ckan.org/en/2.8/api/">CKAN API documentation </a>
+                        <li><a href="https://docs.ckan.org/en/2.8/api/">CKAN API documentation </a></li>
 
-                        <a href="https://github.com/ckan/ckanapi">CKAN API GitHub page</a>
+                        <li><a href="https://github.com/ckan/ckanapi">CKAN API GitHub page</a></li>
 
                       </ul>
-
+                      </div>
+                      </div>
                   </section>
 
 
-                  <p>
-                  For more information on the CKAN API, you can look at the CKAN documentation available <a href=https://docs.ckan.org/en/2.8/api/>here </a> </p>
+
 
       {%else%}
                   <h1> Guide de l'API </h1>
-                  <h3>
-                  Cette page vous permettra de vous familiariser avec l'API en fournissant une explication rapide de celui-ci ainsi qu'un exemple permetttant de
-                  d'accéder à cette banque de données
-                  </h3>
+                  <h2>
+                    Cette page vous permettra de vous familiariser avec l'API (interface de protocole d'application) en fournissant une explication rapide de celui-ci ainsi qu'un exemple permettant d'accéder aux données de
+                    ce site web et de les télécharger.
+                  </h2>
 
                   <p>
-                    L'agence spatiale canadienne utilise comme base pour ce site le logiciel ouvert CKAN. Celui-ci vient avec un API intégré pour accéder aux jeux de Données
-                    qui y sont hébergés. Pour utiliser cet API , un exemple vous est fourni ci-dessous :
+                    L’agence spatiale canadienne utilise un système de gestion des données à code source ouvert appelé CKAN (« Comprehensive Knowledge Archive Network »)
+                    pour gérer ce site web et ses ensembles de données. Puisque celui-ci est largement utilisé, il existe de nombreuses ressources et scripts en ligne qui
+                    montrent comment utiliser son API. Un exemple, écrit en Python, vous est fourni ci-dessous :
                   </p>
 
-          <script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fasc-csa%2Fckanext-asc-csa%2Fblob%2FAPI-page%2FHarvester_example.py&style=github-gist&showBorder=on&showLineNumbers=on&showFileMeta=on"></script>
+                  <script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fasc-csa%2Fckanext-asc-csa%2Fblob%2Fmaster%2FHarvester_example.py&style=github&showBorder=on&showLineNumbers=on&showFileMeta=on"></script>
+                  <noscript>
+                    Votre navigateur ne supporte pas JavaScript. <a href = "https://github.com/asc-csa/ckanext-asc-csa/blob/master/Harvester_example.py"> Vous pouvez consulter ce script sur la page GitHub de l'ASC.</a>
+                  </noscript>
 
-                <h4>D'autres ressources disponible pour l'API de CKAN :</h4>
+
+                <h3>D'autres ressources disponibles pour l'API de CKAN :</h3>
                 <ul>
-                  <a href="https://docs.ckan.org/en/2.8/api/">Documentation de l'API de CKAN (anglais seulement)</a>
+                  <li><a href="https://docs.ckan.org/en/2.8/api/">Documentation de l'API de CKAN (anglais seulement)</a></li>
 
-                  <a href="https://github.com/ckan/ckanapi"> Page GitHub de l'API de CKAN (anglais seulement)</a>
+                  <li><a href="https://github.com/ckan/ckanapi"> Page GitHub de l'API de CKAN (anglais seulement)</a></li>
 
 
 
                 </ul>
-
+                </div>
+                </div>
             </section>
 
-
-          <p>
-            Pour plus d'information, vous pouvez également consulter la documentation de l'API de CKAN disponible <a href=https://docs.ckan.org/en/2.8/api/>ici </a>(anglais seulement). </p>
           {%endif%}
           {% endblock %}
-
-
-          {% block secondary_content %}
-          <div class="filters">
-            <div>
-
-            </div>
-            <a class="close no-text hide-filters"><i class="fa fa-times-circle"></i><span class="text">close</span></a>
-          </div>
-{% endblock %}
