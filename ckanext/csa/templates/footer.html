@@ -44,7 +44,9 @@
 </footer>
 
 {% block footer_embeds %}
-	{% include "footer_embeds.html" %}
+	{% if h.footer_embeds_exists() %}
+		{% include "footer_embeds.html" %}
+	{% endif %}
 {% endblock %}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.js"></script>

@@ -6,7 +6,9 @@
 		wet-boew.github.io/wet-boew/License-en_(.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
 
 {% block header_embeds %}
-	{% include "header_embeds.html" %}
+	{% if h.header_embeds_exists() %}
+		{% include "header_embeds.html" %}
+	{% endif %}
 {% endblock %}
 
 <header style="background-color: white;">
