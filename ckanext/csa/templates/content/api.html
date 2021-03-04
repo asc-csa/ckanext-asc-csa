@@ -5,6 +5,17 @@
   <section class="module">
     <div class = "row wrapper">
     <div class="module-content" style="width: 1200px; margin: auto">
+      {% block toolbar %}
+        <div class="toolbar">
+          {% block breadcrumb %}
+            {% if self.breadcrumb_content() | trim %}
+              <ol class="breadcrumb">
+                {% snippet 'snippets/home_breadcrumb_item.html' %}
+              </ol>
+            {% endif %}
+          {% endblock %}
+        </div>
+      {% endblock %}
 
       {%if h.lang()=='en'%}
 
