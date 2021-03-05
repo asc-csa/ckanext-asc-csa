@@ -17,7 +17,7 @@
 
   {# The content block allows you to replace the content of the page if needed #}
   {%- block content %}
-    {% block maintag %}<div role="main" >{% endblock %}
+    {% block maintag %}<div class='page-wrap'>{% endblock %}
       <div id="content" class="container" >
         {% block main_content %}
           {% block flash %}
@@ -102,7 +102,7 @@
                     {% endblock %}
                       #}
 
-                    <div class="module-content">
+                    <div role='main' class="module-content">
                       {% if self.page_primary_action() | trim %}
                         <div class="page_primary_action">
                           {% block page_primary_action %}{% endblock %}
