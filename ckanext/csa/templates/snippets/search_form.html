@@ -53,9 +53,9 @@
 
   {% block search_title %}
     {% if not error %}
-      <h1>{% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}</h1>
+      <h2>{% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}</h2>
     {% else %}
-      <h1>Error</h1>
+      <h2>Error</h2>
     {% endif %}
   {% endblock %}
 
