@@ -44,13 +44,14 @@
             </div>
           {% endblock %}
 
-
-          <div class="row wrapper{% block wrapper_class %}{% endblock %}{% if self.secondary()|trim == '' or c.action=='resource_read' %} no-nav{% endif %}">
+          <div {% block main_search_role %}{% endblock %} class="row wrapper{% block wrapper_class %}{% endblock %}{% if self.secondary()|trim == '' or c.action=='resource_read' %} no-nav{% endif %}">
             {#
             The pre_primary block can be used to add content to before the
             rendering of the main content columns of the page.
             #}
             {% block pre_primary %}
+            {% endblock %}
+            {% block page_header_block %}
             {% endblock %}
 
             {% block secondary %}
