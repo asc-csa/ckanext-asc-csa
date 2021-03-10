@@ -13,9 +13,14 @@
   a {
     background-color: white;
   }
+
+  .dataset-private.pull-right {
+    font-size: 12px;
+    margin-top: 8px;
+  }
   @media (min-width: 768px) {
     [role=main],
-    .main {
+    .main, .page-wrap {
       padding-top: 10px;
       background: white;
     }
@@ -34,7 +39,7 @@
 
 @media (min-width: 768px) {
           [role=main],
-          .main {
+          .main, .page-wrap {
             padding-top: 10px;
             background: #fff;
           }

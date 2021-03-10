@@ -17,7 +17,7 @@
 
   {# The content block allows you to replace the content of the page if needed #}
   {%- block content %}
-    {% block maintag %}<div role="main" >{% endblock %}
+    {% block maintag %}<div class='page-wrap'>{% endblock %}
       <div id="content" class="container" >
         {% block main_content %}
           {% block flash %}
@@ -44,13 +44,14 @@
             </div>
           {% endblock %}
 
-
-          <div class="row wrapper{% block wrapper_class %}{% endblock %}{% if self.secondary()|trim == '' or c.action=='resource_read' %} no-nav{% endif %}">
+          <div {% block main_search_role %}{% endblock %} class="row wrapper{% block wrapper_class %}{% endblock %}{% if self.secondary()|trim == '' or c.action=='resource_read' %} no-nav{% endif %}">
             {#
             The pre_primary block can be used to add content to before the
             rendering of the main content columns of the page.
             #}
             {% block pre_primary %}
+            {% endblock %}
+            {% block page_header_block %}
             {% endblock %}
 
             {% block secondary %}
@@ -102,7 +103,7 @@
                     {% endblock %}
                       #}
 
-                    <div class="module-content">
+                    <div role='main' class="module-content">
                       {% if self.page_primary_action() | trim %}
                         <div class="page_primary_action">
                           {% block page_primary_action %}{% endblock %}
