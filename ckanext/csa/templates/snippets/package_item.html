@@ -6,7 +6,7 @@
   <article class="panel panel-default mrgn-bttm-sm relative">
     <header class="panel-heading" style="background-color: white;">
 
-    <h2 class="panel-title">
+    <h3 class="panel-title">
       {% block heading %}
         {% set my_title, machine_translated = h.csa_get_translated_t(package, 'title') %}
         {% if 'title_translated' not in package %}
@@ -23,7 +23,7 @@
           <i class="fa fa-language text-muted mrgn-lft-sm" title="{{ _("This third party metadata element has been translated using an automated translation tool (DeepL).  To report any discrepancies please contact open-ouvert@tbs-sct.gc.ca") }}"></i>
         {% endif %}
       {% endblock %}
-    </h2></header>
+    </h3></header>
 
     <div class="panel-body">
       {% block banner %}

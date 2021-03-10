@@ -1,4 +1,18 @@
 {% ckan_extends %}
+{% set pkg = c.pkg_dict %}
+{% set res = c.resource %}
+
+{% block page_header_block %}
+  {% if not pkg %}
+    {%if h.lang()=='en'%}
+      <h1>CSA Open Government Portal</h1>
+    {%else%}
+      <h1>Portail du gouvernement ouvert de l'ASC</h1>
+    {%endif%}
+  {% endif %}
+{% endblock %}
+
+{% block main_search_role %}role="main"{% endblock %}
 
 {% block secondary_content %}
  <!--template/package/search.html start-->
@@ -20,9 +34,6 @@
 
 
 <!--template/package/search.html end-->
-
-
-
 {% endblock %}
 
 {% block form %}

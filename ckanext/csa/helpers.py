@@ -3,6 +3,7 @@ from ckan.model import User, Package, Activity
 import unicodedata
 from pylons.i18n import _
 from ckantoolkit import h
+from os import path
 
 
 
@@ -37,6 +38,17 @@ def get_translated_t(data_dict, field):
                     return data_dict[field+'_translated'][l], True
         val = data_dict.get(field, '')
         return (_(val) if val and isinstance(val, basestring) else val), False
+
+
+def header_embeds_exists():
+    ''' check whether the files exists '''
+    # return path.dirname(path.realpath(__file__))
+    return path.exists(path.dirname(path.realpath(__file__))+'/templates/header_embeds.html')
+
+def footer_embeds_exists():
+    ''' check whether the files exists '''
+    # return path.dirname(path.realpath(__file__))
+    return path.exists(path.dirname(path.realpath(__file__))+'/templates/footer_embeds.html')
 
 
 def csa_get_field_descriptions():

@@ -219,6 +219,8 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             'csa_get_field_descriptions': helpers.csa_get_field_descriptions,
             'csa_get_field_description': helpers.csa_get_field_description,
             'get_translated_t' : helpers.get_translated_t,
+            'header_embeds_exists' : helpers.header_embeds_exists,
+            'footer_embeds_exists' : helpers.footer_embeds_exists,
             }
 
 
