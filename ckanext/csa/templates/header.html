@@ -19,17 +19,24 @@
 
 					{% block footer_lang %} {% snippet "snippets/language_selector.html" %} {% endblock %}  <!-- add ckan translate button here-->
 
-
+			{% if h.lang() == 'fr' %}
 			<div class="brand col-xs-9 col-sm-5 col-md-4" property="publisher" resource="#wb-publisher" typeof="GovernmentOrganization">
 				<a href= {{ _('https://www.canada.ca/en.html') }} property="url">
-					<img src="https://wet-boew.github.io/themes-dist/GCWeb/assets/sig-blk-en.svg" alt="" property="logo"><span class="wb-inv" property="name"> Government of Canada / <span lang="fr">Gouvernement du Canada</span></span>
+					<img src="sig-blk-fr.svg" alt="" property="logo"><span class="wb-inv" property="name"> Government of Canada / <span lang="fr">Gouvernement du Canada</span></span>
 				</a>
 				<meta property="areaServed" typeof="Country" content="Canada">
-				<link property="logo" href="https://wet-boew.github.io/themes-dist/GCWeb/assets/wmms-blk.svg">
+				<link property="logo" href="wmms-blk.svg">
 			</div>
 
-
-
+			{% else %}
+			<div class="brand col-xs-9 col-sm-5 col-md-4" property="publisher" resource="#wb-publisher" typeof="GovernmentOrganization">
+				<a href= {{ _('https://www.canada.ca/en.html') }} property="url">
+					<img src="sig-blk-en.svg" alt="" property="logo"><span class="wb-inv" property="name"> Government of Canada / <span lang="fr">Gouvernement du Canada</span></span>
+				</a>
+				<meta property="areaServed" typeof="Country" content="Canada">
+				<link property="logo" href="wmms-blk.svg">
+			</div>
+			{% endif %}
 
 			<section id="wb-srch" class="col-lg-offset-4 col-md-offset-4 col-sm-offset-2 col-xs-12 col-sm-5 col-md-4">
 				<h2>{{ _("Search Canada.ca") }}</h2>
