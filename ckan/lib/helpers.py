@@ -1353,7 +1353,7 @@ class Page(paginate.Page):
                 format=u"<div class='pagination-wrapper'><nav role='navigation' aria-label='Navigation de pagination'><ul class='pagination'>"
                 "$link_previous ~2~ $link_next</ul></nav></div>",
                 symbol_previous=u'« Précédente', symbol_next=u'Suivante »',
-                curpage_attr={'class': 'active'}, link_attr={}
+                curpage_attr={'class': 'active'}, link_attr={'aria-label':'replace_this'}
             )
             return super(Page, self).pager(*args, **kwargs)
         else:
@@ -1361,7 +1361,7 @@ class Page(paginate.Page):
                 format=u"<div class='pagination-wrapper'><nav role='navigation' aria-label='Pagination navigation'><ul class='pagination'>"
                 "$link_previous ~2~ $link_next</ul></nav></div>",
                 symbol_previous=u'« Previous', symbol_next=u'Next »',
-                curpage_attr={'class': 'active'}, link_attr={}
+                curpage_attr={'class': 'active'}, link_attr={'aria-label':'replace_this'}
             )
             return super(Page, self).pager(*args, **kwargs)
 
@@ -1370,17 +1370,24 @@ class Page(paginate.Page):
     def _pagerlink(self, page, text, extra_attributes = None):
         anchor = super(Page, self)._pagerlink(page, text)
         language = lang()
+        extra_attributes = {}
+
+        aria = ''
 
         if language == "fr":
             if str(self.page) == text:
-                extra_attributes = {'aria-label':'(page actuelle) Voir la page %s'%text, 'class' : 'active'}
+                extra_attributes = {'class' : 'active'}
+                aria = '(page actuelle) Voir la page %s'%text
             else:
-                extra_attributes = {'aria-label':'Voir la page %s'%text}
+                aria = 'Voir la page %s'%text
         else:
             if str(self.page) == text:
-                extra_attributes = {'aria-label':'(current) Go to page %s'%text, 'class' : 'active'}
+                extra_attributes = {'class' : 'active'}
+                aria = '(current) Go to page %s'%text
             else:
-                extra_attributes = {'aria-label':'Go to page %s'%text}
+                aria = 'Go to page %s'%text
+
+        anchor = re.sub('replace_this', aria, anchor)
         return HTML.li(anchor, **extra_attributes)
 
     # Change 'current page' link from <span> to <li><a>
@@ -1389,6 +1396,7 @@ class Page(paginate.Page):
 
     def _range(self, regexp_match):
         html = super(Page, self)._range(regexp_match)
+        extra_attributes = {'aria-label':'Go to page test'}
         # Convert ..
         dotdot = '<span class="pager_dotdot">..</span>'
         dotdot_link = HTML.li(HTML.a('...', href='#'), class_='disabled')
@@ -1399,6 +1407,7 @@ class Page(paginate.Page):
         current_page_span = str(HTML.span(c=text, **self.curpage_attr))
         current_page_link = self._pagerlink(self.page, text,
                                             extra_attributes=self.curpage_attr)
+
         return re.sub(current_page_span, current_page_link, html)
 
 
