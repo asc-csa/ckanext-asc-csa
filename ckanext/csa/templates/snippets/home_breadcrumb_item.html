@@ -5,14 +5,14 @@
 {% if h.lang() == 'en' %}
 <li><a href="https://www.canada.ca/en.html">Canada.ca</a></li>
 <li><a href="https://www.asc-csa.gc.ca/eng/Default.asp">Canadian Space Agency</a></li>
-<li id="wb-cont"><a href="/en">Open Government</a></li>
+<li id="wb-cont"><a href="https://asc-csa.gc.ca/eng/open-data/default.asp">Open data and information</a></li>
 {% if pkg %}
     <li>{{ h.dataset_display_name(pkg) }}</li>
 {% endif %}
 {% else %}
 <li><a href="https://www.canada.ca/fr.html">Canada.ca</a></li>
 <li><a href="https://www.asc-csa.gc.ca/fra/Default.asp">Agence spatiale canadienne</a></li>
-<li id="wb-cont"><a href="/fr/dataset">Gouvernement ouvert</a></li>
+<li id="wb-cont"><a href="https://asc-csa.gc.ca/fra/donnees-ouvertes/default.asp">Données et information ouvertes</a></li>
 {% if pkg %}
     <li>{{ h.dataset_display_name(pkg) }}</li>
 {% endif %}
