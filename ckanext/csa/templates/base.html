@@ -1,6 +1,13 @@
 {% ckan_extends %}
+
 <!--template/base.html start-->
+
 {%- block meta -%}
+{% block header_embeds %}
+	{% if h.header_embeds_exists() %}
+		{% include "header_embeds.html" %}
+	{% endif %}
+{% endblock %}
 
   {% block meta_generator %}<meta name="generator" content="ckan {{ h.ckan_version() }}" />{% endblock %}
   {% block meta_viewport %}<meta name="viewport" content="width=device-width, initial-scale=1.0">{% endblock %}
