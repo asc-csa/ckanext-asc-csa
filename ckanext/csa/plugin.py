@@ -5,13 +5,15 @@ import json
 import os
 import inspect
 
-from paste.reloader import watch_file
+# from paste.reloader import watch_file
 from ckan.common import config
 from ckan.common import request
 from ckan.lib.plugins import DefaultTranslation
-from pylons.i18n import _
+from ckan.plugins.toolkit import _
 from ckanext.csa import helpers
 from ckanext.csa import loader
+
+from ckanext.csa import blueprint
 
 
 import ckan.lib.base as base
@@ -59,6 +61,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     p.implements(p.ITemplateHelpers)
     p.implements(p.IFacets)
     p.implements(p.ITranslation)
+    p.implements(p.IBlueprint)
     p.implements(p.IRoutes)
 
     instance = None
@@ -94,7 +97,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             return
         p = os.path.join(os.path.dirname(inspect.getfile(m)), file_name)
         if os.path.exists(p):
-            watch_file(p)
+            # watch_file(p)
             return loader.load(open(p))
 
     #IpackageController
@@ -293,12 +296,9 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
 
     #IRoutesl
     def before_map(self, route_map):
-        # Redirect home to datasets instead
-
-
         route_map.redirect('/', '/dataset')
         with routes.mapper.SubMapper(route_map,controller='ckanext.csa.plugin:CSAController') as m:
-                 m.connect('API', '/API', action='API')
+                    m.connect('API', '/API', action='API')
         # Attempt to remove /user functionality and rename to different subdomain
         # m.redirect('/hgljkdhfsqhjfhgaslkhjfkjusadh', '/user')
         # m.redirect('/user', '/dataset')
@@ -308,7 +308,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
         return m
 
 
-class CSAController(base.BaseController):
+# class CSAController(base.BaseController):
 
-    def API(self):
-        return base.render('content/api.html')
+#     def API(self):
+#         return base.render('content/api.html')
