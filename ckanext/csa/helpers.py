@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from ckan.model import User, Package, Activity
 import unicodedata
-from pylons.i18n import _
-from ckantoolkit import h
+from ckan.plugins.toolkit import _
+from ckan.plugins.toolkit import h
 from os import path
 
 
