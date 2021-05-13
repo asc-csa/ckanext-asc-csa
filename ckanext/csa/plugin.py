@@ -67,6 +67,8 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     instance = None
     _field_descriptions = None
 
+    pkg_dict = {}
+
     @classmethod
     def _store_instance(cls, self):
         CsaPlugin.instance = self
@@ -143,6 +145,8 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     #Implements bilingual searching
     def before_index(self, pkg_dict):
 
+        print('RAN before_index')
+
         pkg_dict['subject'] = json.loads(pkg_dict.get('subject', '[]'))
         pkg_dict['project'] = json.loads(pkg_dict.get('project', '[]'))
 
@@ -170,9 +174,12 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
                     res_name_fr.append(res_name_fr_temp)
         pkg_dict['res_name_fr'] = res_name_fr
 
+        self.pkg_dict = pkg_dict
+
         return pkg_dict
 
     def before_view(self, pkg_dict):
+        print('RAN before_view')
         return pkg_dict
 
     def read(self, entity):
@@ -199,8 +206,8 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     def after_show(self, context, pkg_dict):
         return pkg_dict
 
-
-
+    def get_pkg_dict(self):
+        return self.pkg_dict
 
     # IConfigurer
     def update_config(self, config_):
@@ -224,6 +231,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             'get_translated_t' : helpers.get_translated_t,
             'header_embeds_exists' : helpers.header_embeds_exists,
             'footer_embeds_exists' : helpers.footer_embeds_exists,
+            'get_pkg_dict' : self.get_pkg_dict
             }
 
 

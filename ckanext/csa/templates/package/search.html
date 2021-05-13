@@ -18,7 +18,7 @@
  <!--template/package/search.html start-->
   <aside class="mrgn-tp-lg">
     <div>
-   <h2 style="padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 12px;"> <a href="{{ h.url_for(controller='package', action='search', q=c.q) }}" class="btn btn-default mrgn-bttm-md btn-block"><span class="glyphicon glyphicon-refresh"></span>{{ _(' Clear filters') }}</a>
+   <h2 style="padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 12px;"> <a href="{{ h.url_for('dataset.search', q=c.q) }}" class="btn btn-default mrgn-bttm-md btn-block"><span class="glyphicon glyphicon-refresh"></span>{{ _(' Clear filters') }}</a>
    </h2>
   </div>
 {% snippet 'snippets/dataset_facets.html',

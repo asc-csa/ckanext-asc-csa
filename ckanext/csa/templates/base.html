@@ -18,8 +18,11 @@
 {% block styles %}
     {{ super() }}
 
-    {% resource 'csa/GCWeb/css/theme.css' %}
-    {% resource 'csa/extra.css' %}
+    {% asset 'csa/gcweb_style' %}
+    {# {% resource 'csa/GCWeb/css/theme.css' %} #}
+    {# {% resource 'csa/extra.css' %} #}
+    {# {% asset 'csa/GCWeb/css/theme.css' %}
+    {% asset 'csa/extra.css' %} #}
 {% endblock %}
 
 <title>
