@@ -1,4 +1,4 @@
-ext_script:  # name of the asset
+gcweb_script:  # name of the asset
   # filters: rjsmin # preprocessor for files. Optional
   output: ckanext-ext/extension.js  # actual path, where the generated file will be stored
   contents: # list of files that are included in the asset

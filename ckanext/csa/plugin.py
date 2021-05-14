@@ -9,12 +9,14 @@ import inspect
 from ckan.common import config
 from ckan.common import request
 from ckan.lib.plugins import DefaultTranslation
-from ckan.plugins.toolkit import _
+from ckan.plugins.toolkit import _, url_for, redirect_to, request, config
 from ckanext.csa import helpers
 from ckanext.csa import loader
 
-from ckanext.csa import blueprint
+# from ckanext.csa import blueprint
+from flask import Blueprint, redirect
 
+import ckanext.csa.blueprint as blueprint
 
 import ckan.lib.base as base
 import routes.mapper
@@ -304,9 +306,14 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
 
     #IRoutesl
     def before_map(self, route_map):
+        print('BEFORE MAP TIHASFDJSBDFKJSDFKJHSDF')
         route_map.redirect('/', '/dataset')
         with routes.mapper.SubMapper(route_map,controller='ckanext.csa.plugin:CSAController') as m:
-                    m.connect('API', '/API', action='API')
+                    m.connect(
+                        'API',
+                        '/API',
+                        action='API'
+                    )
         # Attempt to remove /user functionality and rename to different subdomain
         # m.redirect('/hgljkdhfsqhjfhgaslkhjfkjusadh', '/user')
         # m.redirect('/user', '/dataset')
@@ -315,6 +322,25 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     def after_map(self, m):
         return m
 
+    def get_blueprint(self):
+        return blueprint.get_blueprints()
+    # def get_blueprint(self):
+    #     # Create Blueprint for plugin
+    #     print('blueprint thing')
+    #     blueprint = Blueprint(self.name, self.__module__)
+    #     # blueprint.template_folder = u'templates'
+    #     # Add plugin url rules to Blueprint object
+    #     rules = [
+    #         # (u'/', u'/', ),
+    #         # (u'/', u'home', override_flask_home),
+    #         # (u'/helper_not_here', u'helper_not_here', helper_not_here),
+    #         # (u'/helper', u'helper_here', helper_here),
+    #     ]
+    #     redirect('/dataset')
+    #     for rule in rules:
+    #         blueprint.add_url_rule(*rule)
+
+    #     return blueprint
 
 # class CSAController(base.BaseController):
 

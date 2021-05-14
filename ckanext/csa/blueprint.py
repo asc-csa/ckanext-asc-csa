@@ -1,8 +1,28 @@
-from flask import Blueprint
+from flask import Blueprint, redirect, request
 
 csa = Blueprint('csa', __name__)
+
+redirect_urls = {
+    '/': '/dataset',
+    }
 
 def API(self):
     return base.render('content/api.html')
 
-csa.add_url_rule(u'/API')
+def redirect_url():
+    print('redirecting')
+    print(request.path)
+    return redirect(redirect_urls[request.path], 301)
+    # return redirect('http://google.ca', 301)
+
+# def send_to_dataset():
+#     print('trying to redirect')
+#     return redirect('/dataset')
+
+def get_blueprints():
+    return [csa]
+
+print('REDIRECT URLS')
+for url in redirect_urls:
+    print(url)
+    csa.add_url_rule(url, url, redirect_url)
