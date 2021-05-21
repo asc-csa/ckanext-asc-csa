@@ -241,6 +241,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     # Implements custom facetting
 
     def dataset_facets(self, facets_dict, package_type):
+        print('RAN FACETS THING DATASET')
         # facets_dict['division'] = p.toolkit._('Division')
         facets_dict.update({
             'portal_type': _('Data or information'),
@@ -263,6 +264,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
         return facets_dict
 
     def group_facets(self, facets_dict, group_type, package_type):
+        print('RAN FACETS THING GROUP')
         facets_dict.update({
             'portal_type': _('Portal type'),
             'collection': _('Collection type'),
@@ -284,6 +286,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
         return facets_dict
 
     def organization_facets(self, facets_dict, organization_type, package_type):
+        print('RAN FACETS THING ORGANIZATION')
         facets_dict.update({
             'portal_type': _('Portal type'),
             'collection': _('Collection type'),

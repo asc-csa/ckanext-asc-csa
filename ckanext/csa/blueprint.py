@@ -6,8 +6,8 @@ redirect_urls = {
     '/': '/dataset',
     }
 
-def API(self):
-    return base.render('content/api.html')
+def API():
+    return csa.render('content/api.html')
 
 def redirect_url():
     print('redirecting')
@@ -26,3 +26,5 @@ print('REDIRECT URLS')
 for url in redirect_urls:
     print(url)
     csa.add_url_rule(url, url, redirect_url)
+
+csa.add_url_rule('/API', '/API', view_func=API)

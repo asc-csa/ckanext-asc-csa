@@ -1,10 +1,18 @@
 gcweb_script:  # name of the asset
   # filters: rjsmin # preprocessor for files. Optional
-  output: ckanext-ext/extension.js  # actual path, where the generated file will be stored
+  #output: ckanext-ext/extension.js  # actual path, where the generated file will be stored
   contents: # list of files that are included in the asset
-    - script.js
+    - jquery.min.js
+    - wet-boew/js/i18n/en.min.js
+    - wet-boew/js/wet-boew.js
+    - GCWeb/js/theme.min.js
 gcweb_style:  # name of asset
-  output: csa/extension.css  # actual path, where generated file will be stored
+  #output: csa/extension.css  # actual path, where generated file will be stored
   contents: # list of files that are included into asset
-    - GCWeb/css/theme.css
+    - GCWeb/css/theme.min.css
     - extra.css
+wet_boew:
+  contents:
+    - jquery.min.js
+    - wet-boew/js/wet-boew.min.js
+    - GCWeb/js/theme.min.js
