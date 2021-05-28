@@ -1,4 +1,5 @@
 from flask import Blueprint, redirect, request
+import ckan.plugins.toolkit as toolkit
 
 csa = Blueprint('csa', __name__)
 
@@ -7,7 +8,7 @@ redirect_urls = {
     }
 
 def API():
-    return csa.render('content/api.html')
+    return toolkit.render('content/api.html')
 
 def redirect_url():
     print('redirecting')
