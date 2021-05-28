@@ -28,7 +28,7 @@
           <ul>
             {% block resource_actions_inner %}
             {% if h.check_access('package_update', {'id':pkg.id }) %}
-              <li>{% link_for _('Manage'), controller='package', action='resource_edit', id=pkg.name, resource_id=res.id, class_='btn btn-default', icon='wrench' %}</li>
+              <li>{% link_for _('Manage'), controller='dataset_resource', action='edit', id=pkg.name, resource_id=res.id, class_='btn btn-default', icon='wrench' %}</li>
             {% endif %}
             {% if res.url and h.is_url(res.url) %}
               <li>
@@ -85,7 +85,7 @@
             {% if not res.description and c.package.notes %}
               <h2>{{ _('From the dataset abstract') }}</h2>
               <blockquote>{{ h.markdown_extract(h.get_translated(c.package, 'notes'), extract_length=6000) }}</blockquote>
-              <p>{% trans dataset=h.get_translated(c.package, 'title'), url=h.url_for(controller='package', action='read', id=c.package['name']) %}Source: <a href="{{ url }}">{{ dataset }}</a>{% endtrans %}
+              <p>{% trans dataset=h.get_translated(c.package, 'title'), url=h.url_for(controller='dataset', action='read', id=c.package['name']) %}Source: <a href="{{ url }}">{{ dataset }}</a>{% endtrans %}
             {% endif %}
 
             <h3>{{_('This page is still experimental. Some parts may not be fully functional/translated yet. We appreciate your support and feedback as we continue to work hard to provide you with the best experience possible. Please report any issues to asc.donnees-data.csa@canada.ca.')}}</h3>

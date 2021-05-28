@@ -44,16 +44,16 @@
           </p>
         </div>
         {% if not to_preview %}
-          {% set current_filters = request.str_GET.get('filters') %}
+          {% set current_filters = request.args.get('filters') %}
           {% if current_filters %}
-            {% set src = h.url_for(qualified=true, controller='package',
-                               action='resource_view', id=package['name'],
+            {% set src = h.url_for(qualified=true, controller='dataset_resource',
+                               action='view', id=package['name'],
                                resource_id=resource['id'],
                                view_id=resource_view['id'],
                                filters=current_filters)  %}
           {% else %}
-            {% set src = h.url_for(qualified=true, controller='package',
-                               action='resource_view', id=package['name'],
+            {% set src = h.url_for(qualified=true, controller='dataset_resource',
+                               action='view', id=package['name'],
                                resource_id=resource['id'],
                                view_id=resource_view['id'])  %}
           {% endif %}
