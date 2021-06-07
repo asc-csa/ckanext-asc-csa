@@ -210,6 +210,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
 
     def get_pkg_dict(self):
         return self.pkg_dict
+        # return {}
 
     # IConfigurer
     def update_config(self, config_):
