@@ -1,5 +1,6 @@
 ﻿
 
+
   
 #  CSA Open Data Portal Project (CKAN)  
 This project was to create a web-based data Portal to centralize data, and improve data cataloguing. A prototype of the Portal was developed and is now ready for internal deployment. Features such as dataset search, external data harvesters, and enforceable metadata field validators. The CSA Open Data Portal meets the needs of users and advances the CSA Data Strategy by providing the tools necessary for data insights.  
@@ -273,7 +274,6 @@ You can now delete the DataStore table with:
 >curl -X POST http://127.0.0.1:5000/api/3/action/datastore_delete -H "Authorization: {YOUR-API-KEY}" -d '{"resource_id": "{RESOURCE-ID}"}'
 
 To find out more about the DataStore API, see  [The DataStore API](https://docs.ckan.org/en/2.9/maintaining/datastore.html#the-datastore-api).
-## New Version Ends
 
 ##  Extending CKAN with CSA Features  
 The sections above set up a vanilla version of CKAN with the datastore and datapusher. To extend CKAN to contain developed features for the CSA follow the steps below.  
@@ -289,7 +289,6 @@ Now navigate to CKAN's extension directory
 ```  
 cd /usr/lib/ckan/default/src  
 ```  
-
 Clone the scheming repository into the directory  
   ```  
  git clone https://github.com/asc-csa/ckanext-asc-csa-scheming  
@@ -362,13 +361,13 @@ sudo supervisorctl stop all
 
 ## Setting Up Your Installation
 
-You will now want to create a sysadmin user and possibly import organizations to facilitate your work. This section is optionnal but will guide you through that process.
+You will now want to create a sysadmin user and possibly import organizations to facilitate your work. This section is optional but will guide you through that process.
 
 ```
-paster sysadmin add seanh email=seanh@localhost name=seanh -c /etc/ckan/default/development.ini
+ckan -c /etc/ckan/default/ckan.ini sysadmin add seanh email=seanh@localhost name=seanh
 ```
 where seah will be replace by your username. You can find more instruction on
-https://docs.ckan.org/en/2.8/maintaining/getting-started.html#create-admin-user
+https://docs.ckan.org/en/2.9/maintaining/getting-started.html#create-admin-user
 
 Once done, you will need to manually copy the file transitional_orgs.json from the ckanext-csa extension to the directory containing the development.ini file. Once in this directory, open a command prompt and use the following commands :
 ```  
@@ -386,6 +385,13 @@ and execute the commands
 paster --plugin=ckan datastore set-permissions -c /etc/ckan/default/development.ini
 ```
 
+### Core File Replacement
+There are a few features that had to be modified to meet accessibility and translation requirements. There was not a clear way to override the functionality to 2 files needed to be modified. You will need to replace these 2 files with the modified ones:
+ - pagination.py
+   - From the `ckan/lib` folder within the `ckanext-asc-csa extension` copy `pagination.py` into `/usr/lib/ckan/default/src/ckan/ckan/lib/`
+ - reline.js 
+   - From the `reclinejs` folder within the `ckanext-asc-csa extension` copy `recline.js` into `/usr/lib/ckan/default/src/ckan/ckanext/reclineview/theme/public/vendor/recline/`
+
 
 ### Setting Up the Datapusher
 
@@ -396,7 +402,7 @@ https://github.com/ckan/datapusher
 
 ##  Deploying a Source Install  
 After installing source follow this guide to deploy it to a production server.  
-[https://docs.ckan.org/en/2.8/maintaining/installing/deployment.html](https://docs.ckan.org/en/2.8/maintaining/installing/deployment.html)  
+[https://docs.ckan.org/en/2.9/maintaining/installing/deployment.html](https://docs.ckan.org/en/2.9/maintaining/installing/deployment.html)  
 
 Notes:  
 
