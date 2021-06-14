@@ -18,35 +18,53 @@
       {% endblock %}
 
       {%if h.lang()=='en'%}
+      <div id='content'>
+        <h1> API guide </h1>
 
-                        <h1> API guide </h1>
+        <h2>
+          This page provides a brief explanation of how to use the API (application programming interface) to access and download data from this website.
+        </h2>
 
-                        <h2>
-                          This page provides a brief explanation of how to use the API (application programming interface) to access and download data from this website.
-                        </h2>
+        <p>
+          The Canadian Space Agency uses an open-source data management system called CKAN (Comprehensive Knowledge Archive Network) to manage this website and
+          its datasets. Since CKAN is widely used, there are many resources and scripts online that show how to use its API. The script below is an example of this,
+          written in Python.
+        </p>
+      </div>
 
-                        <p>
-                          The Canadian Space Agency uses an open-source data management system called CKAN (Comprehensive Knowledge Archive Network) to manage this website and
-                          its datasets. Since CKAN is widely used, there are many resources and scripts online that show how to use its API. The script below is an example of this,
-                          written in Python.
-                        </p>
+      <script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fasc-csa%2Fckanext-asc-csa%2Fblob%2Fmaster%2FHarvester_example.py&style=github&showBorder=on&showLineNumbers=on&showFileMeta=on"></script>
+      <noscript>
+        Your browser does not support JavaScript. <a href = "https://github.com/asc-csa/ckanext-asc-csa/blob/master/Harvester_example.py"> You can view this script on CSA's GitHub page</a>
+      </noscript>
+      <script>
+        // jQuery(document).ready(function(){
+        //   jQuery('.emgithub-container').attr('role', 'presentation')
+        // });
+        var myVar = setTimeout(tableRole, 3000);
 
+        function tableRole() {
+          console.log('table role');
+          if(document.querySelector(".emgithub-container table")){
+            console.log('found table');
+            document.querySelector(".emgithub-container table").setAttribute("role", "presentation");  
+          }
+        }
 
-                  <script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fasc-csa%2Fckanext-asc-csa%2Fblob%2Fmaster%2FHarvester_example.py&style=github&showBorder=on&showLineNumbers=on&showFileMeta=on"></script>
-                  <noscript>
-                    Your browser does not support JavaScript. <a href = "https://github.com/asc-csa/ckanext-asc-csa/blob/master/Harvester_example.py"> You can view this script on CSA's GitHub page</a>
-                  </noscript>
+        function myStopTableRole() {
+          clearTimeout(myVar);
+        }
+      </script>
 
-                      <h3>Additional resources for the CKAN API:</h3>
-                      <ul>
-                        <li><a href="https://docs.ckan.org/en/2.8/api/">CKAN API documentation </a></li>
+          <h3>Additional resources for the CKAN API:</h3>
+          <ul>
+            <li><a href="https://docs.ckan.org/en/2.9/api/">CKAN API documentation </a></li>
 
-                        <li><a href="https://github.com/ckan/ckanapi">CKAN API GitHub page</a></li>
+            <li><a href="https://github.com/ckan/ckanapi">CKAN API GitHub page</a></li>
 
-                      </ul>
-                      </div>
-                      </div>
-                  </section>
+          </ul>
+          </div>
+          </div>
+      </section>
 
 
 
