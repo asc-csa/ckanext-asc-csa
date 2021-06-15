@@ -18,7 +18,7 @@
   {# The content block allows you to replace the content of the page if needed #}
   {%- block content %}
     {% block maintag %}<div class='page-wrap'>{% endblock %}
-      <div id="content" class="container" >
+      <div id="content" class="container" role="main">
         {% block main_content %}
           {% block flash %}
             <div class="flash-messages">
@@ -33,7 +33,7 @@
           {% endblock %}
 
           {% block toolbar %}
-            <div class="toolbar">
+            <div class="toolbar" role="navigation"  aria-label="breadcrumbs">
               {% block breadcrumb %}
                   <ol class="breadcrumb">
                     {% snippet 'snippets/home_breadcrumb_item.html' %}

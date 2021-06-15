@@ -12,11 +12,11 @@
   {% endif %}
 {% endblock %}
 
-{% block main_search_role %}role="main"{% endblock %}
+{# {% block main_search_role %}role="main"{% endblock %} #}
 
 {% block secondary_content %}
  <!--template/package/search.html start-->
-  <aside class="mrgn-tp-lg">
+  <aside class="mrgn-tp-lg" role="region" aria-label="filters">
     <div>
    <h2 style="padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 12px;"> <a href="{{ h.url_for('dataset.search', q=c.q) }}" class="btn btn-default mrgn-bttm-md btn-block"><span class="glyphicon glyphicon-refresh"></span>{{ _(' Clear filters') }}</a>
    </h2>
