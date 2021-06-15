@@ -101,7 +101,7 @@
                     {% endblock %}
                       #}
 
-                    <div role='main' class="module-content">
+                    <div {# role='main' #} class="module-content">
                       {% if self.page_primary_action() | trim %}
                         <div class="page_primary_action">
                           {% block page_primary_action %}{% endblock %}
