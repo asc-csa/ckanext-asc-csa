@@ -46,9 +46,15 @@
                   </a>
                   {% block download_resource_button %}
                     {%if res.datastore_active %}
-                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-label="dropdown">
+                    {% if client_lang == 'fr' %}
+                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-label="liste déroulante des formats de fichiers">
                       <span class="caret"></span>
                     </button>
+                    {% else %}
+                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-label="file format dropdown list">
+                      <span class="caret"></span>
+                    </button>
+                    {% endif %}
                     <ul class="dropdown-menu">
                       <li>
                         <a href="{{ h.url_for('datastore.dump', resource_id=res.id, bom=True) }}"
