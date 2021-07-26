@@ -4238,6 +4238,11 @@ tbody.collapse.in {
   color: white;
 }
 
+.nav-item.active > a:hover,
+.nav-aside li.active a:hover {
+  color: #FFF;
+  background-color: #26374a;
+}
 
 .nav-tabs {
   border-bottom: 1px solid #ddd
