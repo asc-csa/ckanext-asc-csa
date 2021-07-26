@@ -4231,6 +4231,14 @@ tbody.collapse.in {
   max-width: none
 }
 
+.nav-item.active > a span,
+.nav-aside li.active a span {
+  white-space: normal;
+  overflow: hidden;
+  color: white;
+}
+
+
 .nav-tabs {
   border-bottom: 1px solid #ddd
 }
@@ -7040,7 +7048,7 @@ a:not([href]):focus, a:not([href]):hover {
 }
 
 .nav>li>a:visited {
-  color: #295376
+  color: white
 }
 
 .nav-pills>li.active>a:visited {
