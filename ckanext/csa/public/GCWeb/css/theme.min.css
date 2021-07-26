@@ -7053,7 +7053,7 @@ a:not([href]):focus, a:not([href]):hover {
 }
 
 .nav>li>a:visited {
-  color: white
+  color: #295376
 }
 
 .nav-pills>li.active>a:visited {
