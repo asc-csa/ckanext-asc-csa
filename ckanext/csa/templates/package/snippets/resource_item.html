@@ -39,6 +39,7 @@
               {%endfor%}
 
 
+
 <tr>
   <td class="">
     {% set name, machine_translated = h.get_translated_t(res, 'name') %}
@@ -69,11 +70,13 @@
         <span class="wb-inv">{{_('Download the resource named :')}} {{ name }} </span>
         </a>
         <br>
+
         {% if res.has_views %}
+        {% if res.format.lower() != "other" %}
+        {%if custom_variables['preview']=="True" or can_edit %}
 
-        {%if custom_variables['preview']=="True" or can_edit%}
-
-        <a href="{{ url }}" class="btn btn-default" >{{ _('Preview')}} {{_("(experimental)") }}</a>
+        <a href="{{ url }}" class="btn btn-default" >{{ _('Preview')}} {{_("(experimental)") }} </a>
+        {% endif %}
         {% endif %}
         {% endif %}
         {% if can_edit%}
