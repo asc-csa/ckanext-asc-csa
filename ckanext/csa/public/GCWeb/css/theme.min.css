@@ -1296,6 +1296,10 @@ td, th {
   content: "\e260"
 }
 
+.fa-check-square-o::before {
+	color: white;
+}
+
 *, :after, :before {
   -webkit-box-sizing: border-box;
   box-sizing: border-box
