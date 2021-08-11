@@ -1,11 +1,11 @@
 
 
-.. image:: CKAN_homepage1.png
+.. image:: CKAN_homepage1.PNG
     :width: 200
     :alt: CKAN homepage
 
 
-.. image:: ckan_dataset.png
+.. image:: ckan_dataset.PNG
     :width: 200
     :alt: CKAN dataset page
 -----------------
@@ -21,7 +21,7 @@ Prérequis
 
 Cette version de l'extension est compatible avec CKAN 2.9. Les versions précédentes (0.1-0.4) étaient compatibles avec CKAN 2.8.
 
-Cette extension requiert l'extension `ckanext-asc-csa-scheming <https://github.com/asc-csa/ckanext-asc-csa-scheming/>`_.
+Cette extension requiert l'extension `ckanext-asc-csa-scheming <https://github.com/asc-csa/ckanext-asc-csa-scheming/>`_
 ainsi que `ckanext-fluent <https://github.com/ckan/ckanext-fluent>`_.
 
 
@@ -46,7 +46,7 @@ Requirements
 
 This version of the extension is intended for CKAN 2.9. Earlier releases (0.1-0.4) were intended for CKAN 2.8.
 
-This extension is intended to be used alongside `ckanext-asc-csa-scheming <https://github.com/asc-csa/ckanext-asc-csa-scheming/>`_.
+This extension is intended to be used alongside `ckanext-asc-csa-scheming <https://github.com/asc-csa/ckanext-asc-csa-scheming/>`_
 as well as `ckanext-fluent <https://github.com/ckan/ckanext-fluent>`_.
 
 
