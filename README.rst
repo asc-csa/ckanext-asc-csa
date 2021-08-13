@@ -14,7 +14,7 @@ ckanext-asc-csa (English follows)
 Cette extension CKAN permet l'implémentation du thème du gouvernement du Canada. Le site qui en résulte est entièrement
 bilingue, accessible, et permet la visualisation des données dans le navigateur.
 
-Voulez-vous suggérer de nouvelles fonctionnalités ou de nouveaux ensembles de données ou signaler un bogue ? Créez une demande de problème `ici<https://github.com/asc-csa/ckanext-asc-csa/issues/new/>`_.
+Voulez-vous suggérer de nouvelles fonctionnalités ou de nouveaux ensembles de données ou signaler un bogue ? Créez une demande de problème `ici <https://github.com/asc-csa/ckanext-asc-csa/issues/new/>`_.
 
 ------------
 Prérequis
@@ -41,7 +41,7 @@ ckanext-asc-csa (le français précède)
 This CKAN extension allows for the implementation of the Government of Canada theme. The resulting site is
 bilingual, accessible, and allows for in-browser data visualization.
 
-Want to suggest new features or datasets or report a bug? Create an issue request `here<https://github.com/asc-csa/ckanext-asc-csa/issues/new/>`_.
+Want to suggest new features or datasets or report a bug? Create an issue request `here <https://github.com/asc-csa/ckanext-asc-csa/issues/new/>`_.
 
 ------------
 Requirements
