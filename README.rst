@@ -30,7 +30,7 @@ ainsi que `ckanext-fluent <https://github.com/ckan/ckanext-fluent>`_.
 Installation
 ------------
 
-Pour des instructions d'installation, veuillez vous référer au `document instructions d'installation </installation%20guide/installation%20guide.md>`_.
+Pour des instructions d'installation, veuillez vous référer au `document instructions d'installation </installation%20guide/installation%20guide_fr.md>`_.
 
 
 =============
@@ -55,4 +55,4 @@ as well as `ckanext-fluent <https://github.com/ckan/ckanext-fluent>`_.
 Installation
 ------------
 
-For full installation instructions, please refer to the `installation instructions document </installation%20guide/installation%20guide.md>`_.
+For full installation instructions, please refer to the `installation instructions document </installation%20guide/installation%20guide_en.md>`_.
