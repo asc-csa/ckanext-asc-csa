@@ -2,7 +2,7 @@
 # Portail de données et information ouvertes de l'ASC (CKAN)  
 L'objectif de ce projet était de développer et de soutenir l'évolution continue d'un portail Web pour les données et les informations de l'ASC. Il s'agit d'un élément clé de la réalisation par l'ASC de la Directive sur le gouvernement ouvert (2013), de la Feuille de route pour la science ouverte (2020), ainsi que de la Stratégie de données de l'ASC.
 
-Vous pouvez acceder au portail en directe au https://donnees-data.asc-csa.gc.ca/fr/dataset.
+Vous pouvez accéder au portail en direct au https://donnees-data.asc-csa.gc.ca/fr/dataset.
 
 Les éléments clés du portail incluent la possibilité de :
  - Faire une recherche dans le registre des jeux de données.
@@ -10,12 +10,12 @@ Les éléments clés du portail incluent la possibilité de :
  - Mettre en œuvre et contrôler une stratégie de gouvernance stricte.
  - Récolter des données et des métadonnées de sources externes (y compris le portail CKAN open.canada.ca) en utilisant https://github.com/asc-csa/ckan-gov-canada-harvester-master.
  - Interagir avec le site grâce à une API robuste.
- - Explorer et analyser les données dans votre navigateur, sans avoir à télécharger les données et à utiliser un logiciel complexe. Cela rends les données beaucoup plus accessible.
+ - Explorer et analyser les données dans votre navigateur, sans avoir à télécharger les données et à utiliser un logiciel complexe. Cela rend les données beaucoup plus accessibles.
 
  La vision qui guide ce projet est de maximiser l'accès aux données et aux informations produites par et/ou soutenues par l'Agence spatiale canadienne.
 
 # Introduction  
-Ce projet extend le portail du "Comprehensive Knowledge Archive Network" (CKAN). Ce document décrit comment installer tout ce qui est nécessaire pour mettre en œuvre ces fonctionnalités CSA personnalisées (y compris l'installation de ckanext-asc-csa). Il devrait servir de guide de haut niveau à tous ceux qui travailleront sur le développement du portail CKAN de l'ASC.
+Ce projet étend le portail du "Comprehensive Knowledge Archive Network" (CKAN). Ce document décrit comment installer tout ce qui est nécessaire pour mettre en œuvre ces fonctionnalités CSA personnalisées (y compris l'installation de ckanext-asc-csa). Il devrait servir de guide de haut niveau à tous ceux qui travailleront sur le développement du portail CKAN de l'ASC.
 
 Ce document est structuré en deux parties principales.   
  - Installation et déploiement  
@@ -49,7 +49,7 @@ Adapté de [https://docs.ckan.org/en/2.9/maintaining/installing/install-from-pac
 
 Cette section décrit comment installer CKAN à partir du package. C'est la façon la plus rapide et la plus facile d'installer CKAN, mais elle nécessite Ubuntu 18.04 (Python 2) ou 20.04 (Python 3 ou Python 2) 64 bits. Si vous n'utilisez pas l'une de ces versions d'Ubuntu, ou si vous installez CKAN pour le développement, vous devriez plutôt suivre Installer CKAN à partir des sources.
 
-A la fin du processus d'installation, vous vous retrouverez avec deux applications web en cours d'exécution, CKAN lui-même et le DataPusher, un service distinct pour l'importation automatique de données dans l'extension DataStore de CKAN. En outre, il y aura un processus exécutant le worker pour l'exécution des travaux en arrière-plan. Tous ces processus seront gérés par Supervisor.
+À la fin du processus d'installation, vous vous retrouverez avec deux applications web en cours d'exécution, CKAN lui-même et le DataPusher, un service distinct pour l'importation automatique de données dans l'extension DataStore de CKAN. En outre, il y aura un processus exécutant le worker pour l'exécution des travaux en arrière-plan. Tous ces processus seront gérés par Supervisor.
 
 Pour les installations Python 3, la version minimale de Python requise est 3.6.
 
@@ -146,7 +146,7 @@ A:
     sudo ln -s /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema.xml /etc/solr/conf/schema.xml
     ```
 
-2. Maintenant redémarrez Solr (utilisez `tomcat8` sur les anciennes versions d'Ubuntu) :
+2. Maintenant, redémarrez Solr (utilisez `tomcat8` sur les anciennes versions d'Ubuntu) :
     ```
     sudo service tomcat9 restart
     ```
@@ -223,7 +223,7 @@ Créer la base de données (appartenant à ckan_default), que nous appellerons d
 >sudo -u postgres createdb -O ckan_default datastore_default -E utf-8
 
 #### Définir les URL
-Maintenant, décommentez  les lignes [ckan.datastore.write_url](https://docs.ckan.org/en/2.9/maintaining/configuration.html#ckan-datastore-write-url)  et [ckan.datastore.read_url](https://docs.ckan.org/en/2.9/maintaining/configuration.html#ckan-datastore-read-url)  dans votre fichier de config CKAN. Modifiez-les si necessaire, par exemple :
+Maintenant, décommentez  les lignes [ckan.datastore.write_url](https://docs.ckan.org/en/2.9/maintaining/configuration.html#ckan-datastore-write-url)  et [ckan.datastore.read_url](https://docs.ckan.org/en/2.9/maintaining/configuration.html#ckan-datastore-read-url)  dans votre fichier de config CKAN. Modifiez-les si nécessaire, par exemple :
 
 >ckan.datastore.write_url = postgresql://ckan_default:Alouette1CSA@localhost/datastore_default
 >ckan.datastore.read_url = postgresql://datastore_default:Canada1Alouette@localhost/datastore_default
@@ -256,7 +256,7 @@ dans une console de super-utilisateur PostgreSQL.
 ### 3. Testez l'installation
 (https://docs.ckan.org/en/2.9/maintaining/datastore.html#test-the-set-up "Permalink to this headline")
 
-Le DataStore est maintenant configuré. Pour tester la configuration, (re)lancez CKAN et exécutez la commande suivante pour lister toutes les ressources du DataStore :
+Le DataStore est maintenant configuré. Pour tester la configuration (re)lancez CKAN et exécutez la commande suivante pour lister toutes les ressources du DataStore :
 >curl -X GET "http://127.0.0.1:5000/api/3/action/datastore_search?resource_id=_table_metadata"
 
 Ceci devrait retourner une page JSON sans erreur.
@@ -364,7 +364,7 @@ sudo supervisorctl stop all
 
 ## Configuration de votre installation
 
-Vous allez maintenant vouloir créer un utilisateur sysadmin et éventuellement importer des organisations pour faciliter votre travail. Cette section est facultative mais vous guidera dans ce processus.
+Vous allez maintenant vouloir créer un utilisateur sysadmin et éventuellement importer des organisations pour faciliter votre travail. Cette section est facultative, mais vous guidera dans ce processus.
 
 ```
 ckan -c /etc/ckan/default/ckan.ini sysadmin add seanh email=seanh@localhost name=seanh
@@ -420,7 +420,7 @@ sudo chmod -R 777 /tmp
 Ci-dessus était un guide pour installer CKAN, ci-dessous sont les notes que j'ai prises pour communiquer les étapes qui ont été franchies jusqu'à présent.  
 
 ## Structure du répertoire et fichiers spécifiques de ckanext-asc-csa
- - /installation guide - contient ce document dans sa version la plus récente
+ - /installation guide - contiens ce document dans sa version la plus récente
  - /ckanext/csa - contient la plupart du code qui ajoute les fonctionnalités ASC à CKAN.
  - /ckanext/csa/templates - contient la plupart du code qui traite de ce qui est affiché sur le front-end en termes de html.
  - /ckanext/csa/fanstatic - contient les fichiers css et js qui sont personnalisés et ajoutés en plus de ce que CKAN fournit par défaut.
@@ -462,7 +462,7 @@ Bien qu'il puisse y avoir quelques limitations avec l'API de la base de données
 
 
 ## Facets bilingues
-Les facets sont contrôlées par ckanext-asc-csa en utilisant l'interface IFacets dans plugins.py. Ici facets_dict est mis à jour pour inclure plus de facettes. En plus de la mise à jour de l'interface, plusieurs modèles ont dû être créés pour tenir compte des versions française et anglaise de chacune des valeurs des facettes. Le principal problème était que la facette affichait la valeur au lieu de l'étiquette localisée pour chaque sélection. Ce problème a été résolu en personnalisant les modèles pour afficher l'étiquette de la langue correcte à l'utilisateur du site web. Les modèles peuvent être trouvés dans ce dépôt (ckanext-asc-csa).  
+Les facets sont contrôlés par ckanext-asc-csa en utilisant l'interface IFacets dans plugins.py. Ici facets_dict est mis à jour pour inclure plus de facettes. En plus de la mise à jour de l'interface, plusieurs modèles ont dû être créés pour tenir compte des versions française et anglaise de chacune des valeurs des facettes. Le principal problème était que la facette affichait la valeur au lieu de l'étiquette localisée pour chaque sélection. Ce problème a été résolu en personnalisant les modèles pour afficher l'étiquette de la langue correcte à l'utilisateur du site web. Les modèles peuvent être trouvés dans ce dépôt (ckanext-asc-csa).  
 
 
 Ces modèles ont été créés pour accomplir cette tâche :   

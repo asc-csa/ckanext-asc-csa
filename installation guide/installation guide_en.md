@@ -22,7 +22,7 @@ This document is structured in 2 main sections:
 - Installation and deployment  
 - Development notes  
 
-The "Installation and deployment" section of this document is a step by step guide on how to install a source install of CKAN and extend it further with CSA-developed features.  
+The "Installation and deployment" section of this document is a step-by-step guide on how to install a source install of CKAN and extend it further with CSA-developed features.  
 
 The "Development notes" section of this document goes into specifics about each developed feature of CKAN. It was originally meant as a "write as you go" document so at times it may seem a bit unclear.
 
@@ -105,7 +105,7 @@ Check that PostgreSQL was installed correctly by listing the existing databases:
 ```
 sudo -u postgres psql -l
 ```
-Check that the encoding of databases is  `UTF8`, if not you might find issues later on with internationalisation. Since changing the encoding of PostgreSQL may mean deleting existing databases, it is suggested that this is fixed before continuing with the CKAN install.
+Check that the encoding of databases is  `UTF8`, if not you might find issues later on with internationalization. Since changing the encoding of PostgreSQL may mean deleting existing databases, it is suggested that this is fixed before continuing with the CKAN install.
 
 Next you’ll need to create a database user if one doesn’t already exist. Create a new PostgreSQL user called ckan_default, and enter a password for the user when prompted. You’ll need this password later, for this guide we will use the password 'Alouette1CSA':
 ```
@@ -184,7 +184,7 @@ ckan-datapusher:ckan-datapusher-00   RUNNING   pid 1963, uptime 0:00:12
 ckan-uwsgi:ckan-uwsgi-00             RUNNING   pid 1964, uptime 0:00:12
 ckan-worker:ckan-worker-00           RUNNING   pid 1965, uptime 0:00:12
 ```
-If some of the processes reports an error, make sure you’ve run all the previous steps and check the logs located in  `/var/log/ckan`  for more details.
+If some of the processes report an error, make sure you’ve run all the previous steps and check the logs located in  `/var/log/ckan`  for more details.
 
 Restart Nginx by running this command:
 
@@ -194,11 +194,11 @@ You can now test the install by going to [http://localhost:5000](http://localhos
 ###  6. DataStore and DataPusher  
 #### 1. Enable the plugin[](https://docs.ckan.org/en/2.9/maintaining/datastore.html#enable-the-plugin "Permalink to this headline")
 
-Add the  `datastore`  plugin to your CKAN config file (Leave the other plugins, add datastore to the end):
+Add the  `datastore`  plugin to your CKAN config file (leave the other plugins, add datastore to the end):
 ```
 ckan.plugins = datastore
 ```
-#### 2. Set-up the database
+#### 2. Set up the database
 *Make sure that you follow the steps in [Set Permissions](https://docs.ckan.org/en/2.9/maintaining/datastore.html#set-permissions) below correctly. Wrong settings could lead to serious security issues.*
 
 The DataStore requires a separate PostgreSQL database to save the DataStore resources to.
@@ -207,7 +207,7 @@ List existing databases:
 
 >sudo -u postgres psql -l
 
-Check that the encoding of databases is  `UTF8`, if not internationalisation may be a problem. Since changing the encoding of PostgreSQL may mean deleting existing databases, it is suggested that this is fixed before continuing with the datastore setup.
+Check that the encoding of databases is  `UTF8`, if not internationalization may be a problem. Since changing the encoding of PostgreSQL may mean deleting existing databases, it is suggested that this is fixed before continuing with the datastore setup.
 #### Create users and databases
 Create a database_user called datastore_default. This user will be given read-only access to your DataStore database in the  [Set Permissions](https://docs.ckan.org/en/2.9/maintaining/datastore.html#set-permissions)  step below, when prompted for a password enter 'Canada1Alouette':
 
@@ -400,7 +400,7 @@ https://github.com/ckan/datapusher
 *Note: it is a good idea to install datapusher in a different environment (virtual or otherwise) than the one you used for CKAN. This is because they require different versions of various python libraries. If you install the datapusher requirements in your CKAN directory, you will probably temporarily break your CKAN installation. If you have done this, do not fret - it is an easy fix. Just reinstall your CKAN requirements.txt in that virtual environment and restart the datapusher setup process in a different environment.
 
 ##  Deploying a Source Install  
-After installing source follow this guide to deploy it to a production server.  
+After installing source, follow this guide to deploy it to a production server.  
 [https://docs.ckan.org/en/2.9/maintaining/installing/deployment.html](https://docs.ckan.org/en/2.9/maintaining/installing/deployment.html)  
 
 Notes:  
@@ -538,4 +538,3 @@ After I was able to view the query I realized I had to change the 'qf' search pa
 # Acknowledgements  
 - Étienne Low-Décarie - Supervisor of project
 - Wasiq Mohammad - Technical mentor
-s
