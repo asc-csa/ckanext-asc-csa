@@ -1,8 +1,8 @@
 <!--template/package/snippets/resource_item.html start-->
 {% import 'macros/csa_read.html' as cr %}
 
-{% set url_action = 'resource_edit' if url_is_edit and can_edit else 'resource_read' %}
-{% set url = h.url_for(controller='package', action=url_action, id=pkg.name, resource_id=res.id) %}
+{% set url_action = 'edit' if url_is_edit and can_edit else 'read' %}
+{% set url = h.url_for(controller='dataset_resource', action=url_action, id=pkg.name, resource_id=res.id) %}
 
 {# Previous variables from Open Maps, delete if no issue #}
 
@@ -39,6 +39,7 @@
               {%endfor%}
 
 
+
 <tr>
   <td class="">
     {% set name, machine_translated = h.get_translated_t(res, 'name') %}
@@ -69,15 +70,17 @@
         <span class="wb-inv">{{_('Download the resource named :')}} {{ name }} </span>
         </a>
         <br>
+
         {% if res.has_views %}
+        {% if res.format.lower() != "other" %}
+        {%if custom_variables['preview']=="True" or can_edit %}
 
-        {%if custom_variables['preview']=="True" or can_edit%}
-
-        <a href="{{ url }}" class="btn btn-default" >{{ _('Preview')}} {{_("(experimental)") }}</a>
+        <a href="{{ url }}" class="btn btn-default" >{{ _('Preview')}} {{_("(experimental)") }} </a>
+        {% endif %}
         {% endif %}
         {% endif %}
         {% if can_edit%}
-        {% link_for _('Edit'), controller='package', action='resource_edit', id=pkg.name, resource_id=res.id, class_='btn btn-default' %}
+        {% link_for _('Edit'), controller='dataset_resource', action='edit', id=pkg.name, resource_id=res.id, class_='btn btn-default' %}
 
     {% endif %}
   </td>

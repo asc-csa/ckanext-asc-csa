@@ -5,7 +5,7 @@
 <!-- Web Experience Toolkit (WET) / Boîte à outils de l'expériencse-search-boxce Web (BOEW)
 		wet-boew.github.io/wet-boew/License-en_(.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
 
-<header style="background-color: white;">
+<header id="wb-cont" style="background-color: white;">
 	<div id="wb-bnr" class="container">
 		<div class="row">
 			<section id="wb-lng" class="col-xs-3 col-sm-12 pull-right text-right">
@@ -22,6 +22,21 @@
 				<link property="logo" href="/wmms-blk.svg">
 			</div>
 
+			<section id="wb-srch" class="col-lg-offset-4 col-md-offset-4 col-sm-offset-2 col-xs-12 col-sm-5 col-md-4">
+				<h2>{{ _("Search Canada.ca") }}</h2>
+				<form action='{{ _("https://www.canada.ca/en/sr/srb.html") }}' method="get" name="cse-search-box" role="search">
+					<div class="form-group wb-srch-qry">
+						<label for="wb-srch-q" class="wb-inv">Rechercher dans Canada.ca</label>
+						<input name="cdn" value="canada" type="hidden"/>
+						<input name="st" value="s" type="hidden"/>
+						<input name="num" value="10" type="hidden"/>
+						<input name="langs" value="en" type="hidden"/>
+						<input name="st1rt" value="1" type="hidden"/>
+						<input name="s5bm3ts21rch" value="x" type="hidden"/>
+
+							<input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="q" type="search" value="" size="34" maxlength="170" placeholder="Rechercher dans Canada.ca"/>
+
+
 			{% else %}
 			<div class="brand col-xs-9 col-sm-5 col-md-4" property="publisher" resource="#wb-publisher" typeof="GovernmentOrganization">
 				<a href= {{ _('https://www.canada.ca/en.html') }} property="url">
@@ -30,10 +45,32 @@
 				<meta property="areaServed" typeof="Country" content="Canada">
 				<link property="logo" href="/wmms-blk.svg">
 			</div>
-			{% endif %}
 
 			<section id="wb-srch" class="col-lg-offset-4 col-md-offset-4 col-sm-offset-2 col-xs-12 col-sm-5 col-md-4">
 				<h2>{{ _("Search Canada.ca") }}</h2>
+				<form action='{{ _("https://www.canada.ca/en/sr/srb.html") }}' method="get" name="cse-search-box" role="search">
+					<div class="form-group wb-srch-qry">
+						<label for="wb-srch-q" class="wb-inv">Search Canada.ca</label>
+						<input name="cdn" value="canada" type="hidden"/>
+						<input name="st" value="s" type="hidden"/>
+						<input name="num" value="10" type="hidden"/>
+						<input name="langs" value="en" type="hidden"/>
+						<input name="st1rt" value="1" type="hidden"/>
+						<input name="s5bm3ts21rch" value="x" type="hidden"/>
+
+							<input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="q" type="search" value="" size="34" maxlength="170" placeholder="Search Canada.ca"/>
+			{% endif %}
+
+						<input type="hidden" name="_charset_" value="UTF-8"/>
+
+						<datalist id="wb-srch-q-ac">
+						</datalist>
+					</div>
+					<div class="form-group submit">
+					<button type="submit" id="wb-srch-sub" class="btn btn-primary btn-small" name="wb-srch-sub"><span class="glyphicon-search glyphicon"></span><span class="wb-inv">Search</span></button>
+					</div>
+				</form>
+				<!--
 				<form action={{ _("https://www.canada.ca/en/sr/srb.html") }} method="post" name="cse-search-box" role="search">
 					<div class="form-group wb-srch-qry">
 						<label for="wb-srch-q" class="wb-inv">{{ _("Search Canada.ca") }}</label>
@@ -53,10 +90,11 @@
 						<button type="submit" id="wb-srch-sub" class="btn btn-primary btn-small" name="wb-srch-sub"><span class="glyphicon-search glyphicon"></span><span class="wb-inv">{{ _("Search Canada.ca") }}</span></button>
 					</div>
 				</form>
+				-->
 			</section>
 		</div>
 	</div>
-	<nav class="gcweb-menu" typeof="SiteNavigationElement">
+	<nav class="gcweb-menu" typeof="SiteNavigationElement" aria-label="menu">
 		<div class="container">
 			<h2 class="wb-inv">{{ _("Menu") }}</h2>
 			<button type="button" aria-haspopup="true" aria-expanded="false"><span class="wb-inv">{{ _("Main") }} </span>{{ _("Menu") }} <span class="expicon glyphicon glyphicon-chevron-down"></span></button>

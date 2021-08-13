@@ -5,14 +5,18 @@ import json
 import os
 import inspect
 
-from paste.reloader import watch_file
+# from paste.reloader import watch_file
 from ckan.common import config
 from ckan.common import request
 from ckan.lib.plugins import DefaultTranslation
-from pylons.i18n import _
+from ckan.plugins.toolkit import _, url_for, redirect_to, request, config
 from ckanext.csa import helpers
 from ckanext.csa import loader
 
+# from ckanext.csa import blueprint
+from flask import Blueprint, redirect
+
+import ckanext.csa.blueprint as blueprint
 
 import ckan.lib.base as base
 import routes.mapper
@@ -59,10 +63,13 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     p.implements(p.ITemplateHelpers)
     p.implements(p.IFacets)
     p.implements(p.ITranslation)
+    p.implements(p.IBlueprint)
     p.implements(p.IRoutes)
 
     instance = None
     _field_descriptions = None
+
+    pkg_dict = {}
 
     @classmethod
     def _store_instance(cls, self):
@@ -94,7 +101,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             return
         p = os.path.join(os.path.dirname(inspect.getfile(m)), file_name)
         if os.path.exists(p):
-            watch_file(p)
+            # watch_file(p)
             return loader.load(open(p))
 
     #IpackageController
@@ -140,6 +147,8 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     #Implements bilingual searching
     def before_index(self, pkg_dict):
 
+        print('RAN before_index')
+
         pkg_dict['subject'] = json.loads(pkg_dict.get('subject', '[]'))
         pkg_dict['project'] = json.loads(pkg_dict.get('project', '[]'))
 
@@ -167,9 +176,12 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
                     res_name_fr.append(res_name_fr_temp)
         pkg_dict['res_name_fr'] = res_name_fr
 
+        self.pkg_dict = pkg_dict
+
         return pkg_dict
 
     def before_view(self, pkg_dict):
+        print('RAN before_view')
         return pkg_dict
 
     def read(self, entity):
@@ -196,8 +208,9 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     def after_show(self, context, pkg_dict):
         return pkg_dict
 
-
-
+    def get_pkg_dict(self):
+        return self.pkg_dict
+        # return {}
 
     # IConfigurer
     def update_config(self, config_):
@@ -221,6 +234,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             'get_translated_t' : helpers.get_translated_t,
             'header_embeds_exists' : helpers.header_embeds_exists,
             'footer_embeds_exists' : helpers.footer_embeds_exists,
+            'get_pkg_dict' : self.get_pkg_dict
             }
 
 
@@ -228,6 +242,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     # Implements custom facetting
 
     def dataset_facets(self, facets_dict, package_type):
+        print('RAN FACETS THING DATASET')
         # facets_dict['division'] = p.toolkit._('Division')
         facets_dict.update({
             'portal_type': _('Data or information'),
@@ -250,6 +265,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
         return facets_dict
 
     def group_facets(self, facets_dict, group_type, package_type):
+        print('RAN FACETS THING GROUP')
         facets_dict.update({
             'portal_type': _('Portal type'),
             'collection': _('Collection type'),
@@ -271,6 +287,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
         return facets_dict
 
     def organization_facets(self, facets_dict, organization_type, package_type):
+        print('RAN FACETS THING ORGANIZATION')
         facets_dict.update({
             'portal_type': _('Portal type'),
             'collection': _('Collection type'),
@@ -293,12 +310,14 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
 
     #IRoutesl
     def before_map(self, route_map):
-        # Redirect home to datasets instead
-
-
+        print('BEFORE MAP TIHASFDJSBDFKJSDFKJHSDF')
         route_map.redirect('/', '/dataset')
         with routes.mapper.SubMapper(route_map,controller='ckanext.csa.plugin:CSAController') as m:
-                 m.connect('API', '/API', action='API')
+                    m.connect(
+                        'API',
+                        '/API',
+                        action='API'
+                    )
         # Attempt to remove /user functionality and rename to different subdomain
         # m.redirect('/hgljkdhfsqhjfhgaslkhjfkjusadh', '/user')
         # m.redirect('/user', '/dataset')
@@ -307,8 +326,27 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     def after_map(self, m):
         return m
 
+    def get_blueprint(self):
+        return blueprint.get_blueprints()
+    # def get_blueprint(self):
+    #     # Create Blueprint for plugin
+    #     print('blueprint thing')
+    #     blueprint = Blueprint(self.name, self.__module__)
+    #     # blueprint.template_folder = u'templates'
+    #     # Add plugin url rules to Blueprint object
+    #     rules = [
+    #         # (u'/', u'/', ),
+    #         # (u'/', u'home', override_flask_home),
+    #         # (u'/helper_not_here', u'helper_not_here', helper_not_here),
+    #         # (u'/helper', u'helper_here', helper_here),
+    #     ]
+    #     redirect('/dataset')
+    #     for rule in rules:
+    #         blueprint.add_url_rule(*rule)
 
-class CSAController(base.BaseController):
+    #     return blueprint
 
-    def API(self):
-        return base.render('content/api.html')
+# class CSAController(base.BaseController):
+
+#     def API(self):
+#         return base.render('content/api.html')
