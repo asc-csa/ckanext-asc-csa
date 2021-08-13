@@ -18,16 +18,21 @@
 {% block styles %}
     {{ super() }}
 
-    {% resource 'csa/GCWeb/css/theme.css' %}
-    {% resource 'csa/extra.css' %}
+    {% asset 'csa/gcweb_style' %}
+    {# {% asset '/public/wet-boew/js/wet-boew.js' %} #}
+    {% asset 'csa/gcweb_script' %}
+    {# {% resource 'csa/GCWeb/css/theme.css' %} #}
+    {# {% resource 'csa/extra.css' %} #}
+    {# {% asset 'csa/GCWeb/css/theme.css' %}
+    {% asset 'csa/extra.css' %} #}
 {% endblock %}
 
 <title>
     {%- block title -%}
     {% if h.lang() == 'fr' %}
-    Données ouvertes - Agence spatiale canadienne
+    Portail de données et information ouvertes
     {% else %}
-    Open data - Canadian Space Agency
+    Open data and information Portal
     {% endif %}
     {%- endblock -%}
   </title>

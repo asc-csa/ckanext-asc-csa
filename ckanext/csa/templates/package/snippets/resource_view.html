@@ -44,16 +44,16 @@
           </p>
         </div>
         {% if not to_preview %}
-          {% set current_filters = request.str_GET.get('filters') %}
+          {% set current_filters = request.args.get('filters') %}
           {% if current_filters %}
-            {% set src = h.url_for(qualified=true, controller='package',
-                               action='resource_view', id=package['name'],
+            {% set src = h.url_for(qualified=true, controller='dataset_resource',
+                               action='view', id=package['name'],
                                resource_id=resource['id'],
                                view_id=resource_view['id'],
                                filters=current_filters)  %}
           {% else %}
-            {% set src = h.url_for(qualified=true, controller='package',
-                               action='resource_view', id=package['name'],
+            {% set src = h.url_for(qualified=true, controller='dataset_resource',
+                               action='view', id=package['name'],
                                resource_id=resource['id'],
                                view_id=resource_view['id'])  %}
           {% endif %}
@@ -66,7 +66,7 @@
 
         {% if h.lang() == 'fr' %}
 
-        <iframe src="{{ src }}"  allowfullscreen="" data-module="data-viewer" style="width:1110px" title= "Visualisation des données de la ressource {{res_name}} (dans l'ensemble de données {{dataset_name}})"">
+        <iframe src="{{ src }}"  allowfullscreen="" data-module="data-viewer" style="width:1110px" title= "Visualisation des données de la ressource {{res_name}} (dans l'ensemble de données {{dataset_name}})">
         {% else %}
         <iframe src="{{ src }}"  allowfullscreen="" data-module="data-viewer" style="width:1110px" title= "Visualization of the data contained within the resource {{res_name}} (within the {{dataset_name}} dataset)">
         {% endif %}

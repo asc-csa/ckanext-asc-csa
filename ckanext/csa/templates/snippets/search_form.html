@@ -5,6 +5,7 @@
 {% set search_class = search_class if search_class else 'search-giant' %}
 {% set no_bottom_border = no_bottom_border if no_bottom_border else false %}
 {% set form_id = form_id if form_id else false %}
+
 <form {% if form_id %}id="{{ form_id }}" {% endif %}class="search-form{% if no_bottom_border %} no-bottom-border{% endif %}" method="get" data-module="select-switch">
 
   {% block search_input %}
@@ -20,7 +21,6 @@
       <span class="wb-inv">{{_('Search')}}</span>
       {% endblock %}
     </div>
-</form>
   {% endblock %}
 
   {% block search_search_fields %}
@@ -31,7 +31,6 @@
 
   {% block search_sortby %}
     {% if sorting %}
-      <form method="post" data-module="select-switch">
       <div class="form-select form-group control-order-by" style="display:flex; flex-direction: row; justify-content: right">
         <label for="field-order-by" style="margin: 0 5px">{{ _('Order by')}} </label>
         <select id="field-order-by" name="sort" class="form-control">
@@ -41,12 +40,10 @@
             {% endif %}
           {% endfor %}
         </select>
-        {% block search_sortby_button %}
-        <button class="btn btn-default" type="submit" name="submit">{{ _('Sort') }}</button>
-
-        {% endblock %}
+          {% block search_sortby_button %}
+            <button class="btn btn-default" type="submit" name="submit">{{ _('Sort') }}</button>
+          {% endblock %}
         </div>
-        </form>
 
     {% endif %}
   {% endblock %}
@@ -62,6 +59,7 @@
   {% block search_facets %}
 
   {% endblock %}
+</form>
 
 
 {% if show_empty and count == 0 and not error %}

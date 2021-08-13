@@ -18,7 +18,7 @@
   {# The content block allows you to replace the content of the page if needed #}
   {%- block content %}
     {% block maintag %}<div class='page-wrap'>{% endblock %}
-      <div id="content" class="container" >
+      <div id="content" class="container" role="main">
         {% block main_content %}
           {% block flash %}
             <div class="flash-messages">
@@ -33,13 +33,11 @@
           {% endblock %}
 
           {% block toolbar %}
-            <div class="toolbar">
+            <div class="toolbar" role="navigation"  aria-label="breadcrumbs">
               {% block breadcrumb %}
-                {% if self.breadcrumb_content() | trim %}
                   <ol class="breadcrumb">
                     {% snippet 'snippets/home_breadcrumb_item.html' %}
                   </ol>
-                {% endif %}
               {% endblock %}
             </div>
           {% endblock %}
@@ -103,7 +101,7 @@
                     {% endblock %}
                       #}
 
-                    <div role='main' class="module-content">
+                    <div {# role='main' #} class="module-content">
                       {% if self.page_primary_action() | trim %}
                         <div class="page_primary_action">
                           {% block page_primary_action %}{% endblock %}
@@ -134,10 +132,10 @@
 {%- endblock -%}
 
 {%- block scripts %}
-    {% resource 'base/main' %}
-    {% resource 'base/ckan' %}
+    {% asset 'base/main' %}
+    {% asset 'base/ckan' %}
     {% if g.tracking_enabled %}
-      {% resource 'base/tracking.js' %}
+      #{ {% resource 'base/tracking.js' %} #}
     {% endif %}
   {{ super() }}
 

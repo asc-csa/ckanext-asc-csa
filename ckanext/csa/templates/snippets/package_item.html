@@ -15,7 +15,7 @@
         {% block heading_private %}
           {{ super() }}
         {% endblock %}
-        {{ h.link_to(h.truncate(my_title, truncate_title), h.url_for(controller='package', action='read', id=package.name)) }}
+        {{ h.link_to(h.truncate(my_title, truncate_title), h.url_for('dataset.read', id=package.name)) }}
         {% block heading_meta %}
           {{ super() }}
         {% endblock %}
@@ -89,8 +89,8 @@
     </div>
   </article>
 
-  {% resource 'csa/example_theme_popover.js' %}
-  {% resource 'csa/example_theme_popover.css' %}
+ {#  {% resource 'csa/example_theme_popover.js' %}
+  {% resource 'csa/example_theme_popover.css' %} #}
 
 
 
