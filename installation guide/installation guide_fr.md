@@ -87,7 +87,13 @@ Sur votre système Ubuntu, ouvrez un terminal et exécutez ces commandes pour in
 	wget https://packaging.ckan.org/python-ckan_2.9-py3-focal_amd64.deb
 	```  
 
-4.  Installez le package CKAN :
+4.  Téléchargez ce package additionnel dont CKAN a besoin:
+
+	```
+	sudo apt-get install python3-disutils
+	```
+
+5.  Installez le package CKAN :
 
      Sur Ubuntu 20.04, pour Python 3 (recommandé) :
      ```
@@ -192,6 +198,14 @@ Si l'un des processus rapporte une erreur, assurez-vous d'avoir exécuté toutes
 Relancer Nginx en exécutant cette commande :
 
 >sudo service nginx restart
+
+Lancer l'environnement virtuel en exécutant cette commande :
+
+>. /usr/lib/ckan/default/bin/activate
+
+Puis, lancer CKAN en exécutant cette commande : 
+
+>ckan -c /etc/ckan/default/ckan.ini run
 
 Vous pouvez maintenant tester l'installation en allant sur [http://localhost:5000](http://localhost:5000/), s'il affiche CKAN vous avez tout fait correctement jusqu'à ce point.
 
@@ -317,9 +331,7 @@ scheming.dataset_schemas = ckanext.scheming:ckan_dataset.json
  ckanext.csa:info.json ckanext.csa:doc.json  
 scheming.presets = ckanext.scheming:presets.json  
  ckanext.fluent:presets.json  
-licenses_group_url = http://{ip of CKAN instance}/licenses.json  
-
-# Example: licenses_group_url = http://127.0.0.1:5000/licenses.json  
+licenses_group_url = file:///usr/lib/ckan/default/src/ckanext-asc-csa/ckanext/csa/public/licenses.json
 
 ckan.locale_default = en  
 ckan.locale_order = en fr  
