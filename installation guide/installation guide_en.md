@@ -308,9 +308,9 @@ ckan.plugins = stats text_view image_view recline_view csa scheming_datasets flu
 
 ## Scheming Settings  
 
-scheming.dataset_schemas = ckanext.csa:ckan_dataset.json  
+scheming.dataset_schemas = ckanext.scheming:ckan_dataset.json  
  ckanext.csa:info.json ckanext.csa:doc.json  
-scheming.presets = ckanext.csa:presets.json  
+scheming.presets = ckanext.scheming:presets.json  
  ckanext.fluent:presets.json  
 licenses_group_url = http://{ip of CKAN instance}/licenses.json  
 
