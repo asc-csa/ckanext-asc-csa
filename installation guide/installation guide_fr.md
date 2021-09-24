@@ -87,7 +87,7 @@ Sur votre système Ubuntu, ouvrez un terminal et exécutez ces commandes pour in
 	wget https://packaging.ckan.org/python-ckan_2.9-py3-focal_amd64.deb
 	```  
 
-4.  Téléchargez ce package additionnel dont CKAN a besoin:
+4.  Téléchargez ce package additionnel dont CKAN a besoin :
 
 	```
 	sudo apt-get install python3-disutils
