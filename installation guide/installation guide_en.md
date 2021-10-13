@@ -85,7 +85,13 @@ On your Ubuntu system, open a terminal and run these commands to install CKAN:
 	wget https://packaging.ckan.org/python-ckan_2.9-py3-focal_amd64.deb
 	```  
 
-4.  Install the CKAN package:
+4.  Download this additional package that CKAN requires:
+
+	```
+	sudo apt-get install python3-disutils
+	```
+
+5.  Install the CKAN package:
 
      On Ubuntu 20.04, for Python 3:
      ```
@@ -189,6 +195,14 @@ If some of the processes report an error, make sure you’ve run all the previou
 Restart Nginx by running this command:
 
 >sudo service nginx restart
+
+Start the virtual environment with this command:
+
+>. /usr/lib/ckan/default/bin/activate
+
+Then run CKAN with this command:
+
+>ckan -c /etc/ckan/default/ckan.ini run
 
 You can now test the install by going to [http://localhost:5000](http://localhost:5000/), if it loads CKAN you have done everything right up to this point.
 ###  6. DataStore and DataPusher  
@@ -308,13 +322,11 @@ ckan.plugins = stats text_view image_view recline_view csa scheming_datasets flu
 
 ## Scheming Settings  
 
-scheming.dataset_schemas = ckanext.csa:ckan_dataset.json  
+scheming.dataset_schemas = ckanext.scheming:ckan_dataset.json  
  ckanext.csa:info.json ckanext.csa:doc.json  
-scheming.presets = ckanext.csa:presets.json  
+scheming.presets = ckanext.scheming:presets.json  
  ckanext.fluent:presets.json  
-licenses_group_url = http://{ip of CKAN instance}/licenses.json  
-
-# Example: licenses_group_url = http://127.0.0.1:5000/licenses.json  
+licenses_group_url = file:///usr/lib/ckan/default/src/ckanext-asc-csa/ckanext/csa/public/licenses.json
 
 ckan.locale_default = en  
 ckan.locale_order = en fr  
