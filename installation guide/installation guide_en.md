@@ -60,9 +60,10 @@ Host ports requirements:
 |:--|:--|:--|
 |NGINX	|80	|Proxy
 |uWSGI	|8080	|Web Server
-|uWSGI	|8800	|DataPusher
+|uWSGI	|8801	|DataPusher
 |Solr/Jetty	|8983	|Search
 |PostgreSQL	|5432	|Database
+|CKAN	|5000	|Web Application
 |Redis	|6379	|Search
 
 ###  1. Install the CKAN package
@@ -391,7 +392,7 @@ In the ckan.ini file, add
 ```
 ckan.storage_path = /var/lib/ckan/default
 ```
-and execute the commands
+and execute the commands (deprecated - you might not have to)
 ```
 paster --plugin=ckan datastore set-permissions -c /etc/ckan/default/ckan.ini
 ```

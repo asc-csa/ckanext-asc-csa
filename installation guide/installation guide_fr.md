@@ -58,14 +58,15 @@ Pour les installations Python 3, la version minimale de Python requise est 3.6.
 
 Exigences des ports hôtes :
 
-|Service  |Port  |Used for
+|Service  |Port  |Utilisé pour
 |:--|:--|:--|
 |NGINX	|80	|Proxy
-|uWSGI	|8080	|Web Server
-|uWSGI	|8800	|DataPusher
-|Solr/Jetty	|8983	|Search
-|PostgreSQL	|5432	|Database
-|Redis	|6379	|Search
+|uWSGI	|8080	|Serveur web
+|uWSGI	|8801	|DataPusher
+|Solr/Jetty	|8983	|Recherche
+|PostgreSQL	|5432	|Base de données
+|CKAN	|5000	|Application web
+|Redis	|6379	|Recherche
 
 ###  1. Installer le package CKAN
 Sur votre système Ubuntu, ouvrez un terminal et exécutez ces commandes pour installer CKAN :
@@ -395,7 +396,7 @@ Dans ckan.ini file, ajoutez
 ```
 ckan.storage_path = /var/lib/ckan/default
 ```
-et exécutez les commandes
+et exécutez les commandes (désuet - ce n'est pas obligatoire)
 ```
 paster --plugin=ckan datastore set-permissions -c /etc/ckan/default/ckan.ini
 ```
