@@ -4,18 +4,63 @@
 <footer id="wb-info">
 	<div class="landscape">
 		<nav class="container wb-navcurr" aria-label="footer links">
-			<h2 class="wb-inv">{{ _('About government') }}</h2>
+			{% if h.lang() == 'fr' %}
+			<h3 class="text-white">{{ _('Gouvernement du Canada') }}</h3>
 			<ul class="list-unstyled colcount-sm-2 colcount-md-3">
-				<li><a href='{{ _("https://www.canada.ca/en/contact.html") }}'>{{ _("Contact us") }}</a></li>
-				<li><a href='{{ _("https://www.canada.ca/en/government/dept.html") }}'>{{ _('Departments and agencies') }}</a></li>
-				<li><a href='{{ _("https://www.canada.ca/en/government/publicservice.html") }}'>{{ _('Public service and military') }}</a></li>
-				<li><a href='{{ _("https://www.canada.ca/en/news.html") }}'>{{ _('News') }}</a></li>
-				<li><a href='{{ _("https://www.canada.ca/en/government/system/laws.html") }}'>{{ _('Treaties, laws and regulations') }}</a></li>
-				<li><a href='{{ _("https://www.canada.ca/en/transparency/reporting.html") }}'>{{ _('Government-wide reporting') }}</a></li>
-				<li><a href='{{ _("https://pm.gc.ca/eng") }}'>{{ _('Prime Minister') }}</a></li>
-				<li><a href='{{ _("https://www.canada.ca/en/government/system.html") }}'>{{ _('How government works') }}</a></li>
-				<li><a href='{{ _("https://open.canada.ca/en/") }}'>{{ _('Open government') }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/fr/contact.html") }}'>{{ _("Toutes les coordonnées") }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/fr/gouvernement/min.html") }}'>{{ _("Ministères et organismes") }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/fr/gouvernement/systeme.html") }}'>{{ _("À propos du gouvernement") }}</a></li>
 			</ul>
+			<h4 class="text-white">{{ _('Thèmes et sujets') }}</h4>
+			<ul class="list-unstyled colcount-sm-2 colcount-md-3">
+				<li><a href='{{ _("https://www.canada.ca/fr/services/emplois.html") }}'>{{ _("Emplois") }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/fr/services/immigration-citoyennete.html") }}'>{{ _("Immigration et citoyenneté") }}</a></li>
+				<li><a href='{{ _("https://voyage.gc.ca/") }}'>{{ _("Voyage et tourisme") }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/fr/services/entreprises.html") }}'>{{ _("Entreprises") }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/fr/services/prestations.html") }}'>{{ _("Prestations") }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/fr/services/sante.html") }}'>{{ _("Santé") }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/fr/services/impots.html") }}'>{{ _("Impôts") }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/fr/services/environnement.html") }}'>{{ _("Environnement et ressources naturelles") }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/fr/services/defense.html") }}'>{{ _("Sécurité nationale et défense") }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/fr/services/culture.html") }}'>{{ _("Culture, histoire et sport") }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/fr/services/police.html") }}'>{{ _("Services de police, justice et urgences") }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/fr/services/transport.html") }}'>{{ _("Transport et infrastructure") }}</a></li>
+				<li><a href='{{ _("https://www.international.gc.ca/world-monde/index.aspx?lang=fra") }}'>{{ _("Le Canada et le monde") }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/fr/services/finance.html") }}'>{{ _("Argent et finance") }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/fr/services/science.html") }}'>{{ _("Science et innovation") }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/fr/services/autochtones.html") }}'>{{ _("Autochtones") }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/fr/services/veterans.html") }}'>{{ _("Vétérans et militaires") }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/fr/services/jeunesse.html") }}'>{{ _("Jeunesse") }}</a></li></ul>
+			</ul>
+			{% else %}
+			<h3 class="text-white">{{ _('Government of Canada') }}</h3>
+			<ul class="list-unstyled colcount-sm-2 colcount-md-3">
+				<li><a href='{{ _("https://www.canada.ca/en/contact.html") }}'>{{ _("All contacts") }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/en/government/dept.html") }}'>{{ _('Departments and agencies') }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/en/government/system.html") }}'>{{ _('About government') }}</a></li>
+			</ul>
+			<h4 class="text-white">{{ _('Themes and topics') }}</h4>
+			<ul class="list-unstyled colcount-sm-2 colcount-md-3">
+				<li><a href='{{ _("https://www.canada.ca/en/services/immigration-citizenship.html") }}'>{{ _('Immigration and citizenship') }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/en/services/jobs.html") }}'>{{ _('Jobs') }}</a></li>
+				<li><a href='{{ _("https://travel.gc.ca/") }}'>{{ _('Travel and tourism') }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/en/services/business.html") }}'>{{ _('Business') }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/en/services/benefits.html") }}'>{{ _('Benefits') }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/en/services/health.html") }}'>{{ _('Health') }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/en/services/taxes.html") }}'>{{ _('Taxes') }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/en/services/environment.html") }}'>{{ _('Environment and natural resources') }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/en/services/defence.html") }}'>{{ _('National security and defence') }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/en/services/culture.html") }}'>{{ _('Culture, history and sport') }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/en/services/policing.html") }}'>{{ _('Policing, justice and emergencies') }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/en/services/transport.html") }}'>{{ _('Transport and infrastructure') }}</a></li>
+				<li><a href='{{ _("https://international.gc.ca/world-monde/index.aspx?lang=eng") }}'>{{ _('Canada and the world') }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/en/services/finance.html") }}'>{{ _('Money and finance') }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/en/services/science.html") }}'>{{ _('Science and innovation') }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/en/services/indigenous-peoples.html") }}'>{{ _('Indigenous peoples') }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/en/services/veterans.html") }}'>{{ _('Veterans and military') }}</a></li>
+				<li><a href='{{ _("https://www.canada.ca/en/services/youth.html") }}'>{{ _('Youth') }}</a></li>
+			</ul>
+			{% endif %}
 		</nav>
 	</div>
 	<div class="brand">
@@ -26,7 +71,7 @@
 					<ul>
 						<li><a href='{{ _("https://www.canada.ca/en/social.html") }}'>{{ _('Social media') }}</a></li>
 						<li><a href='{{ _("https://www.canada.ca/en/mobile.html") }}'>{{ _('Mobile applications') }}</a></li>
-						<li><a href='{{ _("https://www1.canada.ca/en/newsite.html") }}'>{{ _('About Canada.ca') }}</a></li>
+						<li><a href='{{ _("https://www.canada.ca/en/government/about.html") }}'>{{ _('About Canada.ca') }}</a></li>
 						<li><a href='{{ _("https://www.canada.ca/en/transparency/terms.html") }}'>{{ _('Terms and conditions') }}</a></li>
 						<li><a href='{{ _("https://www.canada.ca/en/transparency/privacy.html") }}'>{{ _('Privacy') }}</a></li>
 					</ul>
@@ -34,9 +79,9 @@
 				<div class="col-xs-6 visible-sm visible-xs tofpg"> <a href="#wb-cont">{{ _('Top of Page') }} <span class="glyphicon glyphicon-chevron-up"></span></a> </div>
 
 				{% if h.lang() == 'fr' %}
-				<div class="col-xs-6 col-md-3 col-lg-2 text-right"> <img src="/wmms-blk.svg" alt="Symbole du gouvernement du Canada"> </div>
+				<div class="col-xs-6 col-md-3 col-lg-2 text-right"> <img src="https://wet-boew.github.io/themes-dist/GCWeb/GCWeb/assets/wmms-blk.svg" alt="Symbole du gouvernement du Canada"> </div>
 				{% else %}
-				<div class="col-xs-6 col-md-3 col-lg-2 text-right"> <img src="/wmms-blk.svg" alt="Symbol of the Government of Canada"> </div>
+				<div class="col-xs-6 col-md-3 col-lg-2 text-right"> <img src="https://wet-boew.github.io/themes-dist/GCWeb/GCWeb/assets/wmms-blk.svg" alt="Symbol of the Government of Canada"> </div>
 				{% endif %}
 
 			</div>
