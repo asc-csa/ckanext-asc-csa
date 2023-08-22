@@ -13595,7 +13595,8 @@ input#wb-srch-q {
 
 #wb-sec .list-group {
   margin-bottom: 0;
-  margin-left: 10px
+  margin-left: 10px;
+  margin-right: 10px
 }
 
 #wb-sec .list-group a.list-group-item {
@@ -13630,7 +13631,7 @@ input#wb-srch-q {
 
 [dir=rtl] #wb-sec .list-group .list-group .list-group-item {
   padding-left: 15px;
-  padding-right: 1.8em
+  padding-right: 15px
 }
 
 a.shr-opn, a.shr-opn:hover {
