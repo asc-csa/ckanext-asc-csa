@@ -10313,7 +10313,7 @@ ol.linenums li {
 
 [dir=rtl] .email:before {
   margin-left: .6em;
-  margin-right: auto
+  margin-right: .6em
 }
 
 .provisional.wb-steps {
