@@ -12551,7 +12551,8 @@ blockquote {
 }
 
 a {
-  color: #284162
+  color: #284162;
+  word-break: break-all;
 }
 
 a img.thumbnail:hover {
