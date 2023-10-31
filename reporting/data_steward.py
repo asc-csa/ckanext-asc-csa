@@ -16,12 +16,13 @@ class data_steward:
     def __init__(self, name, manager):
         
         self.name = name
-        self.email = name.replace(' ', '.') + EMAIL_DOMAIN
-        self.manager = manager
-        self.email_supervisor = manager.replace(' ', '.') + EMAIL_DOMAIN
+        self.email = name.replace(' ', '.').replace('é', 'e').replace('è', 'e').lower() + EMAIL_DOMAIN
         self.has_left_csa = self.set_has_left_csa()
+        self.manager = manager
+        self.email_supervisor = manager.replace(' ', '.').replace('é', 'e').replace('è', 'e').lower() + EMAIL_DOMAIN
         self.nb_datasets = 0
-        self.datasets = []
+        self.dataset_titles = []
+        self.dataset_ids = []
         
     def __eq__(self, name):
         return self.name == name
@@ -29,27 +30,21 @@ class data_steward:
     def __repr__(self):
         return '%s' % (self.name)
     
-    def add_dataset(self, title):
-        self.datasets.append(title)
+    def add_dataset(self, title, idf):
+        self.dataset_titles.append(title)
+        self.dataset_ids.append(idf)
     
     def get_nb_datasets(self):
-        return len(self.datasets)
+        return len(self.dataset_titles)
     
     def set_has_left_csa(self):
         
-        if self.name == 'Robert Saint-Jean':
-            return 'gone'
-        if self.name == 'Nathalie Levesque':
-            return 'gone'
-        if self.name == 'Denis Laurin':
-            return 'gone'
-        if self.name == 'Anne Marie LaBreque':
-            return 'gone'
-        if self.name == 'Renee St-Amant':
-            return 'gone'
-        if self.name == 'Yves Proulx':
-            return 'gone'
-        return ''
+        if self.name == 'Robert Saint-Jean' or self.name == 'Nathalie Levesque' or self.name == 'Denis Laurin' or self.name == 'Anne Marie LaBreque' or self.name == 'Renee St-Amant' or self.name == 'Yves Proulx':
+            return 'Has left CSA'
+        elif self.name == 'Nancy Vezina' or self.name == 'Karl Saad' or self.name == 'David Haight' or self.name == 'Victoria Hipkin' or self.name == 'Jonathan Lajoie':
+            return 'Works on another project'
+        else :
+            return ''
 
     def as_dict(self):
         return {'Data Steward': self.name, 
@@ -58,13 +53,13 @@ class data_steward:
                 'Manager': self.manager,
                 'Email Manager': self.self_email_supervisor,
                 'Number of datasets': self.nb_datasets,
-                'List of Datasets': self.datasets}
+                'List of Datasets': self.dataset_titles}
 
 
 '''
 Validates the data steward
 '''
-def validate_data_steward(value, manager, dataset_title, data_stewards):
+def validate_data_steward(value, manager, idf, dataset_title, data_stewards):
     try:
         idx = value.find(',')
         if idx > 0:
@@ -72,14 +67,14 @@ def validate_data_steward(value, manager, dataset_title, data_stewards):
         if len(value) > 0:
             if value not in data_stewards:
                 new_data_steward = data_steward(value, manager)
-                new_data_steward.add_dataset(dataset_title)
+                new_data_steward.add_dataset(dataset_title, idf)
                 data_stewards.append(new_data_steward)
                 new_data_steward.nb_datasets += 1
             else:
                 for the_data_steward in data_stewards:
                     if the_data_steward.name == value:
                         the_data_steward.nb_datasets += 1
-                        the_data_steward.add_dataset(dataset_title)
+                        the_data_steward.add_dataset(dataset_title, idf)
     except :
         # Nothing to do
         return
@@ -93,8 +88,10 @@ def get_data_stewards(df):
     
     data_stewards = []
     for ind in df.index:
+        
         validate_data_steward(df['data_steward'][ind], 
                               df['manager_or_supervisor'][ind], 
+                              df['name'][ind], 
                               df['title'][ind], 
                               data_stewards)
     return data_stewards
@@ -109,9 +106,10 @@ def get_data_frame_excel_format(data_stewards):
     excel_df = pd.DataFrame([t.__dict__ for t in data_stewards])
     excel_df.rename(columns={'name': 'Data Steward', 
                              'email': 'Email',
-                             'has_left_csa': 'Has Left CSA',
+                             'has_left_csa': 'Departure Notes',
                              'manager': 'Manager or Supervisor',
                              'email_supervisor': 'Supervisor Email',
-                             'nb_datasets': 'Number of datasets',
-                             'datasets': 'List of Datasets'}, inplace=True)
+                             'nb_datasets': 'Number of Datasets',
+                             'dataset_titles': 'List of Datasets',
+                             'dataset_ids': 'List of Dataset IDs'}, inplace=True)
     return excel_df
