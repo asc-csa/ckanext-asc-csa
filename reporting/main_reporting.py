@@ -45,7 +45,7 @@ if send_email_response == 'y' or send_email_response == 'yes':
     if send_email_response == 'y' or send_email_response == 'yes':
         print('\nSending emails...')
         for ind in excel_df.index:
-            msg = email_message.email_message(excel_df['Email'][ind], excel_df['Supervisor Email'][ind], "[Portail des données ouvertes / Open Data Portal] Demande de révision des métadonnées / Request to review the metadata")
+            msg = email_message.email_message(excel_df['Email'][ind], excel_df['Supervisor Email'][ind], "[Portail des données ouvertes / Open Data Portal] Demande de révision / Review request")
             msg.send_email(msg.generate_body(excel_df['Data Steward'][ind], excel_df['Number of Datasets'][ind], excel_df['List of Datasets'][ind], excel_df['List of Dataset IDs'][ind]))
     
 # End of script
