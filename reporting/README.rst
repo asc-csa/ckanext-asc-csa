@@ -11,8 +11,6 @@ Prérequis
 
 Vous avez besoin d'un environnement Python pour exécuter les scripts sur votre ordinateur. Aucune version spécifique n'est requise.
 
-
-
 =============
 Exécution
 =============
@@ -21,7 +19,7 @@ Veuillez suivre les étapes suivantes pour obtenir la liste des gestionnaires de
 
 
 ------------
-Open Data Portal - Reporting (le français précède)
+Open Data Portal - Reporting Data Stewards (le français précède)
 ------------
 
 This folder contains the Python scripts required to list the data stewards and to modify them if required.
@@ -31,8 +29,6 @@ Requirements
 =============
 
 You need Python environment to execute the scripts on your computer. No specific version of Python is required.
-
-
 
 =============
 Execution
