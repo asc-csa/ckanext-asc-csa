@@ -46,13 +46,13 @@ ATTENTION : Soyez vigilant avant d'exécuter cette partie. Cela modifie le porta
 Open Data Portal - Reporting Data Stewards (le français précède)
 ------------
 
-This folder contains the Python scripts required to list the data stewards and to modify them if required.
+This folder contains the Python scripts required to list the data stewards and to make the necessary modifications. 
 
 =============
 Requirements
 =============
 
-You need Python environment to execute the scripts on your computer such as Spyder or PyCharm. No specific version of Python is required.
+A Python environment to execute the scripts such as Spyder or PyCharm is required. This code is expected to run on all versions of Python.
 
 =============
 Execution
