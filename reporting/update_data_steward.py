@@ -19,7 +19,8 @@ print('Connected')
 
 # Open the Excel file that contains the list of all datasets & data stewards
 print('\nOpening the Excel file that contains the list of all datasets & data stewards...')
-all_data = pd.read_excel('U:\\Projects\\Space Data\\Open Data Portal\\reporting\\Open Data Portal - List of Data Stewards.xlsx')
+# TODO: To put the filename that comes out of main_reporting.py
+all_data = pd.read_excel('Open Data Portal - List of Data Stewards.xlsx')
 print('Found ' + str(len(all_data.index)) + ' datasets\n')
 # http://livelink/livelink/llisapi.dll?func=ll&objId=210183504&objAction=viewheader
 
@@ -61,7 +62,6 @@ for row in all_data.index:
         # Update the package's title and tags
         dataset['data_steward'] = new_data_steward
         dataset['manager_or_supervisor'] = new_manager
-        
         
         # Update the package on CKAN
         nbUpdatedDatasets = nbUpdatedDatasets + 1
