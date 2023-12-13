@@ -1,56 +1,41 @@
 
 -----------------
-Open Data Portal - Reporting (English follows)
+Portail des données ouvertes - Rapport des gestionnaires de données (English follows)
 -----------------
-Cette extension CKAN permet l'implémentation du thème du gouvernement du Canada. Le site qui en résulte est entièrement
-bilingue, accessible, et permet la visualisation des données dans le navigateur.
 
-Vous pouvez accéder au portail en direct au https://donnees-data.asc-csa.gc.ca/fr/dataset.
-
-Voulez-vous suggérer de nouvelles fonctionnalités ou de nouveaux ensembles de données ou signaler un bogue ? Créez une demande de problème `ici <https://github.com/asc-csa/ckanext-asc-csa/issues/new/>`_.
+Ce répertoire contient les scripts Python requis pour dresser la liste des gestionnaires de données et pour les modifier au besoin.
 
 =============
 Prérequis
 =============
 
-Cette version de l'extension est compatible avec CKAN 2.9. Les versions précédentes (0.1-0.4) étaient compatibles avec CKAN 2.8.
-
-Cette extension requiert l'extension `ckanext-asc-csa-scheming <https://github.com/asc-csa/ckanext-asc-csa-scheming/>`_
-ainsi que `ckanext-fluent <https://github.com/ckan/ckanext-fluent>`_.
+Vous avez besoin d'un environnement Python pour exécuter les scripts sur votre ordinateur. Aucune version spécifique n'est requise.
 
 
 
 =============
-Installation
+Exécution
 =============
 
-Pour des instructions d'installation, veuillez vous référer au `document instructions d'installation </installation%20guide/installation%20guide_fr.md>`_.
+Veuillez suivre les étapes suivantes pour obtenir la liste des gestionnaires de données :
 
 
 ------------
-ckanext-asc-csa (le français précède)
+Open Data Portal - Reporting (le français précède)
 ------------
 
-This CKAN extension allows for the implementation of the Government of Canada theme. The resulting site is
-bilingual, accessible, and allows for in-browser data visualization.
-
-The live version of the site is available at https://donnees-data.asc-csa.gc.ca/dataset.
-
-Want to suggest new features or datasets or report a bug? Create an issue request `here <https://github.com/asc-csa/ckanext-asc-csa/issues/new/>`_.
+This folder contains the Python scripts required to list the data stewards and to modify them if required.
 
 =============
 Requirements
 =============
 
-This version of the extension is intended for CKAN 2.9. Earlier releases (0.1-0.4) were intended for CKAN 2.8.
-
-This extension is intended to be used alongside `ckanext-asc-csa-scheming <https://github.com/asc-csa/ckanext-asc-csa-scheming/>`_
-as well as `ckanext-fluent <https://github.com/ckan/ckanext-fluent>`_.
+You need Python environment to execute the scripts on your computer. No specific version of Python is required.
 
 
 
 =============
-Installation
+Execution
 =============
 
-For full installation instructions, please refer to the `installation instructions document </installation%20guide/installation%20guide_en.md>`_.
+Follow these steps to get the list of data stewards:
