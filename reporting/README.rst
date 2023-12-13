@@ -75,7 +75,7 @@ Follow these steps to get the list of data stewards:
 
 Follow these steps to update the data stewards:
 
-WARMING: Be careful before running this part. It updates the Open Data Portal.
+WARNING: Be careful before running this part. It updates the Open Data Portal.
 
 1. Open update_data_steward.py. Set the API_KEY with your own key. You cannot update the portal if you do not have one.
 
