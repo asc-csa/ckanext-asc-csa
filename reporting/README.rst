@@ -40,6 +40,8 @@ ATTENTION : Soyez vigilant avant d'exécuter cette partie. Cela modifie le porta
 3. Suivez le résultat de l'exécution. Le script met à jour le portail Open Data.
 
 
+
+
 ------------
 Open Data Portal - Reporting Data Stewards (le français précède)
 ------------
