@@ -16,11 +16,17 @@ Exécution
 =============
 
 Veuillez suivre les étapes suivantes pour obtenir la liste des gestionnaires de données :
+
 1. Ouvrez le fichier data_steward.py. Définissez la constante EMAIL_DOMAIN.
+
 2. Ouvrez le fichier email_message.py. Définissez les constantes SMTP_DOMAIN, PORT_NUMBER et FROM_ADDRESS.
+
 3. Ouvrez le fichier main_reporting.py.
+
 4. Exécutez main_reporting.py dans votre environnement de développement (Spyder ou PyCharm).
+
 5. Suivez le résultat de l'exécution. Le script génère un fichier Excel.
+
 6. Ouvrez le fichier Excel produit. Il contient tous les ensembles de données du portail des données ouvertes.
 
 ------------
@@ -40,9 +46,15 @@ Execution
 =============
 
 Follow these steps to get the list of data stewards:
+
 1. Open data_steward.py. Set the EMAIL_DOMAIN.
+
 2. Open email_message.py. Set the SMTP_DOMAIN, PORT_NUMBER and FROM_ADDRESS.
+
 3. Open main_reporting.py.
+
 4. Execute main_reporting.py in your development environment (e.g. Spyder or PyCharm).
+
 5. Follow the output of the execution. The script outputs an Excel spreadsheet.
+
 6. Open the spreadsheet. It contains all the datasets of the Open Data Portal.
