@@ -29,6 +29,17 @@ Veuillez suivre les étapes suivantes pour obtenir la liste des gestionnaires de
 
 6. Ouvrez le fichier Excel produit. Il contient tous les ensembles de données du portail des données ouvertes.
 
+Suivez ces étapes pour mettre à jour les gestionnaires de données :
+
+ATTENTION : Soyez vigilant avant d'exécuter cette partie. Cela modifie le portail des données ouvertes.
+
+1. Ouvrez update_data_steward.py. Définissez API_KEY avec votre propre clé. Vous ne pouvez pas mettre à jour le portail si vous n'en avez pas.
+
+2. Exécutez update_data_steward.py dans votre environnement de développement (Spyder ou PyCharm).
+
+3. Suivez le résultat de l'exécution. Le script met à jour le portail Open Data.
+
+
 ------------
 Open Data Portal - Reporting Data Stewards (le français précède)
 ------------
@@ -58,3 +69,14 @@ Follow these steps to get the list of data stewards:
 5. Follow the output of the execution. The script outputs an Excel spreadsheet.
 
 6. Open the spreadsheet. It contains all the datasets of the Open Data Portal.
+
+
+Follow these steps to update the data stewards:
+
+WARMING: Be careful before running this part. It updates the Open Data Portal.
+
+1. Open update_data_steward.py. Set the API_KEY with your own key. You cannot update the portal if you do not have one.
+
+2. Execute update_data_steward.py in your development environment (e.g. Spyder or PyCharm).
+
+3. Follow the output of the execution. The script updates the Open Data Portal.
