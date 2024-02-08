@@ -5,7 +5,7 @@
 
 import datetime
 from datetime import datetime
-from pdfDocument import pdfDocument
+from pdf_document import pdf_document
 import portal_helper
 import pandas as pd
 
@@ -41,8 +41,8 @@ metadata_df = metadata_df.sort_values('title', ascending=False)
 metadata_df.to_excel("Open Data Portal - Metadata-" + year + "-" + month + ".xlsx", index=False)
 
 # Create the PDF documents
-pdf_doc_en = pdfDocument('Open Data Portal - Metadata', 'en')
-pdf_doc_fr = pdfDocument('Portail des données ouvertes - Métédonnées', 'fr')
+pdf_doc_en = pdf_document('Open Data Portal - Metadata', 'en')
+pdf_doc_fr = pdf_document('Portail des données ouvertes - Métédonnées', 'fr')
 pdf_doc_en.createHeader()
 pdf_doc_fr.createHeader()
 

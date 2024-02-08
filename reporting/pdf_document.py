@@ -19,7 +19,7 @@ CSA_LOGO = 'csa-asc_logo.svg_.png'
 # This class defines a PDF document, which supports HTML tags.
 # To create the a PDF document, you need to:
 #
-# 1. Instanciate a PDF document. e.g: pdf_doc = pdfDocument('2024 Statistical Report', 'en')
+# 1. Instanciate a PDF document. e.g: pdf_doc = pdf_document('2024 Statistical Report', 'en')
 # 2. Create the header. e.g: pdf_doc.createHeader()
 # 3. For each chapter:
 #       3.1 Add a chapter title. e.g: pdf_doc.addChapter('Scope')
@@ -31,7 +31,7 @@ CSA_LOGO = 'csa-asc_logo.svg_.png'
 #
 # @author Emiline Filion - Canadian Space Agency
 #
-class pdfDocument:
+class pdf_document:
     
     # Default constructor.
     # Params:
