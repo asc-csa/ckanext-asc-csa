@@ -1,4 +1,4 @@
-# This script uses the API to retrieve the statistics of the Open Data Portal.
+# This script uses the API to retrieve the data stewards from the Open Data Portal.
 #
 # @author Emiline Filion - Canadian Space Agency
 #

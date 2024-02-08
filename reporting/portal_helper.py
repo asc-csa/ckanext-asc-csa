@@ -49,3 +49,18 @@ def get_nb_unassigned_datasets(df):
             nb_unassigned_datasets += 1
     
     return nb_unassigned_datasets
+
+
+'''
+format_to_readable
+Formats a string to a readable value.
+'''
+def format_to_readable(content) :
+    
+    content = content.replace('_', ' ')
+    content = content.replace("[", "")
+    content = content.replace("]", "")
+    content = content.replace("'", "")
+    content = content.replace("nan", "")
+    content = content.replace("NAN", "")
+    return content
