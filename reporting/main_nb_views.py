@@ -56,14 +56,10 @@ def eval_ratio_views_per_day(average_nb_views_per_day, recent_nb_views):
     return ""
 
 
-# Read all datasets from the Open Data Portal
-space_df = portal_helper.get_data(CSA_OPEN_DATA_PORTAL_URL)
-print('Number of datasets found in the Open Data Portal: ' + str(len(space_df.index)))
-
-# Get the list datasets
-space_df = space_df.sort_values(COL_CREATION_DATE)
-metadata_df = space_df[[COL_TITLE, 'title_translated', 'id', 'notes', 'notes_translated', 'portal_type', 'format_of_source_data', 'format_of_source_data_details', 'resources', 'data_owner', 'data_steward', 'manager_or_supervisor', 'metadata_created', 'metadata_modified', 'portal_release_date', 'date_published', 'audience', 'subject', 'directorate', 'division', 'imso_approval', 'jurisdiction', 'language_support', 'license_id', 'license_title']]
+# Read the list datasets from the Open Data Portal
+metadata_df = portal_helper.get_data(CSA_OPEN_DATA_PORTAL_URL)
 metadata_df = metadata_df.sort_values(COL_TITLE, ascending=False)
+print('Number of datasets found in the Open Data Portal: ' + str(len(metadata_df.index)))
 
 # Get the number of views for each dataset
 nb_recent_views = 0

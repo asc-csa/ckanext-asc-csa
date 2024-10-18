@@ -1,4 +1,5 @@
 # This script uses the API to retrieve the statistics of the Open Data Portal.
+# It consists of the number of datasets that were added to the portal per year.
 #
 # @author Emiline Filion - Canadian Space Agency
 #
@@ -26,10 +27,12 @@ nb_info2021 = 0
 nb_info2022 = 0
 nb_info2023 = 0
 nb_info2024 = 0
+nb_info2025 = 0
 nb_data2021 = 0
 nb_data2022 = 0
 nb_data2023 = 0
 nb_data2024 = 0
+nb_data2025 = 0
 for dataset in space_df.index:
     if '2021' in space_df['metadata_created'][dataset] and space_df['portal_type'][dataset] == 'info':
         nb_info2021 += 1
@@ -39,6 +42,8 @@ for dataset in space_df.index:
         nb_info2023 += 1
     if '2024' in space_df['metadata_created'][dataset] and space_df['portal_type'][dataset] == 'info':
         nb_info2024 += 1
+    if '2025' in space_df['metadata_created'][dataset] and space_df['portal_type'][dataset] == 'info':
+        nb_info2025 += 1
     if '2021' in space_df['metadata_created'][dataset] and space_df['portal_type'][dataset] == 'data':
         nb_data2021 += 1
     if '2022' in space_df['metadata_created'][dataset] and space_df['portal_type'][dataset] == 'data':
@@ -47,6 +52,8 @@ for dataset in space_df.index:
         nb_data2023 += 1
     if '2024' in space_df['metadata_created'][dataset] and space_df['portal_type'][dataset] == 'data':
         nb_data2024 += 1
+    if '2025' in space_df['metadata_created'][dataset] and space_df['portal_type'][dataset] == 'data':
+        nb_data2025 += 1
 
 # Display the results
 print("\n")
@@ -65,6 +72,10 @@ print("\n")
 print('**** 2024 ****')
 print('info: ' + str(nb_info2024))
 print('data: ' + str(nb_data2024))
+print("\n")
+print('**** 2025 ****')
+print('info: ' + str(nb_info2025))
+print('data: ' + str(nb_data2025))
 
 # End of script
 print("\nThe script ended successfully")
