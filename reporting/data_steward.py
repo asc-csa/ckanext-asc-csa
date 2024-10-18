@@ -12,7 +12,10 @@ EMAIL_DOMAIN = '@asc-csa.gc.ca'
 
 
 class data_steward:
-    
+
+    # Constructor.
+    # @param name - Name of the data steward.
+    # @param manager - Name of the manager.
     def __init__(self, name, manager):
         
         self.name = name
@@ -23,20 +26,32 @@ class data_steward:
         self.nb_datasets = 0
         self.dataset_titles = []
         self.dataset_ids = []
-        
+    
+    # Equal method.
+    # @param name - Name of the data steward.
+    # @return True if the data steward is the same. False otherwise.
     def __eq__(self, name):
         return self.name == name
     
+    # Returns the self representation.
+    # @return Name of the data steward.
     def __repr__(self):
         return '%s' % (self.name)
     
+    # Assigns a dataset to the data steward.
+    # @param title - Title of the dataset.
+    # @param idf - Dataframe.
     def add_dataset(self, title, idf):
         self.dataset_titles.append(title)
         self.dataset_ids.append(idf)
     
+    # Returns the number of datasets that the data steward is responsible of.
+    # @return Number of datasets.
     def get_nb_datasets(self):
         return len(self.dataset_titles)
     
+    # Indicates if the data steward has left the CSA.
+    # @return True if the data steward has left the CSA. False otherwise.
     def set_has_left_csa(self):
         
         if self.name == 'Robert Saint-Jean' or self.name == 'Nathalie Levesque' or self.name == 'Denis Laurin' or self.name == 'Anne Marie LaBreque' or self.name == 'Renee St-Amant' or self.name == 'Yves Proulx':
@@ -46,6 +61,8 @@ class data_steward:
         else :
             return ''
 
+    # Converts the data steward to a data dictionary.
+    # @return Data dictionary.
     def as_dict(self):
         return {'Data Steward': self.name, 
                 'Email': self.email, 
@@ -56,9 +73,12 @@ class data_steward:
                 'List of Datasets': self.dataset_titles}
 
 
-'''
-Validates the data steward
-'''
+# Validates the data steward.
+# @param value - Name of the data steward.
+# @param manager - Name of the manager.
+# @param idf - Dataframe.
+# @param dataset_title - Title of the dataset.
+# @param data_stewards - List of data stewards.
 def validate_data_steward(value, manager, idf, dataset_title, data_stewards):
     try:
         idx = value.find(',')
@@ -80,10 +100,10 @@ def validate_data_steward(value, manager, idf, dataset_title, data_stewards):
         return
         
         
-'''
-Returns the list of data stewards.
-df - dataframe
-'''
+
+# Returns the list of data stewards.
+# @param df - dataframe.
+# @return List of data stewards.
 def get_data_stewards(df):
     
     data_stewards = []
@@ -97,10 +117,10 @@ def get_data_stewards(df):
     return data_stewards
 
 
-'''
-Converts the array of data stewards to the Excel format
-data_stewards - Array of <data_steward> objects
-'''
+
+# Converts the array of data stewards to the Excel format
+# @param data_stewards - Array of <data_steward> objects.
+# @return Array of data stewards to the Excel format.
 def get_data_frame_excel_format(data_stewards):
     
     excel_df = pd.DataFrame([t.__dict__ for t in data_stewards])

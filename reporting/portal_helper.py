@@ -12,13 +12,13 @@ import pandas as pd
 ENCODING = "utf-8"
 
 
-'''
-get_data
-Gets all metadata for all datasets
-'''
+# Gets all metadata for all datasets.
+# @param portal_url - CSA Open Data Portal URL.
+# @return dataframe of all data.
 def get_data(portal_url):
     
     # Request a list of datasets for all categories
+    # Online reference: https://docs.ckan.org/en/2.9/api/index.html
     print('\nConnecting to the Open Data Portal to retrieve data...\n')
     response = requests.get(portal_url + '/api/action/package_search?fq=&rows=400')
     response.encoding = ENCODING
@@ -29,10 +29,23 @@ def get_data(portal_url):
     return df
 
 
-'''
-get_nb_unassigned_datasets
-Returns the number of unassigned datasets
-'''
+# Gets the information of a specific datatset.
+# @param portal_url - CSA Open Data Portal URL.
+# @param dataset_id = ID of the dataset.
+# @return Information of the datatset.
+def get_dataset_info(portal_url, dataset_id):
+    
+    # Request a list of datasets for all categories
+    # Online reference: https://docs.ckan.org/en/2.9/api/index.html
+    #print('\nConnecting to the Open Data Portal to retrieve the information of a specific dataset...\n')
+    response = requests.get(portal_url + '/api/action/package_show?id='+dataset_id+'&include_tracking=true')
+    response.encoding = ENCODING
+    dataset = json.loads(response.text)
+    return dataset['result']
+
+
+# Returns the number of unassigned datasets.
+# @return The number of unassigned datasets.
 def get_nb_unassigned_datasets(df):
     
     nb_unassigned_datasets = 0
@@ -51,10 +64,9 @@ def get_nb_unassigned_datasets(df):
     return nb_unassigned_datasets
 
 
-'''
-format_to_readable
-Formats a string to a readable value.
-'''
+# Formats a string to a readable value.
+# @param content - Input string content.
+# @return Formated string.
 def format_to_readable(content) :
     
     content = content.replace('_', ' ')
