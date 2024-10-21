@@ -41,6 +41,10 @@ def get_dataset_info(portal_url, dataset_id):
     response = requests.get(portal_url + '/api/action/package_show?id='+dataset_id+'&include_tracking=true')
     response.encoding = ENCODING
     dataset = json.loads(response.text)
+    try:
+        portal_type = dataset['result']['portal_type']
+    except:
+        dataset['result']['portal_type'] = ''
     return dataset['result']
 
 
