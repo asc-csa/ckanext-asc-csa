@@ -7,6 +7,7 @@
 import datetime
 from datetime import date
 from datetime import datetime
+import math
 import matplotlib.pyplot as plt
 import portal_helper
 import pandas as pd
@@ -17,13 +18,21 @@ CSA_OPEN_DATA_PORTAL_URL = 'https://donnees-data.asc-csa.gc.ca'
 EXPLODE_PARAM = [0.2, 0.1, 0, 0, 0, 0]
 PERCENT_DISPLAY = '%1.0f%%'
 OTHERS = 'Others'
-GOOD_DATASET_STR = "Popular dataset - At least a visit per day"
-BAD_DATASET_STR = "Needs marketing - Not that much views"
+GOOD_DATASET_STR = "At least a visit per day"
+BAD_DATASET_STR = "Needs marketing - Less than one view per week"
+GREAT_NB_VIEWS_GOING_UP_STR = "↗↗↗↗"
+REALLY_BAD_NB_VIEWS_GOING_DOWN_STR = "↘↘↘↘"
+NB_VIEWS_STABLE_STR = "~"
+NB_VIEWS_GOING_UP_STR = "↗"
+NB_VIEWS_GOING_DOWN_STR = "↘"
 NB_DAYS_PER_YEAR = 365.26
 NO_VIEWS_THRESHOLD = 1
+GREAT_IMPROVEMENTS_NB_VIEWS_PER_DAY = 1.2
+BAD_DEPRECIATION_NB_VIEWS_PER_DAY = -1.0
+BUFFER_STABLE_NB_VIEWS_PER_DAY = 0.2
 GOOD_RECENT_NB_VIEWS = 40
-GOOD_RATIO_THRESHOLD = 0.96
-POOR_RATIO_THRESHOLD = 0.2
+GOOD_RATIO_THRESHOLD_PER_DAY = 0.96
+POOR_RATIO_THRESHOLD_PER_DAY = 0.23
 
 COL_ID = 'id'
 COL_TITLE = 'title'
@@ -31,10 +40,11 @@ COL_PORTAL_TYPE = 'portal_type'
 COL_CREATION_DATE = 'metadata_created'
 COL_TOTAL_NB_VIEWS = 'total_nb_views'
 COL_RECENT_NB_VIEWS = 'recent_nb_views'
-COL_NB_DAYS_PORTAL = 'nb_days_in_portal'
-COL_AVG_NB_VIEWS_PER_DAY = 'average_nb_views_per_day'
-COL_AVG_NB_VIEWS_PER_WEEK = 'average_nb_views_per_week'
+COL_NB_YEARS_PORTAL = 'nb_years_in_portal'
+COL_AVG_RECENT_NB_VIEWS_PER_DAY = 'average_recent_nb_views_per_day'
+COL_AVG_NB_VIEWS_PER_DAY = 'average_total_nb_views_per_day'
 COL_AVG_NB_VIEWS_PER_YEAR = 'average_nb_views_per_year'
+COL_LONG_TERM_TREND = 'long_term_trend'
 COL_COMMENTS = 'comments'
 
 # Date values
@@ -50,11 +60,35 @@ year = str(today.year)
 # @param recent_nb_views - Recent number of views
 # @return String comment
 def eval_ratio_views_per_day(average_nb_views_per_day, recent_nb_views):
-    if average_nb_views_per_day >= GOOD_RATIO_THRESHOLD or recent_nb_views >= GOOD_RECENT_NB_VIEWS:
+
+    average_recent_nb_views_per_day = recent_nb_views / 14
+    if (average_nb_views_per_day >= GOOD_RATIO_THRESHOLD_PER_DAY or recent_nb_views >= GOOD_RECENT_NB_VIEWS) and ((average_recent_nb_views_per_day - average_nb_views_per_day) > GREAT_IMPROVEMENTS_NB_VIEWS_PER_DAY):
+        average_recent_nb_views_per_day = math.floor(average_recent_nb_views_per_day + 0.5)
+        return GOOD_DATASET_STR + ' - Got recently around ' + str(average_recent_nb_views_per_day) + ' views per day'
+    if average_nb_views_per_day >= GOOD_RATIO_THRESHOLD_PER_DAY or recent_nb_views >= GOOD_RECENT_NB_VIEWS:
         return GOOD_DATASET_STR
-    if average_nb_views_per_day <= POOR_RATIO_THRESHOLD or recent_nb_views <= NO_VIEWS_THRESHOLD:
+    if average_recent_nb_views_per_day <= POOR_RATIO_THRESHOLD_PER_DAY and average_nb_views_per_day <= POOR_RATIO_THRESHOLD_PER_DAY:
         return BAD_DATASET_STR
     return ""
+
+# Evaluates the long-term trend.
+# @param average_total_nb_views_per_day - Average number of views per day (total).
+# @param average_recent_nb_views_per_day - Average number of views per day (recent).
+# @return Trend as a string.
+def eval_trend(average_total_nb_views_per_day, average_recent_nb_views_per_day):
+
+    delta_avg = abs(average_total_nb_views_per_day - average_recent_nb_views_per_day)
+    if (average_recent_nb_views_per_day - average_total_nb_views_per_day) >= GREAT_IMPROVEMENTS_NB_VIEWS_PER_DAY:
+        return GREAT_NB_VIEWS_GOING_UP_STR
+    if (average_recent_nb_views_per_day - average_total_nb_views_per_day) <= BAD_DEPRECIATION_NB_VIEWS_PER_DAY:
+        return REALLY_BAD_NB_VIEWS_GOING_DOWN_STR
+    if delta_avg <= BUFFER_STABLE_NB_VIEWS_PER_DAY:
+        return NB_VIEWS_STABLE_STR
+    if (average_recent_nb_views_per_day > average_total_nb_views_per_day):
+        return NB_VIEWS_GOING_UP_STR
+    if average_recent_nb_views_per_day < average_total_nb_views_per_day:
+        return NB_VIEWS_GOING_DOWN_STR
+    return ''
 
 
 # Read the list datasets from the Open Data Portal
@@ -65,7 +99,7 @@ print('Number of datasets found in the Open Data Portal: ' + str(len(metadata_df
 # Get the number of views for each dataset
 nb_recent_views = 0
 nb_total_views = 0
-views_df = pd.DataFrame(columns=[COL_ID, COL_TITLE, COL_PORTAL_TYPE, COL_CREATION_DATE, COL_TOTAL_NB_VIEWS, COL_RECENT_NB_VIEWS, COL_NB_DAYS_PORTAL, COL_AVG_NB_VIEWS_PER_DAY, COL_AVG_NB_VIEWS_PER_WEEK, COL_AVG_NB_VIEWS_PER_YEAR, COL_COMMENTS])
+views_df = pd.DataFrame(columns=[COL_ID, COL_TITLE, COL_PORTAL_TYPE, COL_CREATION_DATE, COL_TOTAL_NB_VIEWS, COL_RECENT_NB_VIEWS, COL_NB_YEARS_PORTAL, COL_AVG_NB_VIEWS_PER_YEAR, COL_AVG_NB_VIEWS_PER_DAY, COL_AVG_RECENT_NB_VIEWS_PER_DAY, COL_LONG_TERM_TREND, COL_COMMENTS])
 print('Getting the number of views... (takes one or two minutes)')
 for row in metadata_df.index:
     
@@ -74,7 +108,8 @@ for row in metadata_df.index:
     created_date = str(dataset[COL_CREATION_DATE]).split('T')[0]
     date_delta = today2 - datetime.strptime(created_date, "%Y-%m-%d").date()
     average_per_day = dataset['tracking_summary']['total'] / date_delta.days
-    views_df.loc[len(views_df)] = [metadata_df[COL_ID][row], dataset[COL_TITLE], dataset[COL_PORTAL_TYPE], created_date, dataset['tracking_summary']['total'], dataset['tracking_summary']['recent'], date_delta.days, average_per_day, average_per_day*7, average_per_day*NB_DAYS_PER_YEAR, eval_ratio_views_per_day(average_per_day, dataset['tracking_summary']['recent'])]
+    average_recent_per_day = dataset['tracking_summary']['recent'] / 14
+    views_df.loc[len(views_df)] = [metadata_df[COL_ID][row], dataset[COL_TITLE], dataset[COL_PORTAL_TYPE], created_date, dataset['tracking_summary']['total'], dataset['tracking_summary']['recent'], portal_helper.trunc_floating_value(date_delta.days/NB_DAYS_PER_YEAR), math.floor(((average_per_day*NB_DAYS_PER_YEAR)) + 0.5), portal_helper.trunc_floating_value(average_per_day), portal_helper.trunc_floating_value(average_recent_per_day), eval_trend(average_per_day, average_recent_per_day), eval_ratio_views_per_day(average_per_day, dataset['tracking_summary']['recent'])]
     nb_recent_views = nb_recent_views + dataset['tracking_summary']['recent']
     nb_total_views = nb_total_views + dataset['tracking_summary']['total']
 
@@ -82,7 +117,7 @@ for row in metadata_df.index:
 excel_filename = "Open Data Portal - Number of Views-" + year + "-" + month + "-" + day + ".xlsx"
 print('Number of views on the CSA Open Data Portal for the last 2 weeks: ' + str(nb_recent_views))
 print ('Saving the number of views to disk: ' + excel_filename)
-views_df = views_df.sort_values(COL_RECENT_NB_VIEWS, ascending=False)
+views_df = views_df.sort_values(COL_TOTAL_NB_VIEWS, ascending=False)
 views_df.to_excel(excel_filename, index=False)
 
 # Print conventions
@@ -115,8 +150,9 @@ views_df.loc[views_df[COL_TITLE] == 'Evaluation of the European Space Agency Con
 
 # Top 5 - Recent views
 print('\nTOP 5 (last 2 weeks)')
+views_df = views_df.sort_values(COL_RECENT_NB_VIEWS, ascending=False)
 top5_df = views_df[:5].copy()
-top5_df = top5_df.drop(columns=[COL_ID, COL_PORTAL_TYPE, COL_CREATION_DATE, COL_TOTAL_NB_VIEWS, COL_NB_DAYS_PORTAL, COL_AVG_NB_VIEWS_PER_DAY, COL_AVG_NB_VIEWS_PER_WEEK, COL_AVG_NB_VIEWS_PER_YEAR, COL_COMMENTS])
+top5_df = top5_df.drop(columns=[COL_ID, COL_PORTAL_TYPE, COL_CREATION_DATE, COL_TOTAL_NB_VIEWS, COL_NB_YEARS_PORTAL, COL_AVG_NB_VIEWS_PER_DAY, COL_AVG_RECENT_NB_VIEWS_PER_DAY, COL_AVG_NB_VIEWS_PER_YEAR, COL_LONG_TERM_TREND, COL_COMMENTS])
 for row in top5_df.index:
     print(' - ' + top5_df[COL_TITLE][row])
     nb_recent_views = nb_recent_views - top5_df[COL_RECENT_NB_VIEWS][row]
@@ -129,7 +165,7 @@ plt.show()
 print('\nTOP 5 (all time)')
 views_df = views_df.sort_values(COL_TOTAL_NB_VIEWS, ascending=False)
 top5_df = views_df[:5].copy()
-top5_df = top5_df.drop(columns=[COL_ID, COL_PORTAL_TYPE, COL_CREATION_DATE, COL_RECENT_NB_VIEWS, COL_NB_DAYS_PORTAL, COL_AVG_NB_VIEWS_PER_DAY, COL_AVG_NB_VIEWS_PER_WEEK, COL_AVG_NB_VIEWS_PER_YEAR, COL_COMMENTS])
+top5_df = top5_df.drop(columns=[COL_ID, COL_PORTAL_TYPE, COL_CREATION_DATE, COL_RECENT_NB_VIEWS, COL_NB_YEARS_PORTAL, COL_AVG_NB_VIEWS_PER_DAY, COL_AVG_RECENT_NB_VIEWS_PER_DAY, COL_AVG_NB_VIEWS_PER_YEAR, COL_LONG_TERM_TREND, COL_COMMENTS])
 for row in top5_df.index:
     print(' - ' + top5_df[COL_TITLE][row])
     nb_total_views = nb_total_views - top5_df[COL_TOTAL_NB_VIEWS][row]
@@ -148,7 +184,7 @@ plt.show()
 print('\nTOP 20 (best ratio - Number of views / day)')
 views_df = views_df.sort_values(COL_AVG_NB_VIEWS_PER_DAY, ascending=False)
 top20_df = views_df[:20].copy()
-top20_df = top20_df.drop(columns=[COL_ID, COL_PORTAL_TYPE, COL_CREATION_DATE, COL_RECENT_NB_VIEWS, COL_TOTAL_NB_VIEWS, COL_NB_DAYS_PORTAL, COL_AVG_NB_VIEWS_PER_WEEK, COL_AVG_NB_VIEWS_PER_YEAR, COL_COMMENTS])
+top20_df = top20_df.drop(columns=[COL_ID, COL_PORTAL_TYPE, COL_CREATION_DATE, COL_RECENT_NB_VIEWS, COL_TOTAL_NB_VIEWS, COL_NB_YEARS_PORTAL, COL_AVG_NB_VIEWS_PER_YEAR, COL_LONG_TERM_TREND, COL_COMMENTS])
 for row in top20_df.index:
     print(' - ' + top20_df[COL_TITLE][row])
 

@@ -5,6 +5,7 @@
 
 # -*- coding: utf-8 -*-
 import json
+import math
 import requests
 import pandas as pd
 
@@ -66,6 +67,15 @@ def get_nb_unassigned_datasets(df):
             nb_unassigned_datasets += 1
     
     return nb_unassigned_datasets
+
+
+# Truncs a floating value to a number of decimals.
+# @param number_float - Number to trunc.
+# @param decimal_places - Number of decimals. The default value is 2.
+# @return Truncated number. This is not a string.
+def trunc_floating_value(number_float, decimal_places=2):
+
+    return math.floor(number_float * 10**decimal_places) / 10**decimal_places
 
 
 # Formats a string to a readable value.
