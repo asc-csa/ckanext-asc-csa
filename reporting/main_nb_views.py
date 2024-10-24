@@ -11,12 +11,15 @@ import math
 import matplotlib.pyplot as plt
 import portal_helper
 import pandas as pd
+import pdf_document
 
 
 # Constants
 CSA_OPEN_DATA_PORTAL_URL = 'https://donnees-data.asc-csa.gc.ca'
 EXPLODE_PARAM = [0.2, 0.1, 0, 0, 0, 0]
 PERCENT_DISPLAY = '%1.0f%%'
+PIE_CHART_RADIUS = 1.38
+MAX_NB_CHAR_LINE_PDF = 91
 OTHERS = 'Others'
 GOOD_DATASET_STR = "At least a visit per day"
 BAD_DATASET_STR = "Needs marketing - Less than one view per week"
@@ -148,31 +151,79 @@ views_df.loc[views_df[COL_TITLE] == 'Lunar Exploration Analogue Deployment (LEAD
 views_df.loc[views_df[COL_TITLE] == 'Canadian Space Agency (CSA) peer-reviewed publications list', COL_TITLE] = 'CSA Pub List'
 views_df.loc[views_df[COL_TITLE] == 'Evaluation of the European Space Agency Contribution Program of the Canadian Space Agency', COL_TITLE] = 'Eval ESA-CSA'
 
+# Create the structure of the output PDF document (English)
+pdf_doc_en = pdf_document.pdf_document('Open Data Portal - Number of Views', 'en')
+pdf_doc_en.createHeader()
+pdf_doc_en.addChapter('Scope')
+pdf_doc_en.addParagraph('The Open Data Portal provides a reference to various data and information from space-related missions and activities and from corporate publications, peer-reviewed publications, financial reports, audits and evaluations. This document shows the stats based on the number of views.')
+pdf_doc_en.addSeparationBlock()
+pdf_doc_en.addParagraph('<b>NOTE:</b> The recent number of views in this document corresponds to the last 2 weeks corresponds to 14 days. The total number of views is all of its tracked views (including recent ones). Repeatedly visiting the same page does not increase the page’s view count. Page view counting is limited to one view per user per page per day.')
+pdf_doc_en.addSeparationBlock()
+pdf_doc_en.addChapter('Main Information')
+pdf_doc_en.addParagraph('The Open Data Portal contains <b>' + str(len(metadata_df.index)) + ' public</b> datasets.')
+pdf_doc_en.addParagraph('The Open Data Portal has been visited <b>' + str(nb_total_views) + ' times</b> since launch.')
+pdf_doc_en.addParagraph('This document was generated on <b>' + year + "-" + month + "-" + day + '</b>.')
+pdf_doc_en.addParagraph('The number of views for each dataset is in this Excel file: ')
+pdf_doc_en.addParagraph('<b>' + excel_filename + '</b>')
+pdf_doc_en.addSeparationBlock()
+
+# Create the structure of the output PDF document (French)
+pdf_doc_fr = pdf_document.pdf_document('Portail des données ouvertes - Nombre de vues', 'fr')
+pdf_doc_fr.createHeader()
+pdf_doc_fr.addChapter('Description')
+pdf_doc_fr.addParagraph('Le portail de données ouvertes de l’Agence spatiale canadienne fournit une référence aux données et informations provenant de missions spatiales, des publications gouvernementales, des publications évaluées par des pairs, des rapports financiers, des audits et des rapports d’évaluations. Ce document présente les statistiques du nombre de vues.')
+pdf_doc_fr.addSeparationBlock()
+pdf_doc_fr.addParagraph('<b>NOTE:</b> Le nombre de vues récentes dans ce document correspond aux derniers 14 jours, soit les 2 dernières semaines. Le nombre total de vues correspond à toutes les vues suies y compris les plus récentes. Visiter plusieurs fois la même page au cours de la même journée n\’augmente pas le nombre de vues de la page. Le nombre de pages vues est limité à une seule vue par utilisateur, par page et par jour.')
+pdf_doc_fr.addSeparationBlock()
+pdf_doc_fr.addChapter('Informations globales')
+pdf_doc_fr.addParagraph('Le portail des données contient <b>' + str(len(metadata_df.index)) + ' jeux de données</b> publiques.')
+pdf_doc_fr.addParagraph('Le portail des données fut visité <b>' + str(nb_total_views) + ' fois</b> depuis son lancement.')
+pdf_doc_fr.addParagraph('Ce document fut produit le <b>' + year + "-" + month + "-" + day + '</b>.')
+pdf_doc_fr.addParagraph('Le nombre de vues par chaque jeu de donnée se trouve dans ce fichier Excel: ')
+pdf_doc_fr.addParagraph('<b>' + excel_filename + '</b>')
+pdf_doc_fr.addSeparationBlock()
+
 # Top 5 - Recent views
 print('\nTOP 5 (last 2 weeks)')
+pdf_doc_en.addChapter('Top 5 Datasets (last 2 weeks)')
+pdf_doc_fr.addChapter('Les 5 jeux de données les plus populaires (2 dernières semaines)')
 views_df = views_df.sort_values(COL_RECENT_NB_VIEWS, ascending=False)
 top5_df = views_df[:5].copy()
 top5_df = top5_df.drop(columns=[COL_ID, COL_PORTAL_TYPE, COL_CREATION_DATE, COL_TOTAL_NB_VIEWS, COL_NB_YEARS_PORTAL, COL_AVG_NB_VIEWS_PER_DAY, COL_AVG_RECENT_NB_VIEWS_PER_DAY, COL_AVG_NB_VIEWS_PER_YEAR, COL_LONG_TERM_TREND, COL_COMMENTS])
 for row in top5_df.index:
     print(' - ' + top5_df[COL_TITLE][row])
+    pdf_doc_en.addParagraph(' - ' + top5_df[COL_TITLE][row])
+    pdf_doc_fr.addParagraph(' - ' + top5_df[COL_TITLE][row])
     nb_recent_views = nb_recent_views - top5_df[COL_RECENT_NB_VIEWS][row]
 top5_df.loc[len(top5_df)] = [OTHERS, nb_recent_views]
-plt.pie(top5_df[COL_RECENT_NB_VIEWS], labels = top5_df[COL_TITLE], explode=EXPLODE_PARAM, shadow = True, autopct=PERCENT_DISPLAY)
+plt.pie(top5_df[COL_RECENT_NB_VIEWS], labels = top5_df[COL_TITLE], explode=EXPLODE_PARAM, radius=PIE_CHART_RADIUS, shadow = True, autopct=PERCENT_DISPLAY)
 plt.savefig("Top 5 - Most Popular Datasets (last 2 weeks)-" + year + "-" + month + "-" + day + ".png")
 plt.show()
+pdf_doc_en.addImage("Top 5 - Most Popular Datasets (last 2 weeks)-" + year + "-" + month + "-" + day + ".png", 'Top 5 Datasets (last 2 weeks)')
+pdf_doc_fr.addImage("Top 5 - Most Popular Datasets (last 2 weeks)-" + year + "-" + month + "-" + day + ".png", 'Les 5 jeux de données les plus populaires (2 dernières semaines)')
+pdf_doc_en.addSeparationBlock()
+pdf_doc_fr.addSeparationBlock()
 
 # Top 5 - Forever
 print('\nTOP 5 (all time)')
+pdf_doc_en.addChapter('Top 5 Datasets (since launch)')
+pdf_doc_fr.addChapter('Les 5 jeux de données les plus populaires (depuis le début)')
 views_df = views_df.sort_values(COL_TOTAL_NB_VIEWS, ascending=False)
 top5_df = views_df[:5].copy()
 top5_df = top5_df.drop(columns=[COL_ID, COL_PORTAL_TYPE, COL_CREATION_DATE, COL_RECENT_NB_VIEWS, COL_NB_YEARS_PORTAL, COL_AVG_NB_VIEWS_PER_DAY, COL_AVG_RECENT_NB_VIEWS_PER_DAY, COL_AVG_NB_VIEWS_PER_YEAR, COL_LONG_TERM_TREND, COL_COMMENTS])
 for row in top5_df.index:
     print(' - ' + top5_df[COL_TITLE][row])
+    pdf_doc_en.addParagraph(' - ' + top5_df[COL_TITLE][row])
+    pdf_doc_fr.addParagraph(' - ' + top5_df[COL_TITLE][row])
     nb_total_views = nb_total_views - top5_df[COL_TOTAL_NB_VIEWS][row]
 top5_df.loc[len(top5_df)] = [OTHERS, nb_total_views]
-plt.pie(top5_df[COL_TOTAL_NB_VIEWS], labels = top5_df[COL_TITLE], explode=EXPLODE_PARAM, shadow = True, autopct=PERCENT_DISPLAY)
+plt.pie(top5_df[COL_TOTAL_NB_VIEWS], labels = top5_df[COL_TITLE], explode=EXPLODE_PARAM, radius=PIE_CHART_RADIUS, shadow = True, autopct=PERCENT_DISPLAY)
 plt.savefig("Top 5 - Most Popular Datasets (all time)-" + year + "-" + month + "-" + day + ".png")
 plt.show()
+pdf_doc_en.addImage("Top 5 - Most Popular Datasets (all time)-" + year + "-" + month + "-" + day + ".png", 'Top 5 Datasets (since launch)')
+pdf_doc_fr.addImage("Top 5 - Most Popular Datasets (all time)-" + year + "-" + month + "-" + day + ".png", 'Les 5 jeux de données les plus populaires (depuis le début)')
+pdf_doc_en.addSeparationBlock()
+pdf_doc_fr.addSeparationBlock()
 
 # Histogram having both number of views
 top20_df = views_df[:20].copy()
@@ -182,29 +233,60 @@ plt.show()
 
 # Ratio between the number of views versus creation date
 print('\nTOP 20 (best ratio - Number of views / day)')
+pdf_doc_en.addChapter('Top 20 - Most Popular Datasets')
+pdf_doc_fr.addChapter('Les 20 jeux de données les plus populaires')
 views_df = views_df.sort_values(COL_AVG_NB_VIEWS_PER_DAY, ascending=False)
 top20_df = views_df[:20].copy()
 top20_df = top20_df.drop(columns=[COL_ID, COL_PORTAL_TYPE, COL_CREATION_DATE, COL_RECENT_NB_VIEWS, COL_TOTAL_NB_VIEWS, COL_NB_YEARS_PORTAL, COL_AVG_NB_VIEWS_PER_YEAR, COL_LONG_TERM_TREND, COL_COMMENTS])
 for row in top20_df.index:
     print(' - ' + top20_df[COL_TITLE][row])
+    pdf_doc_en.addParagraph(' - ' + top20_df[COL_TITLE][row])
+    pdf_doc_fr.addParagraph(' - ' + top20_df[COL_TITLE][row])
+pdf_doc_en.addImage("Top 20 - Most Popular Datasets-" + year + "-" + month + "-" + day + ".png", 'Top 20 - Most Popular Datasets')
+pdf_doc_fr.addImage("Top 20 - Most Popular Datasets-" + year + "-" + month + "-" + day + ".png", 'Les 20 jeux de données les plus populaires')
+pdf_doc_en.addSeparationBlock()
+pdf_doc_fr.addSeparationBlock()
 
 # Datasets without any views (last 2 weeks)
 print('\nDatasets without any views (last 2 weeks)')
+pdf_doc_en.addChapter('Datasets without any views (last 2 weeks)')
+pdf_doc_fr.addChapter('Jeux de données sans visite (2 dernières semaines)')
 views_df = views_df.sort_values(COL_TITLE, ascending=False)
 nb_datasets_without_views = 0
 for row in views_df.index:
     if views_df[COL_RECENT_NB_VIEWS][row] <= NO_VIEWS_THRESHOLD:
         print(' - ' + views_df[COL_TITLE][row])
+        tmp_name = (views_df[COL_TITLE][row][:MAX_NB_CHAR_LINE_PDF] + '...') if len(views_df[COL_TITLE][row]) > MAX_NB_CHAR_LINE_PDF else views_df[COL_TITLE][row]
+        pdf_doc_en.addParagraph(' - ' + tmp_name)
+        pdf_doc_fr.addParagraph(' - ' + tmp_name)
         nb_datasets_without_views = nb_datasets_without_views + 1
 if nb_datasets_without_views == 0:
-    print('There are no datasets without any views. All ' + str(len(metadata_df.index)) + ' datasets have been visited over the last 2 weeks.')
+    print('There are no datasets without any view. All ' + str(len(metadata_df.index)) + ' datasets have been visited over the last 2 weeks.')
+    pdf_doc_en.addParagraph('There are no datasets without any view. All ' + str(len(metadata_df.index)) + ' datasets have been visited over the last 2 weeks.')
+    pdf_doc_fr.addParagraph('Aucun jeu de données ne fut pas visité au cours des 2 dernières semaines. Tous les ' + str(len(metadata_df.index)) + ' jeux de données furent visités au moins une fois.')
+pdf_doc_en.addSeparationBlock()
+pdf_doc_fr.addSeparationBlock()
 
 # Datasets having a low average of views per day
 print('\nDatasets having a low average of views per day')
+pdf_doc_en.addChapter('Datasets having a low average of views per day')
+pdf_doc_fr.addChapter('Jeux de données n\'ayant pas beaucoup de visite')
 views_df = views_df.sort_values(COL_TITLE, ascending=True)
 for row in views_df.index:
     if views_df[COL_COMMENTS][row] == BAD_DATASET_STR:
         print(' - ' + views_df[COL_TITLE][row])
+        tmp_name = (views_df[COL_TITLE][row][:MAX_NB_CHAR_LINE_PDF] + '...') if len(views_df[COL_TITLE][row]) > MAX_NB_CHAR_LINE_PDF else views_df[COL_TITLE][row]
+        pdf_doc_en.addParagraph(' - ' + tmp_name)
+        pdf_doc_fr.addParagraph(' - ' + tmp_name)
+pdf_doc_en.addSeparationBlock()
+pdf_doc_fr.addSeparationBlock()
+
+# Save the PDF report
+print('\nSaving the PDF documents...' + pdf_doc_en.filename)
+print(pdf_doc_en.filename)
+pdf_doc_en.save()
+print(pdf_doc_fr.filename)
+pdf_doc_fr.save()
 
 # End of script
 print("\nThe script ended successfully")

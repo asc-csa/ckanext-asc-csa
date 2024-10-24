@@ -26,7 +26,7 @@ CSA_LOGO = 'csa-asc_logo.svg_.png'
 #       3.2 Add each paragraph of the chapter. e.g: pdf_doc.addParagraph('This document is the ...')
 #       3.3 Add the images at the appropriate place in the document e.g: pdf_doc.addImage('abc.png', 'System Overview')
 # 4. You can add page break between chapter. e.g: pdf_doc.addPageBreak()
-# 5. Add the footer. e.g: pdf_doc.createFooter('Please contact the CSAfor any question.')
+# 5. Add the footer. e.g: pdf_doc.createFooter('Please contact the CSA for any question.')
 # 6. Saves the PDF document. e.g: pdf_doc.save()
 #
 # @author Emiline Filion - Canadian Space Agency
@@ -45,9 +45,10 @@ class pdf_document:
         self.nb_images = 0
         
         # Set the filename
+        day = str(datetime.now().day)
         month = str(datetime.now().month)
         year = str(datetime.now().year)
-        self.filename = title + '-' + language + '-' + year + '-' + month + '.pdf'
+        self.filename = title + '-' + language + '-' + year + '-' + month + '-' + day + '.pdf'
 
         # Create the PDF template
         self.pdf_document = SimpleDocTemplate(self.filename, pagesize=letter, rightMargin=1*inch, leftMargin=1*inch, topMargin=0.5*inch, bottomMargin=0.5*inch)
