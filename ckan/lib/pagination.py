@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-u'''
+"""
 
 This module was copied (with modifications) from the webhelpers library,
 which is distributed with the following license:
@@ -32,7 +32,8 @@ HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
 LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
 OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 SUCH DAMAGE.
-'''
+"""
+
 import re
 from string import Template
 
@@ -109,7 +110,7 @@ class BasePage(list):
         sqlalchemy_session=None,
         presliced_list=False,
         url=None,
-        **kwargs
+        **kwargs,
     ):
         """Create a "Page" instance.
 
@@ -178,8 +179,7 @@ class BasePage(list):
         # Compute the number of the first and last available page
         if self.item_count > 0:
             self.first_page = 1
-            self.page_count = int(
-                ((self.item_count - 1) / self.items_per_page) + 1)
+            self.page_count = int(((self.item_count - 1) / self.items_per_page) + 1)
             self.last_page = self.first_page + self.page_count - 1
 
             # Make sure that the requested page number is the range of
@@ -192,9 +192,7 @@ class BasePage(list):
             # Note: the number of items on this page can be less than
             #       items_per_page if the last page is not full
             self.first_item = (self.page - 1) * items_per_page + 1
-            self.last_item = min(
-                self.first_item + items_per_page - 1, self.item_count
-            )
+            self.last_item = min(self.first_item + items_per_page - 1, self.item_count)
 
             # We subclassed "list" so we need to call its init() method
             # and fill the new list with the items to be displayed on the page.
@@ -235,49 +233,49 @@ class BasePage(list):
 
     def __repr__(self):
         return (
-            u"Page:\n"
-            u"Collection type:  %(type)s\n"
-            u"(Current) page:   %(page)s\n"
-            u"First item:       %(first_item)s\n"
-            u"Last item:        %(last_item)s\n"
-            u"First page:       %(first_page)s\n"
-            u"Last page:        %(last_page)s\n"
-            u"Previous page:    %(previous_page)s\n"
-            u"Next page:        %(next_page)s\n"
-            u"Items per page:   %(items_per_page)s\n"
-            u"Number of items:  %(item_count)s\n"
-            u"Number of pages:  %(page_count)s\n"
+            "Page:\n"
+            "Collection type:  %(type)s\n"
+            "(Current) page:   %(page)s\n"
+            "First item:       %(first_item)s\n"
+            "Last item:        %(last_item)s\n"
+            "First page:       %(first_page)s\n"
+            "Last page:        %(last_page)s\n"
+            "Previous page:    %(previous_page)s\n"
+            "Next page:        %(next_page)s\n"
+            "Items per page:   %(items_per_page)s\n"
+            "Number of items:  %(item_count)s\n"
+            "Number of pages:  %(page_count)s\n"
             % {
-                u"type": type(self.collection),
-                u"page": self.page,
-                u"first_item": self.first_item,
-                u"last_item": self.last_item,
-                u"first_page": self.first_page,
-                u"last_page": self.last_page,
-                u"previous_page": self.previous_page,
-                u"next_page": self.next_page,
-                u"items_per_page": self.items_per_page,
-                u"item_count": self.item_count,
-                u"page_count": self.page_count,
+                "type": type(self.collection),
+                "page": self.page,
+                "first_item": self.first_item,
+                "last_item": self.last_item,
+                "first_page": self.first_page,
+                "last_page": self.last_page,
+                "previous_page": self.previous_page,
+                "next_page": self.next_page,
+                "items_per_page": self.items_per_page,
+                "item_count": self.item_count,
+                "page_count": self.page_count,
             }
         )
 
     def pager(
         self,
-        format=u"~2~",
-        page_param=u"page",
-        partial_param=u"partial",
+        format="~2~",
+        page_param="page",
+        partial_param="partial",
         show_if_single_page=False,
-        separator=u" ",
+        separator=" ",
         onclick=None,
-        symbol_first=u"<<",
-        symbol_last=u">>",
-        symbol_previous=u"<",
-        symbol_next=u">",
-        link_attr={u"class": u"pager_link"},
-        curpage_attr={u"class": u"pager_curpage"},
-        dotdot_attr={u"class": u"pager_dotdot"},
-        **kwargs
+        symbol_first="<<",
+        symbol_last=">>",
+        symbol_previous="<",
+        symbol_next=">",
+        link_attr={"class": "pager_link"},
+        curpage_attr={"class": "pager_curpage"},
+        dotdot_attr={"class": "pager_dotdot"},
+        **kwargs,
     ):
         """Return string with links to other pages (e.g. "1 2 [3] 4 5 6 7").
 
@@ -469,37 +467,35 @@ class BasePage(list):
         self.dotdot_attr = dotdot_attr
 
         # Don't show navigator if there is no more than one page
-        if self.page_count == 0 or (
-            self.page_count == 1 and not show_if_single_page
-        ):
-            return u""
+        if self.page_count == 0 or (self.page_count == 1 and not show_if_single_page):
+            return ""
 
         # Replace ~...~ in token format by range of pages
-        result = re.sub(u"~(\\d+)~", self._range, format)
+        result = re.sub("~(\\d+)~", self._range, format)
 
         # Interpolate '%' variables
         result = Template(result).safe_substitute(
             {
-                u"first_page": self.first_page,
-                u"last_page": self.last_page,
-                u"page": self.page,
-                u"page_count": self.page_count,
-                u"items_per_page": self.items_per_page,
-                u"first_item": self.first_item,
-                u"last_item": self.last_item,
-                u"item_count": self.item_count,
-                u"link_first": self.page > self.first_page
+                "first_page": self.first_page,
+                "last_page": self.last_page,
+                "page": self.page,
+                "page_count": self.page_count,
+                "items_per_page": self.items_per_page,
+                "first_item": self.first_item,
+                "last_item": self.last_item,
+                "item_count": self.item_count,
+                "link_first": self.page > self.first_page
                 and self._pagerlink(self.first_page, symbol_first)
-                or u"",
-                u"link_last": self.page < self.last_page
+                or "",
+                "link_last": self.page < self.last_page
                 and self._pagerlink(self.last_page, symbol_last)
-                or u"",
-                u"link_previous": self.previous_page
+                or "",
+                "link_previous": self.previous_page
                 and self._pagerlink(self.previous_page, symbol_previous)
-                or u"",
-                u"link_next": self.next_page
+                or "",
+                "link_next": self.next_page
                 and self._pagerlink(self.next_page, symbol_next)
-                or u"",
+                or "",
             }
         )
 
@@ -541,7 +537,7 @@ class BasePage(list):
         # and the currently displayed page range
         if leftmost_page - self.first_page > 1:
             # Wrap in a SPAN tag if nolink_attr is set
-            text = u".."
+            text = ".."
             if self.dotdot_attr:
                 text = Markup(tags.span(text, **self.dotdot_attr))
             nav_items.append(text)
@@ -549,20 +545,20 @@ class BasePage(list):
         for thispage in range(leftmost_page, rightmost_page + 1):
             # Hilight the current page number and do not use a link
             if thispage == self.page:
-                text = u"%s" % (thispage,)
+                text = "%s" % (thispage,)
                 # Wrap in a SPAN tag if nolink_attr is set
                 if self.curpage_attr:
                     text = Markup(tags.span(text, **self.curpage_attr))
                 nav_items.append(text)
             # Otherwise create just a link to that page
             else:
-                text = u"%s" % (thispage,)
+                text = "%s" % (thispage,)
                 nav_items.append(self._pagerlink(thispage, text))
 
         # Insert dots if there are pages between the displayed
         # page numbers and the end of the page range
         if self.last_page - rightmost_page > 1:
-            text = u".."
+            text = ".."
             # Wrap in a SPAN tag if nolink_attr is set
             if self.dotdot_attr:
                 text = Markup(tags.span(text, **self.dotdot_attr))
@@ -598,7 +594,7 @@ class BasePage(list):
         if self._url_generator is not None:
             url_generator = self._url_generator
         else:
-            from ckan.lib.helpers import pager_url
+            pass
 
         # Create the URL to load a certain page
         link_url = url_generator(**link_params)
@@ -614,47 +610,48 @@ class BasePage(list):
                 onclick_action = self.onclick % (partial_url,)
             except TypeError:
                 onclick_action = Template(self.onclick).safe_substitute(
-                    {u"partial_url": partial_url, u"page": page}
+                    {"partial_url": partial_url, "page": page}
                 )
-            return tags.a(
-                text, href=link_url, onclick=onclick_action, **self.link_attr
-            )
+            return tags.a(text, href=link_url, onclick=onclick_action, **self.link_attr)
         else:  # return static link
             return tags.a(text, href=link_url, **self.link_attr)
 
 
 class Page(BasePage):
-
     def lang(self):
-        ''' Return the language code for the current locale eg `en` '''
-        return request.environ.get('CKAN_LANG')
+        """Return the language code for the current locale eg `en`"""
+        return request.environ.get("CKAN_LANG")
 
     def pager(self, *args, **kwargs):
         language = self.lang()
-        with tags.div(cls=u"pagination-wrapper") as wrapper:
-            tags.ul(u"$link_previous ~2~ $link_next", cls=u"pagination")
+        with tags.div(cls="pagination-wrapper") as wrapper:
+            tags.ul("$link_previous ~2~ $link_next", cls="pagination")
         params = dict(
             format=text_type(wrapper),
-            symbol_previous=u"«",
-            symbol_next=u"»",
-            curpage_attr={u"class": u"active"},
+            symbol_previous="«",
+            symbol_next="»",
+            curpage_attr={"class": "active"},
             link_attr={},
         )
         params.update(kwargs)
         if language == "fr":
             kwargs.update(
-                format=u"<div class='pagination-wrapper'><nav role='navigation' aria-label='Navigation de pagination'><ul class='pagination'>"
+                format="<div class='pagination-wrapper'><nav role='navigation' aria-label='Navigation de pagination'><ul class='pagination'>"
                 "$link_previous ~2~ $link_next</ul></nav></div>",
-                symbol_previous=u'« Précédente', symbol_next=u'Suivante »',
-                curpage_attr={'class': 'active'}, link_attr={'aria-label':'replace_this'}
+                symbol_previous="« Précédente",
+                symbol_next="Suivante »",
+                curpage_attr={"class": "active"},
+                link_attr={"aria-label": "replace_this"},
             )
             return super(Page, self).pager(*args, **kwargs)
         else:
             kwargs.update(
-                format=u"<div class='pagination-wrapper'><nav role='navigation' aria-label='Pagination navigation'><ul class='pagination'>"
+                format="<div class='pagination-wrapper'><nav role='navigation' aria-label='Pagination navigation'><ul class='pagination'>"
                 "$link_previous ~2~ $link_next</ul></nav></div>",
-                symbol_previous=u'« Previous', symbol_next=u'Next »',
-                curpage_attr={'class': 'active'}, link_attr={'aria-label':'replace_this'}
+                symbol_previous="« Previous",
+                symbol_next="Next »",
+                curpage_attr={"class": "active"},
+                link_attr={"aria-label": "replace_this"},
             )
             return super(Page, self).pager(*args, **kwargs)
         # return super(Page, self).pager(*args, **params)
@@ -666,28 +663,28 @@ class Page(BasePage):
     #     extra_attributes = extra_attributes or {}
     #     return text_type(tags.li(anchor, **extra_attributes))
 
-    def _pagerlink(self, page, text, extra_attributes = None):
+    def _pagerlink(self, page, text, extra_attributes=None):
         anchor = super(Page, self)._pagerlink(page, text)
         language = self.lang()
         extra_attributes = extra_attributes or {}
 
-        aria = ''
+        aria = ""
 
         if language == "fr":
             if str(self.page) == text:
-                extra_attributes = {'class' : 'active'}
-                aria = '(page actuelle) Voir la page %s'%text
+                extra_attributes = {"class": "active"}
+                aria = "(page actuelle) Voir la page %s" % text
             else:
-                aria = 'Voir la page %s'%text
+                aria = "Voir la page %s" % text
         else:
             if str(self.page) == text:
-                extra_attributes = {'class' : 'active'}
-                aria = '(current) Go to page %s'%text
+                extra_attributes = {"class": "active"}
+                aria = "(current) Go to page %s" % text
             else:
-                aria = 'Go to page %s'%text
+                aria = "Go to page %s" % text
         print(anchor)
         # extra_attributes['aria-label'] = aria
-        anchor['aria-label'] = aria
+        anchor["aria-label"] = aria
         # anchor = re.sub('replace_this', aria, anchor)
         return text_type(tags.li(anchor, **extra_attributes))
 
@@ -698,13 +695,13 @@ class Page(BasePage):
     def _range(self, regexp_match):
         html = super(Page, self)._range(regexp_match)
         # Convert ..
-        dotdot = u'<span class="pager_dotdot">..</span>'
-        dotdot_link = tags.li(tags.a(u"...", href=u"#"), cls=u"disabled")
+        dotdot = '<span class="pager_dotdot">..</span>'
+        dotdot_link = tags.li(tags.a("...", href="#"), cls="disabled")
         html = re.sub(dotdot, text_type(dotdot_link), html)
-        extra_attributes = {'aria-label':'Go to page test'}
+        extra_attributes = {"aria-label": "Go to page test"}
 
         # Convert current page
-        text = u"%s" % self.page
+        text = "%s" % self.page
         current_page_span = text_type(tags.span(text, **self.curpage_attr))
         current_page_link = self._pagerlink(
             self.page, text, extra_attributes=self.curpage_attr
