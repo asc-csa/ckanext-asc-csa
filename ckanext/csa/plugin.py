@@ -1,59 +1,19 @@
-# -*- coding: utf-8 -*-
 import ckan.plugins as p
 import ckan.plugins.toolkit as tk
 import json
 import os
 import inspect
 
-# from paste.reloader import watch_file
 from ckan.lib.plugins import DefaultTranslation
 from ckan.plugins.toolkit import _, request
 from ckanext.csa import helpers
 from ckanext.csa import loader
 
-# from ckanext.csa import blueprint
-
-import ckanext.csa.blueprint as blueprint
 
 import routes.mapper
-# class _CsaMixin(object):
-#     """
-#     Store single plugin instances in class variable
-
-#     """
-
-#     instance = None
-#     _field_descriptions = None
-
-#     def load_field_descriptions(self, config):
-#         field_descriptions = config.get('csa.field_descriptions').split()
-#         _CsaMixin._presets = {}
-#         for f in reversed(field_descriptions):
-#             for pp in _loadschema(f)['presets']:
-#         _field_descriptions
-
-
-# def load_field_description_module_path(url):
-#     """
-#     Given a path like "ckanext.spatialx:spatialx_schema.json"
-#     find the second part relative to the import path of the first
-#     """
-#     print url
-#     module, file_name = url.split(':', 1)
-#     try:
-#         # __import__ has an odd signature
-#         m = __import__(module, fromlist=[''])
-#     except ImportError:
-#         return
-#     p = os.path.join(os.path.dirname(inspect.getfile(m)), file_name)
-#     if os.path.exists(p):
-#         watch_file(p)
-#         # print loader.load(open(p))
-#         return loader.load(open(p))
 
 
 class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
-    # p.implements(p.IDatasetForm)
     p.implements(p.IConfigurer)
     p.implements(p.IPackageController)
     p.implements(p.ITemplateHelpers)
@@ -62,14 +22,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     p.implements(p.IBlueprint)
     p.implements(p.IRoutes)
 
-    instance = None
     _field_descriptions = None
-
-    pkg_dict = {}
-
-    @classmethod
-    def _store_instance(cls, self):
-        CsaPlugin.instance = self
 
     def _load_field_descriptions(self, config):
         """
@@ -131,13 +84,6 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
 
         return search_params
 
-    def after_search(self, search_results, search_params):
-        return search_results
-
-    # Before index runs before SOLR does an index/reindex
-    # SOLR can be reindexed with the command 'search-index rebuild -r'
-    # Must also edit schema.xml for these changes to help
-
     # Implements bilingual searching
     def before_index(self, pkg_dict):
         print("RAN before_index")
@@ -167,41 +113,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
                     res_name_fr.append(res_name_fr_temp)
         pkg_dict["res_name_fr"] = res_name_fr
 
-        self.pkg_dict = pkg_dict
-
         return pkg_dict
-
-    def before_view(self, pkg_dict):
-        print("RAN before_view")
-        return pkg_dict
-
-    def read(self, entity):
-        return entity
-
-    def create(self, entity):
-        return entity
-
-    def edit(self, entity):
-        return entity
-
-    def delete(self, entity):
-        return entity
-
-    def after_create(self, context, pkg_dict):
-        return pkg_dict
-
-    def after_update(self, context, pkg_dict):
-        return pkg_dict
-
-    def after_delete(self, context, pkg_dict):
-        return pkg_dict
-
-    def after_show(self, context, pkg_dict):
-        return pkg_dict
-
-    def get_pkg_dict(self):
-        return self.pkg_dict
-        # return {}
 
     # IConfigurer
     def update_config(self, config_):
@@ -211,7 +123,6 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
         tk.add_public_directory(config_, "public")
         tk.add_resource("fanstatic", "csa")
         self._load_field_descriptions("test")
-        self._store_instance(self)
 
     def get_helpers(self):
         # Helpers for templates
@@ -225,14 +136,11 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             "get_translated_t": helpers.get_translated_t,
             "header_embeds_exists": helpers.header_embeds_exists,
             "footer_embeds_exists": helpers.footer_embeds_exists,
-            "get_pkg_dict": self.get_pkg_dict,
         }
 
     # IFacets
-    # Implements custom facetting
 
     def dataset_facets(self, facets_dict, package_type):
-        print("RAN FACETS THING DATASET")
         # facets_dict['division'] = p.toolkit._('Division')
         facets_dict.update(
             {
@@ -306,43 +214,10 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
 
     # IRoutesl
     def before_map(self, route_map):
-        print("BEFORE MAP TIHASFDJSBDFKJSDFKJHSDF")
         route_map.redirect("/", "/dataset")
         with routes.mapper.SubMapper(
             route_map, controller="ckanext.csa.plugin:CSAController"
         ) as m:
             m.connect("API", "/API", action="API")
-        # Attempt to remove /user functionality and rename to different subdomain
-        # m.redirect('/hgljkdhfsqhjfhgaslkhjfkjusadh', '/user')
-        # m.redirect('/user', '/dataset')
+
         return route_map
-
-    def after_map(self, m):
-        return m
-
-    def get_blueprint(self):
-        return blueprint.get_blueprints()
-
-    # def get_blueprint(self):
-    #     # Create Blueprint for plugin
-    #     print('blueprint thing')
-    #     blueprint = Blueprint(self.name, self.__module__)
-    #     # blueprint.template_folder = u'templates'
-    #     # Add plugin url rules to Blueprint object
-    #     rules = [
-    #         # (u'/', u'/', ),
-    #         # (u'/', u'home', override_flask_home),
-    #         # (u'/helper_not_here', u'helper_not_here', helper_not_here),
-    #         # (u'/helper', u'helper_here', helper_here),
-    #     ]
-    #     redirect('/dataset')
-    #     for rule in rules:
-    #         blueprint.add_url_rule(*rule)
-
-    #     return blueprint
-
-
-# class CSAController(base.BaseController):
-
-#     def API(self):
-#         return base.render('content/api.html')
