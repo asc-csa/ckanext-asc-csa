@@ -6,8 +6,7 @@ import inspect
 
 from ckan.lib.plugins import DefaultTranslation
 from ckan.plugins.toolkit import _, request
-from ckanext.csa import helpers
-from ckanext.csa import loader
+from ckanext.csa import helpers, loader, validators
 
 
 import routes.mapper
@@ -21,6 +20,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     p.implements(p.ITranslation)
     p.implements(p.IBlueprint)
     p.implements(p.IRoutes)
+    p.implements(p.IValidators)
 
     _field_descriptions = None
 
@@ -69,7 +69,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
                 current_lang = "en"
             else:
                 raise
-        except KeyError:
+        except (KeyError, RuntimeError):
             current_lang = "en"
 
         # Dismax search term for French
@@ -84,10 +84,11 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
 
         return search_params
 
+    def after_search(self, search_results, data_dict):
+        return search_results
+
     # Implements bilingual searching
     def before_index(self, pkg_dict):
-        print("RAN before_index")
-
         pkg_dict["subject"] = json.loads(pkg_dict.get("subject", "[]"))
         pkg_dict["project"] = json.loads(pkg_dict.get("project", "[]"))
 
@@ -165,7 +166,6 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
         return facets_dict
 
     def group_facets(self, facets_dict, group_type, package_type):
-        print("RAN FACETS THING GROUP")
         facets_dict.update(
             {
                 "portal_type": _("Portal type"),
@@ -189,7 +189,6 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
         return facets_dict
 
     def organization_facets(self, facets_dict, organization_type, package_type):
-        print("RAN FACETS THING ORGANIZATION")
         facets_dict.update(
             {
                 "portal_type": _("Portal type"),
@@ -221,3 +220,52 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             m.connect("API", "/API", action="API")
 
         return route_map
+
+    # IValidators
+
+    def get_validators(self):
+        """
+        Returns a dictionary of custom validators.
+        """
+        return {
+            'canada_validate_generate_uuid':
+                validators.canada_validate_generate_uuid,
+            'canada_tags': validators.canada_tags,
+            'geojson_validator': validators.geojson_validator,
+            'email_validator': validators.email_validator,
+            'canada_copy_from_org_name':
+                validators.canada_copy_from_org_name,
+            'canada_non_related_required':
+                validators.canada_non_related_required,
+            'if_empty_set_to':
+                validators.if_empty_set_to,
+        }
+
+    # Unused interfaces, but required by the plugin system.
+
+    def before_view(self, pkg_dict):
+        return pkg_dict
+
+    def read(self, entity):
+        return entity
+
+    def create(self, entity):
+        return entity
+
+    def edit(self, entity):
+        return entity
+
+    def delete(self, entity):
+        return entity
+
+    def after_create(self, context, pkg_dict):
+        return pkg_dict
+
+    def after_update(self, context, pkg_dict):
+        return pkg_dict
+
+    def after_delete(self, context, pkg_dict):
+        return pkg_dict
+
+    def after_show(self, context, pkg_dict):
+        return pkg_dict

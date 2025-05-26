@@ -151,6 +151,8 @@
     },
     {
       "field_name": "directorate",
+      "required": false,
+      "validators": "scheming_required",
       "label": {
         "en": "Directorate",
         "fr": "Direction"
@@ -257,6 +259,8 @@
         },
     {
       "field_name": "dataset_status",
+      "required": false,
+      "validators": "scheming_required",
       "label": {
         "en": "Dataset Status",
         "fr": "Statut de l'ensemble de données"
@@ -304,6 +308,8 @@
       "field_name": "division",
       "label": "Division",
       "preset": "select",
+      "required": false,
+      "validators": "scheming_required",
       "choices": [
         {
           "value": "cio_acces_to_information_and_open_data",
@@ -443,6 +449,8 @@
     {
       "field_name": "security_classification",
       "label": "Security Classification",
+      "required": false,
+      "validators": "scheming_required",
       "preset": "select",
       "choices": [
         {
@@ -475,6 +483,8 @@
     },
     {
       "field_name": "registered_on_the_open_data_site",
+      "required": false,
+      "validators": "scheming_required",
       "label":{
         "en": "Registered on the Open Data Site",
         "fr": "Enregistré sur le site Open Data"
@@ -499,6 +509,8 @@
     {
       "field_name": "data_is_publicly_availible_within_another_site",
       "label": "Data is publicly availible within another site",
+      "required": false,
+      "validators": "scheming_required",
       "preset": "select",
       "choices": [
         {
@@ -528,6 +540,8 @@
     {
       "field_name": "personal_information",
       "label": "Personal Information",
+      "required": false,
+      "validators": "scheming_required",
       "preset": "select",
       "choices": [
         {
@@ -543,6 +557,8 @@
     {
       "field_name": "eligible_for_release",
       "label": "Eligible for Release",
+      "required": false,
+      "validators": "scheming_required",
       "preset": "select",
       "choices": [
         {
@@ -656,6 +672,8 @@
         "en": "Is the homepage language bilingual",
         "fr": "Est-ce que la page d'accueil est bilingue"
       },
+      "required": false,
+      "validators": "scheming_required",
       "preset": "select",
       "choices": [
         {
@@ -694,6 +712,8 @@
         "en": "This attribute will allow the access to the previsualisation of the data when set to 'true'. This feature is experimental ",
         "fr": "Cet attribut activera la prévisualisation des données lorsque la valeur est 'vrai'. Cette fonctionnalité est expérimentale"
       },
+      "required": false,
+      "validators": "scheming_required",
       "preset": "select",
       "choices": [
         {
