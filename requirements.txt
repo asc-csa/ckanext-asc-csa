@@ -1,0 +1,2 @@
+-e git+https://github.com/ckan/ckanext-fluent.git#egg=ckanext-fluent
+-e git+https://github.com/ckan/ckan.git@2.9#egg=ckan
