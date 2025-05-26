@@ -385,10 +385,10 @@ ckan -c /etc/ckan/default/ckan.ini sysadmin add seanh email=seanh@localhost name
 où seanh sera remplacé par votre nom d'utilisateur. Vous pouvez trouver plus d'instructions sur
 https://docs.ckan.org/en/2.9/maintaining/getting-started.html#create-admin-user
 
-Une fois fait, vous devrez copier manuellement le fichier transitional_orgs.json de l'extension ckanext-csa dans le répertoire contenant le fichier ckan.ini. Une fois dans ce répertoire, ouvrez une invite de commande et utilisez les commandes suivantes :
+Une fois fait, vous devrez copier manuellement le fichier misc/transitional_orgs.json de l'extension ckanext-csa dans le répertoire contenant le fichier ckan.ini. Une fois dans ce répertoire, ouvrez une invite de commande et utilisez les commandes suivantes :
 ```  
 . /usr/lib/ckan/default/bin/activate  
-ckanapi load organizations -I transitional_orgs.jsonl
+ckanapi load organizations -I misc/transitional_orgs.jsonl
 ```  
 
 
