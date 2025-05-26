@@ -355,7 +355,7 @@ Enter into each extension directory and build the extension
 Copy the contents of the `schema.xml` file from the CSA extension into the original `schema.xml` file.  
 
 ```  
-cp /usr/lib/ckan/default/src/ckanext-asc-csa/ckanext/csa/conf/solr/schema.xml /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema.xml  
+cp /usr/lib/ckan/default/src/ckanext-asc-csa/misc/schema.xml /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema.xml  
 ```  
 You can also do this manually by copy and pasting the contents of the `schema.xml` file from ckanext-asc-csa into the specified file location above.  
 
@@ -439,7 +439,7 @@ Where above was a guide to install CKAN, below are the notes I have taken to com
  - /ckanext/csa/plugin.py - contains the plugin class that uses [CKAN's plugin interface](https://docs.ckan.org/en/2.8/extensions/plugin-interfaces.html) to customize and [extend features](https://docs.ckan.org/en/2.8/extensions/tutorial.html)
  - /ckanext/csa/helpers.py - contains [helper functions](https://docs.ckan.org/en/2.8/theming/templates.html#adding-your-own-template-helper-functions) that are used in templates
  - /ckanext/csa/public - contains publicly available files that can be shown statically, in specific it contains the favicon, logo, and licenses.json file
- - /ckanext/csa/conf/solr/schema.xml - contains the modified schema that implements bilingual search and facetted search
+ - /misc/schema.xml - contains the modified schema that implements bilingual search and facetted search
  -
 
 ##  Harvesters  
