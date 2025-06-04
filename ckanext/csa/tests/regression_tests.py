@@ -14,6 +14,7 @@
 
 import json
 import requests
+import os
 import pandas as pd
 import unittest
 
@@ -80,6 +81,67 @@ class csa_portal_regression_tests(unittest.TestCase):
             self.fail("The format of the dataset has changed and is now incorrect.")
 
 
+    def test_solr_schema(self):
+
+        # Make sure the SOLR schema is at appropriate place
+        self.assertTrue(os.path.exists("../conf/solr/schema.xml"))
+
+
+    def test_license(self):
+
+        # Make sure the license is there
+        self.assertTrue(os.path.exists("../../../LICENSE"))
+        self.assertTrue(os.path.exists("../public/GCWeb/Licence-fr.txt"))
+        self.assertTrue(os.path.exists("../public/GCWeb/License-en.txt"))
+
+        # Validate the content (English)
+        en_licence_file = open("../public/GCWeb/License-en.txt")
+        en_licence = str(en_licence_file.read())
+        self.assertTrue("MIT License" in en_licence)
+        self.assertTrue("Web Experience Toolkit (WET) - Terms and Conditions of Use" in en_licence)
+        self.assertTrue("Government of Canada" in en_licence)
+        self.assertTrue("Permission is hereby granted, free of charge, to any person obtaining a copy of this software" in en_licence)
+
+        # Validate the content (French)
+        fr_licence_file = open("../public/GCWeb/Licence-fr.txt")
+        fr_licence = str(fr_licence_file.read())
+        self.assertTrue("Licence MIT" in fr_licence)
+        self.assertTrue("BOEW" in fr_licence)
+        self.assertTrue("Gouvernement du Canada" in fr_licence)
+        self.assertTrue("obtenir gratuitement une copie " in fr_licence)
+
+
+    def test_translation_module(self):
+
+        # Make sure the translation module is there
+        self.assertTrue(os.path.exists("../i18n/ckanext-csa.pot"))
+        self.assertTrue(os.path.exists("../i18n/fr/LC_MESSAGES/ckanext-csa.mo"))
+        self.assertTrue(os.path.exists("../i18n/fr/LC_MESSAGES/ckanext-csa.po"))
+        self.assertTrue(os.path.exists("../public/GCWeb/css/ie8-theme.css"))
+        self.assertTrue(os.path.exists("../public/GCWeb/css/ie8-theme.min.css"))
+        self.assertTrue(os.path.exists("../public/GCWeb/css/ie8-theme-srv.css"))
+        self.assertTrue(os.path.exists("../public/GCWeb/css/ie8-theme-srv.min.css"))
+        self.assertTrue(os.path.exists("../public/GCWeb/css/ie8-wet-boew.css"))
+        self.assertTrue(os.path.exists("../public/GCWeb/css/ie8-wet-boew.min.css"))
+
+
+    def test_fanstatic(self):
+
+        # Make sure the fantastic stuffs are there
+        self.assertTrue(os.path.exists("../fanstatic/csa_field_descriptions.css"))
+        self.assertTrue(os.path.exists("../fanstatic/extra.css"))
+        self.assertTrue(os.path.exists("../fanstatic/csa_field_descriptions.js"))
+        self.assertTrue(os.path.exists("../fanstatic/webassets.yml"))
+
+
+    def test_libraries(self):
+
+        # Validate required modules & librairies
+        self.assertTrue(os.path.exists("../../../requirements.txt"))
+        self.assertTrue(os.path.exists("../../../dev-requirements.txt"))
+        self.assertTrue(os.path.exists("../../../setup.cfg"))
+
+
     def test_data(self):
 
         # Read all datasets from the Open Data Portal
@@ -125,6 +187,35 @@ class csa_portal_regression_tests(unittest.TestCase):
 
         except:
             self.fail("The format of the dataset has changed and is now incorrect.")
+
+
+    def test_wet(self):
+
+        # Make sure the WET is good
+        self.assertTrue(os.path.exists("../public/csa_theme.css"))
+        self.assertTrue(os.path.exists("../public/csa-asc.png"))
+        self.assertTrue(os.path.exists("../public/favicon.ico"))
+        self.assertTrue(os.path.exists("../public/jquery.min.js"))
+        self.assertTrue(os.path.exists("../public/images/favicon.ico"))
+        self.assertTrue(os.path.exists("../public/GCWeb/package.json"))
+        self.assertTrue(os.path.exists("../public/wet-boew/payload.json"))
+        self.assertTrue(os.path.exists("../public/GCWeb/assets/sig-blk-en.png"))
+        self.assertTrue(os.path.exists("../public/GCWeb/assets/sig-blk-fr.png"))
+        self.assertTrue(os.path.exists("../public/GCWeb/assets/wmms-blk.png"))
+        self.assertTrue(os.path.exists("../public/GCWeb/assets/wmms-spl.png"))
+        self.assertTrue(os.path.exists("../public/GCWeb/css/theme.css"))
+        self.assertTrue(os.path.exists("../public/GCWeb/css/theme.min.css"))
+        self.assertTrue(os.path.exists("../public/GCWeb/js/theme.js"))
+        self.assertTrue(os.path.exists("../public/GCWeb/js/theme.min.js"))
+        self.assertTrue(os.path.exists("../public/wet-boew/js/wet-boew.js"))
+        self.assertTrue(os.path.exists("../public/wet-boew/js/wet-boew.min.js"))
+        self.assertTrue(os.path.exists("../public/wet-boew/js/wet-boew.min.js.map"))
+        self.assertTrue(os.path.exists("../public/GCWeb/css/wet-boew.css"))
+        self.assertTrue(os.path.exists("../public/GCWeb/css/wet-boew.min.css"))
+        self.assertTrue(os.path.exists("../public/GCWeb/css/wet-boew-overrides.css"))
+        self.assertTrue(os.path.exists("../public/GCWeb/css/wet-boew-overrides.min.css"))
+
+        # Validate templates
 
         
 if __name__ == '__main__':
