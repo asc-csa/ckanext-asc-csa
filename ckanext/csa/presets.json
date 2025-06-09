@@ -4357,7 +4357,7 @@
         ],
         "form_snippet": "select.html",
         "display_snippet": "select.html",
-        "validators": "scheming_required scheming_choices"
+        "validators": "scheming_required"
       }
     },
     {
@@ -4407,7 +4407,7 @@
         ],
         "form_snippet": "select.html",
         "display_snippet": "select.html",
-        "validators": "ignore_missing scheming_choices"
+        "validators": "ignore_missing"
       }
     },
     {
@@ -5769,6 +5769,7 @@
           "en": "This is the character set of the resource",
           "fr": "Nom complet de la norme de codage des caractères utilisée pour le ressource"
         },
+        "required": false,
         "form_snippet": "select.html",
         "form_restrict_choices_to": [
           "UTF-8",
@@ -5778,6 +5779,12 @@
         "validators": "scheming_required scheming_choices",
         "form_panel": "resource",
         "choices": [
+          {
+            "value": "",
+            "replaces": [
+              ""
+            ]
+          },
           {
             "value": "UTF-8",
             "replaces": [

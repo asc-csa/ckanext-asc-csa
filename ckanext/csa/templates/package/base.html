@@ -2,7 +2,7 @@
 
 {# {% set pkg_dict = h.get_pkg_dict() or pkg_dict or pkg or {} %} #}
 {% if pkg_dict is not defined %}
-    {% set pkg_dict = h.get_pkg_dict() or pkg_dict or pkg or {} %}
+    {% set pkg_dict = pkg_dict or pkg or {} %}
 {% endif %}
-{% set pkg = h.get_pkg_dict() or pkg_dict or {} %}
+{% set pkg = pkg_dict or {} %}
 {% set client_lang = h.lang() %}

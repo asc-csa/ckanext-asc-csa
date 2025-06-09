@@ -359,7 +359,7 @@ Entrez dans chaque répertoire d'extension et construisez l'extension
 ###  2. Modifier le fichier `schema.xml` pour une recherche CKAN personnalisée   
 Copiez le contenu du fichier `schema.xml` de l'extension CSA dans le fichier `schema.xml` original.
 ```  
-cp /usr/lib/ckan/default/src/ckanext-asc-csa/ckanext/csa/conf/solr/schema.xml /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema.xml  
+cp /usr/lib/ckan/default/src/ckanext-asc-csa/misc/schema.xml /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema.xml  
 ```  
 Vous pouvez aussi le faire manuellement en copiant et collant le contenu du fichier `schema.xml` de ckanext-asc-csa dans l'emplacement spécifié ci-dessus.   
 
@@ -385,10 +385,10 @@ ckan -c /etc/ckan/default/ckan.ini sysadmin add seanh email=seanh@localhost name
 où seanh sera remplacé par votre nom d'utilisateur. Vous pouvez trouver plus d'instructions sur
 https://docs.ckan.org/en/2.9/maintaining/getting-started.html#create-admin-user
 
-Une fois fait, vous devrez copier manuellement le fichier transitional_orgs.json de l'extension ckanext-csa dans le répertoire contenant le fichier ckan.ini. Une fois dans ce répertoire, ouvrez une invite de commande et utilisez les commandes suivantes :
+Une fois fait, vous devrez copier manuellement le fichier misc/transitional_orgs.json de l'extension ckanext-csa dans le répertoire contenant le fichier ckan.ini. Une fois dans ce répertoire, ouvrez une invite de commande et utilisez les commandes suivantes :
 ```  
 . /usr/lib/ckan/default/bin/activate  
-ckanapi load organizations -I transitional_orgs.jsonl
+ckanapi load organizations -I misc/transitional_orgs.jsonl
 ```  
 
 
@@ -439,7 +439,7 @@ Ci-dessus était un guide pour installer CKAN, ci-dessous sont les notes que j'a
  - /ckanext/csa/fanstatic - contient les fichiers css et js qui sont personnalisés et ajoutés en plus de ce que CKAN fournit par défaut.
  - /ckanext/csa/plugin.py - contient le plugin qui utilise [CKAN's plugin interface](https://docs.ckan.org/en/2.8/extensions/plugin-interfaces.html) pour personnaliser et étendre to [étendre les fonctionnalités](https://docs.ckan.org/en/2.8/extensions/tutorial.html)
  - /ckanext/csa/public - contient des fichiers accessibles au public qui peuvent être affichés de manière statique. Il contient notamment le favicon, le logo et le fichier licenses.json.
- - /ckanext/csa/conf/solr/schema.xml - contient le schéma modifié qui implémente la recherche bilingue et la recherche à facettes
+ - /misc/schema.xml - contient le schéma modifié qui implémente la recherche bilingue et la recherche à facettes
  -
 
 ##  Harvesters  
