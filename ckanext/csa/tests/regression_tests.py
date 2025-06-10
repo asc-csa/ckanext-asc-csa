@@ -125,6 +125,23 @@ class csa_portal_regression_tests(unittest.TestCase):
         self.assertTrue(os.path.exists("../public/GCWeb/css/ie8-wet-boew.min.css"))
 
 
+    def test_dataset_template(self):
+
+        # Make sure the JSON file is there
+        self.assertTrue(os.path.exists("../ckan_dataset.json"))
+        self.assertTrue(os.path.exists("../templates/snippets/dataset_facets.html"))
+
+        # Validate the JSON structure
+        json_file = open("../ckan_dataset.json")
+        json_file_str = str(json_file.read())
+        self.assertTrue("field_name\": \"data_steward\"," in json_file_str)
+        self.assertTrue("A reimplementation of the default CKAN dataset schema" in json_file_str)
+        self.assertTrue("preset\": \"canada_owner_org" in json_file_str)
+        self.assertTrue("preset\": \"canada_org_section_name" in json_file_str)
+        self.assertTrue("preset\": \"canada_creator" in json_file_str)
+        self.assertTrue("preset\": \"canada_resource_format" in json_file_str)
+
+
     def test_fanstatic(self):
 
         # Make sure the fantastic stuffs are there
@@ -139,7 +156,14 @@ class csa_portal_regression_tests(unittest.TestCase):
         # Validate required modules & librairies
         self.assertTrue(os.path.exists("../../../requirements.txt"))
         self.assertTrue(os.path.exists("../../../dev-requirements.txt"))
+        self.assertTrue(os.path.exists("../../../reclinejs/recline.js"))
         self.assertTrue(os.path.exists("../../../setup.cfg"))
+
+
+    def test_installation_guide(self):
+
+        self.assertTrue(os.path.exists("../../../installation guide/installation guide_fr.md"))
+        self.assertTrue(os.path.exists("../../../installation guide/installation guide_en.md"))
 
 
     def test_data(self):
@@ -214,8 +238,11 @@ class csa_portal_regression_tests(unittest.TestCase):
         self.assertTrue(os.path.exists("../public/GCWeb/css/wet-boew.min.css"))
         self.assertTrue(os.path.exists("../public/GCWeb/css/wet-boew-overrides.css"))
         self.assertTrue(os.path.exists("../public/GCWeb/css/wet-boew-overrides.min.css"))
-
-        # Validate templates
+      
+        # Validate the content
+        package_json = open("../public/GCWeb/package.json")
+        package_json_str = str(package_json.read())
+        self.assertTrue("wet-boew-theme-canada.ca" in package_json_str)
 
         
 if __name__ == '__main__':
