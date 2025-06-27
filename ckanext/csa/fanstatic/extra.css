@@ -60,3 +60,12 @@
 .bulk-manager .filters-list .filter-item .btn {
     flex-basis: unset !important;
 }
+
+.format-label {
+    display: inline-block;
+}
+
+/* The WET framework v9.2.0 has a rule to break all anchors, which messes with link button styling. */
+a.btn {
+    word-break: normal;
+}
