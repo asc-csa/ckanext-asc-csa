@@ -1,14 +1,14 @@
-from typing import Union
-
-import ckan.plugins as p
-import ckan.plugins.toolkit as tk
 import json
 import os
 import inspect
+from typing import Union
 
+from flask import Blueprint
+import ckan.plugins as p
+import ckan.plugins.toolkit as tk
 from ckan.lib.plugins import DefaultTranslation
 from ckan.plugins.toolkit import _, request
-from flask import Blueprint
+from ckanext.bulk.interfaces import IBulk
 
 from ckanext.csa import helpers, loader, validators
 
@@ -21,6 +21,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     p.implements(p.ITranslation)
     p.implements(p.IBlueprint)
     p.implements(p.IValidators)
+    p.implements(IBulk, inherit=True)
 
     _field_descriptions = None
 
