@@ -88,7 +88,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
         return search_results
 
     # Implements bilingual searching
-    def before_index(self, pkg_dict):
+    def before_dataset_index(self, pkg_dict):
         pkg_dict["subject"] = json.loads(pkg_dict.get("subject", "[]"))
         pkg_dict["project"] = json.loads(pkg_dict.get("project", "[]"))
 
