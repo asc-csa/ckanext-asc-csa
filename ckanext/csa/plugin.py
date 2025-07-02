@@ -1,15 +1,16 @@
-import ckan.plugins as p
-import ckan.plugins.toolkit as tk
 import json
 import os
 import inspect
+from typing import Union
 
+from flask import Blueprint
+import ckan.plugins as p
+import ckan.plugins.toolkit as tk
 from ckan.lib.plugins import DefaultTranslation
 from ckan.plugins.toolkit import _, request
+from ckanext.bulk.interfaces import IBulk
+
 from ckanext.csa import helpers, loader, validators
-
-
-import routes.mapper
 
 
 class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
@@ -19,8 +20,8 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     p.implements(p.IFacets)
     p.implements(p.ITranslation)
     p.implements(p.IBlueprint)
-    p.implements(p.IRoutes)
     p.implements(p.IValidators)
+    p.implements(IBulk, inherit=True)
 
     _field_descriptions = None
 
@@ -54,7 +55,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             return loader.load(open(p))
 
     # IpackageController
-    def before_search(self, search_params):
+    def before_dataset_search(self, search_params):
         """Extensions will receive a dictionary with the query parameters,
         and should return a modified (or not) version of it.
         """
@@ -84,11 +85,11 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
 
         return search_params
 
-    def after_search(self, search_results, data_dict):
+    def after_dataset_search(self, search_results, data_dict):
         return search_results
 
     # Implements bilingual searching
-    def before_index(self, pkg_dict):
+    def before_dataset_index(self, pkg_dict):
         pkg_dict["subject"] = json.loads(pkg_dict.get("subject", "[]"))
         pkg_dict["project"] = json.loads(pkg_dict.get("project", "[]"))
 
@@ -211,18 +212,20 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
         )
         return facets_dict
 
-    # IRoutesl
-    def before_map(self, route_map):
-        route_map.redirect("/", "/dataset")
-        with routes.mapper.SubMapper(
-            route_map, controller="ckanext.csa.plugin:CSAController"
-        ) as m:
-            m.connect("API", "/API", action="API")
+    # IBlueprint
+    def get_blueprint(self) -> Union[list[Blueprint], Blueprint]:
+        bp = Blueprint("csa", self.__module__)
 
-        return route_map
+        @bp.route("/")
+        def index():
+            """
+            Redirects the root URL to the dataset page.
+            """
+            return tk.redirect_to("dataset.search")
+
+        return bp
 
     # IValidators
-
     def get_validators(self):
         """
         Returns a dictionary of custom validators.
@@ -243,7 +246,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
 
     # Unused interfaces, but required by the plugin system.
 
-    def before_view(self, pkg_dict):
+    def before_dataset_view(self, pkg_dict):
         return pkg_dict
 
     def read(self, entity):
@@ -258,14 +261,14 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
     def delete(self, entity):
         return entity
 
-    def after_create(self, context, pkg_dict):
+    def after_dataset_create(self, context, pkg_dict):
         return pkg_dict
 
-    def after_update(self, context, pkg_dict):
+    def after_dataset_update(self, context, pkg_dict):
         return pkg_dict
 
-    def after_delete(self, context, pkg_dict):
+    def after_dataset_delete(self, context, pkg_dict):
         return pkg_dict
 
-    def after_show(self, context, pkg_dict):
+    def after_dataset_show(self, context, pkg_dict):
         return pkg_dict
