@@ -1240,10 +1240,13 @@
   ],
   "resource_fields": [
     {
-      "preset": "canada_resource_unique_identifier"
+      "preset": "canada_resource_name"
     },
     {
-      "preset": "canada_resource_name"
+      "preset": "canada_notes"
+    },
+    {
+      "preset": "canada_resource_unique_identifier"
     },
     {
       "preset": "canada_resource_related_relationship"
