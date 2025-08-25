@@ -39,6 +39,10 @@
         </div>
       {% endif %}
     {% endblock %}
+    {% set dataset_extent = c.pkg_dict.spatial %}
+    {% if dataset_extent %}
+      {% snippet "spatial/snippets/dataset_map.html", extent=dataset_extent %}
+    {% endif %}
     {# FIXME why is this here? seems wrong #}
     <span class="insert-comment-thread"></span>
   {% endblock %}
