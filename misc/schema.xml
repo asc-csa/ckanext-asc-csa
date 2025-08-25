@@ -207,6 +207,12 @@ attribute with the form `ckan-X.Y` -->
     <field name="title_fr" type="string" indexed="true" stored="true" multiValued="false"/>
     <field name="notes_fr" type="text_fr" indexed="true" stored="true" multiValued="false"/>
     <field name="res_name_fr" type="string" indexed="true" stored="true" multiValued="true"/>
+
+    <!-- Spatial search fields -->
+    <field name="minx" type="float" indexed="true" stored="true" />
+    <field name="maxx" type="float" indexed="true" stored="true" />
+    <field name="miny" type="float" indexed="true" stored="true" />
+    <field name="maxy" type="float" indexed="true" stored="true" />
 </fields>
 
 <uniqueKey>index_id</uniqueKey>
