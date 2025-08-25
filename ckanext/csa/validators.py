@@ -96,7 +96,7 @@ def geojson_validator(value):
     if value:
         try:
             # accept decoded geojson too
-            if isinstance(value, basestring):
+            if isinstance(value, str):
                 value = json.loads(value)
             shape = geojson.GeoJSON.to_instance(value, strict=True)
             if not shape.is_valid:
