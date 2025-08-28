@@ -7,4 +7,12 @@
 -r https://raw.githubusercontent.com/ckan/ckanext-xloader/master/requirements.txt
 -e git+https://github.com/DataShades/ckanext-bulk.git#egg=ckanext-bulk
 -e git+https://github.com/ckan/ckanext-spatial.git#egg=ckanext-spatial
--r https://raw.githubusercontent.com/ckan/ckanext-spatial/refs/heads/master/requirements.txt
+ckantoolkit
+lxml>=2.3
+argparse
+pyparsing>=2.1.10
+requests>=1.1.0
+pyproj==3.6.1
+OWSLib==0.32.0
+Shapely==2.0.7
+geojson==3.2.0
