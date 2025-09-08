@@ -100,7 +100,7 @@
     {% block package_search_results_api_inner %}
 
       {% set api_link = h.link_to(_('API'), h.url_for(controller='api', action='get_api', ver=3)) %}
-      {% set api_doc_link = h.link_to(_('API'), h.url_for("/API")) %}
+      {% set api_doc_link = h.link_to(_('API'), h.url_for("/api-help")) %}
       {% if g.dumps_url -%}
         {% set dump_link = h.link_to(_('full {format} dump').format(format=g.dumps_format), g.dumps_url) %}
         {% trans %}

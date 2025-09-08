@@ -222,6 +222,13 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             Redirects the root URL to the dataset page.
             """
             return tk.redirect_to("dataset.search")
+        
+        @bp.route("/api-help")
+        def api_help():
+            """
+            Renders a help page for the API.
+            """
+            return tk.render("content/api.html")
 
         return bp
 
