@@ -1,50 +1,40 @@
 <!--template/snippets/dataset_facets.html start-->
 
-{% snippet 'snippets/facet_list.html',
-title=c.facet_titles['portal_type'],
-name='portal_type',
-scheming_choices=h.scheming_get_preset('portal_type').choices,
-extras=extras %}
+{% set csa_facets = [
+  ["portal_type", "portal_type"],
+  ["science_admin", "science_admin"],
+  ["project", "canada_project"],
+  ["collection", "canada_collection"],
+  ["res_format", "canada_resource_format"],
+  ["keywords_en", "keywords_en"],
+  ["keywords_fr", "keywords_fr"]
+] %}
 
-{% snippet 'snippets/facet_list.html',
-title=c.facet_titles['science_admin'],
-name='science_admin',
-scheming_choices=h.scheming_get_preset('science_admin').choices,
-extras=extras %}
-
-{% snippet 'snippets/facet_list.html',
-title=c.facet_titles['project'],
-name='project',
-scheming_choices=h.scheming_get_preset('canada_project').choices,
-extras=extras %}
-
-{% snippet 'snippets/facet_list.html',
-  title=c.facet_titles['collection'],
-  name='collection',
-  scheming_choices=h.scheming_get_preset('canada_collection').choices,
-  extras=extras %}
-
-{# {% snippet 'snippets/facet_list.html',
-  title=c.facet_titles['jurisdiction'],
-  name='jurisdiction',
-  scheming_choices=h.scheming_get_preset('canada_jurisdiction').choices,
-  extras=extras %}
-
-{{ organization_facet }} #}
-
-
-{% snippet 'snippets/facet_list.html',
-  title=c.facet_titles['res_format'],
-  name='res_format',
-  scheming_choices=h.scheming_get_preset('canada_resource_format').choices,
-  extras=extras %}
-
-  {% if h.lang() == 'en' %}
-    {% snippet 'snippets/facet_list.html', title=c.facet_titles['keywords_en'],
-    name='keywords_en', extras=extras %}
-  {% elif h.lang() == 'fr' %}
-    {% snippet 'snippets/facet_list.html', title=c.facet_titles['keywords_fr'],
-    name='keywords_fr', extras=extras %}
+{% for key, preset_key in csa_facets %}
+  {% if key.endswith("_en") %}
+    {% if h.lang() != "fr" %}
+      {% snippet 'snippets/facet_list.html',
+      title=c.facet_titles[key],
+      name=key,
+      scheming_choices=h.scheming_get_preset(preset_key).choices,
+      extras=extras,
+      search_facets=search_facets %}
+    {% endif %}
+  {% elif key.endswith("_fr") %}
+    {% if h.lang() == "fr" %}
+      {% snippet 'snippets/facet_list.html',
+      title=c.facet_titles[key],
+      name=key,
+      scheming_choices=h.scheming_get_preset(preset_key).choices,
+      extras=extras,
+      search_facets=search_facets %}
+    {% endif %}
+  {% else %}
+    {% snippet 'snippets/facet_list.html',
+    title=c.facet_titles[key],
+    name=key,
+    scheming_choices=h.scheming_get_preset(preset_key).choices,
+    extras=extras,
+    search_facets=search_facets %}
   {% endif %}
-
-<!--template/snippets/dataset_facets.html end-->
+{% endfor %}

@@ -161,9 +161,9 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
                 "ready_to_publish": _("Record status"),
                 "imso_approval": _("IMSO approval"),
                 "jurisdiction": _("Jurisdiction"),
+                "vocab_project": _("Project"),
             }
         )
-        facets_dict["vocab_project"] = tk._("Project")
         return facets_dict
 
     def group_facets(self, facets_dict, group_type, package_type):
@@ -222,6 +222,13 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             Redirects the root URL to the dataset page.
             """
             return tk.redirect_to("dataset.search")
+        
+        @bp.route("/api-help")
+        def api_help():
+            """
+            Renders a help page for the API.
+            """
+            return tk.render("content/api.html")
 
         return bp
 
