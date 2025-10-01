@@ -1,11 +1,11 @@
--e git+https://github.com/ckan/ckanext-fluent.git#egg=ckanext-fluent
--e git+https://github.com/ckan/ckan.git@2.11#egg=ckan
--e git+https://github.com/ckan/ckanext-scheming.git#egg=ckanext-scheming
--e git+https://github.com/ckan/ckanext-pdfview.git#egg=ckanext-pdfview
--e git+https://github.com/ckan/ckanext-geoview.git#egg=ckanext-geoview
--e git+https://github.com/ckan/ckanext-xloader.git#egg=ckanext-xloader
+git+https://github.com/ckan/ckanext-fluent.git#egg=ckanext-fluent
+git+https://github.com/ckan/ckan.git@2.11#egg=ckan
+git+https://github.com/ckan/ckanext-scheming.git#egg=ckanext-scheming
+git+https://github.com/ckan/ckanext-pdfview.git#egg=ckanext-pdfview
+git+https://github.com/ckan/ckanext-geoview.git#egg=ckanext-geoview
+git+https://github.com/ckan/ckanext-xloader.git#egg=ckanext-xloader
 -r https://raw.githubusercontent.com/ckan/ckanext-xloader/master/requirements.txt
--e git+https://github.com/DataShades/ckanext-bulk.git#egg=ckanext-bulk
--e git+https://github.com/ckan/ckanext-spatial.git#egg=ckanext-spatial
+git+https://github.com/DataShades/ckanext-bulk.git#egg=ckanext-bulk
+git+https://github.com/ckan/ckanext-spatial.git#egg=ckanext-spatial
 -r https://raw.githubusercontent.com/ckan/ckanext-spatial/refs/heads/master/requirements.txt
--e git+https://github.com/jqnatividad/ckanext-officedocs.git#egg=ckanext-officedocs
+git+https://github.com/jqnatividad/ckanext-officedocs.git#egg=ckanext-officedocs
