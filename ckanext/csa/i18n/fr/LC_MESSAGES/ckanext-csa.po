@@ -1879,6 +1879,42 @@ msgstr ""
 " <p id=\"search-error\"><strong>Il y a eu une erreur lors  de la "
 "recherche.</strong> Veuillez réessayer.</p> "
 
+msgid "Security Classification"
+msgstr "Classification de la sécurité"
+
+msgid "Data Owner (specify)"
+msgstr "Propriétaire des données (spécifiez)"
+
+msgid "Enregistré sur le site Open Data"
+msgstr "Enregistré sur le portail des données ouvertes"
+
+msgid "Date released on open.canada.ca"
+msgstr "Date de publication sur le portail des données ouvertes"
+
+msgid "Data is publicly availible within another site"
+msgstr "Les données sont publiques sur un autre site"
+
+msgid "Date published on another site"
+msgstr "Date de publication sur l'autre site"
+
+msgid "Publisher"
+msgstr "Éditeur"
+
+msgid "Personal Information"
+msgstr "Informations personnelles"
+
+msgid "Eligible for Release"
+msgstr "Admissible à la publication"
+
+msgid "Format of source data"
+msgstr "Format de la source de données"
+
+msgid "Format of source data (details)"
+msgstr "Format de la source de données (détails)"
+
+msgid "Size of Dataset"
+msgstr "Dimension du jeu de données"
+
 #~ msgid "Please select all that apply:"
 #~ msgstr "Veuillez sélectionner toutes les cases qui s'appliquent:"
 

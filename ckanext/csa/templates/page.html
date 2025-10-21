@@ -88,7 +88,6 @@
 
                 {% block primary_content %}
                   <article class="module">
-                    {# REMOVED GROUPS, ACTIVITY, AND MANAGE BUTTON. USE URL EDIT TO MANAGE.
                     {% block page_header %}
                       <header class="module-content page-header">
                         {% if self.content_action() | trim %}
@@ -101,8 +100,6 @@
                         </ul>
                       </header>
                     {% endblock %}
-                      #}
-
                     <div {# role='main' #} class="module-content">
                       {% if self.page_primary_action() | trim %}
                         <div class="page_primary_action">

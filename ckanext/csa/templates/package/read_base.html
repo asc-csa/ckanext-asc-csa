@@ -3,6 +3,7 @@
 <!--template/package/read_base.html start-->
 {% set pkg = c.pkg_dict %}
 {% set schema = h.scheming_get_dataset_schema(pkg.type) %}
+{% set default_group_type = h.default_group_type('group') %}
 
 {% block subtitle %}{{ h.dataset_display_name(pkg) }} - {{ super() }}{% endblock %}
 
@@ -15,14 +16,13 @@
 
 {% block content_action %}
   {% if h.check_access('package_update', {'id':pkg.id }) %}
-    {% link_for _('Manage'), controller='package', action='edit', id=pkg.name, class_='btn btn-default', icon='wrench' %}
+    {% link_for _('Manage'), named_route=pkg.type ~ '.edit', id=pkg.name, class_='btn btn-default', icon='wrench' %}
   {% endif %}
 {% endblock %}
 
 {% block content_primary_nav %}
-  {{ h.build_nav_icon('dataset_read', _('Dataset'), id=pkg.name) }}
-  {{ h.build_nav_icon('dataset_groups', _('Groups'), id=pkg.name) }}
-  {{ h.build_nav_icon('dataset_activity', _('Activity Stream'), id=pkg.name) }}
+  {{ h.build_nav_icon(dataset_type ~ '.read', _('Dataset'),  id=pkg.name, icon='sitemap') }}
+  {{ h.build_nav_icon(dataset_type ~ '.groups', h.humanize_entity_type('group', default_group_type, 'content tab') or _('Groups'), id=pkg.name, icon='users') }}
 {% endblock %}
 
 {% block primary_content_inner %}
