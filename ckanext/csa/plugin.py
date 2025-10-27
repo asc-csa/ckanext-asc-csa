@@ -10,7 +10,7 @@ from ckan.lib.plugins import DefaultTranslation
 from ckan.plugins.toolkit import _, request
 from ckanext.bulk.interfaces import IBulk
 
-from ckanext.csa import helpers, loader, validators
+from ckanext.csa import helpers, loader, validators, bulk_entity_managers
 
 
 class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
@@ -279,3 +279,15 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
 
     def after_dataset_show(self, context, pkg_dict):
         return pkg_dict
+
+    # IBulk
+    def register_entity_manager(self, default_entity_managers):
+        """
+        Register custom entity manager with scheming integration.
+
+        This replaces the default dataset entity manager with our custom
+        SchemingDatasetEntityManager that provides schema-aware field detection
+        and proper labels for choice fields.
+        """
+        default_entity_managers['dataset'] = bulk_entity_managers.SchemingDatasetEntityManager
+        return default_entity_managers
