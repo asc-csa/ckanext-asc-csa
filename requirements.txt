@@ -9,3 +9,4 @@
 -e git+https://github.com/ckan/ckanext-spatial.git#egg=ckanext-spatial
 -r https://raw.githubusercontent.com/ckan/ckanext-spatial/refs/heads/master/requirements.txt
 -e git+https://github.com/jqnatividad/ckanext-officedocs.git#egg=ckanext-officedocs
+-e git+https://github.com/asc-csa/ckanext-similar-datasets.git#egg=ckanext-similar-datasets
