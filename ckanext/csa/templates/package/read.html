@@ -4,6 +4,7 @@
 
 {% block primary_content_inner %}
   {{ super() }}
+  {% block similar_datasets %}{% endblock %}
   {% block package_description %}
     <h1>
       {% block page_heading %}
@@ -39,12 +40,42 @@
         </div>
       {% endif %}
     {% endblock %}
+    {% set dataset_extent = c.pkg_dict.spatial %}
+    {% if dataset_extent %}
+      {% snippet "spatial/snippets/dataset_map.html", extent=dataset_extent %}
+    {% endif %}
     {# FIXME why is this here? seems wrong #}
     <span class="insert-comment-thread"></span>
   {% endblock %}
 
   {% block package_resources %}
     {% snippet "package/snippets/resources_list.html", pkg=pkg, resources=pkg.resources, is_activity_archive=is_activity_archive %}
+  {% endblock %}
+
+  {% block package_similar_datasets %}
+    {% set similar_limit = h.similar_datasets_get_config('.max_num', 5) %}
+    {% set similar_list = h.similar_datasets(pkg.id, similar_limit) %}
+    {% if similar_list %}
+      <section class="panel panel-default similar-datasets" style="margin-top: 15px;">
+        <div class="panel-heading">
+          <h2 class="panel-title">{{ _('Similar datasets') }}</h2>
+        </div>
+        <ul class="list-group">
+          {% for dataset in similar_list %}
+            {% set dataset_title = h.dataset_display_name(dataset) %}
+            {% set dataset_name = dataset.name %}
+            {% set dataset_notes = h.get_translated(dataset, 'notes') %}
+            {% set dataset_url = h.url_for(dataset.type ~ '.read', id=dataset_name) if dataset.type else h.url_for('dataset.read', id=dataset_name) %}
+            <li class="list-group-item">
+              <a href="{{ dataset_url }}">{{ dataset_title }}</a>
+              {% if dataset_notes %}
+                <p class="text-muted small">{{ h.markdown_extract(dataset_notes, extract_length=200) }}</p>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
   {% endblock %}
 
   {% block package_tags %}
@@ -54,6 +85,8 @@
   {% block package_additional_info %}
     {% snippet "package/snippets/additional_info.html", pkg_dict=pkg %}
   {% endblock %}
+
+  {% block package_license %}{% endblock %}
 
 {% endblock %}
 

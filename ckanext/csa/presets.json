@@ -6,7 +6,7 @@
     {
       "preset_name": "title",
       "values": {
-        "validators": "if_empty_same_as(name) unicode",
+        "validators": "if_empty_same_as(name)",
         "form_snippet": "large_text.html",
         "form_attrs": {
           "data-module": "slug-preview-target"
@@ -16,7 +16,7 @@
     {
       "preset_name": "dataset_slug",
       "values": {
-        "validators": "not_empty unicode name_validator package_name_validator",
+        "validators": "not_empty name_validator package_name_validator",
         "form_snippet": "slug.html"
       }
     },
@@ -35,14 +35,14 @@
     {
       "preset_name": "dataset_organization",
       "values": {
-        "validators": "owner_org_validator unicode",
+        "validators": "owner_org_validator",
         "form_snippet": "organization.html"
       }
     },
     {
       "preset_name": "resource_url_upload",
       "values": {
-        "validators": "ignore_missing unicode remove_whitespace",
+        "validators": "ignore_missing remove_whitespace",
         "form_snippet": "upload.html",
         "form_placeholder": "http://example.com/my-data.csv",
         "upload_field": "upload",
@@ -53,7 +53,7 @@
     {
       "preset_name": "resource_format_autocomplete",
       "values": {
-        "validators": "if_empty_guess_format ignore_missing clean_format unicode",
+        "validators": "if_empty_guess_format ignore_missing clean_format",
         "form_placeholder": "eg. CSV, XML or JSON",
         "form_attrs": {
           "data-module": "autocomplete",
@@ -123,7 +123,7 @@
     {
       "preset_name": "canada_dataset_id",
       "values": {
-        "create_validators": "canada_validate_generate_uuid unicode name_validator package_id_does_not_exist",
+        "create_validators": "canada_validate_generate_uuid name_validator package_id_does_not_exist",
         "display_snippet": null,
         "field_name": "id",
         "form_snippet": null
@@ -134,7 +134,7 @@
       "values": {
         "field_name": "name",
         "form_snippet": null,
-        "validators": "if_empty_same_as(id) unicode not_empty canada_validate_generate_uuid"
+        "validators": "if_empty_same_as(id) not_empty canada_validate_generate_uuid"
       }
     },
     {
@@ -313,7 +313,7 @@
         "form_select_attrs": {
           "class": "form-control"
         },
-        "validators": "owner_org_validator unicode",
+        "validators": "owner_org_validator",
         "form_snippet": "organization.html"
       }
     },
@@ -4357,7 +4357,7 @@
         ],
         "form_snippet": "select.html",
         "display_snippet": "select.html",
-        "validators": "scheming_required scheming_choices"
+        "validators": "scheming_required"
       }
     },
     {
@@ -4407,7 +4407,7 @@
         ],
         "form_snippet": "select.html",
         "display_snippet": "select.html",
-        "validators": "ignore_missing scheming_choices"
+        "validators": "ignore_missing"
       }
     },
     {
@@ -5769,6 +5769,7 @@
           "en": "This is the character set of the resource",
           "fr": "Nom complet de la norme de codage des caractères utilisée pour le ressource"
         },
+        "required": false,
         "form_snippet": "select.html",
         "form_restrict_choices_to": [
           "UTF-8",
@@ -5778,6 +5779,12 @@
         "validators": "scheming_required scheming_choices",
         "form_panel": "resource",
         "choices": [
+          {
+            "value": "",
+            "replaces": [
+              ""
+            ]
+          },
           {
             "value": "UTF-8",
             "replaces": [
@@ -6645,7 +6652,7 @@
           "fr": "Emplacement pour l’accès en ligne aux fins de la distribution de la ressource."
         },
         "required": true,
-        "validators": "not_empty unicode remove_whitespace",
+        "validators": "not_empty remove_whitespace",
         "form_snippet": "upload.html",
         "upload_field": "upload",
         "upload_clear": "clear_upload"

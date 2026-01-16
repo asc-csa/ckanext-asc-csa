@@ -355,7 +355,7 @@ Enter into each extension directory and build the extension
 Copy the contents of the `schema.xml` file from the CSA extension into the original `schema.xml` file.  
 
 ```  
-cp /usr/lib/ckan/default/src/ckanext-asc-csa/ckanext/csa/conf/solr/schema.xml /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema.xml  
+cp /usr/lib/ckan/default/src/ckanext-asc-csa/misc/schema.xml /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema.xml  
 ```  
 You can also do this manually by copy and pasting the contents of the `schema.xml` file from ckanext-asc-csa into the specified file location above.  
 
@@ -381,10 +381,10 @@ ckan -c /etc/ckan/default/ckan.ini sysadmin add seanh email=seanh@localhost name
 where seanh will be replace by your username. You can find more instruction on
 https://docs.ckan.org/en/2.9/maintaining/getting-started.html#create-admin-user
 
-Once done, you will need to manually copy the file transitional_orgs.json from the ckanext-csa extension to the directory containing the ckan.ini file. Once in this directory, open a command prompt and use the following commands :
+Once done, you will need to manually copy the file misc/transitional_orgs.json from the ckanext-csa extension to the directory containing the ckan.ini file. Once in this directory, open a command prompt and use the following commands :
 ```  
 . /usr/lib/ckan/default/bin/activate  
-ckanapi load organizations -I transitional_orgs.jsonl
+ckanapi load organizations -I misc/transitional_orgs.jsonl
 ```  
 
 
@@ -439,7 +439,7 @@ Where above was a guide to install CKAN, below are the notes I have taken to com
  - /ckanext/csa/plugin.py - contains the plugin class that uses [CKAN's plugin interface](https://docs.ckan.org/en/2.8/extensions/plugin-interfaces.html) to customize and [extend features](https://docs.ckan.org/en/2.8/extensions/tutorial.html)
  - /ckanext/csa/helpers.py - contains [helper functions](https://docs.ckan.org/en/2.8/theming/templates.html#adding-your-own-template-helper-functions) that are used in templates
  - /ckanext/csa/public - contains publicly available files that can be shown statically, in specific it contains the favicon, logo, and licenses.json file
- - /ckanext/csa/conf/solr/schema.xml - contains the modified schema that implements bilingual search and facetted search
+ - /misc/schema.xml - contains the modified schema that implements bilingual search and facetted search
  -
 
 ##  Harvesters  

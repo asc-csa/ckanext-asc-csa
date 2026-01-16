@@ -17,24 +17,26 @@ Example:
 
     {% if pkg.resources %}
     {% block resource_list_inner %}
-      <table class="table table-striped resource-list">
-        <caption class="wb-inv">{{_('Resource list table') }}</caption>
-        <thead>
-          <tr>
-            <th scope="col" class="td-center-nowrap">{{ _('Resource name') }}</th>
-            <th scope="col" class="td-center-nowrap">{{ _('Resource type') }}</th>
-            <th scope="col" class="td-center-nowrap">{{ _('Format') }}</th>
-            <th scope="col" class="td-center-nowrap">{{ _('Language') }}</th>
-            <th scope="col" class="td-center-nowrap">{{ _('Links') }}</th>
-          </tr>
-        </thead>
+      <section>
+        <table class="table table-striped resource-list">
+          <caption class="wb-inv">{{_('Resource list table') }}</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="td-center-nowrap">{{ _('Resource name') }}</th>
+              <th scope="col" class="td-center-nowrap">{{ _('Resource type') }}</th>
+              <th scope="col" class="td-center-nowrap">{{ _('Format') }}</th>
+              <th scope="col" class="td-center-nowrap">{{ _('Language') }}</th>
+              <th scope="col" class="td-center-nowrap">{{ _('Links') }}</th>
+            </tr>
+          </thead>
 
-      {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
-      {% for resource in resources %}
-        {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource, res_num=loop.index, client_lang=client_lang, can_edit=can_edit %}
-      {% endfor %}
+        {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
+        {% for resource in resources %}
+          {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource, res_num=loop.index, client_lang=client_lang, can_edit=can_edit %}
+        {% endfor %}
 
-      </table>
+        </table>
+      </section>
     {% endblock %}
     {% endif %}
 {% else %}

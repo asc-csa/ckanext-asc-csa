@@ -26,7 +26,6 @@
     }
   }
 
-
   .wrapper {
        border: 0px solid #fff;
        border-radius: 0px;
@@ -44,3 +43,32 @@
             background: #fff;
           }
         }
+
+/***
+ * "Corrections" for CKAN extensions and the GCWeb theme.
+ ***/
+
+.accordion-item h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.bulk-manager .update-to-fields .update-field-item .btn {
+    flex-basis: unset !important;
+}
+.bulk-manager .filters-list .filter-item .btn {
+    flex-basis: unset !important;
+}
+
+.format-label {
+    display: inline-block;
+}
+
+.resource-list {
+    margin: 0;
+}
+
+/* The WET framework v9.2.0 has a rule to break all anchors, which messes with link button styling. */
+a.btn {
+    word-break: normal;
+}
