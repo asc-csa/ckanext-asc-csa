@@ -1,4 +1,4 @@
-# Regression tests
+# Regression Tests
 #
 # Regression tests verify that new code changes have not broken existing features or introduced new bugs. 
 # If any tests fail, it indicates a potential regression that needs to be investigated and fixed. 
