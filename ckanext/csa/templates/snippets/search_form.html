@@ -31,7 +31,7 @@
 
   {% block search_sortby %}
     {% if sorting %}
-      <div class="form-select form-group control-order-by" style="display:flex; flex-direction: row; justify-content: right">
+      <div class="form-group control-order-by" style="display:flex; flex-direction: row; justify-content: right">
         <label for="field-order-by" style="margin: 0 5px">{{ _('Order by')}} </label>
         <select id="field-order-by" name="sort" class="form-control">
           {% for label, value in sorting %}
