@@ -98,10 +98,8 @@ def geojson_validator(value):
             # accept decoded geojson too
             if isinstance(value, str):
                 value = json.loads(value)
-            shape = geojson.GeoJSON.to_instance(value, strict=True)
-            if not shape.is_valid:
-                raise ValueError
-            wkt.dumps(shape)
+            # strict=True validates the GeoJSON structure
+            geojson.GeoJSON.to_instance(value, strict=True)
         except Exception:
             raise Invalid(_("Invalid GeoJSON"))
         # must store as JSON
