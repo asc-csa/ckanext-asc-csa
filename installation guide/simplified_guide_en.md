@@ -161,6 +161,8 @@ ckanext.xloader.jobs_db.uri = postgresql://ckan_default:your_password_here@local
 
 ## Spatial Settings
 ckanext.spatial.search_backend = solr-bbox
+ckanext.spatial.common_map.type = custom
+ckanext.spatial.common_map.custom_url = https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBMT_CBCT_GEOM_3857/MapServer/tile/{z}/{y}/{x}
 ```
 
 ### 3. Configure Solr
