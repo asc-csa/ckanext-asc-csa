@@ -100,6 +100,8 @@ pip install -e 'git+https://github.com/ckan/ckan.git@ckan-2.11.0#egg=ckan[requir
 ```bash
 cd /usr/lib/ckan/default/src
 git clone https://github.com/asc-csa/ckanext-asc-csa.git
+OR
+git clone --branch cleanups --single-branch https://github.com/asc-csa/ckanext-asc-csa.git
 cd ckanext-asc-csa
 pip install -r requirements.txt
 pip install -e .
