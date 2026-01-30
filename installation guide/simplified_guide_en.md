@@ -25,7 +25,7 @@ sudo apt install -y python3.11 python3.11-venv python3.11-dev \
 
 ### 2. Install PostgreSQL 17
 
-Ubuntu 22.04 does not include PostgreSQL 17 by default. Add the official PostgreSQL repository:
+Ubuntu 24.04 does not include PostgreSQL 17 by default. Add the official PostgreSQL repository:
 
 ```bash
 sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
