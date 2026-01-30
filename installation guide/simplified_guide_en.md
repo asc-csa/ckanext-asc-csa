@@ -2,7 +2,7 @@
 
 ## Minimum System Requirements
 
-- Ubuntu 22.04 LTS
+- Ubuntu 24.04 LTS
 - Solr 9.x
 - Python 3.11 or later
 - PostgreSQL 17.6 or later (with PostGIS extension)
