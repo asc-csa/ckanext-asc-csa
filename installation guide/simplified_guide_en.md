@@ -27,6 +27,11 @@ sudo apt install -y python3.12 python3.12-venv python3.12-dev \
 
 Ubuntu 24.04 does not include PostgreSQL 17 by default. Add the official PostgreSQL repository:
 
+### 2. Install Java
+sudo apt update
+sudo apt install default-jdk
+java -version
+
 ```bash
 sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
