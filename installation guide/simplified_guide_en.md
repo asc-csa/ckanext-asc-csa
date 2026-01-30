@@ -4,7 +4,7 @@
 
 - Ubuntu 24.04 LTS
 - Solr 9.x
-- Python 3.11 or later
+- Python 3.12 or later
 - PostgreSQL 17.6 or later (with PostGIS extension)
 - Redis 6.x or later
 - Git
@@ -18,7 +18,7 @@
 
 ```bash
 sudo apt update
-sudo apt install -y python3.11 python3.11-venv python3.11-dev \
+sudo apt install -y python3.12 python3.12-venv python3.12-dev \
     build-essential libxml2-dev libxslt1-dev zlib1g-dev \
     libffi-dev libpq-dev git redis-server \
     libgeos-dev proj-bin libproj-dev
@@ -78,7 +78,7 @@ sudo chown -R $USER:$USER /usr/lib/ckan /etc/ckan /var/lib/ckan
 ### 2. Create Virtual Environment
 
 ```bash
-python3.11 -m venv /usr/lib/ckan/default
+python3.12 -m venv /usr/lib/ckan/default
 source /usr/lib/ckan/default/bin/activate
 pip install --upgrade pip setuptools wheel
 ```
