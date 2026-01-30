@@ -140,9 +140,9 @@ ckan.redis.url = redis://localhost:6379/0
 ## Plugins
 ckan.plugins = stats text_view image_view webpage_view recline_view
                fluent scheming_datasets scheming_organizations scheming_groups
-               pdfview geo_view geojson_view wmts_view shp_view
+               pdf_view geo_view geojson_view wmts_view shp_view
                xloader spatial_metadata spatial_query
-               officedocs bulk similar_datasets csa
+               officedocs_view bulk similar_datasets csa
 
 ## Scheming Configuration
 scheming.dataset_schemas = ckanext.csa:csa_dataset.yaml
