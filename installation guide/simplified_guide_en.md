@@ -64,6 +64,7 @@ In the PostgreSQL shell:
 CREATE USER ckan_default WITH PASSWORD 'your_password_here';
 CREATE DATABASE ckan_default OWNER ckan_default ENCODING 'UTF8';
 \c ckan_default
+GRANT ALL PRIVILEGES ON DATABASE ckan_default TO ckan_default;
 CREATE EXTENSION postgis;
 CREATE EXTENSION postgis_topology;
 \q
