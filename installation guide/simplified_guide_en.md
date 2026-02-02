@@ -123,7 +123,7 @@ Edit `/etc/ckan/default/ckan.ini` and update the following settings:
 
 ```ini
 ## Database Settings
-sqlalchemy.url = postgresql://ckan_default:your_password_here@localhost/ckan_default
+sqlalchemy.url = postgresql://ckan_default:your_password_here@localhost:5432/ckan_default
 
 ## Site Settings
 ckan.site_url = http://localhost:5000
