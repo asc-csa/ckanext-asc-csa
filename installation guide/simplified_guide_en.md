@@ -213,7 +213,7 @@ source /usr/lib/ckan/default/bin/activate
 ckan -c /etc/ckan/default/ckan.ini run
 ```
 
-The portal will be available at `http://localhost:5000`
+The portal will be available at `http://localhost:5000`. There are no datasets at this point.
 
 ### Background Jobs (XLoader)
 
