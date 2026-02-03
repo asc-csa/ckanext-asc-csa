@@ -258,6 +258,8 @@ Verify PostgreSQL is running and accepting connections:
 
 ```bash
 sudo systemctl status postgresql
+psql -U ckan_default -d ckan_default -c "SELECT 1;"
+OR
 psql -h localhost -U ckan_default -d ckan_default -c "SELECT 1;"
 ```
 
