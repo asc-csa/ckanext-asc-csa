@@ -186,7 +186,7 @@ Restart Solr to apply changes:
 sudo systemctl restart solr
 ```
 
-### 4. Initialize the Database
+### 4. Initialize the CKAN Database
 
 ```bash
 source /usr/lib/ckan/default/bin/activate
