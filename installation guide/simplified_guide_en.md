@@ -23,16 +23,14 @@ sudo apt install -y python3.12 python3.12-venv python3.12-dev \
     libffi-dev libpq-dev git redis-server \
     libgeos-dev proj-bin libproj-dev
 
-### 2. Install PostgreSQL 17
-
-Ubuntu 24.04 does not include PostgreSQL 17 by default. Add the official PostgreSQL repository:
-
-### 3. Install Java
+### Install Java
 sudo apt update
 sudo apt install default-jdk
 java -version
+```
+### 2. Install PostgreSQL 17
 
-### 4. Prepare PostgreSQL
+Ubuntu 24.04 does not include PostgreSQL 17 by default. Add the official PostgreSQL repository:
 ```bash
 sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
@@ -109,7 +107,7 @@ pip install -e .
 ```
 
 
-## Configuration
+## CKAN Configuration
 
 ### 1. Generate CKAN Configuration File
 
