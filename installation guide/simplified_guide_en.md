@@ -38,19 +38,7 @@ sudo apt update
 sudo apt install -y postgresql-17 postgresql-17-postgis-3
 ```
 
-### 3. Install Solr 9
-
-```bash
-cd /opt
-sudo wget https://archive.apache.org/dist/solr/solr/9.4.0/solr-9.4.0.tgz
-sudo tar xzf solr-9.4.0.tgz
-sudo solr-9.4.0/bin/install_solr_service.sh solr-9.4.0.tgz
-```
-
-
-## Database Setup
-
-### 1. Create PostgreSQL User and Database
+### 3. Create PostgreSQL User and Database
 
 ```bash
 sudo -u postgres psql
@@ -66,6 +54,16 @@ GRANT ALL PRIVILEGES ON DATABASE ckan_default TO ckan_default;
 CREATE EXTENSION postgis;
 CREATE EXTENSION postgis_topology;
 \q
+```
+
+
+## Solr 9 Installation
+
+```bash
+cd /opt
+sudo wget https://archive.apache.org/dist/solr/solr/9.4.0/solr-9.4.0.tgz
+sudo tar xzf solr-9.4.0.tgz
+sudo solr-9.4.0/bin/install_solr_service.sh solr-9.4.0.tgz
 ```
 
 
