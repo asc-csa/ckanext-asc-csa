@@ -7,7 +7,6 @@
 {% set form_id = form_id if form_id else false %}
 
 <form {% if form_id %}id="{{ form_id }}" {% endif %}class="search-form{% if no_bottom_border %} no-bottom-border{% endif %}" method="get" data-module="select-switch">
-
   {% block search_input %}
     <div class="input-group search-input-group">
       <label for="field-giant-search" class='wb-inv'>{{ _('Search the list of datasets')}} </label>
@@ -41,7 +40,7 @@
           {% endfor %}
         </select>
           {% block search_sortby_button %}
-            <button class="btn btn-default" type="submit" name="submit">{{ _('Sort') }}</button>
+            <button class="btn btn-default" type="submit">{{ _('Sort') }}</button>
           {% endblock %}
         </div>
 
