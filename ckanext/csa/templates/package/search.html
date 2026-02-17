@@ -6,8 +6,14 @@
   {% if not pkg %}
     {%if h.lang()=='en'%}
       <h1>Open data and information Portal</h1>
+	  {%- block maintenance_en %}
+        {% include "package/maintenance-en.html" %}
+      {% endblock -%}
     {%else%}
       <h1>Portail de données et information ouvertes</h1>
+	  {%- block maintenance_fr %}
+        {% include "package/maintenance-en.html" %}
+      {% endblock -%}
     {%endif%}
   {% endif %}
 {% endblock %}
