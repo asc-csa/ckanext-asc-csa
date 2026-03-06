@@ -4,6 +4,20 @@
 {% set url_action = 'edit' if url_is_edit and can_edit else 'read' %}
 {% set url = h.url_for(controller='dataset_resource', action=url_action, id=pkg.name, resource_id=res.id) %}
 
+{# When used in the reorder context, fall back to vanilla markup that the JS expects #}
+{% if url_is_edit %}
+<li class="resource-item" data-id="{{ res.id }}">
+  <a class="heading" href="{{ url }}" title="{{ res.name or res.description }}">
+    {{ h.resource_display_name(res) | truncate(50) }}<span class="format-label" property="dc:format" data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span>
+  </a>
+  <p class="description">
+    {% if res.description %}
+      {{ h.markdown_extract(h.get_translated(res, 'description'), extract_length=80) }}
+    {% endif %}
+  </p>
+</li>
+{% else %}
+
 {# Previous variables from Open Maps, delete if no issue #}
 
 {% set schema = h.scheming_get_dataset_schema(pkg.type) %}
@@ -85,4 +99,5 @@
     {% endif %}
   </td>
 </tr>
+{% endif %}
 <!--template/package/snippets/resource_item.html end-->
