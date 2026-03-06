@@ -1,0 +1,123 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Search Tips') }}{% endblock %}
+
+{% block secondary %}{% endblock %}
+
+{% block primary %}
+  <article class="module">
+    <div class="module-content">
+    {% if h.lang() == 'fr' %}
+
+    <h1>Astuces de recherche</h1>
+    <p>La fonction de recherche du portail utilise des <strong>opérateurs booléens</strong> &mdash; des mots ou symboles spéciaux qui élargissent ou affinent les paramètres de recherche.</p>
+
+    <table class="table table-striped">
+      <caption class="wb-inv">Opérateurs booléens</caption>
+      <thead>
+        <tr>
+          <th scope="col">Opérateur</th>
+          <th scope="col">Objectif</th>
+          <th scope="col">Exemple</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>ET</strong></td>
+          <td>Retourne des résultats contenant tous les mots-clés spécifiés</td>
+          <td><code>Eau ET Air</code></td>
+        </tr>
+        <tr>
+          <td><strong>OU</strong></td>
+          <td>Retourne des résultats contenant au moins un des mots-clés</td>
+          <td><code>Eau OU Air</code></td>
+        </tr>
+        <tr>
+          <td><strong>PAS</strong></td>
+          <td>Exclut certains termes des résultats</td>
+          <td><code>Eau PAS Mer</code></td>
+        </tr>
+        <tr>
+          <td><strong>Guillemets ""</strong></td>
+          <td>Recherche des expressions exactes</td>
+          <td><code>"Objectifs de qualité de l'eau"</code></td>
+        </tr>
+        <tr>
+          <td><strong>Parenthèses ()</strong></td>
+          <td>Regroupe les termes et établit l'ordre de priorité</td>
+          <td><code>Qualité ET (eau OU air)</code></td>
+        </tr>
+        <tr>
+          <td><strong>Astérisque *</strong></td>
+          <td>Trouve des variations de mots (fin de mot seulement)</td>
+          <td><code>Financ*</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Notes importantes</h2>
+    <ul>
+      <li>Tous les opérateurs sont <strong>sensibles à la casse et doivent être en majuscules</strong>.</li>
+      <li>La fonction de recherche inclut automatiquement certains mots apparentés &mdash; par exemple, la recherche de « court » peut retourner des résultats contenant « courir » et « courts ».</li>
+      <li>L'astérisque ne fonctionne que lorsqu'il est placé à la fin d'un mot.</li>
+    </ul>
+
+    {% else %}
+
+    <h1>Search Tips</h1>
+    <p>The portal search function utilizes <strong>Boolean Operators</strong> &mdash; special words or symbols that expand or narrow search parameters.</p>
+
+    <table class="table table-striped">
+      <caption class="wb-inv">Boolean Operators</caption>
+      <thead>
+        <tr>
+          <th scope="col">Operator</th>
+          <th scope="col">Purpose</th>
+          <th scope="col">Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>AND</strong></td>
+          <td>Returns results containing all specified keywords</td>
+          <td><code>Water AND Air</code></td>
+        </tr>
+        <tr>
+          <td><strong>OR</strong></td>
+          <td>Returns results containing at least one keyword</td>
+          <td><code>Water OR Air</code></td>
+        </tr>
+        <tr>
+          <td><strong>NOT</strong></td>
+          <td>Excludes specific terms from results</td>
+          <td><code>Water NOT Sea</code></td>
+        </tr>
+        <tr>
+          <td><strong>Quotation marks ""</strong></td>
+          <td>Finds exact phrases or precise keywords</td>
+          <td><code>"Water Quality Objectives"</code></td>
+        </tr>
+        <tr>
+          <td><strong>Parentheses ()</strong></td>
+          <td>Groups terms and controls search order</td>
+          <td><code>Quality AND (water OR air)</code></td>
+        </tr>
+        <tr>
+          <td><strong>Asterisk *</strong></td>
+          <td>Matches keyword variations (end of word only)</td>
+          <td><code>Financ*</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Important Notes</h2>
+    <ul>
+      <li>All operators are <strong>case-sensitive and must be capitalized</strong>.</li>
+      <li>The search function automatically includes some related words &mdash; for instance, searching "run" may retrieve results containing "running" and "runs".</li>
+      <li>The asterisk wildcard only works when placed at the end of a word.</li>
+    </ul>
+
+    {% endif %}
+    </div>
+  </article>
+{% endblock %}

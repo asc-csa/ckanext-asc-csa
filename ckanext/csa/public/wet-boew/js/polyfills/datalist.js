@@ -38,7 +38,7 @@ var componentName = "wb-datalist",
 			input.setAttribute( "aria-haspopup", "true" );
 			input.setAttribute( "aria-autocomplete", "list" );
 			input.setAttribute( "aria-owns", "wb-al-" + input.id );
-			input.setAttribute( "aria-activedescendent", "" );
+			input.setAttribute( "aria-activedescendant", "" );
 
 			populateOptions( input );
 
@@ -119,7 +119,7 @@ var componentName = "wb-datalist",
 		autolist.innerHTML = "";
 		autolist.setAttribute( "aria-hidden", "true" );
 		input.setAttribute( "aria-expanded", "false" );
-		input.setAttribute( "aria-activedescendent", "" );
+		input.setAttribute( "aria-activedescendant", "" );
 	},
 
 	/**
@@ -170,7 +170,7 @@ var componentName = "wb-datalist",
 				}
 
 			// Up / down arrow
-			} else if ( ( which === 38 || which === 40 ) && input.getAttribute( "aria-activedescendent" ) === "" ) {
+			} else if ( ( which === 38 || which === 40 ) && input.getAttribute( "aria-activedescendant" ) === "" ) {
 				if ( autolistHidden ) {
 					showOptions( input );
 				}
@@ -178,7 +178,7 @@ var componentName = "wb-datalist",
 				options = autolist.getElementsByTagName( "a" );
 				dest = options[ ( which === 38 ? options.length - 1 : 0 ) ];
 
-				input.setAttribute( "aria-activedescendent", dest.parentNode.getAttribute( "id" ) );
+				input.setAttribute( "aria-activedescendant", dest.parentNode.getAttribute( "id" ) );
 
 				// Assign focus to dest
 				$( dest ).trigger( setFocusEvent );
@@ -280,7 +280,7 @@ var componentName = "wb-datalist",
 				}
 				dest = dest.getElementsByTagName( "a" )[ 0 ];
 
-				input.setAttribute( "aria-activedescendent", dest.parentNode.getAttribute( "id" ) );
+				input.setAttribute( "aria-activedescendant", dest.parentNode.getAttribute( "id" ) );
 				$( dest ).trigger( setFocusEvent );
 
 				return false;
@@ -318,46 +318,44 @@ var componentName = "wb-datalist",
 	};
 
 // Bind the init event of the plugin
-$document.on( "timerpoke.wb " + initEvent + " " + updateEvent + " keydown click vclick touchstart", selector, function( event ) {
+$document.on( "timerpoke.wb " + initEvent + " " + updateEvent + " keydown click", selector, function( event ) {
 	var input = event.target,
 		eventType = event.type,
 		which = event.which,
 		autolist;
 
 	switch ( eventType ) {
-	case "timerpoke":
-	case "wb-init":
-		init( event );
-		break;
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
 
-	case "wb-update":
-		if ( event.namespace === componentName ) {
-			populateOptions( event.target );
-		}
-		break;
+		case "wb-update":
+			if ( event.namespace === componentName ) {
+				populateOptions( event.target );
+			}
+			break;
 
-	case "keydown":
-		if ( !( event.ctrlKey || event.metaKey ) ) {
-			return keyboardHandlerInput( which, event );
-		}
-		break;
+		case "keydown":
+			if ( !( event.ctrlKey || event.metaKey ) ) {
+				return keyboardHandlerInput( which, event );
+			}
+			break;
 
-	case "click":
-	case "vclick":
-	case "touchstart":
+		case "click":
 
-		if ( initialized ) {
+			if ( initialized ) {
 
-			// Ignore middle/right mouse buttons
-			if ( !which || which === 1 ) {
-				autolist = input.nextSibling.firstChild;
-				if ( autolist.className.indexOf( "hide" ) === -1 ) {
-					closeOptions( input );
-				} else {
-					showOptions( input, input.value );
+				// Ignore middle/right mouse buttons
+				if ( !which || which === 1 ) {
+					autolist = input.nextSibling.firstChild;
+					if ( autolist.className.indexOf( "hide" ) === -1 ) {
+						closeOptions( input );
+					} else {
+						showOptions( input, input.value );
+					}
 				}
 			}
-		}
 	}
 
 	/*
@@ -367,26 +365,24 @@ $document.on( "timerpoke.wb " + initEvent + " " + updateEvent + " keydown click 
 	return true;
 } );
 
-$document.on( "keydown click vclick touchstart", ".wb-al a, .wb-al span", function( event ) {
+$document.on( "keydown click", ".wb-al a, .wb-al span", function( event ) {
 	var link = event.target,
 		eventType = event.type,
 		which = event.which;
 
 	switch ( eventType ) {
-	case "keydown":
-		if ( !( event.ctrlKey || event.metaKey ) ) {
-			return keyboardHandlerAutolist( which, link );
-		}
-		break;
-	case "click":
-	case "vclick":
-	case "touchstart":
+		case "keydown":
+			if ( !( event.ctrlKey || event.metaKey ) ) {
+				return keyboardHandlerAutolist( which, link );
+			}
+			break;
+		case "click":
 
-		// Ignore middle/right mouse buttons
-		if ( !which || which === 1 ) {
-			return clickHandlerAutolist( link );
-		}
-		break;
+			// Ignore middle/right mouse buttons
+			if ( !which || which === 1 ) {
+				return clickHandlerAutolist( link );
+			}
+			break;
 	}
 } );
 

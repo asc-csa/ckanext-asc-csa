@@ -68,7 +68,15 @@
     margin: 0;
 }
 
-/* The WET framework v9.2.0 has a rule to break all anchors, which messes with link button styling. */
+/* The WET/GCWeb theme has word-break rules that can mess with link button styling. */
 a.btn {
     word-break: normal;
+}
+
+/* GCWeb v17 increased .panel-title to match h3 (1.8125rem / 29px).
+   Restore a compact size for sidebar facet panels and CKAN modules. */
+.secondary .panel-title,
+.module-narrow .panel-title,
+.module-shallow .panel-title {
+    font-size: 16px;
 }

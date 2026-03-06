@@ -96,7 +96,7 @@ var componentName = "wb-tableparser",
 		+-------+---------------+------------------------------
 		|	5	| Description	| TD element applicable to left or top TH
 		+-------+---------------+------------------------------
-		|	6	| Layout		| Can be only: Top Left cell or/and Summmary group intersection
+		|	6	| Layout		| Can be only: Top Left cell or/and Summary group intersection
 		+-------+---------------+------------------------------
 		|	7	| Header Group	| TH element only, visual heading grouping, this type are an extension of the type 1
 		+-------+---------------+------------------------------
@@ -1267,88 +1267,88 @@ var componentName = "wb-tableparser",
 
 				switch ( this.nodeName.toLowerCase() ) {
 
-				// cell header
-				case "th":
+					// cell header
+					case "th":
 
-					// Check for spanned cell between cells
-					fnParseSpannedRowCell();
+						// Check for spanned cell between cells
+						fnParseSpannedRowCell();
 
-					headerCell = {
-						rowpos: currentRowPos,
-						colpos: columnPos,
-						width: width,
-						height: height,
-						data: [],
-						summary: [],
-						elem: this
-					};
+						headerCell = {
+							rowpos: currentRowPos,
+							colpos: columnPos,
+							width: width,
+							height: height,
+							data: [],
+							summary: [],
+							elem: this
+						};
 
-					$this.data().tblparser = headerCell;
-					headerCell.groupZero = groupZero;
+						$this.data().tblparser = headerCell;
+						headerCell.groupZero = groupZero;
 
-					headerCell.uid = uidElem;
-					uidElem += 1;
-					groupZero.allParserObj.push( headerCell );
+						headerCell.uid = uidElem;
+						uidElem += 1;
+						groupZero.allParserObj.push( headerCell );
 
-					fnPreProcessGroupHeaderCell( headerCell );
+						fnPreProcessGroupHeaderCell( headerCell );
 
-					headerCell.parent = colgroup;
+						headerCell.parent = colgroup;
 
-					headerCell.spanHeight = height - 1;
+						headerCell.spanHeight = height - 1;
 
-					for ( i = 0; i < width; i += 1 ) {
-						row.cell.push( headerCell );
-						spannedRow[ columnPos + i ] = headerCell;
-					}
+						for ( i = 0; i < width; i += 1 ) {
+							row.cell.push( headerCell );
+							spannedRow[ columnPos + i ] = headerCell;
+						}
 
-					// Increment the column position
-					columnPos += headerCell.width;
+						// Increment the column position
+						columnPos += headerCell.width;
 
-					break;
+						break;
 
-				// data cell
-				case "td":
+					// data cell
+					case "td":
 
-					// Check for spanned cell between cells
-					fnParseSpannedRowCell();
+						// Check for spanned cell between cells
+						fnParseSpannedRowCell();
 
-					dataCell = {
-						rowpos: currentRowPos,
-						colpos: columnPos,
-						width: width,
-						height: height,
-						elem: this
-					};
+						dataCell = {
+							rowpos: currentRowPos,
+							colpos: columnPos,
+							width: width,
+							height: height,
+							elem: this
+						};
 
-					$this.data().tblparser = dataCell;
-					dataCell.groupZero = groupZero;
+						$this.data().tblparser = dataCell;
+						dataCell.groupZero = groupZero;
 
-					dataCell.uid = uidElem;
-					uidElem += 1;
-					groupZero.allParserObj.push( dataCell );
+						dataCell.uid = uidElem;
+						uidElem += 1;
+						groupZero.allParserObj.push( dataCell );
 
-					fnPreProcessGroupDataCell( dataCell );
+						fnPreProcessGroupDataCell( dataCell );
 
-					dataCell.parent = colgroup;
+						dataCell.parent = colgroup;
 
-					dataCell.spanHeight = height - 1;
+						dataCell.spanHeight = height - 1;
 
-					for ( i = 0; i < width; i += 1 ) {
-						row.cell.push( dataCell );
-						spannedRow[ columnPos + i ] = dataCell;
-					}
+						for ( i = 0; i < width; i += 1 ) {
+							row.cell.push( dataCell );
+							spannedRow[ columnPos + i ] = dataCell;
+						}
 
-					// Increment the column position
-					columnPos += dataCell.width;
+						// Increment the column position
+						columnPos += dataCell.width;
 
-					break;
-				default:
-					$obj.trigger( {
-						type: warningEvent,
-						pointer: this,
-						err: 15
-					} );
-					break;
+						break;
+					default:
+						$obj.trigger( {
+							type: warningEvent,
+							pointer: this,
+							err: 15
+						} );
+						break;
 				}
 
 				lastCellType = this.nodeName.toLowerCase();
@@ -1383,7 +1383,7 @@ var componentName = "wb-tableparser",
 			row.colgroup.push( colgroup );
 
 			//
-			// Diggest the row
+			// Digest the row
 			//
 			if ( lastCellType === "th" ) {
 
@@ -1484,10 +1484,10 @@ var componentName = "wb-tableparser",
 				// This mark the end of any row group header (thead)
 				headerRowGroupCompleted = true;
 
-				// Check if this row is considerated as a description row for a header
+				// Check if this row is considered as a description row for a header
 				if ( rowgroupHeaderRowStack.length > 0 && row.cell[ 0 ].uid === row.cell[ row.cell.length - 1 ].uid ) {
 
-					// Horay this row are a description cell for the preceding heading
+					// Hooray this row are a description cell for the preceding heading
 
 					row.type = 5;
 					row.cell[ 0 ].type = 5;
@@ -1690,7 +1690,7 @@ var componentName = "wb-tableparser",
 									headingRowCell.push( row.cell[ i ] );
 								} else {
 
-									// This case are either paralel heading of growing header, this are an error.
+									// This case are either parallel heading of growing header, this are an error.
 									$obj.trigger( {
 										type: warningEvent,
 										pointer: $obj,
@@ -1912,17 +1912,17 @@ var componentName = "wb-tableparser",
 					currCell = currRow.cell[ j ];
 
 					if ( ( currCell.type === 1 || currCell.type === 7 ) && (
-							!( j > 0 && currCell.uid === currRow.cell[ j - 1 ].uid ) &&
+						!( j > 0 && currCell.uid === currRow.cell[ j - 1 ].uid ) &&
 							!( i > 0 && currCell.uid === tblparser.theadRowStack[ i - 1 ].cell[ j ].uid )
-						) ) {
+					) ) {
 
-						// Imediate header
+						// Immediate header
 						currCell.header = currCell.header || [];
 
 						// all the headers
 						currCell.headers = currCell.headers || [];
 
-						// Imediate sub cell
+						// Immediate sub cell
 						currCell.child = currCell.child || [];
 
 						// All the sub cell
@@ -1937,7 +1937,7 @@ var componentName = "wb-tableparser",
 								tblparser.theadRowStack[ i - 1 ].cell[ j ].header[ k ].childs.push( currCell );
 							}
 
-							// Imediate header cell
+							// Immediate header cell
 							currCell.headers.push( tblparser.theadRowStack[ i - 1 ].cell[ j ] );
 							currCell.header.push( tblparser.theadRowStack[ i - 1 ].cell[ j ] );
 							tblparser.theadRowStack[ i - 1 ].cell[ j ].child.push( currCell );
@@ -1983,7 +1983,7 @@ var componentName = "wb-tableparser",
 						currCell = currRow.cell[ j ];
 						coldataheader = [];
 
-						// Imediate header
+						// Immediate header
 						currCell.header = currCell.header || [];
 
 						// all the headers
@@ -2018,7 +2018,7 @@ var componentName = "wb-tableparser",
 
 						if ( currCell.type === 1 ) {
 
-							// Imediate sub cell
+							// Immediate sub cell
 							currCell.child = currCell.child || [];
 
 							// All the sub cell
@@ -2127,7 +2127,7 @@ var componentName = "wb-tableparser",
 
 				stackRowHeader = false;
 
-				// Here it"s not possible to Diggest the thead and the colgroup because we need the first data row to be half processed before
+				// Here it"s not possible to Digest the thead and the colgroup because we need the first data row to be half processed before
 			} else if ( nodeName === "tbody" || nodeName === "tfoot" ) {
 
 				if ( nodeName === "tfoot" ) {

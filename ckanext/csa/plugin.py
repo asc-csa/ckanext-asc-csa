@@ -230,6 +230,13 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             """
             return tk.render("content/api.html")
 
+        @bp.route("/search-tips")
+        def search_tips():
+            """
+            Renders the search tips page.
+            """
+            return tk.render("content/search_tips.html")
+
         return bp
 
     # IValidators

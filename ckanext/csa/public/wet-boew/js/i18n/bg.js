@@ -88,12 +88,15 @@ wb.i18nDict = {
 		on: "Покажи Затворени надписи"
 	},
 	"cc-err": "Грешка при зареждане на затворени надписи",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Активиране на аудио описание",
 		off: "Изключване на аудио описание"
 	},
 	pos: "Позиция:",
 	dur: "Общо време:",
+	msgYoutubeNotLoad: "Video encountered loading issues",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Споделете",
@@ -184,6 +187,14 @@ wb.i18nDict = {
 	info1000: ",",
 	lenMenu: "Покажи _MENU_ вписвания",
 	filter: "Филтриране на елементи",
+	tbFilterInst: "This table provides a sorting feature via the buttons across the column header row with only one instance visible at a time.",
+
+	/* Twitter embedded timeline */
+	"twitter-start-notice": "Start of @%username%’s X timeline",
+	"twitter-end-notice": "End of @%username%’s X timeline",
+	"twitter-skip-end": "Skip to end of @%username%’s X timeline",
+	"twitter-skip-start": "Skip to start of @%username%’s X timeline",
+	"twitter-timeline-title": "X timeline",
 
 	/* Geomap */
 	"geo-mapctrl": "@geo-mapctrl@",
@@ -227,6 +238,7 @@ wb.i18nDict = {
 	"wb-enable": "Switch to standard version",
 	"disable-notice-h": "Notice: Basic HTML",
 	"disable-notice": "You are viewing Basic HTML view. Some features may be disabled.",
+	"skip-prefix": "Skip to:",
 
 	/* Dismissable content */
 	"dismiss": "Dismiss",
@@ -236,7 +248,23 @@ wb.i18nDict = {
 
 	/* Filter */
 	"fltr-lbl": "Filter<span class=\"wb-inv\"> content: results appear below as you type.</span>",
-	"fltr-info": "Showing _NBITEM_ filtered from _TOTAL_ total entries"
+	"fltr-info": "Showing <span data-nbitem></span> filtered from <span data-total></span> total entries",
+
+	/* Data scrub */
+	"pii-header": "Remove Personal information",
+	"pii-intro": "Some information in your form is identified as personal information and it will be replaced as follows:",
+	"pii-view-more": "What is considered personal information?",
+	"pii-view-more-info": "<p>The following types of information are considered personal information:</p><ul><li>email address</li><li>telephone number</li><li>postal code</li><li>passport number</li><li>business number</li><li>social insurance number (SIN)</li></ul>",
+	"pii-yes-btn": "Remove personal information and submit",
+	"pii-cancel-btn": "Go back and edit fields",
+	"redacted": "redacted",
+
+	/* Steps form */
+	"rel-preposition": " of ",
+	"progress-label": "Questionnaire progress:",
+
+	/* Pagination */
+	"pagination-label": "Pagination"
 };
 
 } )( wb );
@@ -268,7 +296,7 @@ $.extend( $.validator.messages, {
 	creditcard: "Моля, въведете валиден номер на кредитна карта.",
 	equalTo: "Моля, въведете същата стойност отново.",
 	extension: "Моля, въведете стойност с валидно разширение.",
-	maxlength: $.validator.format( "Моля, въведете повече от {0} символа." ),
+	maxlength: $.validator.format( "Моля, въведете не повече от {0} символа." ),
 	minlength: $.validator.format( "Моля, въведете поне {0} символа." ),
 	rangelength: $.validator.format( "Моля, въведете стойност с дължина между {0} и {1} символа." ),
 	range: $.validator.format( "Моля, въведете стойност между {0} и {1}." ),

@@ -88,12 +88,15 @@ wb.i18nDict = {
 		on: "Zeige Untertitelung"
 	},
 	"cc-err": "Fehler beim Laden Untertiteln",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Aktivieren Sie Audio-Beschreibung",
 		off: "Deaktivieren Sie Audio-Beschreibung"
 	},
 	pos: "Aktuelle Position:",
 	dur: "Insgesamt benötigte Zeit",
+	msgYoutubeNotLoad: "Video encountered loading issues",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Teilen",
@@ -184,6 +187,14 @@ wb.i18nDict = {
 	info1000: "&#160;",
 	lenMenu: "Zeige _MENU_ Einträge",
 	filter: "Filter Artikel",
+	tbFilterInst: "This table provides a sorting feature via the buttons across the column header row with only one instance visible at a time.",
+
+	/* Twitter embedded timeline */
+	"twitter-start-notice": "Start of @%username%’s X timeline",
+	"twitter-end-notice": "End of @%username%’s X timeline",
+	"twitter-skip-end": "Skip to end of @%username%’s X timeline",
+	"twitter-skip-start": "Skip to start of @%username%’s X timeline",
+	"twitter-timeline-title": "X timeline",
 
 	/* Geomap */
 	"geo-mapctrl": "@geo-mapctrl@",
@@ -227,6 +238,7 @@ wb.i18nDict = {
 	"wb-enable": "Switch to standard version",
 	"disable-notice-h": "Notice: Basic HTML",
 	"disable-notice": "You are viewing Basic HTML view. Some features may be disabled.",
+	"skip-prefix": "Skip to:",
 
 	/* Dismissable content */
 	"dismiss": "Dismiss",
@@ -236,7 +248,23 @@ wb.i18nDict = {
 
 	/* Filter */
 	"fltr-lbl": "Filter<span class=\"wb-inv\"> content: results appear below as you type.</span>",
-	"fltr-info": "Showing _NBITEM_ filtered from _TOTAL_ total entries"
+	"fltr-info": "Showing <span data-nbitem></span> filtered from <span data-total></span> total entries",
+
+	/* Data scrub */
+	"pii-header": "Remove Personal information",
+	"pii-intro": "Some information in your form is identified as personal information and it will be replaced as follows:",
+	"pii-view-more": "What is considered personal information?",
+	"pii-view-more-info": "<p>The following types of information are considered personal information:</p><ul><li>email address</li><li>telephone number</li><li>postal code</li><li>passport number</li><li>business number</li><li>social insurance number (SIN)</li></ul>",
+	"pii-yes-btn": "Remove personal information and submit",
+	"pii-cancel-btn": "Go back and edit fields",
+	"redacted": "redacted",
+
+	/* Steps form */
+	"rel-preposition": " of ",
+	"progress-label": "Questionnaire progress:",
+
+	/* Pagination */
+	"pagination-label": "Pagination"
 };
 
 } )( wb );
@@ -261,16 +289,66 @@ $.extend( $.validator.messages, {
 	maxlength: $.validator.format( "Geben Sie bitte maximal {0} Zeichen ein." ),
 	minlength: $.validator.format( "Geben Sie bitte mindestens {0} Zeichen ein." ),
 	rangelength: $.validator.format( "Geben Sie bitte mindestens {0} und maximal {1} Zeichen ein." ),
-	email: "Geben Sie bitte eine gültige E-Mail Adresse ein.",
+	email: "Geben Sie bitte eine gültige E-Mail-Adresse ein.",
 	url: "Geben Sie bitte eine gültige URL ein.",
-	date: "Bitte geben Sie ein gültiges Datum ein.",
+	date: "Geben Sie bitte ein gültiges Datum ein.",
 	number: "Geben Sie bitte eine Nummer ein.",
 	digits: "Geben Sie bitte nur Ziffern ein.",
-	equalTo: "Bitte denselben Wert wiederholen.",
+	equalTo: "Wiederholen Sie bitte denselben Wert.",
 	range: $.validator.format( "Geben Sie bitte einen Wert zwischen {0} und {1} ein." ),
 	max: $.validator.format( "Geben Sie bitte einen Wert kleiner oder gleich {0} ein." ),
 	min: $.validator.format( "Geben Sie bitte einen Wert größer oder gleich {0} ein." ),
-	creditcard: "Geben Sie bitte eine gültige Kreditkarten-Nummer ein."
+	creditcard: "Geben Sie bitte eine gültige Kreditkarten-Nummer ein.",
+	remote: "Korrigieren Sie bitte dieses Feld.",
+	dateISO: "Geben Sie bitte ein gültiges Datum ein (ISO-Format).",
+	step: $.validator.format( "Geben Sie bitte ein Vielfaches von {0} ein." ),
+	maxWords: $.validator.format( "Geben Sie bitte {0} Wörter oder weniger ein." ),
+	minWords: $.validator.format( "Geben Sie bitte mindestens {0} Wörter ein." ),
+	rangeWords: $.validator.format( "Geben Sie bitte zwischen {0} und {1} Wörtern ein." ),
+	accept: "Geben Sie bitte einen Wert mit einem gültigen MIME-Typ ein.",
+	alphanumeric: "Geben Sie bitte nur Buchstaben (keine Umlaute), Zahlen oder Unterstriche ein.",
+	bankaccountNL: "Geben Sie bitte eine gültige Kontonummer ein.",
+	bankorgiroaccountNL: "Geben Sie bitte eine gültige Bank- oder Girokontonummer ein.",
+	bic: "Geben Sie bitte einen gültigen BIC-Code ein.",
+	cifES: "Geben Sie bitte eine gültige CIF-Nummer ein.",
+	cpfBR: "Geben Sie bitte eine gültige CPF-Nummer ein.",
+	creditcardtypes: "Geben Sie bitte eine gültige Kreditkarten-Nummer ein.",
+	currency: "Geben Sie bitte eine gültige Währung ein.",
+	extension: "Geben Sie bitte einen Wert mit einer gültigen Erweiterung ein.",
+	giroaccountNL: "Geben Sie bitte eine gültige Girokontonummer ein.",
+	iban: "Geben Sie bitte eine gültige IBAN ein.",
+	integer:  "Geben Sie bitte eine positive oder negative Nicht-Dezimalzahl ein.",
+	ipv4: "Geben Sie bitte eine gültige IPv4-Adresse ein.",
+	ipv6: "Geben Sie bitte eine gültige IPv6-Adresse ein.",
+	lettersonly: "Geben Sie bitte nur Buchstaben ein.",
+	letterswithbasicpunc: "Geben Sie bitte nur Buchstaben oder Interpunktion ein.",
+	mobileNL: "Geben Sie bitte eine gültige Handynummer ein.",
+	mobileUK: "Geben Sie bitte eine gültige Handynummer ein.",
+	netmask:  "Geben Sie bitte eine gültige Netzmaske ein.",
+	nieES: "Geben Sie bitte eine gültige NIE-Nummer ein.",
+	nifES: "Geben Sie bitte eine gültige NIF-Nummer ein.",
+	nipPL: "Geben Sie bitte eine gültige NIP-Nummer ein.",
+	notEqualTo: "Geben Sie bitte einen anderen Wert ein. Die Werte dürfen nicht gleich sein.",
+	nowhitespace: "Kein Leerzeichen bitte.",
+	pattern: "Ungültiges Format.",
+	phoneNL: "Geben Sie bitte eine gültige Telefonnummer ein.",
+	phonesUK: "Geben Sie bitte eine gültige britische Telefonnummer ein.",
+	phoneUK: "Geben Sie bitte eine gültige Telefonnummer ein.",
+	phoneUS: "Geben Sie bitte eine gültige Telefonnummer ein.",
+	postalcodeBR: "Geben Sie bitte eine gültige brasilianische Postleitzahl ein.",
+	postalCodeCA: "Geben Sie bitte eine gültige kanadische Postleitzahl ein.",
+	postalcodeIT: "Geben Sie bitte eine gültige italienische Postleitzahl ein.",
+	postalcodeNL: "Geben Sie bitte eine gültige niederländische Postleitzahl ein.",
+	postcodeUK: "Geben Sie bitte eine gültige britische Postleitzahl ein.",
+	require_from_group: $.validator.format( "Füllen Sie bitte mindestens {0} dieser Felder aus." ),
+	skip_or_fill_minimum: $.validator.format( "Überspringen Sie bitte diese Felder oder füllen Sie mindestens {0} von ihnen aus." ),
+	stateUS: "Geben Sie bitte einen gültigen US-Bundesstaat ein.",
+	strippedminlength: $.validator.format( "Geben Sie bitte mindestens {0} Zeichen ein." ),
+	time: "Geben Sie bitte eine gültige Uhrzeit zwischen 00:00 und 23:59 ein.",
+	time12h: "Geben Sie bitte eine gültige Uhrzeit im 12-Stunden-Format ein.",
+	vinUS: "Die angegebene Fahrzeugidentifikationsnummer (VIN) ist ungültig.",
+	zipcodeUS: "Die angegebene US-Postleitzahl ist ungültig.",
+	ziprange: "Ihre Postleitzahl muss im Bereich 902xx-xxxx bis 905xx-xxxx liegen."
 } );
 return $;
 }));

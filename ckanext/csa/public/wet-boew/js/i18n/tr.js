@@ -88,12 +88,15 @@ wb.i18nDict = {
 		on: "Kapalı eklentileri göster"
 	},
 	"cc-err": "Kapalı eklenti yükleme hatası",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Sesli açıklama açık",
 		off: "Sesli açıklama kapalı"
 	},
 	pos: "Geçerli pozisyon:",
 	dur: "Toplam zaman:",
+	msgYoutubeNotLoad: "Video yükleme sorunlarıyla karşılaştı",
+	msgYoutubeVdLoad: "Youtube videosu yükleniyor",
 
 	/* Share widget */
 	"shr-txt": "Paylaş",
@@ -184,6 +187,14 @@ wb.i18nDict = {
 	info1000: ",",
 	lenMenu: "_MENU_ girdileri göster",
 	filter: "Maddeleri filtrele",
+	tbFilterInst: "This table provides a sorting feature via the buttons across the column header row with only one instance visible at a time.",
+
+	/* Twitter embedded timeline */
+	"twitter-start-notice": "Start of @%username%’s X timeline",
+	"twitter-end-notice": "End of @%username%’s X timeline",
+	"twitter-skip-end": "Skip to end of @%username%’s X timeline",
+	"twitter-skip-start": "Skip to start of @%username%’s X timeline",
+	"twitter-timeline-title": "X timeline",
 
 	/* Geomap */
 	"geo-mapctrl": "@geo-mapctrl@",
@@ -227,6 +238,7 @@ wb.i18nDict = {
 	"wb-enable": "Switch to standard version",
 	"disable-notice-h": "Notice: Basic HTML",
 	"disable-notice": "You are viewing Basic HTML view. Some features may be disabled.",
+	"skip-prefix": "Skip to:",
 
 	/* Dismissable content */
 	"dismiss": "Dismiss",
@@ -236,7 +248,23 @@ wb.i18nDict = {
 
 	/* Filter */
 	"fltr-lbl": "Filter<span class=\"wb-inv\"> content: results appear below as you type.</span>",
-	"fltr-info": "Showing _NBITEM_ filtered from _TOTAL_ total entries"
+	"fltr-info": "Showing <span data-nbitem></span> filtered from <span data-total></span> total entries",
+
+	/* Data scrub */
+	"pii-header": "Remove Personal information",
+	"pii-intro": "Some information in your form is identified as personal information and it will be replaced as follows:",
+	"pii-view-more": "What is considered personal information?",
+	"pii-view-more-info": "<p>The following types of information are considered personal information:</p><ul><li>email address</li><li>telephone number</li><li>postal code</li><li>passport number</li><li>business number</li><li>social insurance number (SIN)</li></ul>",
+	"pii-yes-btn": "Remove personal information and submit",
+	"pii-cancel-btn": "Go back and edit fields",
+	"redacted": "redacted",
+
+	/* Steps form */
+	"rel-preposition": " of ",
+	"progress-label": "Questionnaire progress:",
+
+	/* Pagination */
+	"pagination-label": "Pagination"
 };
 
 } )( wb );
@@ -262,19 +290,20 @@ $.extend( $.validator.messages, {
 	email: "Lütfen geçerli bir e-posta adresi giriniz.",
 	url: "Lütfen geçerli bir web adresi (URL) giriniz.",
 	date: "Lütfen geçerli bir tarih giriniz.",
-	dateISO: "Lütfen geçerli bir tarih giriniz(ISO formatında)",
+	dateISO: "Lütfen geçerli bir tarih giriniz(ISO formatında).",
 	number: "Lütfen geçerli bir sayı giriniz.",
 	digits: "Lütfen sadece sayısal karakterler giriniz.",
 	creditcard: "Lütfen geçerli bir kredi kartı giriniz.",
 	equalTo: "Lütfen aynı değeri tekrar giriniz.",
 	extension: "Lütfen geçerli uzantıya sahip bir değer giriniz.",
+	phone: "Lütfen geçerli bir telefon numarası giriniz.",
 	maxlength: $.validator.format( "Lütfen en fazla {0} karakter uzunluğunda bir değer giriniz." ),
 	minlength: $.validator.format( "Lütfen en az {0} karakter uzunluğunda bir değer giriniz." ),
 	rangelength: $.validator.format( "Lütfen en az {0} ve en fazla {1} uzunluğunda bir değer giriniz." ),
 	range: $.validator.format( "Lütfen {0} ile {1} arasında bir değer giriniz." ),
 	max: $.validator.format( "Lütfen {0} değerine eşit ya da daha küçük bir değer giriniz." ),
 	min: $.validator.format( "Lütfen {0} değerine eşit ya da daha büyük bir değer giriniz." ),
-	require_from_group: "Lütfen bu alanların en az {0} tanesini doldurunuz."
+	require_from_group: $.validator.format( "Lütfen bu alanların en az {0} tanesini doldurunuz." )
 } );
 return $;
 }));
