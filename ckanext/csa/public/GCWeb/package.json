@@ -1,7 +1,7 @@
 {
-  "name": "wet-boew-theme-canada.ca",
-  "version": "6.0.0",
-  "description": "gcweb theme",
+  "name": "gcweb-compiled",
+  "version": "17.7.0",
+  "description": "gcweb theme compiled",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wet-boew/themes-cdn.git"

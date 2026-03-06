@@ -1,13 +1,1695 @@
 /*!
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v4.0.32 - 2019-11-13
+ * v4.0.93 - 2025-10-20
  *
- *//*! Modernizr (Custom Build) | MIT & BSD */
+ */
+
+/*! Modernizr (Custom Build) | MIT & BSD */
+/*! @license DOMPurify 3.2.7 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.2.7/LICENSE */
+
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DOMPurify = factory());
+})(this, (function () { 'use strict';
+
+  const {
+    entries,
+    setPrototypeOf,
+    isFrozen,
+    getPrototypeOf,
+    getOwnPropertyDescriptor
+  } = Object;
+  let {
+    freeze,
+    seal,
+    create
+  } = Object; // eslint-disable-line import/no-mutable-exports
+  let {
+    apply,
+    construct
+  } = typeof Reflect !== 'undefined' && Reflect;
+  if (!freeze) {
+    freeze = function freeze(x) {
+      return x;
+    };
+  }
+  if (!seal) {
+    seal = function seal(x) {
+      return x;
+    };
+  }
+  if (!apply) {
+    apply = function apply(func, thisArg) {
+      for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+        args[_key - 2] = arguments[_key];
+      }
+      return func.apply(thisArg, args);
+    };
+  }
+  if (!construct) {
+    construct = function construct(Func) {
+      for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+        args[_key2 - 1] = arguments[_key2];
+      }
+      return new Func(...args);
+    };
+  }
+  const arrayForEach = unapply(Array.prototype.forEach);
+  const arrayLastIndexOf = unapply(Array.prototype.lastIndexOf);
+  const arrayPop = unapply(Array.prototype.pop);
+  const arrayPush = unapply(Array.prototype.push);
+  const arraySplice = unapply(Array.prototype.splice);
+  const stringToLowerCase = unapply(String.prototype.toLowerCase);
+  const stringToString = unapply(String.prototype.toString);
+  const stringMatch = unapply(String.prototype.match);
+  const stringReplace = unapply(String.prototype.replace);
+  const stringIndexOf = unapply(String.prototype.indexOf);
+  const stringTrim = unapply(String.prototype.trim);
+  const objectHasOwnProperty = unapply(Object.prototype.hasOwnProperty);
+  const regExpTest = unapply(RegExp.prototype.test);
+  const typeErrorCreate = unconstruct(TypeError);
+  /**
+   * Creates a new function that calls the given function with a specified thisArg and arguments.
+   *
+   * @param func - The function to be wrapped and called.
+   * @returns A new function that calls the given function with a specified thisArg and arguments.
+   */
+  function unapply(func) {
+    return function (thisArg) {
+      if (thisArg instanceof RegExp) {
+        thisArg.lastIndex = 0;
+      }
+      for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+        args[_key3 - 1] = arguments[_key3];
+      }
+      return apply(func, thisArg, args);
+    };
+  }
+  /**
+   * Creates a new function that constructs an instance of the given constructor function with the provided arguments.
+   *
+   * @param func - The constructor function to be wrapped and called.
+   * @returns A new function that constructs an instance of the given constructor function with the provided arguments.
+   */
+  function unconstruct(Func) {
+    return function () {
+      for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+        args[_key4] = arguments[_key4];
+      }
+      return construct(Func, args);
+    };
+  }
+  /**
+   * Add properties to a lookup table
+   *
+   * @param set - The set to which elements will be added.
+   * @param array - The array containing elements to be added to the set.
+   * @param transformCaseFunc - An optional function to transform the case of each element before adding to the set.
+   * @returns The modified set with added elements.
+   */
+  function addToSet(set, array) {
+    let transformCaseFunc = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : stringToLowerCase;
+    if (setPrototypeOf) {
+      // Make 'in' and truthy checks like Boolean(set.constructor)
+      // independent of any properties defined on Object.prototype.
+      // Prevent prototype setters from intercepting set as a this value.
+      setPrototypeOf(set, null);
+    }
+    let l = array.length;
+    while (l--) {
+      let element = array[l];
+      if (typeof element === 'string') {
+        const lcElement = transformCaseFunc(element);
+        if (lcElement !== element) {
+          // Config presets (e.g. tags.js, attrs.js) are immutable.
+          if (!isFrozen(array)) {
+            array[l] = lcElement;
+          }
+          element = lcElement;
+        }
+      }
+      set[element] = true;
+    }
+    return set;
+  }
+  /**
+   * Clean up an array to harden against CSPP
+   *
+   * @param array - The array to be cleaned.
+   * @returns The cleaned version of the array
+   */
+  function cleanArray(array) {
+    for (let index = 0; index < array.length; index++) {
+      const isPropertyExist = objectHasOwnProperty(array, index);
+      if (!isPropertyExist) {
+        array[index] = null;
+      }
+    }
+    return array;
+  }
+  /**
+   * Shallow clone an object
+   *
+   * @param object - The object to be cloned.
+   * @returns A new object that copies the original.
+   */
+  function clone(object) {
+    const newObject = create(null);
+    for (const [property, value] of entries(object)) {
+      const isPropertyExist = objectHasOwnProperty(object, property);
+      if (isPropertyExist) {
+        if (Array.isArray(value)) {
+          newObject[property] = cleanArray(value);
+        } else if (value && typeof value === 'object' && value.constructor === Object) {
+          newObject[property] = clone(value);
+        } else {
+          newObject[property] = value;
+        }
+      }
+    }
+    return newObject;
+  }
+  /**
+   * This method automatically checks if the prop is function or getter and behaves accordingly.
+   *
+   * @param object - The object to look up the getter function in its prototype chain.
+   * @param prop - The property name for which to find the getter function.
+   * @returns The getter function found in the prototype chain or a fallback function.
+   */
+  function lookupGetter(object, prop) {
+    while (object !== null) {
+      const desc = getOwnPropertyDescriptor(object, prop);
+      if (desc) {
+        if (desc.get) {
+          return unapply(desc.get);
+        }
+        if (typeof desc.value === 'function') {
+          return unapply(desc.value);
+        }
+      }
+      object = getPrototypeOf(object);
+    }
+    function fallbackValue() {
+      return null;
+    }
+    return fallbackValue;
+  }
+
+  const html$1 = freeze(['a', 'abbr', 'acronym', 'address', 'area', 'article', 'aside', 'audio', 'b', 'bdi', 'bdo', 'big', 'blink', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'center', 'cite', 'code', 'col', 'colgroup', 'content', 'data', 'datalist', 'dd', 'decorator', 'del', 'details', 'dfn', 'dialog', 'dir', 'div', 'dl', 'dt', 'element', 'em', 'fieldset', 'figcaption', 'figure', 'font', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'img', 'input', 'ins', 'kbd', 'label', 'legend', 'li', 'main', 'map', 'mark', 'marquee', 'menu', 'menuitem', 'meter', 'nav', 'nobr', 'ol', 'optgroup', 'option', 'output', 'p', 'picture', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'search', 'section', 'select', 'shadow', 'slot', 'small', 'source', 'spacer', 'span', 'strike', 'strong', 'style', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'template', 'textarea', 'tfoot', 'th', 'thead', 'time', 'tr', 'track', 'tt', 'u', 'ul', 'var', 'video', 'wbr']);
+  const svg$1 = freeze(['svg', 'a', 'altglyph', 'altglyphdef', 'altglyphitem', 'animatecolor', 'animatemotion', 'animatetransform', 'circle', 'clippath', 'defs', 'desc', 'ellipse', 'enterkeyhint', 'exportparts', 'filter', 'font', 'g', 'glyph', 'glyphref', 'hkern', 'image', 'inputmode', 'line', 'lineargradient', 'marker', 'mask', 'metadata', 'mpath', 'part', 'path', 'pattern', 'polygon', 'polyline', 'radialgradient', 'rect', 'slot', 'stop', 'style', 'switch', 'symbol', 'text', 'textpath', 'title', 'tref', 'tspan', 'view', 'vkern']);
+  const svgFilters = freeze(['feBlend', 'feColorMatrix', 'feComponentTransfer', 'feComposite', 'feConvolveMatrix', 'feDiffuseLighting', 'feDisplacementMap', 'feDistantLight', 'feDropShadow', 'feFlood', 'feFuncA', 'feFuncB', 'feFuncG', 'feFuncR', 'feGaussianBlur', 'feImage', 'feMerge', 'feMergeNode', 'feMorphology', 'feOffset', 'fePointLight', 'feSpecularLighting', 'feSpotLight', 'feTile', 'feTurbulence']);
+  // List of SVG elements that are disallowed by default.
+  // We still need to know them so that we can do namespace
+  // checks properly in case one wants to add them to
+  // allow-list.
+  const svgDisallowed = freeze(['animate', 'color-profile', 'cursor', 'discard', 'font-face', 'font-face-format', 'font-face-name', 'font-face-src', 'font-face-uri', 'foreignobject', 'hatch', 'hatchpath', 'mesh', 'meshgradient', 'meshpatch', 'meshrow', 'missing-glyph', 'script', 'set', 'solidcolor', 'unknown', 'use']);
+  const mathMl$1 = freeze(['math', 'menclose', 'merror', 'mfenced', 'mfrac', 'mglyph', 'mi', 'mlabeledtr', 'mmultiscripts', 'mn', 'mo', 'mover', 'mpadded', 'mphantom', 'mroot', 'mrow', 'ms', 'mspace', 'msqrt', 'mstyle', 'msub', 'msup', 'msubsup', 'mtable', 'mtd', 'mtext', 'mtr', 'munder', 'munderover', 'mprescripts']);
+  // Similarly to SVG, we want to know all MathML elements,
+  // even those that we disallow by default.
+  const mathMlDisallowed = freeze(['maction', 'maligngroup', 'malignmark', 'mlongdiv', 'mscarries', 'mscarry', 'msgroup', 'mstack', 'msline', 'msrow', 'semantics', 'annotation', 'annotation-xml', 'mprescripts', 'none']);
+  const text = freeze(['#text']);
+
+  const html = freeze(['accept', 'action', 'align', 'alt', 'autocapitalize', 'autocomplete', 'autopictureinpicture', 'autoplay', 'background', 'bgcolor', 'border', 'capture', 'cellpadding', 'cellspacing', 'checked', 'cite', 'class', 'clear', 'color', 'cols', 'colspan', 'controls', 'controlslist', 'coords', 'crossorigin', 'datetime', 'decoding', 'default', 'dir', 'disabled', 'disablepictureinpicture', 'disableremoteplayback', 'download', 'draggable', 'enctype', 'enterkeyhint', 'exportparts', 'face', 'for', 'headers', 'height', 'hidden', 'high', 'href', 'hreflang', 'id', 'inert', 'inputmode', 'integrity', 'ismap', 'kind', 'label', 'lang', 'list', 'loading', 'loop', 'low', 'max', 'maxlength', 'media', 'method', 'min', 'minlength', 'multiple', 'muted', 'name', 'nonce', 'noshade', 'novalidate', 'nowrap', 'open', 'optimum', 'part', 'pattern', 'placeholder', 'playsinline', 'popover', 'popovertarget', 'popovertargetaction', 'poster', 'preload', 'pubdate', 'radiogroup', 'readonly', 'rel', 'required', 'rev', 'reversed', 'role', 'rows', 'rowspan', 'spellcheck', 'scope', 'selected', 'shape', 'size', 'sizes', 'slot', 'span', 'srclang', 'start', 'src', 'srcset', 'step', 'style', 'summary', 'tabindex', 'title', 'translate', 'type', 'usemap', 'valign', 'value', 'width', 'wrap', 'xmlns', 'slot']);
+  const svg = freeze(['accent-height', 'accumulate', 'additive', 'alignment-baseline', 'amplitude', 'ascent', 'attributename', 'attributetype', 'azimuth', 'basefrequency', 'baseline-shift', 'begin', 'bias', 'by', 'class', 'clip', 'clippathunits', 'clip-path', 'clip-rule', 'color', 'color-interpolation', 'color-interpolation-filters', 'color-profile', 'color-rendering', 'cx', 'cy', 'd', 'dx', 'dy', 'diffuseconstant', 'direction', 'display', 'divisor', 'dur', 'edgemode', 'elevation', 'end', 'exponent', 'fill', 'fill-opacity', 'fill-rule', 'filter', 'filterunits', 'flood-color', 'flood-opacity', 'font-family', 'font-size', 'font-size-adjust', 'font-stretch', 'font-style', 'font-variant', 'font-weight', 'fx', 'fy', 'g1', 'g2', 'glyph-name', 'glyphref', 'gradientunits', 'gradienttransform', 'height', 'href', 'id', 'image-rendering', 'in', 'in2', 'intercept', 'k', 'k1', 'k2', 'k3', 'k4', 'kerning', 'keypoints', 'keysplines', 'keytimes', 'lang', 'lengthadjust', 'letter-spacing', 'kernelmatrix', 'kernelunitlength', 'lighting-color', 'local', 'marker-end', 'marker-mid', 'marker-start', 'markerheight', 'markerunits', 'markerwidth', 'maskcontentunits', 'maskunits', 'max', 'mask', 'media', 'method', 'mode', 'min', 'name', 'numoctaves', 'offset', 'operator', 'opacity', 'order', 'orient', 'orientation', 'origin', 'overflow', 'paint-order', 'path', 'pathlength', 'patterncontentunits', 'patterntransform', 'patternunits', 'points', 'preservealpha', 'preserveaspectratio', 'primitiveunits', 'r', 'rx', 'ry', 'radius', 'refx', 'refy', 'repeatcount', 'repeatdur', 'restart', 'result', 'rotate', 'scale', 'seed', 'shape-rendering', 'slope', 'specularconstant', 'specularexponent', 'spreadmethod', 'startoffset', 'stddeviation', 'stitchtiles', 'stop-color', 'stop-opacity', 'stroke-dasharray', 'stroke-dashoffset', 'stroke-linecap', 'stroke-linejoin', 'stroke-miterlimit', 'stroke-opacity', 'stroke', 'stroke-width', 'style', 'surfacescale', 'systemlanguage', 'tabindex', 'tablevalues', 'targetx', 'targety', 'transform', 'transform-origin', 'text-anchor', 'text-decoration', 'text-rendering', 'textlength', 'type', 'u1', 'u2', 'unicode', 'values', 'viewbox', 'visibility', 'version', 'vert-adv-y', 'vert-origin-x', 'vert-origin-y', 'width', 'word-spacing', 'wrap', 'writing-mode', 'xchannelselector', 'ychannelselector', 'x', 'x1', 'x2', 'xmlns', 'y', 'y1', 'y2', 'z', 'zoomandpan']);
+  const mathMl = freeze(['accent', 'accentunder', 'align', 'bevelled', 'close', 'columnsalign', 'columnlines', 'columnspan', 'denomalign', 'depth', 'dir', 'display', 'displaystyle', 'encoding', 'fence', 'frame', 'height', 'href', 'id', 'largeop', 'length', 'linethickness', 'lspace', 'lquote', 'mathbackground', 'mathcolor', 'mathsize', 'mathvariant', 'maxsize', 'minsize', 'movablelimits', 'notation', 'numalign', 'open', 'rowalign', 'rowlines', 'rowspacing', 'rowspan', 'rspace', 'rquote', 'scriptlevel', 'scriptminsize', 'scriptsizemultiplier', 'selection', 'separator', 'separators', 'stretchy', 'subscriptshift', 'supscriptshift', 'symmetric', 'voffset', 'width', 'xmlns']);
+  const xml = freeze(['xlink:href', 'xml:id', 'xlink:title', 'xml:space', 'xmlns:xlink']);
+
+  // eslint-disable-next-line unicorn/better-regex
+  const MUSTACHE_EXPR = seal(/\{\{[\w\W]*|[\w\W]*\}\}/gm); // Specify template detection regex for SAFE_FOR_TEMPLATES mode
+  const ERB_EXPR = seal(/<%[\w\W]*|[\w\W]*%>/gm);
+  const TMPLIT_EXPR = seal(/\$\{[\w\W]*/gm); // eslint-disable-line unicorn/better-regex
+  const DATA_ATTR = seal(/^data-[\-\w.\u00B7-\uFFFF]+$/); // eslint-disable-line no-useless-escape
+  const ARIA_ATTR = seal(/^aria-[\-\w]+$/); // eslint-disable-line no-useless-escape
+  const IS_ALLOWED_URI = seal(/^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp|matrix):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i // eslint-disable-line no-useless-escape
+  );
+  const IS_SCRIPT_OR_DATA = seal(/^(?:\w+script|data):/i);
+  const ATTR_WHITESPACE = seal(/[\u0000-\u0020\u00A0\u1680\u180E\u2000-\u2029\u205F\u3000]/g // eslint-disable-line no-control-regex
+  );
+  const DOCTYPE_NAME = seal(/^html$/i);
+  const CUSTOM_ELEMENT = seal(/^[a-z][.\w]*(-[.\w]+)+$/i);
+
+  var EXPRESSIONS = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    ARIA_ATTR: ARIA_ATTR,
+    ATTR_WHITESPACE: ATTR_WHITESPACE,
+    CUSTOM_ELEMENT: CUSTOM_ELEMENT,
+    DATA_ATTR: DATA_ATTR,
+    DOCTYPE_NAME: DOCTYPE_NAME,
+    ERB_EXPR: ERB_EXPR,
+    IS_ALLOWED_URI: IS_ALLOWED_URI,
+    IS_SCRIPT_OR_DATA: IS_SCRIPT_OR_DATA,
+    MUSTACHE_EXPR: MUSTACHE_EXPR,
+    TMPLIT_EXPR: TMPLIT_EXPR
+  });
+
+  /* eslint-disable @typescript-eslint/indent */
+  // https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
+  const NODE_TYPE = {
+    element: 1,
+    attribute: 2,
+    text: 3,
+    cdataSection: 4,
+    entityReference: 5,
+    // Deprecated
+    entityNode: 6,
+    // Deprecated
+    progressingInstruction: 7,
+    comment: 8,
+    document: 9,
+    documentType: 10,
+    documentFragment: 11,
+    notation: 12 // Deprecated
+  };
+  const getGlobal = function getGlobal() {
+    return typeof window === 'undefined' ? null : window;
+  };
+  /**
+   * Creates a no-op policy for internal use only.
+   * Don't export this function outside this module!
+   * @param trustedTypes The policy factory.
+   * @param purifyHostElement The Script element used to load DOMPurify (to determine policy name suffix).
+   * @return The policy created (or null, if Trusted Types
+   * are not supported or creating the policy failed).
+   */
+  const _createTrustedTypesPolicy = function _createTrustedTypesPolicy(trustedTypes, purifyHostElement) {
+    if (typeof trustedTypes !== 'object' || typeof trustedTypes.createPolicy !== 'function') {
+      return null;
+    }
+    // Allow the callers to control the unique policy name
+    // by adding a data-tt-policy-suffix to the script element with the DOMPurify.
+    // Policy creation with duplicate names throws in Trusted Types.
+    let suffix = null;
+    const ATTR_NAME = 'data-tt-policy-suffix';
+    if (purifyHostElement && purifyHostElement.hasAttribute(ATTR_NAME)) {
+      suffix = purifyHostElement.getAttribute(ATTR_NAME);
+    }
+    const policyName = 'dompurify' + (suffix ? '#' + suffix : '');
+    try {
+      return trustedTypes.createPolicy(policyName, {
+        createHTML(html) {
+          return html;
+        },
+        createScriptURL(scriptUrl) {
+          return scriptUrl;
+        }
+      });
+    } catch (_) {
+      // Policy creation failed (most likely another DOMPurify script has
+      // already run). Skip creating the policy, as this will only cause errors
+      // if TT are enforced.
+      console.warn('TrustedTypes policy ' + policyName + ' could not be created.');
+      return null;
+    }
+  };
+  const _createHooksMap = function _createHooksMap() {
+    return {
+      afterSanitizeAttributes: [],
+      afterSanitizeElements: [],
+      afterSanitizeShadowDOM: [],
+      beforeSanitizeAttributes: [],
+      beforeSanitizeElements: [],
+      beforeSanitizeShadowDOM: [],
+      uponSanitizeAttribute: [],
+      uponSanitizeElement: [],
+      uponSanitizeShadowNode: []
+    };
+  };
+  function createDOMPurify() {
+    let window = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : getGlobal();
+    const DOMPurify = root => createDOMPurify(root);
+    DOMPurify.version = '3.2.7';
+    DOMPurify.removed = [];
+    if (!window || !window.document || window.document.nodeType !== NODE_TYPE.document || !window.Element) {
+      // Not running in a browser, provide a factory function
+      // so that you can pass your own Window
+      DOMPurify.isSupported = false;
+      return DOMPurify;
+    }
+    let {
+      document
+    } = window;
+    const originalDocument = document;
+    const currentScript = originalDocument.currentScript;
+    const {
+      DocumentFragment,
+      HTMLTemplateElement,
+      Node,
+      Element,
+      NodeFilter,
+      NamedNodeMap = window.NamedNodeMap || window.MozNamedAttrMap,
+      HTMLFormElement,
+      DOMParser,
+      trustedTypes
+    } = window;
+    const ElementPrototype = Element.prototype;
+    const cloneNode = lookupGetter(ElementPrototype, 'cloneNode');
+    const remove = lookupGetter(ElementPrototype, 'remove');
+    const getNextSibling = lookupGetter(ElementPrototype, 'nextSibling');
+    const getChildNodes = lookupGetter(ElementPrototype, 'childNodes');
+    const getParentNode = lookupGetter(ElementPrototype, 'parentNode');
+    // As per issue #47, the web-components registry is inherited by a
+    // new document created via createHTMLDocument. As per the spec
+    // (http://w3c.github.io/webcomponents/spec/custom/#creating-and-passing-registries)
+    // a new empty registry is used when creating a template contents owner
+    // document, so we use that as our parent document to ensure nothing
+    // is inherited.
+    if (typeof HTMLTemplateElement === 'function') {
+      const template = document.createElement('template');
+      if (template.content && template.content.ownerDocument) {
+        document = template.content.ownerDocument;
+      }
+    }
+    let trustedTypesPolicy;
+    let emptyHTML = '';
+    const {
+      implementation,
+      createNodeIterator,
+      createDocumentFragment,
+      getElementsByTagName
+    } = document;
+    const {
+      importNode
+    } = originalDocument;
+    let hooks = _createHooksMap();
+    /**
+     * Expose whether this browser supports running the full DOMPurify.
+     */
+    DOMPurify.isSupported = typeof entries === 'function' && typeof getParentNode === 'function' && implementation && implementation.createHTMLDocument !== undefined;
+    const {
+      MUSTACHE_EXPR,
+      ERB_EXPR,
+      TMPLIT_EXPR,
+      DATA_ATTR,
+      ARIA_ATTR,
+      IS_SCRIPT_OR_DATA,
+      ATTR_WHITESPACE,
+      CUSTOM_ELEMENT
+    } = EXPRESSIONS;
+    let {
+      IS_ALLOWED_URI: IS_ALLOWED_URI$1
+    } = EXPRESSIONS;
+    /**
+     * We consider the elements and attributes below to be safe. Ideally
+     * don't add any new ones but feel free to remove unwanted ones.
+     */
+    /* allowed element names */
+    let ALLOWED_TAGS = null;
+    const DEFAULT_ALLOWED_TAGS = addToSet({}, [...html$1, ...svg$1, ...svgFilters, ...mathMl$1, ...text]);
+    /* Allowed attribute names */
+    let ALLOWED_ATTR = null;
+    const DEFAULT_ALLOWED_ATTR = addToSet({}, [...html, ...svg, ...mathMl, ...xml]);
+    /*
+     * Configure how DOMPurify should handle custom elements and their attributes as well as customized built-in elements.
+     * @property {RegExp|Function|null} tagNameCheck one of [null, regexPattern, predicate]. Default: `null` (disallow any custom elements)
+     * @property {RegExp|Function|null} attributeNameCheck one of [null, regexPattern, predicate]. Default: `null` (disallow any attributes not on the allow list)
+     * @property {boolean} allowCustomizedBuiltInElements allow custom elements derived from built-ins if they pass CUSTOM_ELEMENT_HANDLING.tagNameCheck. Default: `false`.
+     */
+    let CUSTOM_ELEMENT_HANDLING = Object.seal(create(null, {
+      tagNameCheck: {
+        writable: true,
+        configurable: false,
+        enumerable: true,
+        value: null
+      },
+      attributeNameCheck: {
+        writable: true,
+        configurable: false,
+        enumerable: true,
+        value: null
+      },
+      allowCustomizedBuiltInElements: {
+        writable: true,
+        configurable: false,
+        enumerable: true,
+        value: false
+      }
+    }));
+    /* Explicitly forbidden tags (overrides ALLOWED_TAGS/ADD_TAGS) */
+    let FORBID_TAGS = null;
+    /* Explicitly forbidden attributes (overrides ALLOWED_ATTR/ADD_ATTR) */
+    let FORBID_ATTR = null;
+    /* Decide if ARIA attributes are okay */
+    let ALLOW_ARIA_ATTR = true;
+    /* Decide if custom data attributes are okay */
+    let ALLOW_DATA_ATTR = true;
+    /* Decide if unknown protocols are okay */
+    let ALLOW_UNKNOWN_PROTOCOLS = false;
+    /* Decide if self-closing tags in attributes are allowed.
+     * Usually removed due to a mXSS issue in jQuery 3.0 */
+    let ALLOW_SELF_CLOSE_IN_ATTR = true;
+    /* Output should be safe for common template engines.
+     * This means, DOMPurify removes data attributes, mustaches and ERB
+     */
+    let SAFE_FOR_TEMPLATES = false;
+    /* Output should be safe even for XML used within HTML and alike.
+     * This means, DOMPurify removes comments when containing risky content.
+     */
+    let SAFE_FOR_XML = true;
+    /* Decide if document with <html>... should be returned */
+    let WHOLE_DOCUMENT = false;
+    /* Track whether config is already set on this instance of DOMPurify. */
+    let SET_CONFIG = false;
+    /* Decide if all elements (e.g. style, script) must be children of
+     * document.body. By default, browsers might move them to document.head */
+    let FORCE_BODY = false;
+    /* Decide if a DOM `HTMLBodyElement` should be returned, instead of a html
+     * string (or a TrustedHTML object if Trusted Types are supported).
+     * If `WHOLE_DOCUMENT` is enabled a `HTMLHtmlElement` will be returned instead
+     */
+    let RETURN_DOM = false;
+    /* Decide if a DOM `DocumentFragment` should be returned, instead of a html
+     * string  (or a TrustedHTML object if Trusted Types are supported) */
+    let RETURN_DOM_FRAGMENT = false;
+    /* Try to return a Trusted Type object instead of a string, return a string in
+     * case Trusted Types are not supported  */
+    let RETURN_TRUSTED_TYPE = false;
+    /* Output should be free from DOM clobbering attacks?
+     * This sanitizes markups named with colliding, clobberable built-in DOM APIs.
+     */
+    let SANITIZE_DOM = true;
+    /* Achieve full DOM Clobbering protection by isolating the namespace of named
+     * properties and JS variables, mitigating attacks that abuse the HTML/DOM spec rules.
+     *
+     * HTML/DOM spec rules that enable DOM Clobbering:
+     *   - Named Access on Window (§7.3.3)
+     *   - DOM Tree Accessors (§3.1.5)
+     *   - Form Element Parent-Child Relations (§4.10.3)
+     *   - Iframe srcdoc / Nested WindowProxies (§4.8.5)
+     *   - HTMLCollection (§4.2.10.2)
+     *
+     * Namespace isolation is implemented by prefixing `id` and `name` attributes
+     * with a constant string, i.e., `user-content-`
+     */
+    let SANITIZE_NAMED_PROPS = false;
+    const SANITIZE_NAMED_PROPS_PREFIX = 'user-content-';
+    /* Keep element content when removing element? */
+    let KEEP_CONTENT = true;
+    /* If a `Node` is passed to sanitize(), then performs sanitization in-place instead
+     * of importing it into a new Document and returning a sanitized copy */
+    let IN_PLACE = false;
+    /* Allow usage of profiles like html, svg and mathMl */
+    let USE_PROFILES = {};
+    /* Tags to ignore content of when KEEP_CONTENT is true */
+    let FORBID_CONTENTS = null;
+    const DEFAULT_FORBID_CONTENTS = addToSet({}, ['annotation-xml', 'audio', 'colgroup', 'desc', 'foreignobject', 'head', 'iframe', 'math', 'mi', 'mn', 'mo', 'ms', 'mtext', 'noembed', 'noframes', 'noscript', 'plaintext', 'script', 'style', 'svg', 'template', 'thead', 'title', 'video', 'xmp']);
+    /* Tags that are safe for data: URIs */
+    let DATA_URI_TAGS = null;
+    const DEFAULT_DATA_URI_TAGS = addToSet({}, ['audio', 'video', 'img', 'source', 'image', 'track']);
+    /* Attributes safe for values like "javascript:" */
+    let URI_SAFE_ATTRIBUTES = null;
+    const DEFAULT_URI_SAFE_ATTRIBUTES = addToSet({}, ['alt', 'class', 'for', 'id', 'label', 'name', 'pattern', 'placeholder', 'role', 'summary', 'title', 'value', 'style', 'xmlns']);
+    const MATHML_NAMESPACE = 'http://www.w3.org/1998/Math/MathML';
+    const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
+    const HTML_NAMESPACE = 'http://www.w3.org/1999/xhtml';
+    /* Document namespace */
+    let NAMESPACE = HTML_NAMESPACE;
+    let IS_EMPTY_INPUT = false;
+    /* Allowed XHTML+XML namespaces */
+    let ALLOWED_NAMESPACES = null;
+    const DEFAULT_ALLOWED_NAMESPACES = addToSet({}, [MATHML_NAMESPACE, SVG_NAMESPACE, HTML_NAMESPACE], stringToString);
+    let MATHML_TEXT_INTEGRATION_POINTS = addToSet({}, ['mi', 'mo', 'mn', 'ms', 'mtext']);
+    let HTML_INTEGRATION_POINTS = addToSet({}, ['annotation-xml']);
+    // Certain elements are allowed in both SVG and HTML
+    // namespace. We need to specify them explicitly
+    // so that they don't get erroneously deleted from
+    // HTML namespace.
+    const COMMON_SVG_AND_HTML_ELEMENTS = addToSet({}, ['title', 'style', 'font', 'a', 'script']);
+    /* Parsing of strict XHTML documents */
+    let PARSER_MEDIA_TYPE = null;
+    const SUPPORTED_PARSER_MEDIA_TYPES = ['application/xhtml+xml', 'text/html'];
+    const DEFAULT_PARSER_MEDIA_TYPE = 'text/html';
+    let transformCaseFunc = null;
+    /* Keep a reference to config to pass to hooks */
+    let CONFIG = null;
+    /* Ideally, do not touch anything below this line */
+    /* ______________________________________________ */
+    const formElement = document.createElement('form');
+    const isRegexOrFunction = function isRegexOrFunction(testValue) {
+      return testValue instanceof RegExp || testValue instanceof Function;
+    };
+    /**
+     * _parseConfig
+     *
+     * @param cfg optional config literal
+     */
+    // eslint-disable-next-line complexity
+    const _parseConfig = function _parseConfig() {
+      let cfg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      if (CONFIG && CONFIG === cfg) {
+        return;
+      }
+      /* Shield configuration object from tampering */
+      if (!cfg || typeof cfg !== 'object') {
+        cfg = {};
+      }
+      /* Shield configuration object from prototype pollution */
+      cfg = clone(cfg);
+      PARSER_MEDIA_TYPE =
+      // eslint-disable-next-line unicorn/prefer-includes
+      SUPPORTED_PARSER_MEDIA_TYPES.indexOf(cfg.PARSER_MEDIA_TYPE) === -1 ? DEFAULT_PARSER_MEDIA_TYPE : cfg.PARSER_MEDIA_TYPE;
+      // HTML tags and attributes are not case-sensitive, converting to lowercase. Keeping XHTML as is.
+      transformCaseFunc = PARSER_MEDIA_TYPE === 'application/xhtml+xml' ? stringToString : stringToLowerCase;
+      /* Set configuration parameters */
+      ALLOWED_TAGS = objectHasOwnProperty(cfg, 'ALLOWED_TAGS') ? addToSet({}, cfg.ALLOWED_TAGS, transformCaseFunc) : DEFAULT_ALLOWED_TAGS;
+      ALLOWED_ATTR = objectHasOwnProperty(cfg, 'ALLOWED_ATTR') ? addToSet({}, cfg.ALLOWED_ATTR, transformCaseFunc) : DEFAULT_ALLOWED_ATTR;
+      ALLOWED_NAMESPACES = objectHasOwnProperty(cfg, 'ALLOWED_NAMESPACES') ? addToSet({}, cfg.ALLOWED_NAMESPACES, stringToString) : DEFAULT_ALLOWED_NAMESPACES;
+      URI_SAFE_ATTRIBUTES = objectHasOwnProperty(cfg, 'ADD_URI_SAFE_ATTR') ? addToSet(clone(DEFAULT_URI_SAFE_ATTRIBUTES), cfg.ADD_URI_SAFE_ATTR, transformCaseFunc) : DEFAULT_URI_SAFE_ATTRIBUTES;
+      DATA_URI_TAGS = objectHasOwnProperty(cfg, 'ADD_DATA_URI_TAGS') ? addToSet(clone(DEFAULT_DATA_URI_TAGS), cfg.ADD_DATA_URI_TAGS, transformCaseFunc) : DEFAULT_DATA_URI_TAGS;
+      FORBID_CONTENTS = objectHasOwnProperty(cfg, 'FORBID_CONTENTS') ? addToSet({}, cfg.FORBID_CONTENTS, transformCaseFunc) : DEFAULT_FORBID_CONTENTS;
+      FORBID_TAGS = objectHasOwnProperty(cfg, 'FORBID_TAGS') ? addToSet({}, cfg.FORBID_TAGS, transformCaseFunc) : clone({});
+      FORBID_ATTR = objectHasOwnProperty(cfg, 'FORBID_ATTR') ? addToSet({}, cfg.FORBID_ATTR, transformCaseFunc) : clone({});
+      USE_PROFILES = objectHasOwnProperty(cfg, 'USE_PROFILES') ? cfg.USE_PROFILES : false;
+      ALLOW_ARIA_ATTR = cfg.ALLOW_ARIA_ATTR !== false; // Default true
+      ALLOW_DATA_ATTR = cfg.ALLOW_DATA_ATTR !== false; // Default true
+      ALLOW_UNKNOWN_PROTOCOLS = cfg.ALLOW_UNKNOWN_PROTOCOLS || false; // Default false
+      ALLOW_SELF_CLOSE_IN_ATTR = cfg.ALLOW_SELF_CLOSE_IN_ATTR !== false; // Default true
+      SAFE_FOR_TEMPLATES = cfg.SAFE_FOR_TEMPLATES || false; // Default false
+      SAFE_FOR_XML = cfg.SAFE_FOR_XML !== false; // Default true
+      WHOLE_DOCUMENT = cfg.WHOLE_DOCUMENT || false; // Default false
+      RETURN_DOM = cfg.RETURN_DOM || false; // Default false
+      RETURN_DOM_FRAGMENT = cfg.RETURN_DOM_FRAGMENT || false; // Default false
+      RETURN_TRUSTED_TYPE = cfg.RETURN_TRUSTED_TYPE || false; // Default false
+      FORCE_BODY = cfg.FORCE_BODY || false; // Default false
+      SANITIZE_DOM = cfg.SANITIZE_DOM !== false; // Default true
+      SANITIZE_NAMED_PROPS = cfg.SANITIZE_NAMED_PROPS || false; // Default false
+      KEEP_CONTENT = cfg.KEEP_CONTENT !== false; // Default true
+      IN_PLACE = cfg.IN_PLACE || false; // Default false
+      IS_ALLOWED_URI$1 = cfg.ALLOWED_URI_REGEXP || IS_ALLOWED_URI;
+      NAMESPACE = cfg.NAMESPACE || HTML_NAMESPACE;
+      MATHML_TEXT_INTEGRATION_POINTS = cfg.MATHML_TEXT_INTEGRATION_POINTS || MATHML_TEXT_INTEGRATION_POINTS;
+      HTML_INTEGRATION_POINTS = cfg.HTML_INTEGRATION_POINTS || HTML_INTEGRATION_POINTS;
+      CUSTOM_ELEMENT_HANDLING = cfg.CUSTOM_ELEMENT_HANDLING || {};
+      if (cfg.CUSTOM_ELEMENT_HANDLING && isRegexOrFunction(cfg.CUSTOM_ELEMENT_HANDLING.tagNameCheck)) {
+        CUSTOM_ELEMENT_HANDLING.tagNameCheck = cfg.CUSTOM_ELEMENT_HANDLING.tagNameCheck;
+      }
+      if (cfg.CUSTOM_ELEMENT_HANDLING && isRegexOrFunction(cfg.CUSTOM_ELEMENT_HANDLING.attributeNameCheck)) {
+        CUSTOM_ELEMENT_HANDLING.attributeNameCheck = cfg.CUSTOM_ELEMENT_HANDLING.attributeNameCheck;
+      }
+      if (cfg.CUSTOM_ELEMENT_HANDLING && typeof cfg.CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements === 'boolean') {
+        CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements = cfg.CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements;
+      }
+      if (SAFE_FOR_TEMPLATES) {
+        ALLOW_DATA_ATTR = false;
+      }
+      if (RETURN_DOM_FRAGMENT) {
+        RETURN_DOM = true;
+      }
+      /* Parse profile info */
+      if (USE_PROFILES) {
+        ALLOWED_TAGS = addToSet({}, text);
+        ALLOWED_ATTR = [];
+        if (USE_PROFILES.html === true) {
+          addToSet(ALLOWED_TAGS, html$1);
+          addToSet(ALLOWED_ATTR, html);
+        }
+        if (USE_PROFILES.svg === true) {
+          addToSet(ALLOWED_TAGS, svg$1);
+          addToSet(ALLOWED_ATTR, svg);
+          addToSet(ALLOWED_ATTR, xml);
+        }
+        if (USE_PROFILES.svgFilters === true) {
+          addToSet(ALLOWED_TAGS, svgFilters);
+          addToSet(ALLOWED_ATTR, svg);
+          addToSet(ALLOWED_ATTR, xml);
+        }
+        if (USE_PROFILES.mathMl === true) {
+          addToSet(ALLOWED_TAGS, mathMl$1);
+          addToSet(ALLOWED_ATTR, mathMl);
+          addToSet(ALLOWED_ATTR, xml);
+        }
+      }
+      /* Merge configuration parameters */
+      if (cfg.ADD_TAGS) {
+        if (ALLOWED_TAGS === DEFAULT_ALLOWED_TAGS) {
+          ALLOWED_TAGS = clone(ALLOWED_TAGS);
+        }
+        addToSet(ALLOWED_TAGS, cfg.ADD_TAGS, transformCaseFunc);
+      }
+      if (cfg.ADD_ATTR) {
+        if (ALLOWED_ATTR === DEFAULT_ALLOWED_ATTR) {
+          ALLOWED_ATTR = clone(ALLOWED_ATTR);
+        }
+        addToSet(ALLOWED_ATTR, cfg.ADD_ATTR, transformCaseFunc);
+      }
+      if (cfg.ADD_URI_SAFE_ATTR) {
+        addToSet(URI_SAFE_ATTRIBUTES, cfg.ADD_URI_SAFE_ATTR, transformCaseFunc);
+      }
+      if (cfg.FORBID_CONTENTS) {
+        if (FORBID_CONTENTS === DEFAULT_FORBID_CONTENTS) {
+          FORBID_CONTENTS = clone(FORBID_CONTENTS);
+        }
+        addToSet(FORBID_CONTENTS, cfg.FORBID_CONTENTS, transformCaseFunc);
+      }
+      /* Add #text in case KEEP_CONTENT is set to true */
+      if (KEEP_CONTENT) {
+        ALLOWED_TAGS['#text'] = true;
+      }
+      /* Add html, head and body to ALLOWED_TAGS in case WHOLE_DOCUMENT is true */
+      if (WHOLE_DOCUMENT) {
+        addToSet(ALLOWED_TAGS, ['html', 'head', 'body']);
+      }
+      /* Add tbody to ALLOWED_TAGS in case tables are permitted, see #286, #365 */
+      if (ALLOWED_TAGS.table) {
+        addToSet(ALLOWED_TAGS, ['tbody']);
+        delete FORBID_TAGS.tbody;
+      }
+      if (cfg.TRUSTED_TYPES_POLICY) {
+        if (typeof cfg.TRUSTED_TYPES_POLICY.createHTML !== 'function') {
+          throw typeErrorCreate('TRUSTED_TYPES_POLICY configuration option must provide a "createHTML" hook.');
+        }
+        if (typeof cfg.TRUSTED_TYPES_POLICY.createScriptURL !== 'function') {
+          throw typeErrorCreate('TRUSTED_TYPES_POLICY configuration option must provide a "createScriptURL" hook.');
+        }
+        // Overwrite existing TrustedTypes policy.
+        trustedTypesPolicy = cfg.TRUSTED_TYPES_POLICY;
+        // Sign local variables required by `sanitize`.
+        emptyHTML = trustedTypesPolicy.createHTML('');
+      } else {
+        // Uninitialized policy, attempt to initialize the internal dompurify policy.
+        if (trustedTypesPolicy === undefined) {
+          trustedTypesPolicy = _createTrustedTypesPolicy(trustedTypes, currentScript);
+        }
+        // If creating the internal policy succeeded sign internal variables.
+        if (trustedTypesPolicy !== null && typeof emptyHTML === 'string') {
+          emptyHTML = trustedTypesPolicy.createHTML('');
+        }
+      }
+      // Prevent further manipulation of configuration.
+      // Not available in IE8, Safari 5, etc.
+      if (freeze) {
+        freeze(cfg);
+      }
+      CONFIG = cfg;
+    };
+    /* Keep track of all possible SVG and MathML tags
+     * so that we can perform the namespace checks
+     * correctly. */
+    const ALL_SVG_TAGS = addToSet({}, [...svg$1, ...svgFilters, ...svgDisallowed]);
+    const ALL_MATHML_TAGS = addToSet({}, [...mathMl$1, ...mathMlDisallowed]);
+    /**
+     * @param element a DOM element whose namespace is being checked
+     * @returns Return false if the element has a
+     *  namespace that a spec-compliant parser would never
+     *  return. Return true otherwise.
+     */
+    const _checkValidNamespace = function _checkValidNamespace(element) {
+      let parent = getParentNode(element);
+      // In JSDOM, if we're inside shadow DOM, then parentNode
+      // can be null. We just simulate parent in this case.
+      if (!parent || !parent.tagName) {
+        parent = {
+          namespaceURI: NAMESPACE,
+          tagName: 'template'
+        };
+      }
+      const tagName = stringToLowerCase(element.tagName);
+      const parentTagName = stringToLowerCase(parent.tagName);
+      if (!ALLOWED_NAMESPACES[element.namespaceURI]) {
+        return false;
+      }
+      if (element.namespaceURI === SVG_NAMESPACE) {
+        // The only way to switch from HTML namespace to SVG
+        // is via <svg>. If it happens via any other tag, then
+        // it should be killed.
+        if (parent.namespaceURI === HTML_NAMESPACE) {
+          return tagName === 'svg';
+        }
+        // The only way to switch from MathML to SVG is via`
+        // svg if parent is either <annotation-xml> or MathML
+        // text integration points.
+        if (parent.namespaceURI === MATHML_NAMESPACE) {
+          return tagName === 'svg' && (parentTagName === 'annotation-xml' || MATHML_TEXT_INTEGRATION_POINTS[parentTagName]);
+        }
+        // We only allow elements that are defined in SVG
+        // spec. All others are disallowed in SVG namespace.
+        return Boolean(ALL_SVG_TAGS[tagName]);
+      }
+      if (element.namespaceURI === MATHML_NAMESPACE) {
+        // The only way to switch from HTML namespace to MathML
+        // is via <math>. If it happens via any other tag, then
+        // it should be killed.
+        if (parent.namespaceURI === HTML_NAMESPACE) {
+          return tagName === 'math';
+        }
+        // The only way to switch from SVG to MathML is via
+        // <math> and HTML integration points
+        if (parent.namespaceURI === SVG_NAMESPACE) {
+          return tagName === 'math' && HTML_INTEGRATION_POINTS[parentTagName];
+        }
+        // We only allow elements that are defined in MathML
+        // spec. All others are disallowed in MathML namespace.
+        return Boolean(ALL_MATHML_TAGS[tagName]);
+      }
+      if (element.namespaceURI === HTML_NAMESPACE) {
+        // The only way to switch from SVG to HTML is via
+        // HTML integration points, and from MathML to HTML
+        // is via MathML text integration points
+        if (parent.namespaceURI === SVG_NAMESPACE && !HTML_INTEGRATION_POINTS[parentTagName]) {
+          return false;
+        }
+        if (parent.namespaceURI === MATHML_NAMESPACE && !MATHML_TEXT_INTEGRATION_POINTS[parentTagName]) {
+          return false;
+        }
+        // We disallow tags that are specific for MathML
+        // or SVG and should never appear in HTML namespace
+        return !ALL_MATHML_TAGS[tagName] && (COMMON_SVG_AND_HTML_ELEMENTS[tagName] || !ALL_SVG_TAGS[tagName]);
+      }
+      // For XHTML and XML documents that support custom namespaces
+      if (PARSER_MEDIA_TYPE === 'application/xhtml+xml' && ALLOWED_NAMESPACES[element.namespaceURI]) {
+        return true;
+      }
+      // The code should never reach this place (this means
+      // that the element somehow got namespace that is not
+      // HTML, SVG, MathML or allowed via ALLOWED_NAMESPACES).
+      // Return false just in case.
+      return false;
+    };
+    /**
+     * _forceRemove
+     *
+     * @param node a DOM node
+     */
+    const _forceRemove = function _forceRemove(node) {
+      arrayPush(DOMPurify.removed, {
+        element: node
+      });
+      try {
+        // eslint-disable-next-line unicorn/prefer-dom-node-remove
+        getParentNode(node).removeChild(node);
+      } catch (_) {
+        remove(node);
+      }
+    };
+    /**
+     * _removeAttribute
+     *
+     * @param name an Attribute name
+     * @param element a DOM node
+     */
+    const _removeAttribute = function _removeAttribute(name, element) {
+      try {
+        arrayPush(DOMPurify.removed, {
+          attribute: element.getAttributeNode(name),
+          from: element
+        });
+      } catch (_) {
+        arrayPush(DOMPurify.removed, {
+          attribute: null,
+          from: element
+        });
+      }
+      element.removeAttribute(name);
+      // We void attribute values for unremovable "is" attributes
+      if (name === 'is') {
+        if (RETURN_DOM || RETURN_DOM_FRAGMENT) {
+          try {
+            _forceRemove(element);
+          } catch (_) {}
+        } else {
+          try {
+            element.setAttribute(name, '');
+          } catch (_) {}
+        }
+      }
+    };
+    /**
+     * _initDocument
+     *
+     * @param dirty - a string of dirty markup
+     * @return a DOM, filled with the dirty markup
+     */
+    const _initDocument = function _initDocument(dirty) {
+      /* Create a HTML document */
+      let doc = null;
+      let leadingWhitespace = null;
+      if (FORCE_BODY) {
+        dirty = '<remove></remove>' + dirty;
+      } else {
+        /* If FORCE_BODY isn't used, leading whitespace needs to be preserved manually */
+        const matches = stringMatch(dirty, /^[\r\n\t ]+/);
+        leadingWhitespace = matches && matches[0];
+      }
+      if (PARSER_MEDIA_TYPE === 'application/xhtml+xml' && NAMESPACE === HTML_NAMESPACE) {
+        // Root of XHTML doc must contain xmlns declaration (see https://www.w3.org/TR/xhtml1/normative.html#strict)
+        dirty = '<html xmlns="http://www.w3.org/1999/xhtml"><head></head><body>' + dirty + '</body></html>';
+      }
+      const dirtyPayload = trustedTypesPolicy ? trustedTypesPolicy.createHTML(dirty) : dirty;
+      /*
+       * Use the DOMParser API by default, fallback later if needs be
+       * DOMParser not work for svg when has multiple root element.
+       */
+      if (NAMESPACE === HTML_NAMESPACE) {
+        try {
+          doc = new DOMParser().parseFromString(dirtyPayload, PARSER_MEDIA_TYPE);
+        } catch (_) {}
+      }
+      /* Use createHTMLDocument in case DOMParser is not available */
+      if (!doc || !doc.documentElement) {
+        doc = implementation.createDocument(NAMESPACE, 'template', null);
+        try {
+          doc.documentElement.innerHTML = IS_EMPTY_INPUT ? emptyHTML : dirtyPayload;
+        } catch (_) {
+          // Syntax error if dirtyPayload is invalid xml
+        }
+      }
+      const body = doc.body || doc.documentElement;
+      if (dirty && leadingWhitespace) {
+        body.insertBefore(document.createTextNode(leadingWhitespace), body.childNodes[0] || null);
+      }
+      /* Work on whole document or just its body */
+      if (NAMESPACE === HTML_NAMESPACE) {
+        return getElementsByTagName.call(doc, WHOLE_DOCUMENT ? 'html' : 'body')[0];
+      }
+      return WHOLE_DOCUMENT ? doc.documentElement : body;
+    };
+    /**
+     * Creates a NodeIterator object that you can use to traverse filtered lists of nodes or elements in a document.
+     *
+     * @param root The root element or node to start traversing on.
+     * @return The created NodeIterator
+     */
+    const _createNodeIterator = function _createNodeIterator(root) {
+      return createNodeIterator.call(root.ownerDocument || root, root,
+      // eslint-disable-next-line no-bitwise
+      NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_COMMENT | NodeFilter.SHOW_TEXT | NodeFilter.SHOW_PROCESSING_INSTRUCTION | NodeFilter.SHOW_CDATA_SECTION, null);
+    };
+    /**
+     * _isClobbered
+     *
+     * @param element element to check for clobbering attacks
+     * @return true if clobbered, false if safe
+     */
+    const _isClobbered = function _isClobbered(element) {
+      return element instanceof HTMLFormElement && (typeof element.nodeName !== 'string' || typeof element.textContent !== 'string' || typeof element.removeChild !== 'function' || !(element.attributes instanceof NamedNodeMap) || typeof element.removeAttribute !== 'function' || typeof element.setAttribute !== 'function' || typeof element.namespaceURI !== 'string' || typeof element.insertBefore !== 'function' || typeof element.hasChildNodes !== 'function');
+    };
+    /**
+     * Checks whether the given object is a DOM node.
+     *
+     * @param value object to check whether it's a DOM node
+     * @return true is object is a DOM node
+     */
+    const _isNode = function _isNode(value) {
+      return typeof Node === 'function' && value instanceof Node;
+    };
+    function _executeHooks(hooks, currentNode, data) {
+      arrayForEach(hooks, hook => {
+        hook.call(DOMPurify, currentNode, data, CONFIG);
+      });
+    }
+    /**
+     * _sanitizeElements
+     *
+     * @protect nodeName
+     * @protect textContent
+     * @protect removeChild
+     * @param currentNode to check for permission to exist
+     * @return true if node was killed, false if left alive
+     */
+    const _sanitizeElements = function _sanitizeElements(currentNode) {
+      let content = null;
+      /* Execute a hook if present */
+      _executeHooks(hooks.beforeSanitizeElements, currentNode, null);
+      /* Check if element is clobbered or can clobber */
+      if (_isClobbered(currentNode)) {
+        _forceRemove(currentNode);
+        return true;
+      }
+      /* Now let's check the element's type and name */
+      const tagName = transformCaseFunc(currentNode.nodeName);
+      /* Execute a hook if present */
+      _executeHooks(hooks.uponSanitizeElement, currentNode, {
+        tagName,
+        allowedTags: ALLOWED_TAGS
+      });
+      /* Detect mXSS attempts abusing namespace confusion */
+      if (SAFE_FOR_XML && currentNode.hasChildNodes() && !_isNode(currentNode.firstElementChild) && regExpTest(/<[/\w!]/g, currentNode.innerHTML) && regExpTest(/<[/\w!]/g, currentNode.textContent)) {
+        _forceRemove(currentNode);
+        return true;
+      }
+      /* Remove any occurrence of processing instructions */
+      if (currentNode.nodeType === NODE_TYPE.progressingInstruction) {
+        _forceRemove(currentNode);
+        return true;
+      }
+      /* Remove any kind of possibly harmful comments */
+      if (SAFE_FOR_XML && currentNode.nodeType === NODE_TYPE.comment && regExpTest(/<[/\w]/g, currentNode.data)) {
+        _forceRemove(currentNode);
+        return true;
+      }
+      /* Remove element if anything forbids its presence */
+      if (!ALLOWED_TAGS[tagName] || FORBID_TAGS[tagName]) {
+        /* Check if we have a custom element to handle */
+        if (!FORBID_TAGS[tagName] && _isBasicCustomElement(tagName)) {
+          if (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, tagName)) {
+            return false;
+          }
+          if (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.tagNameCheck(tagName)) {
+            return false;
+          }
+        }
+        /* Keep content except for bad-listed elements */
+        if (KEEP_CONTENT && !FORBID_CONTENTS[tagName]) {
+          const parentNode = getParentNode(currentNode) || currentNode.parentNode;
+          const childNodes = getChildNodes(currentNode) || currentNode.childNodes;
+          if (childNodes && parentNode) {
+            const childCount = childNodes.length;
+            for (let i = childCount - 1; i >= 0; --i) {
+              const childClone = cloneNode(childNodes[i], true);
+              childClone.__removalCount = (currentNode.__removalCount || 0) + 1;
+              parentNode.insertBefore(childClone, getNextSibling(currentNode));
+            }
+          }
+        }
+        _forceRemove(currentNode);
+        return true;
+      }
+      /* Check whether element has a valid namespace */
+      if (currentNode instanceof Element && !_checkValidNamespace(currentNode)) {
+        _forceRemove(currentNode);
+        return true;
+      }
+      /* Make sure that older browsers don't get fallback-tag mXSS */
+      if ((tagName === 'noscript' || tagName === 'noembed' || tagName === 'noframes') && regExpTest(/<\/no(script|embed|frames)/i, currentNode.innerHTML)) {
+        _forceRemove(currentNode);
+        return true;
+      }
+      /* Sanitize element content to be template-safe */
+      if (SAFE_FOR_TEMPLATES && currentNode.nodeType === NODE_TYPE.text) {
+        /* Get the element's text content */
+        content = currentNode.textContent;
+        arrayForEach([MUSTACHE_EXPR, ERB_EXPR, TMPLIT_EXPR], expr => {
+          content = stringReplace(content, expr, ' ');
+        });
+        if (currentNode.textContent !== content) {
+          arrayPush(DOMPurify.removed, {
+            element: currentNode.cloneNode()
+          });
+          currentNode.textContent = content;
+        }
+      }
+      /* Execute a hook if present */
+      _executeHooks(hooks.afterSanitizeElements, currentNode, null);
+      return false;
+    };
+    /**
+     * _isValidAttribute
+     *
+     * @param lcTag Lowercase tag name of containing element.
+     * @param lcName Lowercase attribute name.
+     * @param value Attribute value.
+     * @return Returns true if `value` is valid, otherwise false.
+     */
+    // eslint-disable-next-line complexity
+    const _isValidAttribute = function _isValidAttribute(lcTag, lcName, value) {
+      /* Make sure attribute cannot clobber */
+      if (SANITIZE_DOM && (lcName === 'id' || lcName === 'name') && (value in document || value in formElement)) {
+        return false;
+      }
+      /* Allow valid data-* attributes: At least one character after "-"
+          (https://html.spec.whatwg.org/multipage/dom.html#embedding-custom-non-visible-data-with-the-data-*-attributes)
+          XML-compatible (https://html.spec.whatwg.org/multipage/infrastructure.html#xml-compatible and http://www.w3.org/TR/xml/#d0e804)
+          We don't need to check the value; it's always URI safe. */
+      if (ALLOW_DATA_ATTR && !FORBID_ATTR[lcName] && regExpTest(DATA_ATTR, lcName)) ; else if (ALLOW_ARIA_ATTR && regExpTest(ARIA_ATTR, lcName)) ; else if (!ALLOWED_ATTR[lcName] || FORBID_ATTR[lcName]) {
+        if (
+        // First condition does a very basic check if a) it's basically a valid custom element tagname AND
+        // b) if the tagName passes whatever the user has configured for CUSTOM_ELEMENT_HANDLING.tagNameCheck
+        // and c) if the attribute name passes whatever the user has configured for CUSTOM_ELEMENT_HANDLING.attributeNameCheck
+        _isBasicCustomElement(lcTag) && (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, lcTag) || CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.tagNameCheck(lcTag)) && (CUSTOM_ELEMENT_HANDLING.attributeNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.attributeNameCheck, lcName) || CUSTOM_ELEMENT_HANDLING.attributeNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.attributeNameCheck(lcName, lcTag)) ||
+        // Alternative, second condition checks if it's an `is`-attribute, AND
+        // the value passes whatever the user has configured for CUSTOM_ELEMENT_HANDLING.tagNameCheck
+        lcName === 'is' && CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements && (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, value) || CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.tagNameCheck(value))) ; else {
+          return false;
+        }
+        /* Check value is safe. First, is attr inert? If so, is safe */
+      } else if (URI_SAFE_ATTRIBUTES[lcName]) ; else if (regExpTest(IS_ALLOWED_URI$1, stringReplace(value, ATTR_WHITESPACE, ''))) ; else if ((lcName === 'src' || lcName === 'xlink:href' || lcName === 'href') && lcTag !== 'script' && stringIndexOf(value, 'data:') === 0 && DATA_URI_TAGS[lcTag]) ; else if (ALLOW_UNKNOWN_PROTOCOLS && !regExpTest(IS_SCRIPT_OR_DATA, stringReplace(value, ATTR_WHITESPACE, ''))) ; else if (value) {
+        return false;
+      } else ;
+      return true;
+    };
+    /**
+     * _isBasicCustomElement
+     * checks if at least one dash is included in tagName, and it's not the first char
+     * for more sophisticated checking see https://github.com/sindresorhus/validate-element-name
+     *
+     * @param tagName name of the tag of the node to sanitize
+     * @returns Returns true if the tag name meets the basic criteria for a custom element, otherwise false.
+     */
+    const _isBasicCustomElement = function _isBasicCustomElement(tagName) {
+      return tagName !== 'annotation-xml' && stringMatch(tagName, CUSTOM_ELEMENT);
+    };
+    /**
+     * _sanitizeAttributes
+     *
+     * @protect attributes
+     * @protect nodeName
+     * @protect removeAttribute
+     * @protect setAttribute
+     *
+     * @param currentNode to sanitize
+     */
+    const _sanitizeAttributes = function _sanitizeAttributes(currentNode) {
+      /* Execute a hook if present */
+      _executeHooks(hooks.beforeSanitizeAttributes, currentNode, null);
+      const {
+        attributes
+      } = currentNode;
+      /* Check if we have attributes; if not we might have a text node */
+      if (!attributes || _isClobbered(currentNode)) {
+        return;
+      }
+      const hookEvent = {
+        attrName: '',
+        attrValue: '',
+        keepAttr: true,
+        allowedAttributes: ALLOWED_ATTR,
+        forceKeepAttr: undefined
+      };
+      let l = attributes.length;
+      /* Go backwards over all attributes; safely remove bad ones */
+      while (l--) {
+        const attr = attributes[l];
+        const {
+          name,
+          namespaceURI,
+          value: attrValue
+        } = attr;
+        const lcName = transformCaseFunc(name);
+        const initValue = attrValue;
+        let value = name === 'value' ? initValue : stringTrim(initValue);
+        /* Execute a hook if present */
+        hookEvent.attrName = lcName;
+        hookEvent.attrValue = value;
+        hookEvent.keepAttr = true;
+        hookEvent.forceKeepAttr = undefined; // Allows developers to see this is a property they can set
+        _executeHooks(hooks.uponSanitizeAttribute, currentNode, hookEvent);
+        value = hookEvent.attrValue;
+        /* Full DOM Clobbering protection via namespace isolation,
+         * Prefix id and name attributes with `user-content-`
+         */
+        if (SANITIZE_NAMED_PROPS && (lcName === 'id' || lcName === 'name')) {
+          // Remove the attribute with this value
+          _removeAttribute(name, currentNode);
+          // Prefix the value and later re-create the attribute with the sanitized value
+          value = SANITIZE_NAMED_PROPS_PREFIX + value;
+        }
+        /* Work around a security issue with comments inside attributes */
+        if (SAFE_FOR_XML && regExpTest(/((--!?|])>)|<\/(style|title|textarea)/i, value)) {
+          _removeAttribute(name, currentNode);
+          continue;
+        }
+        /* Make sure we cannot easily use animated hrefs, even if animations are allowed */
+        if (lcName === 'attributename' && stringMatch(value, 'href')) {
+          _removeAttribute(name, currentNode);
+          continue;
+        }
+        /* Did the hooks approve of the attribute? */
+        if (hookEvent.forceKeepAttr) {
+          continue;
+        }
+        /* Did the hooks approve of the attribute? */
+        if (!hookEvent.keepAttr) {
+          _removeAttribute(name, currentNode);
+          continue;
+        }
+        /* Work around a security issue in jQuery 3.0 */
+        if (!ALLOW_SELF_CLOSE_IN_ATTR && regExpTest(/\/>/i, value)) {
+          _removeAttribute(name, currentNode);
+          continue;
+        }
+        /* Sanitize attribute content to be template-safe */
+        if (SAFE_FOR_TEMPLATES) {
+          arrayForEach([MUSTACHE_EXPR, ERB_EXPR, TMPLIT_EXPR], expr => {
+            value = stringReplace(value, expr, ' ');
+          });
+        }
+        /* Is `value` valid for this attribute? */
+        const lcTag = transformCaseFunc(currentNode.nodeName);
+        if (!_isValidAttribute(lcTag, lcName, value)) {
+          _removeAttribute(name, currentNode);
+          continue;
+        }
+        /* Handle attributes that require Trusted Types */
+        if (trustedTypesPolicy && typeof trustedTypes === 'object' && typeof trustedTypes.getAttributeType === 'function') {
+          if (namespaceURI) ; else {
+            switch (trustedTypes.getAttributeType(lcTag, lcName)) {
+              case 'TrustedHTML':
+                {
+                  value = trustedTypesPolicy.createHTML(value);
+                  break;
+                }
+              case 'TrustedScriptURL':
+                {
+                  value = trustedTypesPolicy.createScriptURL(value);
+                  break;
+                }
+            }
+          }
+        }
+        /* Handle invalid data-* attribute set by try-catching it */
+        if (value !== initValue) {
+          try {
+            if (namespaceURI) {
+              currentNode.setAttributeNS(namespaceURI, name, value);
+            } else {
+              /* Fallback to setAttribute() for browser-unrecognized namespaces e.g. "x-schema". */
+              currentNode.setAttribute(name, value);
+            }
+            if (_isClobbered(currentNode)) {
+              _forceRemove(currentNode);
+            } else {
+              arrayPop(DOMPurify.removed);
+            }
+          } catch (_) {
+            _removeAttribute(name, currentNode);
+          }
+        }
+      }
+      /* Execute a hook if present */
+      _executeHooks(hooks.afterSanitizeAttributes, currentNode, null);
+    };
+    /**
+     * _sanitizeShadowDOM
+     *
+     * @param fragment to iterate over recursively
+     */
+    const _sanitizeShadowDOM = function _sanitizeShadowDOM(fragment) {
+      let shadowNode = null;
+      const shadowIterator = _createNodeIterator(fragment);
+      /* Execute a hook if present */
+      _executeHooks(hooks.beforeSanitizeShadowDOM, fragment, null);
+      while (shadowNode = shadowIterator.nextNode()) {
+        /* Execute a hook if present */
+        _executeHooks(hooks.uponSanitizeShadowNode, shadowNode, null);
+        /* Sanitize tags and elements */
+        _sanitizeElements(shadowNode);
+        /* Check attributes next */
+        _sanitizeAttributes(shadowNode);
+        /* Deep shadow DOM detected */
+        if (shadowNode.content instanceof DocumentFragment) {
+          _sanitizeShadowDOM(shadowNode.content);
+        }
+      }
+      /* Execute a hook if present */
+      _executeHooks(hooks.afterSanitizeShadowDOM, fragment, null);
+    };
+    // eslint-disable-next-line complexity
+    DOMPurify.sanitize = function (dirty) {
+      let cfg = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      let body = null;
+      let importedNode = null;
+      let currentNode = null;
+      let returnNode = null;
+      /* Make sure we have a string to sanitize.
+        DO NOT return early, as this will return the wrong type if
+        the user has requested a DOM object rather than a string */
+      IS_EMPTY_INPUT = !dirty;
+      if (IS_EMPTY_INPUT) {
+        dirty = '<!-->';
+      }
+      /* Stringify, in case dirty is an object */
+      if (typeof dirty !== 'string' && !_isNode(dirty)) {
+        if (typeof dirty.toString === 'function') {
+          dirty = dirty.toString();
+          if (typeof dirty !== 'string') {
+            throw typeErrorCreate('dirty is not a string, aborting');
+          }
+        } else {
+          throw typeErrorCreate('toString is not a function');
+        }
+      }
+      /* Return dirty HTML if DOMPurify cannot run */
+      if (!DOMPurify.isSupported) {
+        return dirty;
+      }
+      /* Assign config vars */
+      if (!SET_CONFIG) {
+        _parseConfig(cfg);
+      }
+      /* Clean up removed elements */
+      DOMPurify.removed = [];
+      /* Check if dirty is correctly typed for IN_PLACE */
+      if (typeof dirty === 'string') {
+        IN_PLACE = false;
+      }
+      if (IN_PLACE) {
+        /* Do some early pre-sanitization to avoid unsafe root nodes */
+        if (dirty.nodeName) {
+          const tagName = transformCaseFunc(dirty.nodeName);
+          if (!ALLOWED_TAGS[tagName] || FORBID_TAGS[tagName]) {
+            throw typeErrorCreate('root node is forbidden and cannot be sanitized in-place');
+          }
+        }
+      } else if (dirty instanceof Node) {
+        /* If dirty is a DOM element, append to an empty document to avoid
+           elements being stripped by the parser */
+        body = _initDocument('<!---->');
+        importedNode = body.ownerDocument.importNode(dirty, true);
+        if (importedNode.nodeType === NODE_TYPE.element && importedNode.nodeName === 'BODY') {
+          /* Node is already a body, use as is */
+          body = importedNode;
+        } else if (importedNode.nodeName === 'HTML') {
+          body = importedNode;
+        } else {
+          // eslint-disable-next-line unicorn/prefer-dom-node-append
+          body.appendChild(importedNode);
+        }
+      } else {
+        /* Exit directly if we have nothing to do */
+        if (!RETURN_DOM && !SAFE_FOR_TEMPLATES && !WHOLE_DOCUMENT &&
+        // eslint-disable-next-line unicorn/prefer-includes
+        dirty.indexOf('<') === -1) {
+          return trustedTypesPolicy && RETURN_TRUSTED_TYPE ? trustedTypesPolicy.createHTML(dirty) : dirty;
+        }
+        /* Initialize the document to work on */
+        body = _initDocument(dirty);
+        /* Check we have a DOM node from the data */
+        if (!body) {
+          return RETURN_DOM ? null : RETURN_TRUSTED_TYPE ? emptyHTML : '';
+        }
+      }
+      /* Remove first element node (ours) if FORCE_BODY is set */
+      if (body && FORCE_BODY) {
+        _forceRemove(body.firstChild);
+      }
+      /* Get node iterator */
+      const nodeIterator = _createNodeIterator(IN_PLACE ? dirty : body);
+      /* Now start iterating over the created document */
+      while (currentNode = nodeIterator.nextNode()) {
+        /* Sanitize tags and elements */
+        _sanitizeElements(currentNode);
+        /* Check attributes next */
+        _sanitizeAttributes(currentNode);
+        /* Shadow DOM detected, sanitize it */
+        if (currentNode.content instanceof DocumentFragment) {
+          _sanitizeShadowDOM(currentNode.content);
+        }
+      }
+      /* If we sanitized `dirty` in-place, return it. */
+      if (IN_PLACE) {
+        return dirty;
+      }
+      /* Return sanitized string or DOM */
+      if (RETURN_DOM) {
+        if (RETURN_DOM_FRAGMENT) {
+          returnNode = createDocumentFragment.call(body.ownerDocument);
+          while (body.firstChild) {
+            // eslint-disable-next-line unicorn/prefer-dom-node-append
+            returnNode.appendChild(body.firstChild);
+          }
+        } else {
+          returnNode = body;
+        }
+        if (ALLOWED_ATTR.shadowroot || ALLOWED_ATTR.shadowrootmode) {
+          /*
+            AdoptNode() is not used because internal state is not reset
+            (e.g. the past names map of a HTMLFormElement), this is safe
+            in theory but we would rather not risk another attack vector.
+            The state that is cloned by importNode() is explicitly defined
+            by the specs.
+          */
+          returnNode = importNode.call(originalDocument, returnNode, true);
+        }
+        return returnNode;
+      }
+      let serializedHTML = WHOLE_DOCUMENT ? body.outerHTML : body.innerHTML;
+      /* Serialize doctype if allowed */
+      if (WHOLE_DOCUMENT && ALLOWED_TAGS['!doctype'] && body.ownerDocument && body.ownerDocument.doctype && body.ownerDocument.doctype.name && regExpTest(DOCTYPE_NAME, body.ownerDocument.doctype.name)) {
+        serializedHTML = '<!DOCTYPE ' + body.ownerDocument.doctype.name + '>\n' + serializedHTML;
+      }
+      /* Sanitize final string template-safe */
+      if (SAFE_FOR_TEMPLATES) {
+        arrayForEach([MUSTACHE_EXPR, ERB_EXPR, TMPLIT_EXPR], expr => {
+          serializedHTML = stringReplace(serializedHTML, expr, ' ');
+        });
+      }
+      return trustedTypesPolicy && RETURN_TRUSTED_TYPE ? trustedTypesPolicy.createHTML(serializedHTML) : serializedHTML;
+    };
+    DOMPurify.setConfig = function () {
+      let cfg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      _parseConfig(cfg);
+      SET_CONFIG = true;
+    };
+    DOMPurify.clearConfig = function () {
+      CONFIG = null;
+      SET_CONFIG = false;
+    };
+    DOMPurify.isValidAttribute = function (tag, attr, value) {
+      /* Initialize shared config vars if necessary. */
+      if (!CONFIG) {
+        _parseConfig({});
+      }
+      const lcTag = transformCaseFunc(tag);
+      const lcName = transformCaseFunc(attr);
+      return _isValidAttribute(lcTag, lcName, value);
+    };
+    DOMPurify.addHook = function (entryPoint, hookFunction) {
+      if (typeof hookFunction !== 'function') {
+        return;
+      }
+      arrayPush(hooks[entryPoint], hookFunction);
+    };
+    DOMPurify.removeHook = function (entryPoint, hookFunction) {
+      if (hookFunction !== undefined) {
+        const index = arrayLastIndexOf(hooks[entryPoint], hookFunction);
+        return index === -1 ? undefined : arraySplice(hooks[entryPoint], index, 1)[0];
+      }
+      return arrayPop(hooks[entryPoint]);
+    };
+    DOMPurify.removeHooks = function (entryPoint) {
+      hooks[entryPoint] = [];
+    };
+    DOMPurify.removeAllHooks = function () {
+      hooks = _createHooksMap();
+    };
+    return DOMPurify;
+  }
+  var purify = createDOMPurify();
+
+  return purify;
+
+}));
+//# sourceMappingURL=purify.js.map
+
+/**
+ * jQuery fixes
+ *
+ * Note: The following analysis and/or changes was required also to be applied in our code base:
+ *	- Ensure there is no JSONP ajax call
+ *	- Ensure to not use self closing tag when a closing tag is usually needed.
+ *		ex: `<div />` need to change for `<div></div>`
+ *		This is applicable to all tags except the one in this list: area|br|col|embed|hr|img|input|link|meta|param
+ *	- Review how `<tr>`, `<td>`, `<script>` and `<link>` are inserted with `$()`.
+ *		Their insertion need to be completed differently like the by using the javascript DOM interface.
+ *	- All content that related to jQuery DOM manipulation are sanitized with DOMPurify
+ *	- You can't use jQuery for parsing XML document, you can use DOMParser() as an alternative
+ *	- Ensure AJAX and fetch are sanitized before they response are used
+ */
+/*
+
+// Test case for the jQuery fixes bellow
+
+Test: jQuery()
+
+	- Run in your browser console
+	> $( "<p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p>" ).appendTo( "#wb-cont" );
+	result: No iframe inserted around the heading level 1
+
+Test:
+jQuery.html()
+jQuery.append()
+jQuery.prepend()
+jQuery.before()
+jQuery.after()
+
+	- Use the data-ajax demo page: /demos/data-ajax/data-ajax-en.html
+	- Insert the following in the ajaxed in file: <p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p>
+	- Check if the dirty HTML are cleaned for the example: "append", "prepend", "before", "after"
+	- The data-ajax-replace will also test the jQuery.html() function.
+
+Test: jQuery.replaceWith()
+
+	- Run in your browser console
+	> $("#wb-cont").replaceWith( "<p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p>" );
+	result: No iframe inserted around the heading level 1
+
+Test: jQuery.parseHTML()
+
+	- Run in your browser console, pass unsafe HTML and it should return sanitized HTML
+	> jQuery.parseHTML( "<p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p>" );
+	result: return an array with 1 element, [ p ]
+
+Test: jQuery.htmlPrefilter()
+
+	- Run in your browser console
+	> jQuery.htmlPrefilter( "<tr/>" );
+	result: return <tr/>
+
+Test: jQuery.extend
+
+	- Run in your browser console
+	> var dataFromAPI = JSON.parse( '{ "new": "property", "__proto__": { "polluted": "true" } }' );
+	> var myObject = jQuery.extend( '{ "new": "property" }', dataFromAPI );
+	> console.log( myObject.polluted );
+	result: > undefined
+
+*/
+
+( function( jQuery, DOMPurify, window ) {
+"use strict";
+
+/**
+ * Copied from: https://git.drupalcode.org/project/drupal/-/commit/d2f26902ef5d6de58caaf2a7c766eb2115b1c17e
+ *
+ * This is almost verbatim copied from jQuery 3.4.0.
+ *
+ * Now compatible with jQuery 4.
+ *
+ */
+jQuery.extend = jQuery.fn.extend = function() {
+	var options, name, src, copy, copyIsArray, clone,
+		target = arguments[ 0 ] || {},
+		i = 1,
+		length = arguments.length,
+		deep = false;
+
+	// Handle a deep copy situation
+	if ( typeof target === "boolean" ) {
+		deep = target;
+
+		// Skip the boolean and the target
+		target = arguments[ i ] || {};
+		i++;
+	}
+
+	// Handle case when target is a string or something (possible in deep copy)
+	if ( typeof target !== "object" && typeof target !== "function" ) {
+		target = {};
+	}
+
+	// Extend jQuery itself if only one argument is passed
+	if ( i === length ) {
+		target = this;
+		i--;
+	}
+
+	for ( ; i < length; i++ ) {
+
+		// Only deal with non-null/undefined values
+		options = arguments[ i ];
+		if ( options !== undefined || options !== null ) {
+
+			// Extend the base object
+			for ( name in options ) {
+				copy = options[ name ];
+
+				// Prevent Object.prototype pollution
+				// Prevent never-ending loop
+				if ( name === "__proto__" || target === copy ) {
+					continue;
+				}
+
+				// Recurse if we're merging plain objects or arrays
+				if ( deep && copy && ( jQuery.isPlainObject( copy ) ||
+					( copyIsArray = Array.isArray( copy ) ) ) ) {
+					src = target[ name ];
+
+					// Ensure proper type for the source value
+					if ( copyIsArray && !Array.isArray( src ) ) {
+						clone = [];
+					} else if ( !copyIsArray && !jQuery.isPlainObject( src ) ) {
+						clone = {};
+					} else {
+						clone = src;
+					}
+					copyIsArray = false;
+
+					// Never move original objects, clone them
+					target[ name ] = jQuery.extend( deep, clone, copy );
+
+					// Don't bring in undefined values
+				} else if ( copy !== undefined ) {
+					target[ name ] = copy;
+				}
+			}
+		}
+	}
+
+	// Return the modified object
+	return target;
+};
+
+/**
+ * Security advisories: https://github.com/jquery/jquery/security/advisories/GHSA-gxr4-xjj5-5px2
+ */
+jQuery.htmlPrefilter = function( html ) {
+	return html;
+};
+
+/**
+ * Security advisories: https://github.com/jquery/jquery/security/advisories/GHSA-jpcq-cgw6-v4j6
+ *
+ * This implementation leverage DOMPurify for filtering every string prior DOM manipulation by jQuery
+ *
+ */
+
+// START: add hooks to DOMPurify to allow external links when they meet certain conditions as defined here: https://owasp.org/www-community/attacks/Reverse_Tabnabbing
+DOMPurify.addHook( "beforeSanitizeAttributes", function( node ) {
+
+	// Add "data-wb-external-link" to all <a> with a target="_blank" and rel="noreferrer"
+	if (
+		node.tagName === "A" &&
+		node.getAttribute( "target" ) &&
+		node.getAttribute( "target" ) === "_blank" &&
+		node.getAttribute( "rel" ) &&
+		node.relList.contains( "noreferrer" )
+	) {
+		node.setAttribute( "data-wb-external-link", "true" );
+	}
+} );
+
+DOMPurify.addHook( "afterSanitizeAttributes", function( node ) {
+
+	// Put back the target="_blank" to all <a> with attribute "data-wb-external-link"
+	if ( node.tagName === "A" && node.getAttribute( "data-wb-external-link" ) ) {
+		node.setAttribute( "target", "_blank" );
+		node.removeAttribute( "data-wb-external-link" );
+	}
+} );
+
+// END
+
+var localParseHTML = jQuery.parseHTML,
+	append = jQuery.fn.append,
+	prepend = jQuery.fn.prepend,
+	before = jQuery.fn.before,
+	after = jQuery.fn.after,
+	replaceWith = jQuery.fn.replaceWith,
+	jqInit = jQuery.fn.init,
+	dataTableAllowedTag = [
+		"<tbody/>",
+		"<tr/>",
+		"<td />",
+		"<td/>"
+	],
+	sanitize = function( html ) {
+
+		// Add an exception for DataTable plugin
+		if ( window.DataTable && dataTableAllowedTag.indexOf( html ) !== -1 ) {
+			return html;
+		}
+
+		return DOMPurify.sanitize( html );
+	};
+
+jQuery.parseHTML = function( data, context, keepScripts ) {
+	return localParseHTML( sanitize( data ), context, keepScripts );
+};
+
+jQuery.domManip = null;
+
+jQuery.append = jQuery.fn.append = function() {
+	var args = arguments,
+		value = args[ 0 ];
+	if ( typeof value === "string" ) {
+		value = sanitize( value );
+		args[ 0 ] = value;
+	}
+	return append.apply( this, args );
+};
+
+jQuery.prepend = jQuery.fn.prepend = function() {
+	var args = arguments,
+		value = args[ 0 ];
+	if ( typeof value === "string" ) {
+		value = sanitize( value );
+		args[ 0 ] = value;
+	}
+	return prepend.apply( this, args );
+};
+
+jQuery.before = jQuery.fn.before = function() {
+	var args = arguments,
+		value = args[ 0 ];
+	if ( typeof value === "string" ) {
+		value = sanitize( value );
+		args[ 0 ] = value;
+	}
+	return before.apply( this, args );
+};
+
+jQuery.after = jQuery.fn.after = function() {
+	var args = arguments,
+		value = args[ 0 ];
+	if ( typeof value === "string" ) {
+		value = sanitize( value );
+		args[ 0 ] = value;
+	}
+	return after.apply( this, args );
+};
+
+jQuery.replaceWith = jQuery.fn.replaceWith = function() {
+	var args = arguments,
+		value = args[ 0 ];
+	if ( typeof value === "string" ) {
+		value = sanitize( value );
+		args[ 0 ] = value;
+	}
+	return replaceWith.apply( this, args );
+};
+
+jQuery.fn.init = function( selector, context, root ) {
+	if ( typeof selector === "string" ) {
+		selector = sanitize( selector );
+	}
+	return new jqInit( selector, context, root );
+};
+
+jQuery.html = function( value ) {
+	return jQuery.html( sanitize( value ) );
+};
+
+} )( jQuery, DOMPurify, window );
+
 /* Modernizr (Custom Build) | MIT & BSD
  * Build: https://modernizr.com/download/#-elem_details-elem_progress_meter-mathml-cors-load-mq-css3-input-inputtypes-svg-cssclasses-csstransitions-fontface-backgroundsize-borderimage-teststyles-testprops-testallprops-hasevents-prefixes-domprefixes
  */
 ;window.Modernizr=function(e,t,n){function L(e){f.cssText=e}function A(e,t){return L(p.join(e+";")+(t||""))}function O(e,t){return typeof e===t}function M(e,t){return!!~(""+e).indexOf(t)}function _(e,t){for(var r in e){var i=e[r];if(!M(i,"-")&&f[i]!==n)return t=="pfx"?i:!0}return!1}function D(e,t,r){for(var i in e){var s=t[e[i]];if(s!==n)return r===!1?e[i]:O(s,"function")?s.bind(r||t):s}return!1}function P(e,t,n){var r=e.charAt(0).toUpperCase()+e.slice(1),i=(e+" "+v.join(r+" ")+r).split(" ");return O(t,"string")||O(t,"undefined")?_(i,t):(i=(e+" "+m.join(r+" ")+r).split(" "),D(i,t,n))}function H(){i.input=function(n){for(var r=0,i=n.length;r<i;r++)w[n[r]]=n[r]in l;return w.list&&(w.list=!!t.createElement("datalist")&&!!e.HTMLDataListElement),w}("autocomplete autofocus list placeholder max min multiple pattern required step".split(" ")),i.inputtypes=function(e){for(var r=0,i,s,u,a=e.length;r<a;r++)l.setAttribute("type",s=e[r]),i=l.type!=="text",i&&(l.value=c,l.style.cssText="position:absolute;visibility:hidden;",/^range$/.test(s)&&l.style.WebkitAppearance!==n?(o.appendChild(l),u=t.defaultView,i=u.getComputedStyle&&u.getComputedStyle(l,null).WebkitAppearance!=="textfield"&&l.offsetHeight!==0,o.removeChild(l)):/^(search|tel)$/.test(s)||(/^(url|email)$/.test(s)?i=l.checkValidity&&l.checkValidity()===!1:i=l.value!=c)),b[e[r]]=!!i;return b}("search tel url email datetime date month week time datetime-local number range color".split(" "))}var r="2.8.3",i={},s=!0,o=t.documentElement,u="modernizr",a=t.createElement(u),f=a.style,l=t.createElement("input"),c=":)",h={}.toString,p=" -webkit- -moz- -o- -ms- ".split(" "),d="Webkit Moz O ms",v=d.split(" "),m=d.toLowerCase().split(" "),g={svg:"http://www.w3.org/2000/svg"},y={},b={},w={},E=[],S=E.slice,x,T=function(e,n,r,i){var s,a,f,l,c=t.createElement("div"),h=t.body,p=h||t.createElement("body");if(parseInt(r,10))while(r--)f=t.createElement("div"),f.id=i?i[r]:u+(r+1),c.appendChild(f);return s=["&#173;",'<style id="s',u,'">',e,"</style>"].join(""),c.id=u,(h?c:p).innerHTML+=s,p.appendChild(c),h||(p.style.background="",p.style.overflow="hidden",l=o.style.overflow,o.style.overflow="hidden",o.appendChild(p)),a=n(c,e),h?c.parentNode.removeChild(c):(p.parentNode.removeChild(p),o.style.overflow=l),!!a},N=function(t){var n=e.matchMedia||e.msMatchMedia;if(n)return n(t)&&n(t).matches||!1;var r;return T("@media "+t+" { #"+u+" { position: absolute; } }",function(t){r=(e.getComputedStyle?getComputedStyle(t,null):t.currentStyle)["position"]=="absolute"}),r},C={}.hasOwnProperty,k;!O(C,"undefined")&&!O(C.call,"undefined")?k=function(e,t){return C.call(e,t)}:k=function(e,t){return t in e&&O(e.constructor.prototype[t],"undefined")},Function.prototype.bind||(Function.prototype.bind=function(t){var n=this;if(typeof n!="function")throw new TypeError;var r=S.call(arguments,1),i=function(){if(this instanceof i){var e=function(){};e.prototype=n.prototype;var s=new e,o=n.apply(s,r.concat(S.call(arguments)));return Object(o)===o?o:s}return n.apply(t,r.concat(S.call(arguments)))};return i}),y.backgroundsize=function(){return P("backgroundSize")},y.borderimage=function(){return P("borderImage")},y.csstransitions=function(){return P("transition")},y.fontface=function(){var e;return T('@font-face {font-family:"font";src:url("https://")}',function(n,r){var i=t.getElementById("smodernizr"),s=i.sheet||i.styleSheet,o=s?s.cssRules&&s.cssRules[0]?s.cssRules[0].cssText:s.cssText||"":"";e=/src/i.test(o)&&o.indexOf(r.split(" ")[0])===0}),e},y.svg=function(){return!!t.createElementNS&&!!t.createElementNS(g.svg,"svg").createSVGRect};for(var B in y)k(y,B)&&(x=B.toLowerCase(),i[x]=y[B](),E.push((i[x]?"":"no-")+x));return i.input||H(),i.addTest=function(e,t){if(typeof e=="object")for(var r in e)k(e,r)&&i.addTest(r,e[r]);else{e=e.toLowerCase();if(i[e]!==n)return i;t=typeof t=="function"?t():t,typeof s!="undefined"&&s&&(o.className+=" "+(t?"":"no-")+e),i[e]=t}return i},L(""),a=l=null,i._version=r,i._prefixes=p,i._domPrefixes=m,i._cssomPrefixes=v,i.mq=N,i.testProp=function(e){return _([e])},i.testAllProps=P,i.testStyles=T,o.className=o.className.replace(/(^|\s)no-js(\s|$)/,"$1$2")+(s?" js "+E.join(" "):""),i}(this,this.document),function(e,t,n){function r(e){return"[object Function]"==d.call(e)}function i(e){return"string"==typeof e}function s(){}function o(e){return!e||"loaded"==e||"complete"==e||"uninitialized"==e}function u(){var e=v.shift();m=1,e?e.t?h(function(){("c"==e.t?k.injectCss:k.injectJs)(e.s,0,e.a,e.x,e.e,1)},0):(e(),u()):m=0}function a(e,n,r,i,s,a,f){function l(t){if(!d&&o(c.readyState)&&(w.r=d=1,!m&&u(),c.onload=c.onreadystatechange=null,t)){"img"!=e&&h(function(){b.removeChild(c)},50);for(var r in T[n])T[n].hasOwnProperty(r)&&T[n][r].onload()}}var f=f||k.errorTimeout,c=t.createElement(e),d=0,g=0,w={t:r,s:n,e:s,a:a,x:f};1===T[n]&&(g=1,T[n]=[]),"object"==e?c.data=n:(c.src=n,c.type=e),c.width=c.height="0",c.onerror=c.onload=c.onreadystatechange=function(){l.call(this,g)},v.splice(i,0,w),"img"!=e&&(g||2===T[n]?(b.insertBefore(c,y?null:p),h(l,f)):T[n].push(c))}function f(e,t,n,r,s){return m=0,t=t||"j",i(e)?a("c"==t?E:w,e,t,this.i++,n,r,s):(v.splice(this.i++,0,e),1==v.length&&u()),this}function l(){var e=k;return e.loader={load:f,i:0},e}var c=t.documentElement,h=e.setTimeout,p=t.getElementsByTagName("script")[0],d={}.toString,v=[],m=0,g="MozAppearance"in c.style,y=g&&!!t.createRange().compareNode,b=y?c:p.parentNode,c=e.opera&&"[object Opera]"==d.call(e.opera),c=!!t.attachEvent&&!c,w=g?"object":c?"script":"img",E=c?"script":w,S=Array.isArray||function(e){return"[object Array]"==d.call(e)},x=[],T={},N={timeout:function(e,t){return t.length&&(e.timeout=t[0]),e}},C,k;k=function(e){function t(e){var e=e.split("!"),t=x.length,n=e.pop(),r=e.length,n={url:n,origUrl:n,prefixes:e},i,s,o;for(s=0;s<r;s++)o=e[s].split("="),(i=N[o.shift()])&&(n=i(n,o));for(s=0;s<t;s++)n=x[s](n);return n}function o(e,i,s,o,u){var a=t(e),f=a.autoCallback;a.url.split(".").pop().split("?").shift(),a.bypass||(i&&(i=r(i)?i:i[e]||i[o]||i[e.split("/").pop().split("?")[0]]),a.instead?a.instead(e,i,s,o,u):(T[a.url]?a.noexec=!0:T[a.url]=1,s.load(a.url,a.forceCSS||!a.forceJS&&"css"==a.url.split(".").pop().split("?").shift()?"c":n,a.noexec,a.attrs,a.timeout),(r(i)||r(f))&&s.load(function(){l(),i&&i(a.origUrl,u,o),f&&f(a.origUrl,u,o),T[a.url]=2})))}function u(e,t){function n(e,n){if(e){if(i(e))n||(f=function(){var e=[].slice.call(arguments);l.apply(this,e),c()}),o(e,f,t,0,u);else if(Object(e)===e)for(p in h=function(){var t=0,n;for(n in e)e.hasOwnProperty(n)&&t++;return t}(),e)e.hasOwnProperty(p)&&(!n&&!--h&&(r(f)?f=function(){var e=[].slice.call(arguments);l.apply(this,e),c()}:f[p]=function(e){return function(){var t=[].slice.call(arguments);e&&e.apply(this,t),c()}}(l[p])),o(e[p],f,t,p,u))}else!n&&c()}var u=!!e.test,a=e.load||e.both,f=e.callback||s,l=f,c=e.complete||s,h,p;n(u?e.yep:e.nope,!!a),a&&n(a)}var a,f,c=this.yepnope.loader;if(i(e))o(e,0,c,0);else if(S(e))for(a=0;a<e.length;a++)f=e[a],i(f)?o(f,0,c,0):S(f)?k(f):Object(f)===f&&u(f,c);else Object(e)===e&&u(e,c)},k.addPrefix=function(e,t){N[e]=t},k.addFilter=function(e){x.push(e)},k.errorTimeout=1e4,null==t.readyState&&t.addEventListener&&(t.readyState="loading",t.addEventListener("DOMContentLoaded",C=function(){t.removeEventListener("DOMContentLoaded",C,0),t.readyState="complete"},0)),e.yepnope=l(),e.yepnope.executeStack=u,e.yepnope.injectJs=function(e,n,r,i,a,f){var l=t.createElement("script"),c,d,i=i||k.errorTimeout;l.src=e;for(d in r)l.setAttribute(d,r[d]);n=f?u:n||s,l.onreadystatechange=l.onload=function(){!c&&o(l.readyState)&&(c=1,n(),l.onload=l.onreadystatechange=null)},h(function(){c||(c=1,n(1))},i),a?l.onload():p.parentNode.insertBefore(l,p)},e.yepnope.injectCss=function(e,n,r,i,o,a){var i=t.createElement("link"),f,n=a?u:n||s;i.href=e,i.rel="stylesheet",i.type="text/css";for(f in r)i.setAttribute(f,r[f]);o||(p.parentNode.insertBefore(i,p),h(n,0))}}(this,document),Modernizr.load=function(){yepnope.apply(window,[].slice.call(arguments,0))},Modernizr.addTest("details",function(){var e=document,t=e.createElement("details"),n,r,i;return"open"in t?(r=e.body||function(){var t=e.documentElement;return n=!0,t.insertBefore(e.createElement("body"),t.firstElementChild||t.firstChild)}(),t.innerHTML="<summary>a</summary>b",t.style.display="block",r.appendChild(t),i=t.offsetHeight,t.open=!0,i=i!=t.offsetHeight,r.removeChild(t),n&&r.parentNode.removeChild(r),i):!1}),Modernizr.addTest("progressbar",function(){return document.createElement("progress").max!==undefined}),Modernizr.addTest("meter",function(){return document.createElement("meter").max!==undefined}),Modernizr.addTest("mathml",function(){var e=!1;if(document.createElementNS){var t="http://www.w3.org/1998/Math/MathML",n=document.createElement("div");n.style.position="absolute";var r=n.appendChild(document.createElementNS(t,"math")).appendChild(document.createElementNS(t,"mfrac"));r.appendChild(document.createElementNS(t,"mi")).appendChild(document.createTextNode("xx")),r.appendChild(document.createElementNS(t,"mi")).appendChild(document.createTextNode("yy")),document.body.appendChild(n),e=n.offsetHeight>n.offsetWidth}return e}),Modernizr.addTest("cors",!!(window.XMLHttpRequest&&"withCredentials"in new XMLHttpRequest));
+
+/**
+ * String.prototype.includes() polyfill
+ * @author Ricokola
+ * @license MIT
+ */
+if ( !String.prototype.includes ) {
+	String.prototype.includes = function( string ) {
+
+		return this.indexOf( string ) !== -1;
+
+	};
+}
+
+/**
+ * String.prototype.replaceAll() polyfill
+ * https://gomakethings.com/how-to-replace-a-section-of-a-string-with-another-one-with-vanilla-js/
+ * @author Chris Ferdinandi
+ * @license MIT
+ */
+if ( !String.prototype.replaceAll ) {
+	String.prototype.replaceAll = function( str, newStr ) {
+
+		// If a regex pattern
+		if ( Object.prototype.toString.call( str ).toLowerCase() === "[object regexp]" ) {
+			return this.replace( str, newStr );
+		}
+
+		// If a string
+		return this.replace( new RegExp( str, "g" ), newStr );
+
+	};
+}
+
 /**
  * @title WET-BOEW Vapour loader
  * @overview Helper methods for WET
@@ -34,25 +1716,20 @@ var getUrlParts = function( url ) {
 			host: a.host,
 			hostname: a.hostname,
 			port: a.port,
-			pathname: a.pathname.replace( /^([^\/])/, "/$1" ), // Prefix pathname with a slash in browsers that don't natively do it (i.e. all versions of IE and possibly early versions of Edge). See pull request #8110.
+			pathname: a.pathname.replace( /^([^/])/, "/$1" ), // Prefix pathname with a slash in browsers that don't natively do it (i.e. all versions of IE and possibly early versions of Edge). See pull request #8110.
 			protocol: a.protocol,
 			hash: a.hash,
 			search: a.search,
 
 			// A collection of the parameters of the query string part of the URL.
 			params: ( function() {
-				var results = {},
-					queryString = encodeURI( decodeURI( a.search.replace( /^\?/, "" ) ) ).replace( /'/g, "%27" ).split( "&" ),
-					len = queryString.length,
-					key, strings, i;
-
-				for ( i = 0; i !== len; i += 1 ) {
-					if ( ( key = queryString[ i ] ) !== null ) {
-						strings = key.split( "=" );
-						results[ strings[ 0 ] ] = strings[ 1 ];
-					}
+				var queryString = a.search.replace( /(^\?)/, "" );
+				if ( !queryString ) {
+					return {};
 				}
-				return results;
+				return queryString.split( "&" ).map( function( n ) {
+					return ( n = n.split( "=" ), this[ n[ 0 ] ] = decodeURIComponent( n[ 1 ] ), this );
+				}.bind( {} ) )[ 0 ];
 			}() )
 		};
 	},
@@ -72,17 +1749,41 @@ var getUrlParts = function( url ) {
 
 	/**
 	 * @variable i18n
-	 * @return {string} of HTML document language
+	 * @return {string} of WET document language
 	 */
-	lang = document.documentElement.lang,
+	lang = ( function( ele ) {
+		let lang = document.documentElement.lang;
+		const shortLangLength = 2;
+
+		// Perform extra checks if the page uses a long language code
+		if ( lang.length > shortLangLength ) {
+			let longLangs = [ "pt-BR", "zh-Hans" ]; // Built-in long language codes
+
+			// Check if any custom long language codes have been specified
+			// Specify by adding data-wb-core and data-lang-long="en-CA en-US etc" attributes to WET's script element (e.g. wet-boew.js or wet-boew.min.js)
+			if ( ele[ 0 ].hasAttribute( "data-wb-core" ) &&  ele[ 0 ].hasAttribute( "data-lang-long" ) ) {
+				const longLangsCustom = ele.attr( "data-lang-long" ).split( " " );
+
+				// Add extra language codes to the beginning of the longLangs array to match them more quickly
+				longLangs = longLangsCustom.concat( longLangs );
+			}
+
+			// Shorten the language code if it doesn't exist in the longLangs array
+			if ( longLangs.indexOf( lang ) === -1 ) {
+				lang = lang.substring( 0, shortLangLength );
+			}
+		}
+
+		return lang;
+	}( $src ) ),
 
 	paths = ( function( ele ) {
 		var paths = {};
 
 		paths.home = ele.prop( "src" )
-				.split( "?" )[ 0 ].split( "/" )
-				.slice( 0, -1 )
-				.join( "/" );
+			.split( "?" )[ 0 ].split( "/" )
+			.slice( 0, -1 )
+			.join( "/" );
 		paths.asset = paths.home + "/../assets";
 		paths.template = paths.home + "/assets/templates";
 		paths.dep = paths.home + "/deps";
@@ -118,7 +1819,7 @@ var getUrlParts = function( url ) {
 		while ( (
 			div.innerHTML = "<!--[if gt IE " + ( v += 1 ) + "]><i></i><![endif]-->",
 			all[ 0 ]
-		) ) {};
+		) ) { /* empty */ }
 
 		return v > 4 ? v : undef;
 	}() ),
@@ -139,7 +1840,10 @@ var getUrlParts = function( url ) {
 
 		try {
 			disabledSaved = localStorage.getItem( "wbdisable" ) || disabledSaved;
-		} catch ( e ) {}
+		} catch ( e ) {
+
+			/* swallow error */
+		}
 
 		disabled = currentpage.params.wbdisable || disabledSaved;
 		return ( typeof disabled === "string" ) ? ( disabled.toLowerCase() === "true" ) : Boolean( disabled );
@@ -167,8 +1871,14 @@ var getUrlParts = function( url ) {
 		ignoreHashChange: false,
 		initQueue: 0,
 
+		// Checks if the element <details> is supported natively.
+		// Vérifier si l'élément <details> est supporté nativement.
+		supportsDetails: function() {
+			return "open" in document.createElement( "details" );
+		},
+
 		getPath: function( property ) {
-			return this.hasOwnProperty( property ) ? this[ property ] : undef;
+			return Object.prototype.hasOwnProperty.call( this, property ) ? this[ property ] : undef;
 		},
 
 		getMode: function() {
@@ -176,7 +1886,32 @@ var getUrlParts = function( url ) {
 		},
 
 		getId: function() {
-			return "wb-auto-" + ( seed += 1 );
+			var idPrefix = "wb-auto-",
+				ids,
+				numberCandidate,
+				numbers = [];
+
+			// Check for conflicting hardcoded IDs the first time an ID is requested
+			if ( !seed ) {
+				ids = document.querySelectorAll( "[id^='" + idPrefix + "']" );
+
+				// Loop through elements whose IDs begin with the prefix
+				ids.forEach( function( currentElm ) {
+					numberCandidate = currentElm.id.substring( idPrefix.length );
+
+					// Verify whether the ID ends with a conflicting number and add it to an array
+					if ( numberCandidate.search( /^\d+$/ ) !== -1 ) {
+						numbers.push( numberCandidate );
+					}
+
+					console.error( "wb.getId: ID '" + currentElm.id + "' isn't supposed to be hardcoded in the page. Please remove it or change its prefix to something different than '" + idPrefix + "'." );
+				} );
+
+				// Set the seed to the array's highest number (will be incremented later)
+				seed = numbers.length ? Math.max.apply( null, numbers ) : seed;
+			}
+
+			return idPrefix + ( seed += 1 );
 		},
 
 		init: function( event, componentName, selector, noAutoId ) {
@@ -208,17 +1943,19 @@ var getUrlParts = function( url ) {
 		},
 
 		ready: function( $elm, componentName, context ) {
+
 			if ( $elm ) {
 
 				// Trigger any nested elements (excluding nested within nested)
 				$elm
 					.find( wb.allSelectors )
-						.addClass( "wb-init" )
-						.filter( ":not(#" + $elm.attr( "id" ) + " .wb-init .wb-init)" )
-							.trigger( "timerpoke.wb" );
+					.addClass( "wb-init" )
+					.filter( ":not(#" + $elm.attr( "id" ) + " .wb-init .wb-init)" )
+					.trigger( "timerpoke.wb" );
 
 				// Identify that the component is ready
 				$elm.trigger( "wb-ready." + componentName, context );
+
 				this.initQueue -= 1;
 			} else {
 				this.doc.trigger( "wb-ready." + componentName, context );
@@ -226,8 +1963,13 @@ var getUrlParts = function( url ) {
 
 			// Identify that global initialization is complete
 			if ( !this.isReady && this.isStarted && this.initQueue < 1 ) {
+
+				// Create DOM event
+				const DOMevent = new Event( "wet-boew-ready" );
+
 				this.isReady = true;
 				this.doc.trigger( "wb-ready.wb" );
+				this.doc[ 0 ].dispatchEvent( DOMevent ); // Trigger native DOM event
 			}
 		},
 
@@ -243,7 +1985,7 @@ var getUrlParts = function( url ) {
 		ielt8: ( oldie < 8 ),
 		ielt9: ( oldie < 9 ),
 		ielt10: ( oldie < 10 ),
-		ie11: ( !!navigator.userAgent.match( /Trident\/7\./ ) ),
+		ie11: ( navigator.userAgent.includes( "Trident/7." ) ),
 
 		selectors: [],
 
@@ -370,22 +2112,22 @@ var getUrlParts = function( url ) {
 					( typeof mixin === "string" && mixin !== "" ) << 2;
 
 			switch ( truthiness ) {
-			case 1:
+				case 1:
 
-				// only key was provided
-				return dictionary[ key ];
+					// only key was provided
+					return dictionary[ key ];
 
-			case 3:
+				case 3:
 
-				// key and state were provided
-				return dictionary[ key ][ state ];
+					// key and state were provided
+					return dictionary[ key ][ state ];
 
-			case 7:
+				case 7:
 
-				// key, state, and mixin were provided
-				return dictionary[ key ][ state ].replace( "[MIXIN]", mixin );
-			default:
-				return "";
+					// key, state, and mixin were provided
+					return dictionary[ key ][ state ].replace( "[MIXIN]", mixin );
+				default:
+					return "";
 			}
 		},
 
@@ -499,7 +2241,7 @@ wb.modernizrLoad = Modernizr.load;
 Modernizr.load = function( options ) {
 	var i, i_len, i_cache,
 		testReady, complete;
-	if ( !$.isArray( options ) ) {
+	if ( !Array.isArray( options ) ) {
 		options = [ options ];
 	}
 	i_len = options.length;
@@ -571,6 +2313,7 @@ Modernizr.load( [
 
 			// Defer loading the polyfill till an element is detected due to the size
 			if ( !Modernizr.mathml ) {
+				let isTrident = new Boolean( window.navigator.msSaveOrOpenBlob );
 
 				// Bind the init event of the plugin
 				$document.one( "timerpoke.wb wb-init." + componentName, selector, function() {
@@ -578,18 +2321,67 @@ Modernizr.load( [
 					// Start initialization
 					wb.init( document, componentName, selector );
 
+					// Disable MathJax's context menu to more closely mimic native MathML implementations
+					window.MathJax = {
+						options: {
+							enableMenu: false
+						}
+					};
+
+					// Extra tasks for IE11
+					if ( isTrident ) {
+
+						// Load an ES6 polyfill
+						Modernizr.load( "timeout=500!https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" );
+
+						// Specify the CDN's font URL
+						// Note: IE11 is unable to resolve this on its own
+						window.MathJax.chtml = {
+							fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2"
+						};
+					}
+
 					// Load the MathML dependency. Since the polyfill is only loaded
 					// when !Modernizr.mathml, we can skip the test here.
 					Modernizr.load( [ {
-						load: "timeout=500!https://cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=Accessible",
-						complete: function() {
-							Modernizr.load( [ {
-								test: window.MathJax === undefined,
-								yep: "mthjx!MathJax.js?config=Accessible"
-							} ] );
 
-							// Identify that initialization has completed
-							wb.ready( $document, componentName );
+						// Load latest version of MathJax 3 from a CDN
+						// Also load a CSS workaround for a MathJax 3.2.0 bug (refer to CSS file for details)
+						load: [
+							"timeout=500!https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js",
+							"plyfll!mathml.min.css"
+						],
+						complete: function() {
+
+							// Wait a moment to reduce the risk of a race condition
+							setTimeout( function() {
+
+								// Specify a font URL for a local copy of MathJax 3 for IE11
+								// Note: Useful if IE11 has internet access but fails to reach the CDN
+								if ( isTrident && !window.MathJax.startup ) {
+									window.MathJax.chtml.fontURL = paths.js + "/MathJax/output/chtml/fonts/woff-v2";
+								}
+
+								// Fall back on a local copy of MathJax 3 if the CDN is unreachable
+								// Note: Won't work with IE11 in isolated networks (ES6 polyfill has no local fallback)
+								Modernizr.load( [ {
+									test: window.MathJax.startup,
+									nope: "mthjx!mml-chtml.js",
+									complete: function() {
+
+										// Try loading a local copy of MathJax 2 as a last ditch effort
+										Modernizr.load( [ {
+											test: window.MathJax.startup,
+											nope: "mthjx!MathJax.js?config=Accessible",
+											complete: function() {
+
+												// Identify that initialization has completed
+												wb.ready( $document, componentName );
+											}
+										} ] );
+									}
+								} ] );
+							}, 100 );
 						}
 					} ] );
 				} );
@@ -627,7 +2419,7 @@ Modernizr.load( [
  * @overview Helper methods for WET
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
  * @author WET Community
- * Credits: http://kaibun.net/blog/2013/04/19/a-fully-fledged-coffeescript-boilerplate-for-jquery-plugins/
+ * Credits: https://web.archive.org/web/20130826230640/http://kaibun.net/blog/2013/04/19/a-fully-fledged-coffeescript-boilerplate-for-jquery-plugins/
  */
 ( function( $, wb ) {
 
@@ -641,6 +2433,7 @@ wb.getData = function( element, dataName ) {
 			dataObj = JSON.parse( dataAttr );
 			$.data( elm, dataName, dataObj );
 		} catch ( error ) {
+			console.info( elm );
 			$.error( "Bad JSON array in data-" + dataName + " attribute" );
 		}
 	}
@@ -685,7 +2478,7 @@ wb.download = function( blob, filename, title ) {
 		document.body.removeChild( anchor );
 	}, 1 );
 
-	// Revoke the ojbect, A setTimeout is used because Blob API don't have a download complete event.
+	// Revoke the object, A setTimeout is used because Blob API don't have a download complete event.
 	setTimeout( function() {
 		if ( typeof objectURL === "string" ) {
 			URL.revokeObjectURL( objectURL );
@@ -696,20 +2489,112 @@ wb.download = function( blob, filename, title ) {
 
 };
 
+/* ---------------------------------
+@extension: shuffleDOM
+@returns: [list] shuffles a list of items randomly
+-------------------------------- */
+wb.shuffleDOM = function( $elm ) {
+	var allElems = $elm.get(),
+		shuffled = $.map( allElems, function() {
+			var random = Math.floor( Math.random() * allElems.length ),
+				randEl = $( allElems[ random ] ).clone( true )[ 0 ];
+			allElems.splice( random, 1 );
+			return randEl;
+		} ),
+		elm_len = $elm.length,
+		i;
+
+	for ( i = 0; i < elm_len; i++ ) {
+		$( $elm[ i ] ).replaceWith( $( shuffled[ i ] ) );
+	}
+
+	return $( shuffled );
+};
+
+/* ---------------------------------
+@extension: pickElements
+@returns: [collection] of random elements
+-------------------------------- */
+wb.pickElements = function( $elm, numOfElm ) {
+	var nbElm = $elm.size(),
+		elmCopies,
+		i, swap;
+
+	numOfElm = numOfElm || 1;
+
+	// Special cases
+	if ( numOfElm > nbElm ) {
+		return $elm.pushStack( $elm );
+	} else if ( numOfElm === 1 ) {
+		return $elm.filter( ":eq(" + Math.floor( Math.random() * nbElm ) + ")" );
+	}
+
+	// Create a randomized copy of the set of elements,
+	// using Fisher-Yates sorting
+	elmCopies = $elm.get();
+
+	for ( i = 0; i < nbElm - 1; i++ ) {
+		swap = Math.floor( Math.random() * ( nbElm - i ) ) + i;
+		elmCopies[ swap ] = elmCopies.splice( i, 1, elmCopies[ swap ] )[ 0 ];
+	}
+	elmCopies = elmCopies.slice( 0, numOfElm );
+
+	// Finally, filter jQuery stack
+	return $elm.filter( function( idx ) {
+		return $.inArray( $elm.get( idx ), elmCopies ) > -1;
+	} );
+};
+
+/* ---------------------------------
+Adds a link to the Skip links navigation
+@param text: Text to display in the anchor or button
+@param attr: JSO with { attribute: value, ... } to add attributes to the anchor or button. Minimum is { href: "#your-anchor" } for the anchor tag
+@param isBtn: (Optional) Bool if true element is a button, otherwise it is an anchor by default
+@param isLast: (Optional) Bool if true element will be inserted last in the list
+-------------------------------- */
+wb.addSkipLink = function( text, attr, isBtn, isLast ) {
+	var list = document.getElementById( "wb-tphp" ),
+		li = document.createElement( "li" ),
+		elm = document.createElement( ( isBtn ? "button" : "a" ) ),
+		key;
+
+	// Add skip link's proprietary classes to new element
+	li.className = "wb-slc";
+	elm.className = "wb-sl";
+
+	// Add given attributes to element
+	for ( key in attr ) {
+		elm.setAttribute( key, attr[ key ] );
+	}
+
+	// Append text and new element to the skip link list (after main content)
+	elm.appendChild( document.createTextNode( text ) );
+	li.appendChild( elm );
+
+	if ( isLast ) {
+		list.appendChild( li );
+	} else {
+		list.insertBefore( li, list.childNodes[ 2 ] );
+	}
+
+	return true;
+};
+
 } )( jQuery, wb );
 
-( function( wb ) {
+( function( wb, window ) {
 
 "use strict";
 
 // Escapes the characters in a string for use in a jQuery selector
 // Based on https://totaldev.com/content/escaping-characters-get-valid-jquery-id
 wb.jqEscape = function( selector ) {
+	// eslint-disable-next-line no-useless-escape
 	return selector.replace( /([;&,\.\+\*\~':"\\\!\^\/#$%@\[\]\(\)=>\|])/g, "\\$1" );
 };
 
 // RegEx used by formattedNumCompare
-wb.formattedNumCompareRegEx = /(<[^>]*>|[^\d\.])/g;
+wb.formattedNumCompareRegEx = /(<[^>]*>|[^\d.])/g;
 
 // Compares two formatted numbers (e.g., 1.2.12 or 1,000,345)
 wb.formattedNumCompare = function( a, b ) {
@@ -1643,7 +3528,7 @@ wb.normalizeDiacritics = function( str ) {
 		i, character;
 	for ( i = 0; i !== len; i += 1 ) {
 		character = chars[ i ];
-		if ( diacritics.hasOwnProperty( character ) ) {
+		if ( Object.prototype.hasOwnProperty.call( diacritics, character ) ) {
 			chars[ i ] = diacritics[ character ];
 			normalized = true;
 		}
@@ -1671,7 +3556,70 @@ wb.string = {
 			str = "0" + str;
 		}
 		return str;
+	},
+
+	/*
+	 * Convert a base64 string into an ArrayBuffer (Note: this function are not fully UTF-8 supported and may create interoperability issue)
+	 * ref. https://www.isummation.com/blog/convert-arraybuffer-to-base64-string-and-vice-versa/
+	 * @memberof wb.string
+	 * @param {string} Base64 browser encoded
+	 * @return {ArrayBuffer} string converted into ArrayBuffer
+	 */
+	base64ToArrayBuffer: function( base64 ) {
+		var binary_string = window.atob( base64 ),
+			len = binary_string.length,
+			bytes = new Uint8Array( len ),
+			i;
+		for ( i = 0; i < len; i++ ) {
+			bytes[ i ] = binary_string.charCodeAt( i );
+		}
+		return bytes.buffer;
+	},
+
+	/*
+	 * Convert an ArrayBuffer into base64 string (Note: this function are not fully UTF-8 supported and may create interoperability issue)
+	 * ref. https://www.isummation.com/blog/convert-arraybuffer-to-base64-string-and-vice-versa/
+	 * @memberof wb.string
+	 * @param {ArrayBuffer}
+	 * @return {string} ArrayBuffer converted into base64 string
+	 */
+	arrayBufferToBase64: function( buffer ) {
+		var binary = "",
+			bytes = new Uint8Array( buffer ),
+			len = bytes.byteLength,
+			i;
+		for ( i = 0; i < len; i++ ) {
+			binary += String.fromCharCode( bytes[ i ] );
+		}
+		return window.btoa( binary );
+	},
+
+	/*
+	 * Convert an hexadecimal string into an ArrayBuffer
+	 * ref. https://stackoverflow.com/questions/38987784/how-to-convert-a-hexadecimal-string-to-uint8array-and-back-in-javascript/50868276#50868276
+	 * @memberof wb.string
+	 * @param {string} Encoded string in hexadecimal
+	 * @return {Uint8Array} Binary array buffer
+	 */
+	fromHexString: function( hexString ) {
+		return hexString === null ? null : Uint8Array.from( hexString.match( /.{1,2}/g ).map( function( byte ) {
+			return parseInt( byte, 16 );
+		} ) );
+	},
+
+	/*
+	 * Convert an ArrayBuffer into an hexadecimal string
+	 * ref. https://stackoverflow.com/questions/38987784/how-to-convert-a-hexadecimal-string-to-uint8array-and-back-in-javascript/50868276#50868276
+	 * @memberof wb.string
+	 * @param {Uint8Array} Binary array buffer
+	 * @return {string} Encoded string in hexadecimal
+	 */
+	toHexString: function( bytes ) {
+		return bytes.reduce( function( str, byte ) {
+			return str + byte.toString( 16 ).padStart( 2, "0" );
+		}, "" );
 	}
+
 };
 
 /*
@@ -1697,15 +3645,15 @@ wb.date = {
 		var dateConstructor = dateValue.constructor;
 
 		switch ( dateConstructor ) {
-		case Date:
-			return dateConstructor;
-		case Array:
-			return new Date( dateValue[ 0 ], dateValue[ 1 ], dateValue[ 2 ] );
-		case Number:
-		case String:
-			return new Date( dateValue );
-		default:
-			return typeof dateValue === "object" ? new Date( dateValue.year, dateValue.month, dateValue.date ) : NaN;
+			case Date:
+				return dateConstructor;
+			case Array:
+				return new Date( dateValue[ 0 ], dateValue[ 1 ], dateValue[ 2 ] );
+			case Number:
+			case String:
+				return new Date( dateValue );
+			default:
+				return typeof dateValue === "object" ? new Date( dateValue.year, dateValue.month, dateValue.date ) : NaN;
 		}
 	},
 
@@ -1759,7 +3707,7 @@ wb.date = {
 	fromDateISO: function( dateISO ) {
 		var date = null;
 
-		if ( dateISO && dateISO.match( /\d{4}-\d{2}-\d{2}/ ) ) {
+		if ( dateISO && /\d{4}-\d{2}-\d{2}/.test( dateISO ) ) {
 			date = new Date( dateISO.substr( 0, 4 ), dateISO.substr( 5, 2 ) - 1, dateISO.substr( 8, 2 ), 0, 0, 0, 0 );
 		}
 		return date;
@@ -1782,7 +3730,173 @@ wb.escapeAttribute = function( str ) {
 	return str.replace( /'/g, "&#39;" ).replace( /"/g, "&#34;" );
 };
 
-} )( wb );
+/*
+ * Returns an escaped HTML string
+ */
+wb.escapeHTML = function( str ) {
+	return wb.escapeAttribute( str
+		.replace( /&/g, "&#38;" )
+		.replace( /</g, "&#60;" )
+		.replace( />/g, "&#62;" ) );
+};
+
+/*
+ * Returns a UTF-8 output from Base64
+ * Reference: https://developer.mozilla.org/fr/docs/Glossary/Base64 (To be reviewed later because escape function is deprecated)
+ */
+wb.decodeUTF8Base64 = function( str ) {
+	return decodeURIComponent( escape( atob( str ) ) );
+};
+
+/*
+* Find most common Personal Identifiable Information (PII) in a string and return either the cleaned string either true/false
+* @param {string} str (required) - the content that needs to be verified
+*
+* @param {boolean} scope - if true will scrub the content
+* @param {object} (optional) the 2nd param (scope) can also be an object having the following properties (optional):
+* 	{string} any key name of the default patterns e.g. email, digits, etc. with the value 1. The function will only scrub the content that match the regex of the default patterns passed in this object
+* 	{regex} customCase - this param is a regex. It will search and replace the values corresponding that pattern
+*
+* @param {object} opts (optional) - the 3rd param of the function that can contain the following properties (optional):
+* 	{boolean} isCustomExclusive - if true, it will scrub only the custom regex if the regex is the only property of the "scope" object
+* 	{boolean} useFullBlock - if true, it will replace the scrubbed characters with the "█" symbol;
+* 	{string} replaceWith - this string will replace the scrubbed content
+*
+
+* @return {string | true | false}
+* @example
+* wb.findPotentialPII( "email:test@test.com, phone:123 123 1234", true )
+* returns "email:, phone:",
+*
+* wb.findPotentialPII( "email:test@test.com, phone:123 123 1234", false )
+* returns true
+*
+* wb.findPotentialPII( "email:test@test.com, phone:123 123 1234", { email:1 }{ replaceWith: [REDACTED/CAVIARDÉ] } )
+* returns "email:[REDACTED/CAVIARDÉ], phone:123 123 1234"
+*
+* wb.findPotentialPII( "email:test@test.com, phone:123 123 1234, numéro de cas 12345678", { "customCase":/\b(?:case[\s-]?number[\s\-\\.]?(?:\d{5,10}))|(?:numéro[\s-]?de[\s-]?cas[\s\-\\.]?(?:\d{5,10}))/ig }, { useFullBlock:1})
+* returns "phone:████████████, email:█████████████, postalCode:██████, ██████████████████████"
+*/
+wb.findPotentialPII = function( str, scope, opts ) {
+	if ( str && typeof str  !== "string" ) {
+		return false;
+	}
+	var oRegEx = {
+
+			/*
+			* Digits:
+			* 9 digits or more
+			*/
+			digits: /\d(?:[\s\-\\.\\/]?\d){8,}(?!\d)/ig,
+
+			/*
+			* Phone:
+			* Any international phone number format
+			*/
+			phone: /\+?(\d{1,3})?[-._\s]?(\(?\d{3}\)?)[-._\s]?(\d{3})[-._\s]?(\d{4})/ig,
+
+			/*
+			* Passport:
+			* 2 letters followed by either a " ", a "/", a ".", or a "-" any amount of times, followed by 6 digits
+			*/
+			passport: /\b[A-Za-z]{2}[\s\\.-]*?\d{6}\b/ig,
+
+			/*
+			* Email:
+			* valid email format
+			*/
+			email: /\b(?:[a-zA-Z0-9_\-\\.]+)(?:@|%40|%2540)(?:[a-zA-Z0-9_\-\\.]+)\.(?:[a-zA-Z]{2,5})\b/ig,
+
+			/*
+			* Loose email:
+			* email address that has one or more whitespaces before the "@" sign and either a "." or "," after the domain name
+			*/
+			looseEmail: /([a-zA-Z0-9_\-.]+)\s*@([\sa-zA-Z0-9_\-.]+)[.,]([a-zA-Z]{1,5})/g,
+
+			/*
+			* Loose email 2:
+			* matches probable email format that the user tried to hide
+			* any amount of letters, numbers, ".", "_", "%", "+", or "-", followed by 0 or 1 whitespace,
+			* followed by "@", followed by 0 or 1 whitespace, followed by "gmail", "outlook", "hotmail", or "yahoo".
+			*/
+			looseEmail2: /([a-zA-Z0-9._%+-]+)\s?@\s?(gmail|outlook|icloud|hotmail|yahoo)(\s?\.?\s?(com|ca))?/ig,
+
+			/*
+			* Postal code:
+			* valid Canadian postal code
+			*/
+			postalCode: /\b[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d\b/ig,
+
+			/*
+			* Username:
+			* "username" or "user",
+			* followed by a colon or an equals sign,
+			* followed by any character that is not a " " or a "&"
+			*/
+			username: /(?:(username|user)[%20]?([:=]|(%EF%BC%9A))[^\s&]*)/ig,
+
+			/*
+			* Password:
+			* "password" or "pass",
+			* followed by a ":" or a "=",
+			* followed by any character that is not a " " or a "&"
+			*/
+			password: /(?:(password|pass)[%20]?([:=]|(%EF%BC%9A))[^\s&]*)/ig
+		},
+		isFound = false,
+		txtMarker = opts && opts.replaceWith ? opts.replaceWith : "",
+		toClean = typeof scope === "object" ? true : scope,
+		arMatchedStr,
+		settings = opts || {},
+		defaultSettings = {
+			isCustomExclusive: false,
+			useFullBlock: false,
+			replaceWith: ""
+		},
+		isFullBlock = settings.useFullBlock || false,
+		validatedScope = typeof scope === "object" ? {} : oRegEx;
+	settings = $.extend( {}, defaultSettings, settings );
+
+	if ( Object.keys( validatedScope ).length === 0 ) {
+		if ( settings.isCustomExclusive ) {
+			for ( var key in scope ) {
+				if ( scope[ key ] instanceof RegExp ) {
+					validatedScope[ key ] = scope[ key ];
+				}
+			}
+		} else {
+			if ( Object.keys( scope ).length === 1 && Object.values( scope )[ 0 ] instanceof RegExp ) {
+				validatedScope = oRegEx;
+				validatedScope[ Object.keys( scope )[ 0 ] ] = Object.values( scope )[ 0 ];
+			} else {
+				for ( var keyScope in scope ) {
+					if ( Object.prototype.hasOwnProperty.call( oRegEx, keyScope ) ) {
+						validatedScope [ keyScope ] = oRegEx [ keyScope ];
+					} else {
+						if ( scope[ keyScope ]  instanceof RegExp ) {
+							validatedScope [ keyScope ] = scope [ keyScope ];
+						}
+					}
+				}
+			}
+		}
+	}
+
+	for ( var valKey in validatedScope ) {
+		arMatchedStr = str.match( validatedScope[ valKey ] );
+		if ( arMatchedStr ) {
+			isFound = true;
+			if ( toClean ) {
+				txtMarker = isFullBlock ? "█".repeat( arMatchedStr[ 0 ].length ) : txtMarker;
+				str = str.replaceAll( validatedScope[ valKey ], txtMarker );
+			}
+		}
+	}
+
+	return toClean && isFound ? str : isFound;
+};
+
+} )( wb, window );
 
 ( function( $, undef ) {
 "use strict";
@@ -1859,16 +3973,16 @@ function focusable( element, isTabIndexNotNaN, visibility ) {
 		return !!img && visible( img );
 	}
 	if ( visibility ) {
-		return ( /input|select|textarea|button|object/.test( nodeName ) ? !element.disabled :
+		return ( /input|select|textarea|button|object|summary/.test( nodeName ) ? !element.disabled :
 			nodeName === "a" ?
-			element.href || isTabIndexNotNaN :
-			isTabIndexNotNaN ) &&
+				element.href || isTabIndexNotNaN :
+				isTabIndexNotNaN ) &&
 		visible( element ); /* the element and all of its ancestors must be visible */
 	} else {
-		return ( /input|select|textarea|button|object/.test( nodeName ) ? !element.disabled :
+		return ( /input|select|textarea|button|object|summary/.test( nodeName ) ? !element.disabled :
 			nodeName === "a" ?
-			element.href || isTabIndexNotNaN :
-			isTabIndexNotNaN );
+				element.href || isTabIndexNotNaN :
+				isTabIndexNotNaN );
 	}
 }
 
@@ -1882,16 +3996,8 @@ function visible( element ) {
 		.length;
 }
 
-$.extend( $.expr[ ":" ], {
-	data: $.expr.createPseudo ? $.expr.createPseudo( function( dataName ) {
-		return function( elem ) {
-			return !!$.data( elem, dataName );
-		};
-	} ) :
-
-	// support: jQuery <1.8
-
-	function( elem, i, match ) {
+$.extend( $.expr.pseudos, {
+	data: function( elem, index, match ) {
 		return !!$.data( elem, match[ 3 ] );
 	},
 	focusable: function( element ) {
@@ -1910,12 +4016,189 @@ $.extend( $.expr[ ":" ], {
 } )( jQuery );
 
 /**
+ * @title WET-BOEW Add to calendar
+ * @overview Create an add to calendar button for an event
+ * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ * @author @ricokola
+ */
+( function( $, wb ) {
+"use strict";
+
+/*
+ * Variable and function definitions.
+ * These are global to the plugin - meaning that they will be initialized once per page,
+ * not once per instance of plugin on the page. So, this is a good place to define
+ * variables that are common to all instances of the plugin on a page.
+ */
+var componentName = "wb-addcal",
+	selector = ".provisional." + componentName,
+	initEvent = "wb-init." + componentName,
+	$document = wb.doc,
+
+	/**
+	* @method init
+	* @param {jQuery Event} event Event that triggered the function call
+	*/
+	init = function( event ) {
+
+		// Start initialization
+		// returns DOM object = proceed with init
+		// returns undefined = do not proceed with init (e.g., already initialized)
+		var elm = wb.init( event, componentName, selector ),
+			$elm = $( elm );
+
+		if ( elm ) {
+
+			wb.ready( $( elm ), componentName );
+
+			var properties = elm.querySelectorAll( "[property]" ),
+				event_details = new Object(),
+				place_details = [],
+				i,
+				i_len,
+				prop_cache,
+				googleLink,
+				icsFile,
+				i18nDict = {
+					en: {
+						"addcal-addto": "Add to",
+						"addcal-calendar": "calendar",
+						"addcal-other": "Other (Outlook, Apple, etc.)"
+					},
+					fr: {
+						"addcal-addto": "Ajouter au",
+						"addcal-calendar": "calendrier",
+						"addcal-other": "Autre (Outlook, Apple, etc.)"
+					}
+				};
+
+			// Initiate dictionary
+			i18nDict = i18nDict[ $( "html" ).attr( "lang" ) || "en" ];
+			i18nDict = {
+				addto: i18nDict[ "addcal-addto" ],
+				calendar: i18nDict[ "addcal-calendar" ],
+				ical: i18nDict[ "addcal-other" ]
+			};
+
+			// Set date stamp with the date modified
+			event_details.dtStamp = dtToISOString( $( "time[property='dateModified']" ) );
+
+			i_len = properties.length;
+			for ( i = 0; i < i_len; i++ ) {
+				prop_cache = properties[ i ];
+				switch ( prop_cache.getAttribute( "property" ) ) {
+					case "name":
+
+						// If the property=name is inside an element with typeof=Place defined
+						if ( $( prop_cache ).parentsUntil( ( "." + componentName ), "[typeof=Place]" ).length ) {
+							event_details.placeName = prop_cache.textContent;
+						} else {
+							event_details.name = prop_cache.textContent;
+						}
+						break;
+					case "description":
+						event_details.description = prop_cache.textContent.replace( /(\r\n|\n|\r)/gm, " " );
+						break;
+					case "startDate":
+						event_details.sDate = dtToISOString( $( "time[property='startDate']", $elm ) );
+						break;
+					case "endDate":
+						event_details.eDate = dtToISOString( $( "time[property='endDate']", $elm ) );
+						break;
+					case "location":
+
+						// If the location doesn't have typeof defined OR has typeof=VirtualLocation without URL inside.
+						if ( !prop_cache.getAttribute( "typeof" ) || ( prop_cache.getAttribute( "typeof" ) === "VirtualLocation" && !$( prop_cache ).find( "[property=url]" ).length ) ) {
+							event_details.placeName = prop_cache.textContent;
+						}
+						break;
+					case "streetAddress":
+						event_details.placeAddress = prop_cache.textContent;
+						break;
+					case "addressLocality":
+						event_details.placeLocality = prop_cache.textContent;
+						break;
+					case "addressRegion":
+						event_details.placeRegion = prop_cache.textContent;
+						break;
+					case "postalCode":
+						event_details.placePostalCode = prop_cache.textContent;
+						break;
+					case "url":
+
+						// If the property=url is inside a property=location
+						if ( $( prop_cache ).parentsUntil( ( "." + componentName ), "[property=location]" ).length ) {
+							event_details.placeName = prop_cache.textContent;
+						}
+						break;
+				}
+			}
+
+			place_details.push( ( event_details.placeName || "" ), ( event_details.placeAddress || "" ), ( event_details.placeLocality || "" ), ( event_details.placeRegion || "" ), ( event_details.placePostalCode || "" ) );
+
+			// Error handling
+			if ( !event_details.name ) {
+				throw componentName + ": Event title is missing.";
+			} else if ( !event_details.sDate ) {
+				throw componentName + ": Start date is missing.";
+			} else if ( !event_details.eDate ) {
+				throw componentName + ": End date is missing.";
+			}
+
+			// Set Unique Identifier (UID) and Date Stamp (DSTAMP)
+			event_details.uid = window.location.href.replace( /\.|-|\/|:|[G-Zg-z]/g, "" ).toUpperCase().substr( -10 ) + "-" + event_details.sDate + "-" + event_details.dtStamp;
+
+			// Set google calendar link
+			googleLink = encodeURI( "https://www.google.com/calendar/render?action=TEMPLATE" +  "&text=" + event_details.name +  "&details=" +
+			event_details.description +  "&dates=" + event_details.sDate + "/" + event_details.eDate + "&location=" + place_details.join( " " ) );
+
+			// Set ICS file for Outlook, Apple and other calendars
+			icsFile = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//WET-BOEW//Add to Calendar v4.0//\nBEGIN:VEVENT\nDTSTAMP:" + event_details.dtStamp + "\nSUMMARY:" + event_details.name +  "\nDESCRIPTION:" + event_details.description + "\nUID:" + event_details.uid + "\nDTSTART:" + event_details.sDate + "\nDTEND:" + event_details.eDate + "\nLOCATION:" + place_details.join( " " ) + "\nEND:VEVENT\nEND:VCALENDAR";
+
+			elm.dataset.icsFile = icsFile;
+
+			// Create and add details summary to the wb-addcal event and initiate the unordered list
+			$elm.append( "<details class='max-content " + componentName + "-buttons'><summary>" + i18nDict.addto + " " + i18nDict.calendar +
+			"</summary><ul class='list-unstyled mrgn-bttm-0'><li><a class='btn btn-link' href='" + googleLink.replace( /'/g, "%27" ) + "' target='_blank' rel='noreferrer noopener'>Google<span class='wb-inv'>" + i18nDict.calendar + "</span></a></li><li><button class='btn btn-link download-ics'>" + i18nDict.ical +
+			"<span class='wb-inv'>Calendar</span></button></li></ul></details>" );
+		}
+
+		wb.ready( $( elm ), componentName );
+
+	};
+
+// Convert date to ISO string and formatting for ICS file
+var dtToISOString = function( date ) {
+	if ( date.is( "[datetime]" ) ) {
+		date = date.attr( "datetime" );
+	} else {
+		date = date.text();
+	}
+
+	return new Date( date ).toISOString().replace( /\..*[0-9]/g, "" ).replace( /-|:|\./g, "" );
+};
+
+$document.on( "click", ".download-ics", function( event ) {
+	var icsFile = $( event.currentTarget ).parentsUntil( "." + componentName ).parent()[ 0 ];
+	icsFile =  $( icsFile ).attr( "data-ics-file" );
+	wb.download( new Blob( [ icsFile ], { type: "text/calendar;charset=utf-8" } ), "evenement-gc-event.ics" );
+} );
+
+// Bind the init event of the plugin
+$document.on( "timerpoke.wb " + initEvent, selector, init );
+
+// Add the timer poke to initialize the plugin
+wb.add( selector );
+
+} )( jQuery, wb );
+
+/**
  * @title WET-BOEW Ajax Fetch [ ajax-fetch ]
  * @overview A basic AjaxLoader wrapper for WET-BOEW
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
  * @author WET Community
  */
-( function( $, wb ) {
+( function( $, wb, DOMPurify ) {
 "use strict";
 
 /*
@@ -1937,13 +4220,18 @@ $document.on( "ajax-fetch.wb", function( event ) {
 		urlSubParts = url.split( "#" ),
 		urlHash = urlSubParts[ 1 ],
 		selector = urlParts[ 1 ] || ( urlHash ? "#" + urlHash : false ),
-		fetchData, callerId, fetchNoCacheURL, urlSub,
+		fetchData = {},
+		callerId, fetchNoCacheURL, urlSub,
 		fetchNoCache = fetchOpts.nocache,
 		fetchNoCacheKey = fetchOpts.nocachekey || wb.cacheBustKey || "wbCacheBust";
 
 	// Separate the URL from the filtering criteria
 	if ( selector ) {
 		fetchOpts.url = urlParts[ 0 ];
+
+		if ( urlParts[ 1 ] ) {
+			selector = urlParts.slice( 1 ).join( " " );
+		}
 	}
 
 	if ( fetchNoCache ) {
@@ -1972,6 +4260,14 @@ $document.on( "ajax-fetch.wb", function( event ) {
 		}
 		callerId = caller.id;
 
+		// Ensure we don't allow jsonp load
+		if ( fetchOpts.dataType && fetchOpts.dataType === "jsonp" ) {
+			fetchOpts.dataType = "json";
+		}
+		if ( fetchOpts.jsonp ) {
+			fetchOpts.jsonp = false;
+		}
+
 		$.ajax( fetchOpts )
 			.done( function( response, status, xhr ) {
 				var responseType = typeof response;
@@ -1980,14 +4276,23 @@ $document.on( "ajax-fetch.wb", function( event ) {
 					response = $( "<div>" + response + "</div>" ).find( selector );
 				}
 
-				fetchData = {
-					response: response,
-					status: status,
-					xhr: xhr
-				};
+				fetchData.pointer = $( "<div id='" + wb.getId() + "' data-type='" + responseType + "'></div>" )
+					.append( responseType === "string" ? response : "" );
 
-				fetchData.pointer = $( "<div id='" + wb.getId() + "' data-type='" + responseType + "' />" )
-										.append( responseType === "string" ? response : "" );
+				if ( !xhr.responseJSON ) {
+					try {
+						response = $( response );
+					} catch ( e ) {
+						response = DOMPurify.sanitize( xhr.responseText );
+					}
+				} else {
+					response = xhr.responseText;
+				}
+
+				fetchData.response = response;
+				fetchData.hasSelector = !!selector;
+				fetchData.status = status;
+				fetchData.xhr = xhr;
 
 				$( "#" + callerId ).trigger( {
 					type: "ajax-fetched.wb",
@@ -2006,6 +4311,135 @@ $document.on( "ajax-fetch.wb", function( event ) {
 			}, this );
 	}
 } );
+
+} )( jQuery, wb, DOMPurify );
+
+/**
+ * @title WET-BOEW Set background image
+ * @overview Apply a background image or detects the change in screen width and replace the background image accordingly
+ * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ * @author @namjohn920, @duboisp
+ */
+( function( $, wb ) {
+"use strict";
+
+/*
+ * Variable and function definitions.
+ * These are global to the plugin - meaning that they will be initialized once per page,
+ * not once per instance of plugin on the page. So, this is a good place to define
+ * variables that are common to all instances of the plugin on a page.
+ */
+var $document = wb.doc,
+	$window = wb.win,
+	componentName = "wb-bgimg",
+	selector = "[data-bgimg-srcset], [data-bgimg]",
+	bgViews = {},
+	ids = [],
+
+	init = function( event ) {
+
+		var elm, elmId,
+			bgImg, bgimgSrcset, bgRawViews,
+			i, i_len, i_views,
+			imgSrc, imgSize;
+
+		// Start initialization
+		// returns DOM object = proceed with init
+		// returns undefined = do not proceed with init (e.g., already initialized)
+		elm = wb.init( event, componentName, selector );
+
+		if ( elm ) {
+
+			// Ensure the feature have an ID.
+			if ( !elm.id ) {
+				elm.id = wb.getId();
+			}
+			elmId = elm.id;
+
+			// Apply default background image
+			bgImg = elm.dataset.bgimg;
+			if ( bgImg ) {
+				elm.style.backgroundImage = "url(" + bgImg + ")";
+			}
+
+			// Apply background image set if defined
+			bgimgSrcset = elm.dataset.bgimgSrcset;
+			if ( bgimgSrcset ) {
+				ids.push( elm.id );
+				bgRawViews = elm.dataset.bgimgSrcset.split( "," );
+				i_len = bgRawViews.length;
+				bgViews[ elmId ] = [];
+
+				for ( i = 0; i < i_len; i++ ) {
+					i_views = bgRawViews[ i ].trim().split( " " );
+
+					imgSrc = i_views[ 0 ];
+					imgSize =  i_views[ i_views.length - 1 ];
+
+					imgSize = parseInt( imgSize.substring( 0, imgSize.length - 1 ) );
+					bgViews[ elmId ].push( [ imgSrc, imgSize ] );
+				}
+
+				bgViews[ elmId ].sort(
+					function( a, b ) {
+						return a[ 1 ] > b[ 1 ] ? 1 : -1;
+					}
+				);
+
+				selectImage();
+
+				// Add the resize listener
+				$window.on( "resize", selectImage );
+			}
+
+			// Identify that initialization has completed
+			wb.ready( $( elm ), componentName );
+		}
+	},
+
+	selectImage = function() {
+		var screenWidth = window.innerWidth,
+			optimizedLink = {},
+			i, i_len = ids.length, j,
+			optimizedSize, currentId, currentId_len,
+			currentInput,
+			link, elm;
+
+		for ( i = 0; i < i_len; i++ ) {
+			optimizedSize = Infinity;
+			currentId = bgViews[ ids[ i ] ];
+			currentId_len = currentId.length;
+
+			for ( j = 0; j < currentId_len; j++ ) {
+				currentInput = currentId[ j ];
+				if ( currentInput[ 1 ] >= screenWidth ) {
+					if ( optimizedSize > currentInput[ 1 ] ) {
+						optimizedSize = currentInput[ 1 ];
+						optimizedLink[ ids[ i ] ] = currentInput[ 0 ];
+					}
+				}
+			}
+			if ( optimizedSize === Infinity ) {
+				optimizedLink[ ids[ i ] ] = currentId[ currentId_len - 1 ][ 0 ];
+			}
+		}
+
+		for ( link in optimizedLink ) {
+			elm = document.getElementById( link );
+
+			if ( optimizedLink[ link ] === "https://wet-boew.github.io/vocab/wb/utilities#no-image" ) {
+				elm.style.backgroundImage = "none";
+			} else {
+				elm.style.backgroundImage = "url(" + optimizedLink[ link ] + ")";
+			}
+		}
+	};
+
+// Bind the init event of the plugin
+$document.on( "timerpoke.wb wb-init." + componentName, selector, init );
+
+// Add the timer poke to initialize the plugin
+wb.add( selector );
 
 } )( jQuery, wb );
 
@@ -2026,12 +4460,14 @@ $document.on( "ajax-fetch.wb", function( event ) {
  */
 var componentName = "wb-calevt",
 	selector = "." + componentName,
+	componentEventName = componentName + "-cal",
+	selectorEvent = "." + componentEventName,
 	initEvent = "wb-init" + selector,
 	evDetails = "ev-details",
 	setFocusEvent = "focus",
 	dataAttr = componentName,
 	$document = wb.doc,
-	i18n, i18nText,
+	hiddenClass = "hidden",
 
 	/**
 	 * @method init
@@ -2047,14 +4483,6 @@ var componentName = "wb-calevt",
 
 		if ( elm ) {
 			$elm = $( elm );
-
-			// Only initialize the i18nText once
-			if ( !i18nText ) {
-				i18n = wb.i18n;
-				i18nText = {
-					calendar: i18n( "cal" )
-				};
-			}
 
 			// Load ajax content
 			$.when.apply( $, $.map( $elm.find( "[data-calevt]" ), getAjax ) )
@@ -2076,7 +4504,7 @@ var componentName = "wb-calevt",
 			i, appendData;
 
 		appendData = function( data ) {
-			$ajaxContainer.append( $.trim( data ) );
+			$ajaxContainer.append( String( data ).trim() );
 		};
 
 		for ( i = 0; i < len; i += 1 ) {
@@ -2099,13 +4527,25 @@ var componentName = "wb-calevt",
 
 		events = getEvents( $elm );
 		containerId = $elm.data( "calevtSrc" );
-		$container = $( "#" + containerId ).addClass( componentName + "-cal" );
+		$container = $( "#" + containerId ).addClass( componentEventName );
 
 		year = settings.year;
 		month = settings.month;
 
-		minDate = events.minDate;
-		maxDate = events.maxDate;
+		if ( $elm.data( "calevtMinDate" ) ) {
+			minDate = getLocaleDate( $elm.data( "calevtMinDate" ) );
+		}
+		if ( $elm.data( "calevtMaxDate" ) ) {
+			maxDate = getLocaleDate( $elm.data( "calevtMaxDate" ) );
+		}
+
+		if ( !minDate || ( events.minDate < minDate ) ) {
+			minDate = events.minDate;
+		}
+		if ( !maxDate || ( events.maxDate > maxDate ) ) {
+			maxDate = events.maxDate;
+		}
+
 		minDateTime = minDate.getTime();
 		maxDateTime = maxDate.getTime();
 
@@ -2134,8 +4574,6 @@ var componentName = "wb-calevt",
 			events: events.list,
 			$events: $elm
 		} );
-
-		$container.attr( "aria-label", i18nText.calendar );
 	},
 
 	daysBetween = function( dateLow, dateHigh ) {
@@ -2179,15 +4617,16 @@ var componentName = "wb-calevt",
 					}
 				]
 			},
-			objEventsList = obj.find( "ol > li, ul > li" ),
-			iLen = objEventsList.length,
-			dateTimeRegExp = /datetime\s+\{date\:\s*(\d+-\d+-\d+)\}/,
+			objEventsList = obj.find( "ul, ol" ).first(),
+			objEventsListItems = objEventsList.find( "> li:not(.wb-fltr-out)" ),
+			iLen = objEventsListItems.length,
+			dateTimeRegExp = /datetime\s+\{date:\s*(\d+-\d+-\d+)\}/,
 			i, $event, event, $objTitle, title, link, href, target,
 			linkId, date, tCollection, tCollectionTemp,	strDate1,
 			strDate2, z, zLen, className, dateClass;
 
 		for ( i = 0; i !== iLen; i += 1 ) {
-			$event = objEventsList.eq( i );
+			$event = objEventsListItems.eq( i );
 			event = $event[ 0 ];
 			$objTitle = $event.find( "*:header:first" );
 			className = $objTitle.attr( "class" );
@@ -2206,16 +4645,6 @@ var componentName = "wb-calevt",
 			if ( !directLinking ) {
 				linkId = event.id || wb.getId();
 				event.id = linkId;
-
-				/*
-				 * Fixes IE tabbing error:
-				 * http://www.earthchronicle.com/ECv1point8/Accessibility01IEAnchoredKeyboardNavigation.aspx
-				 */
-
-				// TODO: Which versions of IE should this fix be limited to?
-				if ( wb.ie ) {
-					event.tabIndex = "-1";
-				}
 				href = "#" + linkId;
 			}
 
@@ -2302,14 +4731,6 @@ var componentName = "wb-calevt",
 		var eventsList = this.events,
 			i, eLen, date, dayIndex, $day, $dayEvents, event, eventMonth;
 
-		// Fix required to make up with the IE z-index behaviour mismatch
-		// TODO: Move ot IE CSS? Which versions of IE should this fix be limited to?
-		if ( wb.ie ) {
-			for ( i = 0, eLen = $days.length; i !== eLen; i += 1 ) {
-				$days.eq( i ).css( "z-index", 31 - i );
-			}
-		}
-
 		/*
 		 * Determines for each event, if it occurs in the display month
 		 */
@@ -2340,10 +4761,11 @@ var componentName = "wb-calevt",
 
 						//Determine the focus based on the day before
 						if ( dayIndex && $days[ dayIndex - 1 ].parentNode.nodeName === "A" ) {
-							$day.wrap( "<a href='javascript:;' class='cal-evt' tabindex='-1'></a>" );
+							$day.wrap( "<a class='cal-evt' tabindex='-1'></a>" );
 						} else {
-							$day.wrap( "<a href='javascript:;' class='cal-evt'></a>" );
+							$day.wrap( "<a class='cal-evt'></a>" );
 						}
+						$day.parent().attr( "href", "javascript:;" );
 					}
 
 					//Add the event to the list
@@ -2355,10 +4777,10 @@ var componentName = "wb-calevt",
 
 	filterEvents = function( year, month ) {
 		this.find( "li.cal-disp-onshow" )
-			.addClass( "wb-inv" )
+			.addClass( hiddenClass )
 			.has( ":header[class*=filter-" + year + "-" +
 				wb.string.pad( parseInt( month, 10 ) + 1, 2 ) + "]" )
-			.removeClass( "wb-inv" );
+			.removeClass( hiddenClass );
 	},
 
 	showEvents = function() {
@@ -2379,12 +4801,40 @@ var componentName = "wb-calevt",
 					.attr( "tabindex", "-1" );
 			}
 		}, 5 );
+	},
+
+	getLocaleDate = function( dateString ) {
+		var date = new Date(),
+			dateComponents = dateString.split( "-" );
+
+		dateComponents[ 1 ] = dateComponents[ 1 ] - 1;	// Convert to zero-based month
+		date.setFullYear( dateComponents[ 0 ], dateComponents[ 1 ], dateComponents[ 2 ] );
+
+		return date;
 	};
 
 // Bind the init event of the plugin
-$document.on( "timerpoke.wb " + initEvent, selector, init );
+$document.on( "timerpoke.wb " + initEvent + " wb-redraw" + selector, selector, function( event ) {
 
-$document.on( "wb-navigate.wb-clndr", ".wb-calevt-cal", function( event ) {
+	var eventType = event.type,
+		calendarId = event.currentTarget.dataset.calevtSrc;
+
+	switch ( eventType ) {
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
+
+		case "wb-redraw":
+			var $elm = $( "#" + event.target.id );
+			$( "#" + calendarId + " .wb-clndr" ).remove();
+			processEvents( $elm );
+			$elm.trigger( "wb-updated" + selector );
+			break;
+	}
+} );
+
+$document.on( "wb-navigate.wb-clndr", selectorEvent, function( event ) {
 	var lib = event.target.lib,
 		$calEvent;
 
@@ -2400,50 +4850,54 @@ $document.on( "wb-navigate.wb-clndr", ".wb-calevt-cal", function( event ) {
 	}
 } );
 
-$document.on( "focusin focusout keydown", ".wb-calevt-cal .cal-days td > a", function( event ) {
+$document.on( "focusin focusout keydown", selectorEvent + " .cal-evt", function( event ) {
 	var eventType = event.type,
 		$link;
 
 	switch ( eventType ) {
-	case "focusin":
-		showEvents.call( event.target );
-		break;
-	case "focusout":
-		hideEvents.call( event.target );
-		break;
-	case "keydown":
-		$link = $( event.target );
-		if ( ( event.which === 13 || event.which === 32 ) && $link.hasClass( "cal-evt" ) ) {
-			$( event.target ).next().find( "a:first" ).trigger( setFocusEvent );
-		}
-		break;
+		case "focusin":
+			showEvents.call( event.target );
+			break;
+		case "focusout":
+			hideEvents.call( event.target );
+			break;
+		case "keydown":
+			$link = $( event.target );
+			if ( ( event.which === 13 || event.which === 32 ) && $link.hasClass( "cal-evt" ) ) {
+				$( event.target ).next().find( "a:first" ).trigger( setFocusEvent );
+			}
+			break;
 	}
 } );
 
-$document.on( "keydown", ".wb-calevt-cal .cal-days td > ul li", function( event ) {
+$document.on( "keydown", selectorEvent + " td > ul li", function( event ) {
 	var $item = $( event.currentTarget ),
 		$toFocus, $itemParent;
 
 	switch ( event.which ) {
-	case 38:
-		$toFocus = $item.prev().find( "a" );
-		if ( $toFocus.length === 0 ) {
-			$toFocus = $item.siblings( ":last" ).find( "a" );
-		}
-		$toFocus.trigger( setFocusEvent );
-		break;
-	case 40:
-		$toFocus = $item.next().find( "a" );
-		if ( $toFocus.length === 0 ) {
-			$toFocus = $item.siblings( ":first" ).find( "a" );
-		}
-		$toFocus.trigger( setFocusEvent );
-		break;
-	case 27:
-		$itemParent = $item.closest( "td" ).children( "a" );
-		$itemParent.trigger( setFocusEvent );
-		break;
+		case 38:
+			$toFocus = $item.prev().find( "a" );
+			if ( $toFocus.length === 0 ) {
+				$toFocus = $item.siblings( ":last" ).find( "a" );
+			}
+			$toFocus.trigger( setFocusEvent );
+			break;
+		case 40:
+			$toFocus = $item.next().find( "a" );
+			if ( $toFocus.length === 0 ) {
+				$toFocus = $item.siblings( ":first" ).find( "a" );
+			}
+			$toFocus.trigger( setFocusEvent );
+			break;
+		case 27:
+			$itemParent = $item.closest( "td" ).children( "a" );
+			$itemParent.trigger( setFocusEvent );
+			break;
 	}
+} );
+
+$document.on( "focusout", selectorEvent + " td > ul", function( event ) {
+	hideEvents.call( event.target );
 } );
 
 // Add the timer poke to initialize the plugin
@@ -2451,7 +4905,7 @@ wb.add( selector );
 
 } )( jQuery, window, wb );
 
-( function( $, window, document, wb, undef ) {
+( function( $, DOMPurify, window, document, wb, undef ) {
 
 var i18nText,
 	$document = wb.doc,
@@ -2481,25 +4935,27 @@ var i18nText,
 			goToMonth: i18n( "cal-goToMnth" ),
 			dayNames: i18n( "days" ),
 			currDay: i18n( "currDay" ),
-			format: i18n( "cal-format" )
+			format: i18n( "cal-format" ),
+			calendar: i18n( "cal" )
 		};
 
 		textWeekDayNames = i18nText.dayNames;
 		textMonthNames = i18nText.monthNames;
 
-		$calBase = $( "<div class='wb-clndr' role='application'>" +
+		$calBase = $( "<div class='wb-clndr' role='application' aria-label='" + i18nText.calendar + "'>" +
 			"<div class='cal-nav'>" +
+				"<span class='wb-inv current-month' aria-live='polite'></span>" + // Added for screen-readers
 				"<button type='button' class='btn pull-left cal-month-prev'>" +
-					"<span class='glyphicon glyphicon-arrow-left'></span>" +
+					"<span class='glyphicon glyphicon-arrow-left' aria-hidden='true'></span>" +
 					"<span class='wb-inv'>" + i18nText.prevMonth + "<span></span></span>" +
 				"</button>" +
 				"<button type='button' class='btn pull-right cal-month-next'>" +
-					"<span class='glyphicon glyphicon-arrow-right'></span>" +
+					"<span class='glyphicon glyphicon-arrow-right' aria-hidden='true'></span>" +
 					"<span class='wb-inv'>" + i18nText.nextMonth + "<span></span></span>" +
 				"</button>" +
 				"<div class='form-group'>" +
-					"<select title='" + i18nText.goToYear + "' class='cal-year'></select>\n" +
-					"<select title='" + i18nText.goToMonth + "' class='cal-month'>" +
+					"<label><span class='wb-inv'>" + i18nText.goToYear + "</span><select class='cal-year'></select></label>\n" +
+					"<label><span class='wb-inv'>" + i18nText.goToMonth + "</span><select class='cal-month'>" +
 						( function() {
 							var months = "",
 								m;
@@ -2510,18 +4966,18 @@ var i18nText,
 
 							return months;
 						} )() +
-					"</select>" +
+					"</select></label>" +
 				"</div>" +
 			"</div>" +
 			"<table>" +
-				"<thead role='presentation'>" +
+				"<thead>" +
 					"<tr>" +
 						( function() {
 							var days = "",
 								d;
 
 							for ( d = 0; d < 7; d += 1 ) {
-								days += "<th role='columnheader'><abbr title='" + textWeekDayNames[ d ] + "'>" + textWeekDayNames[ d ].substr( 0, 1 ) + "</abbr></th>";
+								days += "<th><abbr title='" + textWeekDayNames[ d ] + "'>" + textWeekDayNames[ d ].substr( 0, 1 ) + "</abbr></th>";
 							}
 
 							return days;
@@ -2587,19 +5043,21 @@ var i18nText,
 			.trigger( {
 				type: navigateEvent,
 				year: this.year,
-				month: this.month
+				month: this.month,
+				initEvent: true
 			} );
 	},
 
 	createDays = function( calendar, year, month ) {
 		var $container = $( calendar ).find( ".cal-days" ),
+			daysContainer = $container.get( 0 ),
 			dayCount = 1,
 			textCurrentDay = i18nText.currDay,
 			lib = calendar.lib,
 			minDate = lib.minDate,
 			maxDate = lib.maxDate,
 			callback = lib.daysCallback,
-			cells = "",
+			row, cell,
 			date, firstDay, lastDay, currYear, currMonth, currDay, week, day, className, isCurrentDate, isoDate, printDate, breakAtEnd, days, inRange;
 
 		date = new Date( year, month, 1 );
@@ -2614,14 +5072,21 @@ var i18nText,
 		currMonth = date.getMonth();
 		currDay = date.getDate();
 
+		// Clean all existing rows
+		$container.empty();
+
 		for ( week = 1; week < 7; week += 1 ) {
-			cells += "<tr>";
+			row = daysContainer.insertRow();
+
 			for ( day = 0; day < 7; day += 1 ) {
 
 				if ( ( week === 1 && day < firstDay ) || ( dayCount > lastDay ) ) {
 
 					// Creates empty cells | Cree les cellules vides
-					cells += "<td class='cal-empty'>&#160;</td>";
+					cell = row.insertCell();
+					cell.classList.add( "cal-empty" );
+					cell.textContent = " ";
+
 				} else {
 
 					// Creates date cells | Cree les cellules de date
@@ -2632,7 +5097,9 @@ var i18nText,
 					isoDate = date.toLocalISOString().substr( 0, 10 );
 					printDate = displayDate( date ) + ( isCurrentDate ? "<span class='wb-inv'>" + textCurrentDay + "</span>" : "" );
 
-					cells += "<td class='" + className + "'><time datetime='" + isoDate  + "'>" + printDate + "</time></td>";
+					cell = row.insertCell();
+					cell.setAttribute( "class", className );
+					cell.innerHTML = DOMPurify.sanitize( "<time datetime='" + isoDate  + "'>" + printDate + "</time>" );
 
 					if ( dayCount >= lastDay ) {
 						breakAtEnd = true;
@@ -2641,13 +5108,10 @@ var i18nText,
 					dayCount += 1;
 				}
 			}
-			cells += "</tr>";
 			if ( breakAtEnd ) {
 				break;
 			}
 		}
-
-		$container.empty().append( cells );
 
 		if ( callback ) {
 			days = $container.find( "time" );
@@ -2671,14 +5135,14 @@ var i18nText,
 
 		return i18nText.format.replace( /\{ddd\}|\{d\}|\{M\}|\{Y\}/g, function( match ) {
 			switch ( match ) {
-			case "{ddd}":
-				return textWeekDayNames[ parseInt( date.getDay(), 10 ) ];
-			case "{d}":
-				return parseInt( date.getDate(), 10 );
-			case "{M}":
-				return textMonthNames[ parseInt( date.getMonth(), 10 ) ];
-			case "{Y}":
-				return date.getFullYear();
+				case "{ddd}":
+					return textWeekDayNames[ parseInt( date.getDay(), 10 ) ];
+				case "{d}":
+					return parseInt( date.getDate(), 10 );
+				case "{M}":
+					return textMonthNames[ parseInt( date.getMonth(), 10 ) ];
+				case "{Y}":
+					return date.getFullYear();
 			}
 		} );
 	};
@@ -2738,6 +5202,11 @@ $document.on( navigateEvent, selector, function( event ) {
 	}
 
 	createDays( event.currentTarget, event.year, event.month );
+
+	// Added declaration of current month in aria-live="polite" for screen-readers
+	if ( !event.initEvent ) {
+		$calendar.find( ".current-month" ).text( i18nText.monthNames[ month ] + " " + year );
+	}
 } );
 
 $document.on( "change", selector, function( event ) {
@@ -2746,14 +5215,14 @@ $document.on( "change", selector, function( event ) {
 		year, month;
 
 	switch ( target.className ) {
-	case "cal-year":
-		year = parseInt( target.value, 10 );
-		month = calendar.lib.month;
-		break;
-	case "cal-month":
-		year = calendar.lib.year;
-		month = parseInt( target.value, 10 );
-		break;
+		case "cal-year":
+			year = parseInt( target.value, 10 );
+			month = calendar.lib.month;
+			break;
+		case "cal-month":
+			year = calendar.lib.year;
+			month = parseInt( target.value, 10 );
+			break;
 	}
 
 	$( calendar ).trigger( {
@@ -2763,7 +5232,7 @@ $document.on( "change", selector, function( event ) {
 	} );
 } );
 
-$document.on( "click vclick touchstart", ".cal-month-prev, .cal-month-next", function( event ) {
+$document.on( "click", ".cal-month-prev, .cal-month-next", function( event ) {
 	var $calendar = $( event.currentTarget ).closest( selector ),
 		calendar = $calendar.get( 0 ),
 		className = event.currentTarget.className,
@@ -2801,22 +5270,21 @@ $document.on( "keydown", selector, function( event ) {
 		//Key binding for the entire calendar
 		switch ( which ) {
 
-		//page up
-		case 33:
-			date.setDate( minDate.getDate() );
+			//page up
+			case 33:
+				date.setDate( minDate.getDate() );
 
-			/* falls through */
+				//page down
+				/* falls through */
+			case 34:
+				modifier = ( which === 33 ? -1 : 1 );
 
-		//page down
-		case 34:
-			modifier = ( which === 33 ? -1 : 1 );
-
-			if ( event.ctrlKey || event.shiftKey || event.altKey ) {
-				date.setYear( date.getFullYear() + modifier );
-			} else {
-				date.setMonth( date.getMonth() + modifier );
-			}
-			break;
+				if ( event.ctrlKey || event.shiftKey || event.altKey ) {
+					date.setYear( date.getFullYear() + modifier );
+				} else {
+					date.setMonth( date.getMonth() + modifier );
+				}
+				break;
 		}
 
 		//Key binding for navigating calendar days
@@ -2828,27 +5296,27 @@ $document.on( "keydown", selector, function( event ) {
 
 			switch ( which ) {
 
-			// end / home
-			case 35:
-				date.setDate( lastDay );
-				break;
-			case 36:
-				date.setDate( 1 );
-				break;
+				// end / home
+				case 35:
+					date.setDate( lastDay );
+					break;
+				case 36:
+					date.setDate( 1 );
+					break;
 
-			// left / up / right / down arrows
-			case 37:
-				date.setDate( day - 1 );
-				break;
-			case 38:
-				date.setDate( day - 7 );
-				break;
-			case 39:
-				date.setDate( day + 1 );
-				break;
-			case 40:
-				date.setDate( day + 7 );
-				break;
+				// left / up / right / down arrows
+				case 37:
+					date.setDate( day - 1 );
+					break;
+				case 38:
+					date.setDate( day - 7 );
+					break;
+				case 39:
+					date.setDate( day + 1 );
+					break;
+				case 40:
+					date.setDate( day + 7 );
+					break;
 			}
 		}
 
@@ -2920,7 +5388,7 @@ $document.on( "keydown", selector, function( event ) {
 	}
 }() );
 
-} )( jQuery, window, document, wb );
+} )( jQuery, DOMPurify, window, document, wb );
 
 /**
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
@@ -2961,7 +5429,7 @@ var componentName = "wb-charts",
 			captionHtml = $caption.html() || "",
 			captionText = $caption.text() || "",
 			valuePoint = 0,
-			dataCellUnitRegExp = /[^\+\-\.\, 0-9]+[^\-\+0-9]*/,
+			dataCellUnitRegExp = /[^+\-., 0-9]+[^\-+0-9]*/,
 			lowestFlotDelta, $imgContainer, $placeHolder,
 			$wetChartContainer, htmlPlaceHolder, figurehtml,
 			cellValue, datacolgroupfound, dataGroup, header,
@@ -3125,7 +5593,7 @@ var componentName = "wb-charts",
 							"/getcellvalue": function( elem ) {
 
 								// Get the number from the data cell, #3267
-								var cellValue = $.trim( elem.dataset.wbChartsValue || $( elem ).text() );
+								var cellValue = String( elem.dataset.wbChartsValue || $( elem ).text() ).trim();
 								return [
 									parseFloat( cellValue.replace( /(\d{1,3}(?:(?: |,)\d{3})*)(?:(?:.|,)(\d{1,2}))?$/, function( a, b, c ) {
 										return b.replace( / |,/g, "" ) + "." + c || "0";
@@ -3158,7 +5626,7 @@ var componentName = "wb-charts",
 				return target;
 			}
 			for ( key in cachedObj ) {
-				if ( !cachedObj.hasOwnProperty( key ) ) {
+				if ( !Object.prototype.hasOwnProperty.call( cachedObj, key ) ) {
 					continue;
 				}
 				target[ scopekey ][ key ] = cachedObj[ key ];
@@ -3188,7 +5656,7 @@ var componentName = "wb-charts",
 		 * Apply preset defined by a set of space-separated tokens from a baseline json object and at the same time extend the result by using the HTML5 data attribute
 		 *
 		 * @method applyPreset
-		 * @param {json object} baseline - Base line json object that includes predefined and userdefined preset
+		 * @param {json object} baseline - Base line json object that includes predefined and user defined preset
 		 * @param {jQuery} $elem - Element on which the class attribute will be taken for a set of space-separated tokens
 		 * @param {string} attribute - Name of the HTML5 data attribute for extending the object at the end
 		 * @return {json object} - Return a new object build from the ```baseline``` or ```baseline.default``` object with the preset applied.
@@ -3230,7 +5698,7 @@ var componentName = "wb-charts",
 					if ( preset ) {
 						if ( preset.base ) {
 
-							// Like setting herited from a parent config
+							// Like setting inherited from a parent config
 							config = $.extend( true, config, baseline[ preset.base ] );
 							fn = $.extend( true, fn, baseline[ preset.base ].fn || { } );
 						}
@@ -3245,7 +5713,7 @@ var componentName = "wb-charts",
 
 			// Merge and override the function.
 			for ( key in fn ) {
-				if ( !fn.hasOwnProperty( key ) ) {
+				if ( !Object.prototype.hasOwnProperty.call( fn, key ) ) {
 					continue;
 				}
 				tblFn = key.split( "/" );
@@ -3385,7 +5853,7 @@ var componentName = "wb-charts",
 		 *
 		 * @method setInnerStepValues
 		 * @param {object} vectorHead - Group Header Object from the table parser
-		 * @param {number} headerLevel - Hiearchical Level of heading
+		 * @param {number} headerLevel - Hierarchical Level of heading
 		 * @param {number} stepsValue - Step Value for the reference value vector
 		 * @param {number} referenceValue - Reference Value Vector ID
 		 * @param {number} dataColgroupStart - Column position where the column data group start
@@ -3438,7 +5906,7 @@ var componentName = "wb-charts",
 		 *
 		 * @method setInnerStepValuesChildRecursive
 		 * @param {object} headerCell - Header cell object from the table parser
-		 * @param {number} headerLevel - Hiearchical Level of heading
+		 * @param {number} headerLevel - Hierarchical Level of heading
 		 * @param {number} stepsValue - Specific Step Value applied for current headerCell
 		 * @param {number} referenceValue - Reference Value Vector ID
 		 */
@@ -3665,7 +6133,7 @@ var componentName = "wb-charts",
 
 			$summary = $( "<summary>" + captionHtml + i18nText.tableMention + "</summary>" );
 			$elm
-				.wrap( "<details/>" )
+				.wrap( "<details></details>" )
 				.before( $summary );
 
 			$summary.trigger( "wb-init.wb-details" );
@@ -3818,7 +6286,7 @@ var componentName = "wb-charts",
 
 				} else {
 
-					header = currentRowGroup.row[ rIndex ].header;
+					header = !reverseTblParsing ? dataCell.row.header : dataCell.col.header;
 
 					figurehtml = "<figure><figcaption>" +
 						header[ header.length - 1 ].elem.innerHTML +
@@ -4031,7 +6499,7 @@ var componentName = "wb-charts",
 				"site!deps/tableparser" + modeJS
 			];
 
-			//TODO: Revist this in the new plugin structure
+			//TODO: Revisit this in the new plugin structure
 			if ( settings && settings.plugins ) {
 				deps = deps.concat( settings.plugins );
 			}
@@ -4071,22 +6539,22 @@ $document.on( "timerpoke.wb " + initEvent + " " + tableParsingCompleteEvent, sel
 
 	switch ( eventType ) {
 
-	/*
-	 * Init
-	 */
-	case "timerpoke":
-	case "wb-init":
-		init( event );
-		break;
+		/*
+		 * Init
+		 */
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
 
-	/*
-	 * Data table parsed
-	 */
-	case "parsecomplete":
-		if ( event.currentTarget === elm ) {
-			createCharts( $( elm ) );
-		}
-		break;
+		/*
+		 * Data table parsed
+		 */
+		case "parsecomplete":
+			if ( event.currentTarget === elm ) {
+				createCharts( $( elm ) );
+			}
+			break;
 	}
 
 	/*
@@ -4160,7 +6628,8 @@ var componentName = "wb-collapsible",
 					}
 
 				}
-			} catch ( e ) {}
+			} catch ( e ) {
+				/* swallow error */}
 
 			// Identify that initialization has completed
 			wb.ready( $details, componentName );
@@ -4192,11 +6661,13 @@ if ( Modernizr.details ) {
 			if ( isClosed ) {
 				try {
 					localStorage.setItem( key, "open" );
-				} catch ( e ) {}
+				} catch ( e ) {
+					/* swallow error */}
 			} else {
 				try {
 					localStorage.setItem( key, "closed" );
-				} catch ( e ) {}
+				} catch ( e ) {
+					/* swallow error */}
 			}
 		} else if ( which === 13 || which === 32 ) {
 			event.preventDefault();
@@ -4218,7 +6689,7 @@ wb.add( selector );
 
 /**
  * @title WET-BOEW Country Content
- * @overview A basic AjaxLoader wrapper that inserts AJAXed in content based on a visitors country as resolved by https://freegeoip.net
+ * @overview A basic AjaxLoader wrapper that inserts AJAXed in content based on a visitors country as resolved by freegeoip.app
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
  * @author @nschonni
  */
@@ -4278,21 +6749,22 @@ var componentName = "wb-ctrycnt",
 		var dfd = $.Deferred(),
 			countryCode = localStorage.getItem( "countryCode" );
 
-		// Couldn"t find a value in the session
+		// Couldn't find a value in the session
 		if ( countryCode === null ) {
 
 			// From https://github.com/aFarkas/webshim/blob/master/src/shims/geolocation.js#L89-L127
 			$.ajax( {
-				url: "https://freegeoip.net/json/",
-				dataType: "jsonp",
+				url: "https://api.country.is/",
+				dataType: "json",
 				cache: true,
-				jsonp: "callback",
 				success: function( data ) {
 					if ( data ) {
-						countryCode = data.country_code;
+						countryCode = data.country;
 						try {
 							localStorage.setItem( "countryCode", countryCode );
 						} catch ( error ) {
+
+							/* swallow error */
 						}
 					}
 
@@ -4400,7 +6872,7 @@ var componentName = "wb-data-ajax",
 			nocachekey: ajxInfo.nocachekey
 		};
 
-		// Detect CORS requests
+		// Detect CORS requests.
 		if ( settings && ( url.substr( 0, 4 ) === "http" || url.substr( 0, 2 ) === "//" ) ) {
 			urlParts = wb.getUrlParts( url );
 			if ( ( wb.pageUrlParts.protocol !== urlParts.protocol || wb.pageUrlParts.host !== urlParts.host ) && ( !Modernizr.cors || settings.forceCorsFallback ) ) {
@@ -4440,14 +6912,16 @@ var componentName = "wb-data-ajax",
 				return {};
 			}
 
-			url = getURL( dtAttr.url, dtAttr.httpref );
-			if ( !url ) {
-				return {};
-			}
 			ajaxType = dtAttr.type;
 			if ( ajaxTypes.indexOf( ajaxType ) === -1 ) {
 				throw "Invalid ajax type";
 			}
+
+			url = getURL( dtAttr.url, dtAttr.httpref );
+			if ( !url ) {
+				return { "type": ajaxType };
+			}
+
 			nocache = dtAttr.nocache;
 			nocachekey = dtAttr.nocachekey;
 		}
@@ -4466,7 +6940,7 @@ var componentName = "wb-data-ajax",
 			i, i_len;
 
 		if ( referer ) {
-			if ( !$.isArray( referer ) ) {
+			if ( !Array.isArray( referer ) ) {
 				refers = [];
 				refers.push( referer );
 			} else {
@@ -4478,7 +6952,7 @@ var componentName = "wb-data-ajax",
 			for ( i = 0; i !== i_len; i += 1 ) {
 				regHttpRef = new RegExp( refers[ i ] );
 				if ( regHttpRef.test( httpRef ) ) {
-					if ( $.isArray( url ) && url.length === i_len ) {
+					if ( Array.isArray( url ) && url.length === i_len ) {
 						return url[ i ];
 					} else {
 						return url;
@@ -4495,11 +6969,32 @@ var componentName = "wb-data-ajax",
 		var $elm = $( elm ),
 			ajxInfo = getAjxInfo( elm ),
 			ajaxType = ajxInfo.type,
-			content, jQueryCaching;
+			content, jQueryCaching,
+			settings = wb.getData( $( elm ), shortName ) || {},
+			doEncode = settings.encode,
+			hasSelector = fetchObj.hasSelector,
+			resultString = "";
 
 		// ajax-fetched event
 		content = fetchObj.response;
 		if ( content &&  content.length > 0 ) {
+
+			// If the fetched content need to be encoded
+			if ( doEncode && hasSelector ) {
+				if ( content.length > 1 ) {
+					content.each( function( idx, itm ) {
+						resultString += itm.outerHTML + "\n";
+					} );
+
+					content = resultString;
+				} else {
+					content = content.html();
+				}
+
+				content = content.replaceAll( "<", "&lt;" );
+			} else if ( doEncode && !hasSelector ) {
+				content = fetchObj.xhr.responseText.replaceAll( "<", "&lt;" );
+			}
 
 			//Prevents the force caching of nested resources
 			jQueryCaching = jQuery.ajaxSettings.cache;
@@ -4524,19 +7019,19 @@ $document.on( "timerpoke.wb " + initEvent + " " + updateEvent + " ajax-fetched.w
 
 	switch ( event.type ) {
 
-	case "timerpoke":
-	case "wb-init":
-		init( event );
-		break;
-	case "wb-update":
-		ajax( event );
-		break;
-	default:
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
+		case "wb-update":
+			ajax( event );
+			break;
+		default:
 
-		// Filter out any events triggered by descendants
-		if ( event.currentTarget === eventTarget ) {
-			ajxFetched( eventTarget, event.fetch );
-		}
+			// Filter out any events triggered by descendants
+			if ( event.currentTarget === eventTarget ) {
+				ajxFetched( eventTarget, event.fetch );
+			}
 	}
 
 	/*
@@ -4547,12 +7042,84 @@ $document.on( "timerpoke.wb " + initEvent + " " + updateEvent + " ajax-fetched.w
 	return true;
 } );
 
+// Re-run WET for elements that have just been loaded if WET is already done initializing
+$document.on( contentUpdatedEvent, function( event ) {
+	if ( !wb.isDisabled ) {
+		let updtElm = event.target;
+
+		$( updtElm )
+			.find( wb.allSelectors )
+			.addClass( "wb-init" )
+			.filter( ":not(#" + updtElm.id + " .wb-init .wb-init)" )
+			.trigger( "timerpoke.wb" );
+	}
+} );
+
 // Add the timerpoke to initialize the plugin
 for ( s = 0; s !== selectorsLength; s += 1 ) {
 	wb.add( selectors[ s ] );
 }
 
 } )( jQuery, window, wb );
+
+/**
+ * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+ * @title Data Fusion Query
+ * @overview Map a query parameter value into an input value
+ * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ * @author @duboisp
+ *
+ */
+( function( document, $, wb ) {
+"use strict";
+
+/**
+ * Variable and function definitions.
+ * These are global to the plugin - meaning that they will be initialized once per page,
+ * not once per instance of plugin on the page. So, this is a good place to define
+ * variables that are common to all instances of the plugin on a page.
+ */
+var componentName = "wb-data-fusion-query",
+	selector = "[data-fusion-query][name]",
+	initEvent = "wb-init." + componentName,
+
+
+	/**
+	 * @method init
+	 * @param {jQuery Event} event Event that triggered the function call
+	 */
+	init = function( event ) {
+
+		// Start initialization
+		// returns DOM object = proceed with init
+		// returns undefined = do not proceed with init (e.g., already initialized)
+		var elm = wb.init( event, componentName, selector ),
+			$elm,
+			inputName,
+			queryParamValue;
+
+		if ( elm ) {
+			$elm = $( elm );
+
+			// Retrieve the query parameter value and set it on the input
+			inputName = $elm.attr( "name" );
+			queryParamValue = wb.pageUrlParts.params[ inputName ];
+			if ( queryParamValue ) {
+				$elm.val( queryParamValue.replace( /\+/g, " " ) );
+			}
+
+			// Identify that initialization has completed
+			wb.ready( $elm, componentName );
+		}
+	};
+
+// Bind the init event of the plugin
+wb.doc.on( "timerpoke.wb " + initEvent, selector, init );
+
+// Add the timer poke to initialize the plugin
+wb.add( selector );
+
+} )( document, jQuery, wb );
 
 /**
  * @title WET-BOEW Data InView
@@ -4645,7 +7212,7 @@ var componentName = "wb-inview",
 		// Link the overlay close button to the dismiss action if the inview content is dismissable
 		if ( $elm.hasClass( "wb-dismissable" ) ) {
 			if ( $dataInView.hasClass( "wb-overlay" ) ) {
-				$dataInView.children( ".overlay-close" ).on( "click vclick", function( event ) {
+				$dataInView.children( ".overlay-close" ).on( "click", function( event ) {
 					var which = event.which;
 
 					// Ignore middle/right mouse buttons
@@ -4703,18 +7270,18 @@ $document.on( "timerpoke.wb " + initEvent + " " + scrollEvent, selector, functio
 		eventType = event.type;
 
 	switch ( eventType ) {
-	case "timerpoke":
-	case "wb-init":
-		init( event );
-		break;
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
 
-	case "scroll":
+		case "scroll":
 
-		// Filter out any events triggered by descendants
-		if ( event.currentTarget === eventTarget ) {
-			onInView( $( eventTarget ) );
-		}
-		break;
+			// Filter out any events triggered by descendants
+			if ( event.currentTarget === eventTarget ) {
+				onInView( $( eventTarget ) );
+			}
+			break;
 	}
 
 	/*
@@ -4806,7 +7373,10 @@ var imgClass,
 		// Loop over the data-media elements and find matching media queries
 		for ( i = 0, len = sources.length; i !== len; i += 1 ) {
 			media = sources[ i ].getAttribute( "data-media" );
-			if ( !media || Modernizr.mq( media ) ) {
+
+			// Check if the media query matches or if no media query is defined.
+			// Vérifie si le media query correspond ou si aucun media query n'est défini.
+			if ( !media || window.matchMedia( media ).matches ) {
 				matches.push( sources[ i ] );
 			}
 		}
@@ -4821,13 +7391,6 @@ var imgClass,
 			}
 			img.src = matchedElm.getAttribute( "data-src" );
 			matchedElm.appendChild( img );
-
-			// Fixes bug with IE8 constraining the height of the image
-			// when the .img-responsive class is used.
-			if ( wb.ielt9 ) {
-				img.removeAttribute( "width" );
-				img.removeAttribute( "height" );
-			}
 
 		// No match and an image exists: delete it
 		} else if ( img ) {
@@ -4844,18 +7407,18 @@ $document.on( "timerpoke.wb " + initEvent + " " + picturefillEvent, selector, fu
 		eventType = event.type;
 
 	switch ( eventType ) {
-	case "timerpoke":
-	case "wb-init":
-		init( event );
-		break;
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
 
-	case "picfill":
+		case "picfill":
 
-		// Filter out any events triggered by descendants
-		if ( event.currentTarget === eventTarget ) {
-			picturefill( eventTarget );
-		}
-		break;
+			// Filter out any events triggered by descendants
+			if ( event.currentTarget === eventTarget ) {
+				picturefill( eventTarget );
+			}
+			break;
 	}
 } );
 
@@ -4868,6 +7431,65 @@ $document.on( "txt-rsz.wb win-rsz-width.wb win-rsz-height.wb", function() {
 wb.add( selector );
 
 } )( jQuery, window, wb );
+
+/**
+ * @title WET-BOEW Details closed on small screen
+ * @overview Closes details on defined viewport and down if they were not engaged, default is small
+ * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ * @author @thomasgohard
+ */
+( function( $, wb ) {
+"use strict";
+
+/*
+* Variable and function definitions.
+* These are global to the plugin - meaning that they will be initialized once per page,
+* not once per instance of plugin on the page. So, this is a good place to define
+* variables that are common to all instances of the plugin on a page.
+*/
+const componentName = "wb-details-close",
+	selector = "." + componentName,
+	initEvent = "wb-init" + selector,
+	$document = wb.doc,
+	views = [ "xxs", "xs", "sm", "md", "lg", "xl" ],
+	viewsClasses = [ "xxsmallview", "xsmallview", "smallview", "mediumview", "largeview", "xlargeview" ],
+
+	/**
+	 * @method init
+	 * @param {jQuery Event} event Event that triggered the function call
+	 */
+	init = function( event ) {
+
+		// Start initialization
+		// returns DOM object = proceed with init
+		// returns undefined = do not proceed with init (e.g., already initialized)
+		let elm = wb.init( event, componentName, selector );
+
+		if ( elm ) {
+			let $elm = $( elm ),
+				breakpoint = elm.dataset.breakpoint || "sm", // Get the target breakpoint from data attribute or default to "sm"
+				viewBreakpointIndex = views.indexOf( breakpoint ), // Get the index of the target breakpoint
+				viewBreakpoint = viewsClasses.slice( 0, viewBreakpointIndex + 1 ), // Get the target and smaller view classes
+				viewsSelector = "html." + viewBreakpoint.join( ", html." ); // Create a selector for the target and smaller views
+
+			// If within the targetted views, keep details closed. If not, keep opened.
+			if ( document.querySelector( viewsSelector ) ) {
+				elm.removeAttribute( "open" );
+			} else {
+				elm.setAttribute( "open", "" );
+			}
+
+			wb.ready( $elm, componentName );
+		}
+	};
+
+// Bind the init event of the plugin
+$document.on( "timerpoke.wb " + initEvent, selector, init );
+
+// Add the timer poke to initialize the plugin
+wb.add( selector );
+
+} )( jQuery, wb );
 
 /**
  * @title WET-BOEW Dismissable content plugin
@@ -4976,7 +7598,7 @@ var componentName = "wb-dismissable",
 $document.on( "timerpoke.wb " + initEvent, selector, init );
 
 // Handler for clicking on the dismiss button
-$document.on( "click vclick", "." + dismissClass, function( event ) {
+$document.on( "click", "." + dismissClass, function( event ) {
 	var elm = event.currentTarget,
 		which = event.which;
 
@@ -4985,6 +7607,58 @@ $document.on( "click vclick", "." + dismissClass, function( event ) {
 		dismissContent( elm.parentNode );
 	}
 } );
+
+// Add the timer poke to initialize the plugin
+wb.add( selector );
+
+} )( jQuery, window, wb );
+
+/**
+ * @title eqht
+ * @overview Provide ability to have equal height containers and nested containers inside a WET-BOEW grid
+ * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ * @author @luc-bertrand-hrsdc
+ */
+( function( $, window, wb ) {
+"use strict";
+
+/*
+ * Variable and function definitions.
+ * These are global to the plugin - meaning that they will be initialized once per page,
+ * not once per instance of plugin on the page. So, this is a good place to define
+ * variables that are common to all instances of the plugin on a page.
+ */
+var componentName = "wb-eqht-grd",
+	selector = "." + componentName + " .eqht-trgt",
+	initEvent = "wb-init" + selector,
+	$document = wb.doc,
+
+	/**
+	 * @method init
+	 * @param {jQuery Event} event Event that triggered the function call
+	 */
+	init = function( event ) {
+
+		// Start initialization
+		// returns DOM object = proceed with init
+		// returns undefined = do not proceed with init (e.g., already initialized)
+		var elm = wb.init( event, componentName, selector ),
+			$elm,
+			$eqhtParents;
+
+		if ( elm ) {
+			$elm = $( elm );
+			$elm.addClass( "hght-inhrt" );
+			$eqhtParents = $elm.parentsUntil( "[class*='" + componentName + "']" );
+			$eqhtParents.addClass( "hght-inhrt" );
+
+			// Identify that initialization has completed
+			wb.ready( $elm, componentName );
+		}
+	};
+
+// Bind the init event of the plugin
+$document.on( "timerpoke.wb " + initEvent, selector, init );
 
 // Add the timer poke to initialize the plugin
 wb.add( selector );
@@ -5073,7 +7747,7 @@ var componentName = "wb-eqht",
 				currentChild = $children[ j ];
 				childCSS = currentChild.style.cssText.toLowerCase();
 
-				//Ensure the CSS string ends by a seperator
+				//Ensure the CSS string ends by a separator
 				if ( childCSS.length > 0 && childCSS.substr( childCSS.length - 1 ) !== cssPropertySeparator ) {
 					childCSS += cssPropertySeparator;
 				}
@@ -5097,35 +7771,40 @@ var componentName = "wb-eqht",
 			}
 			$elm = reattachElement( $anchor );
 
-			// set the top and tallest to the first element
-			rowTop = $children[ 0 ] ? $children[ 0 ].offsetTop : 0;
+			// set the top offset and tallest height to the first element
+			rowTop = $children[ 0 ] ? $children[ 0 ].getBoundingClientRect().top + window.pageYOffset : 0;
 			tallestHeight = $children[ 0 ] ? $children[ 0 ].offsetHeight : 0;
 
 			// first, the loop MUST be from start to end to work.
 			for ( j = 0; j < $children.length; j++ ) {
 				currentChild = $children[ j ];
 
-				currentChildTop = currentChild.offsetTop;
+				currentChildTop = currentChild.getBoundingClientRect().top + window.pageYOffset;
 				currentChildHeight = currentChild.offsetHeight;
 
-				if ( currentChildTop !== rowTop ) {
+				// if the current element is visible...
+				// note: hidden elements need to be excluded since they have a different top offset than visible ones
+				if ( currentChildHeight ) {
 
-					// as soon as we find an element not on this row (not the same offsetTop)
-					// we need to equalize each items in that row to align the next row.
-					equalize( row, tallestHeight );
+					// as soon as we find an element not on this row (not the same top offset)...
+					if ( currentChildTop !== rowTop ) {
 
-					// since the elements of the previous row was equalized
-					// we need to get the new offsetTop of the current element
-					currentChildTop = currentChild.offsetTop;
+						// we need to equalize each item in that row to align the next row
+						equalize( row, tallestHeight );
 
-					// reset the row, rowTop and tallestHeight
-					row.length = 0;
-					rowTop = currentChildTop;
-					tallestHeight = currentChildHeight;
+						// since the elements of the previous row was equalized
+						// we need to get the new top offset of the current element
+						currentChildTop = currentChild.getBoundingClientRect().top + window.pageYOffset;
+
+						// reset the row, rowTop and tallestHeight
+						row.length = 0;
+						rowTop = currentChildTop;
+						tallestHeight = currentChildHeight;
+					}
+
+					tallestHeight = Math.max( currentChildHeight, tallestHeight );
+					row.push( $children.eq( j ) );
 				}
-
-				tallestHeight = Math.max( currentChildHeight, tallestHeight );
-				row.push( $children.eq( j ) );
 			}
 
 			// equalize the last row
@@ -5139,7 +7818,7 @@ var componentName = "wb-eqht",
 	/**
 	* @method equalize
 	* @param {array} row the array of items to be equalized
-	* @param {int} tallestHeight the talest height to use to equalize
+	* @param {int} tallestHeight the tallest height to use to equalize
 	*/
 	equalize = function( row, tallestHeight ) {
 		for ( var i = 0; i < row.length; i++ ) {
@@ -5182,15 +7861,15 @@ var componentName = "wb-eqht",
 			anchorRel = $elm.data( "anchorRel" );
 
 		switch ( anchorRel ) {
-		case "prev":
-			$anchor.after( $elm );
-			break;
-		case "next":
-			$anchor.before( $elm );
-			break;
-		case "parent":
-			$anchor.append( $elm );
-			break;
+			case "prev":
+				$anchor.after( $elm );
+				break;
+			case "next":
+				$anchor.before( $elm );
+				break;
+			case "parent":
+				$anchor.append( $elm );
+				break;
 		}
 
 		return $elm;
@@ -5208,6 +7887,239 @@ wb.add( selector );
 } )( jQuery, window, wb );
 
 /**
+* @title WET-BOEW Exit script plugin
+* @overview Plugin redirects users to non secure site
+* @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+* @author @ipaksc
+*/
+( function( $, window, wb, crypto ) {
+"use strict";
+var componentName = "wb-exitscript",
+	selector = "." + componentName,
+	initEvent = "wb-init" + selector,
+	$document = wb.doc,
+	exiturlparam = componentName + "-urlparam",
+	keyForKeyHolder = componentName + "key",
+	moDalId = componentName + "-modal",
+	i18n,
+	i18nDict = {
+		en: {
+			"msgboxHeader": "Warning",
+			"exitMsg": "You are about to leave a secure site, do you wish to continue?",
+			"targetWarning": "The link will open in a new browser window.",
+			"yesBtn": "Yes",
+			"cancelBtn": "Cancel"
+
+		},
+		fr: {
+			"msgboxHeader": "Avertissement",
+			"exitMsg": "Vous êtes sur le point de quitter un site sécurisé. Voulez-vous continuer?",
+			"targetWarning": "Le lien s'ouvrira dans une nouvelle fenêtre de navigateur.",
+			"yesBtn": "Oui",
+			"cancelBtn": "Annuler"
+
+		}
+	},
+
+	/**
+	 * @method init
+	 * @param {jQuery Event} event Event that triggered the function call
+	 */
+	init = function( event ) {
+		var elm = wb.init( event, componentName, selector ),
+			settings,
+			queryString = window.location.search,
+			urlParams = new URLSearchParams( queryString ),
+			counterInUrl = wb.string.fromHexString( urlParams.get( "exturl" ) ),
+			encryptedUrl = localStorage.getItem( componentName ),
+			jwt = JSON.parse( localStorage.getItem( keyForKeyHolder ) ),
+			$elm;
+		if ( elm ) {
+			$elm = $( elm );
+			settings = $.extend(
+				true,
+				window[ componentName ],
+				wb.getData( $elm, componentName )
+
+			);
+
+			$elm.data( componentName, settings );
+
+			if ( settings.url && crypto ) {
+
+				crypto.subtle.generateKey(
+					{
+						name: "AES-CTR",
+						length: 256
+					},
+					true,
+					[ "encrypt", "decrypt" ]
+				).then( function( keyToEncrypt ) {
+
+					var enc, messageEncoded, counter;
+
+					// Save the key in the anchor
+					crypto.subtle.exportKey( "jwk", keyToEncrypt )
+						.then( function( exportedJwtKey ) {
+							elm[ keyForKeyHolder ] = exportedJwtKey;
+						} );
+
+					// Encrypt the URL
+					enc = new TextEncoder();
+					messageEncoded = enc.encode( elm.href );
+					counter = crypto.getRandomValues( new Uint8Array( 16 ) );
+					crypto.subtle.encrypt(
+						{
+							name: "AES-CTR",
+							counter: counter,
+							length: 64
+						},
+						keyToEncrypt,
+						messageEncoded
+					).then( function( ciphertext ) {
+						elm[ componentName ] = ciphertext;
+					} );
+
+					// Change the link URL by passing the counter as a key
+					$elm.attr( "href", settings.url + "?exturl=" + wb.string.toHexString( counter ) );
+				} );
+
+			}
+
+			i18n = i18nDict[ wb.lang || "en" ];
+
+			// This conditional statement for a middle static exit page, to retrieve the URL to the non-secure site.
+			if ( $elm.hasClass( exiturlparam ) && encryptedUrl !== null && jwt !== null ) {
+
+				crypto.subtle.importKey(
+					"jwk",
+					jwt,
+					{
+						name: "AES-CTR",
+						length: 256
+					},
+					true,
+					[ "decrypt" ]
+				).then( function( key ) {
+
+					crypto.subtle.decrypt(
+						{
+							name: "AES-CTR",
+							counter: counterInUrl,
+							length: 64
+						},
+						key,
+						wb.string.base64ToArrayBuffer( encryptedUrl )
+					).then( function( decrypted ) {
+
+						var dec = new TextDecoder(),
+							urlToRedirect = dec.decode( decrypted );
+
+						// Check if the decrypted message is an valid URL and silently fail if the pattern don't match
+						if ( urlToRedirect.match( /^(http|https):\/\//g ) ) {
+							elm.outerHTML = "<a href='" + urlToRedirect + "'>" + urlToRedirect + "</a>";
+						}
+
+					} );
+				} );
+
+			}
+
+			// Remove the plugin data and ensure it is removed from the localStorage
+			localStorage.removeItem( componentName );
+			localStorage.removeItem( keyForKeyHolder );
+
+			wb.ready( $elm, componentName );
+		}
+	};
+
+$document.on( "click", selector, function( event ) {
+
+	var elm = event.currentTarget,
+		$elm = $( elm ),
+		wrapper,
+		targetAttribute = "",
+		moDal = document.createDocumentFragment(),
+		tpl = document.createElement( "div" ),
+		settings =  $elm.data( componentName ),
+		msgboxHeader = i18n.msgboxHeader,
+		yesBtn = i18n.yesBtn,
+		cancelBtn = i18n.cancelBtn,
+		exitMsg = i18n.exitMsg,
+		targetWarning = i18n.targetWarning;
+
+	if ( settings.i18n ) {
+		msgboxHeader =  settings.i18n.msgboxHeader || i18n.msgboxHeader;
+		yesBtn = settings.i18n.yesBtn || i18n.yesBtn;
+		cancelBtn = settings.i18n.cancelBtn || i18n.cancelBtn;
+		exitMsg = settings.i18n.exitMsg || i18n.exitMsg;
+		targetWarning = settings.i18n.targetWarning || i18n.targetWarning;
+	}
+
+	if ( !settings.url ) {
+
+		event.preventDefault();
+	}
+
+	if ( this.hasAttribute( "target" ) ) {
+		targetAttribute = "target='" + this.getAttribute( "target" ) + "'";
+	} else {
+		targetAttribute = "target='" + targetAttribute + "'";
+	}
+
+	if ( this.getAttribute( "target" ) === "_blank" ) {
+		exitMsg = exitMsg  + " " + targetWarning;
+	}
+
+	if ( document.getElementById( moDalId ) ) {
+		document.getElementById( moDalId ).remove();
+
+	}
+
+	if ( !settings.url ) {
+		tpl.innerHTML = "<section id='" + moDalId + "' " + "class='mfp-hide modal-dialog modal-content overlay-def'>" +
+			"<header class='modal-header'><h2 class='modal-title'>" + msgboxHeader + "</h2></header>" +
+			"<div class='modal-body'>" +
+			"<p>" + exitMsg + "</p>" +
+			"</div>" +
+			"<div class='modal-footer'>" +
+			"<ul class='list-inline text-center'>" +
+			"<li><a class='btn btn-default pull-right popup-modal-dismiss'" + targetAttribute + " href='" + this.getAttribute( "href" ) + "'>" + yesBtn + "</a></li>" +
+			"<li><button class='btn btn-primary popup-modal-dismiss pull-left'>" + cancelBtn + "</button></li>" +
+			"</ul></div></section>";
+		moDal.appendChild( tpl );
+		wrapper = moDal.firstChild;
+		wrapper = wrapper.firstChild;
+		document.body.appendChild( wrapper );
+
+		$( wrapper ).trigger( "open.wb-lbx", [
+			[ {
+				src: "#" + moDalId,
+				type: "inline"
+			} ],
+
+			true
+
+		] );
+
+	} else if ( crypto && this[ componentName ] ) {
+
+		// Save to localStorage, the plugin init will ensure this data is only used once
+		localStorage.setItem( componentName, wb.string.arrayBufferToBase64( this[ componentName ] ) );
+		localStorage.setItem( keyForKeyHolder, JSON.stringify( this[ keyForKeyHolder ] ) );
+	}
+
+} );
+
+// Bind the init event of the plugin
+$document.on( "timerpoke.wb " + initEvent, selector, init );
+
+// Add the timer poke to initialize the plugin
+wb.add( selector );
+
+} )( jQuery, window, wb, crypto );
+
+/**
 * @title WET-BOEW Facebook embedded page
 * @overview Helps with implementing Facebook embedded pages.
 * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
@@ -5216,12 +8128,12 @@ wb.add( selector );
 ( function( $, window, wb ) {
 "use strict";
 
-	/*
-	* Variable and function definitions.
-	* These are global to the plugin - meaning that they will be initialized once per page,
-	* not once per instance of plugin on the page. So, this is a good place to define
-	* variables that are common to all instances of the plugin on a page.
-	*/
+/*
+* Variable and function definitions.
+* These are global to the plugin - meaning that they will be initialized once per page,
+* not once per instance of plugin on the page. So, this is a good place to define
+* variables that are common to all instances of the plugin on a page.
+*/
 var componentName = "wb-facebook",
 	selector = "." + componentName,
 	initEvent = "wb-init" + selector,
@@ -5282,11 +8194,11 @@ wb.add( selector );
  * -**data-rel:** rel attribute of the mobile favicon (defaults to "apple-touch-icon").
  * -**data-sizes:** sizes attribute of the mobile favicon (defaults to "57x57 72x72 114x114 144x144 150x150").
  *
- * For example, the following overides the rel and file name attributes of the mobile favicon:
+ * For example, the following overrides the rel and file name attributes of the mobile favicon:
  *
- *     <link href="favion.ico" rel='icon' data-rel="apple-touch-icon-precomposed" data-filename="my-mobile-favicon.ico"/>
+ *     <link href="favicon.ico" rel='icon' data-rel="apple-touch-icon-precomposed" data-filename="my-mobile-favicon.ico"/>
  */
-( function( $, window, wb ) {
+( function( $, document, wb ) {
 "use strict";
 
 /*
@@ -5355,7 +8267,14 @@ var componentName = "wb-favicon",
 
 		// Create the mobile favicon if it doesn't exist
 		if ( !isFaviconMobile ) {
-			faviconMobile = $( "<link rel='" + data.rel + "' sizes='" + data.sizes + "' class='" + componentName + "'/>" );
+			var lnk = document.createElement( "link" );
+			lnk.setAttribute( "rel", data.rel  );
+			lnk.setAttribute( "sizes", data.sizes );
+			lnk.setAttribute( "class", componentName );
+
+			document.head.appendChild( lnk );
+
+			faviconMobile = $( lnk );
 		}
 
 		// Only add/update a mobile favicon that was created by the plugin
@@ -5405,13 +8324,13 @@ $document.on( mobileEvent + " " + iconEvent, selector, function( event, data ) {
 	// Filter out any events triggered by descendants
 	if ( event.currentTarget === eventTarget ) {
 		switch ( event.type ) {
-		case "mobile":
-			mobile( eventTarget, event, data );
-			break;
+			case "mobile":
+				mobile( eventTarget, event, data );
+				break;
 
-		case "icon":
-			icon( eventTarget, event, data );
-			break;
+			case "icon":
+				icon( eventTarget, event, data );
+				break;
 		}
 	}
 
@@ -5425,7 +8344,7 @@ $document.on( mobileEvent + " " + iconEvent, selector, function( event, data ) {
 // Add the timer poke to initialize the plugin
 wb.add( selector );
 
-} )( jQuery, window, wb );
+} )( jQuery, document, wb );
 
 /**
  * @title WET-BOEW Feeds
@@ -5453,12 +8372,12 @@ var componentName = "wb-feeds",
 	 * @object Templates
 	 * @properties {function}
 	 * @param {object} requires a entry object of various ATOM based properties
-	 * @returns {string} modified string with appropiate markup/format for a entry object
+	 * @returns {string} modified string with appropriate markup/format for a entry object
 	 */
 	Templates = {
 
 		/**
-		 * [fickr template]
+		 * [flickr template]
 		 * @param  {entry object} data
 		 * @return {string}	HTML string for creating a photowall effect
 		 */
@@ -5472,14 +8391,14 @@ var componentName = "wb-feeds",
 				};
 
 			// due to CORS we cannot default to simple ajax pulls of the image. We have to inline the content box
-			return "<li><a class='feed-flickr' href='javascript:;' data-flickr='" +
+			return "<li><a class='feed-flickr' href='#' data-flickr='" +
 				wb.escapeAttribute( JSON.stringify( flickrData ) ) + "'><img src='" + flickrData.thumbnail + "' alt='" +
 				wb.escapeAttribute( flickrData.title ) + "' title='" + wb.escapeAttribute( flickrData.title ) +
 				"' class='img-responsive'/></a></li>";
 		},
 
 		/**
-		 * [Youtube template]
+		 * [YouTube template]
 		 * @param  {entry object} data
 		 * @return {string}	HTML string for creating a photowall effect
 		 */
@@ -5490,11 +8409,11 @@ var componentName = "wb-feeds",
 			};
 
 			// Due to CORS we cannot default to simple ajax pulls of the image. We have to inline the content box
-			return "<li class='col-md-4 col-sm-6 feed-youtube' data-youtube='" +
-				wb.escapeAttribute( JSON.stringify( youtubeDate ) ) + "'><a href='javascript:;'><img src='" +
+			return "<li class='col-md-4 col-sm-6'><button class='btn btn-lnk feed-youtube' data-youtube='" +
+				wb.escapeAttribute( JSON.stringify( youtubeDate ) ) + "'><img src='" +
 				wb.pageUrlParts.protocol + "//img.youtube.com/vi/" + youtubeDate.videoId + "/mqdefault.jpg' alt='" +
 				wb.escapeAttribute( youtubeDate.title ) + "' title='" + wb.escapeAttribute( youtubeDate.title ) +
-				"' class='img-responsive' /></a></li>";
+				"' class='img-responsive' /></button></li>";
 		},
 
 		/**
@@ -5532,7 +8451,7 @@ var componentName = "wb-feeds",
 	},
 
 	/**
-	 * Helper function that returns the string representaion of a unicode character
+	 * Helper function that returns the string representation of a unicode character
 	 * @method decode
 	 * @param  {regex} match  unicode pattern
 	 * @param  {string} code  string where unicode is needed to be converted
@@ -5587,8 +8506,8 @@ var componentName = "wb-feeds",
 			// Lets bind some variables to the node to ensure safe ajax thread counting
 
 			$content.data( "toProcess", feeds.length )
-					.data( "feedLimit", limit )
-					.data( "entries", [] );
+				.data( "feedLimit", limit )
+				.data( "entries", [] );
 
 			for ( i = last; i !== -1; i -= 1 ) {
 				fElem = feeds.eq( i );
@@ -5666,7 +8585,6 @@ var componentName = "wb-feeds",
 	 */
 	corsEntry = function( xmlDoc, limit ) {
 		var entries = xmlDoc.getElementsByTagName( "entry" ).length,
-			limit = limit,
 			arr_entry = [],
 			corsObj = {},
 			jsonString = JSON.stringify( xmlToJson( xmlDoc ) ),
@@ -5846,10 +8764,10 @@ var componentName = "wb-feeds",
 				$elm.empty().addClass( "waiting" );
 				$details
 					.children( "summary" )
-						.on( "click.wb-feeds", function( event ) {
-							var $summary = $( event.currentTarget ).off( "click.wb-feeds" );
-							activateFeed( $summary.parent().find( feedContSelector ) );
-						} );
+					.on( "click.wb-feeds", function( event ) {
+						var $summary = $( event.currentTarget ).off( "click.wb-feeds" );
+						activateFeed( $summary.parent().find( feedContSelector ) );
+					} );
 			}
 		}
 
@@ -5870,6 +8788,10 @@ var componentName = "wb-feeds",
 			postProcess = $elm.data( componentName + "-postProcess" ),
 			i, postProcessSelector;
 
+		if ( !result ) {
+			return;
+		}
+
 		$elm.empty()
 			.removeClass( "waiting" )
 			.addClass( "feed-active" )
@@ -5889,33 +8811,39 @@ var componentName = "wb-feeds",
 
 $document.on( "ajax-fetched.wb data-ready.wb-feeds", selector + " " + feedLinkSelector, function( event, context ) {
 	var eventTarget = event.target,
-		data, response, $emlRss, limit, results;
+		data, response, responseRaw,
+		$emlRss, limit, results;
 
 	// Filter out any events triggered by descendants
 	if ( event.currentTarget === eventTarget ) {
 		$emlRss = $( eventTarget ).parentsUntil( selector ).parent();
 		switch ( event.type ) {
-		case "ajax-fetched":
-			response = event.fetch.response;
-			if ( response.documentElement ) {
-				limit = getLimit( $emlRss[ Object.keys( $emlRss )[ 0 ] ] );
-				data = corsEntry( response, limit );
-			} else if ( response.query ) {
-				results = response.query.results;
-				if ( !results ) {
-					data = results.item; // Flicker feeds
-					if ( !Array.isArray( data ) ) {
-						data = [ data ];
+			case "ajax-fetched":
+				responseRaw = event.fetch.response;
+				if ( typeof responseRaw === "string" ) {
+					response = JSON.parse( responseRaw ); // Assuming we have fetch a JSON document, try to parse it.
+				} else {
+					response = responseRaw.get( 0 ); // fetched an HTML or XML document which has been parsed by jQuery and sanitized by DomPurify
+				}
+				if ( response.documentElement ) {
+					limit = getLimit( $emlRss[ Object.keys( $emlRss )[ 0 ] ] );
+					data = corsEntry( response, limit );
+				} else if ( response.query ) {
+					results = response.query.results;
+					if ( !results ) {
+						data = results.item; // Flicker feeds
+						if ( !Array.isArray( data ) ) {
+							data = [ data ];
+						}
+					} else {
+						data = [];
 					}
 				} else {
-					data = [];
+					data = ( response.responseData ) ? response.responseData.feed.entries : response.items || response.feed.entry;
 				}
-			} else {
-				data = ( response.responseData ) ? response.responseData.feed.entries : response.items || response.feed.entry;
-			}
-			break;
-		default:
-			data = event.feedsData;
+				break;
+			default:
+				data = event.feedsData;
 		}
 
 		// Identify that initialization has completed
@@ -5932,7 +8860,7 @@ $document.on( "click", selector + " .feed-youtube", function( event ) {
 		youtubeData = wb.getData( event.currentTarget, "youtube" ),
 		videoUrl = wb.pageUrlParts.protocol + "//www.youtube.com/watch?v=" + youtubeData.videoId,
 		videoSource = "<figure class='wb-mltmd'><video title='" + youtubeData.title + "'>" +
-			"<source type='video/youtube' src='" + videoUrl + "' />" +
+			"<source type='video/youtube' src='" + videoUrl + "'></source>" +
 			"</video><figcaption><p>" +  youtubeData.title + "</p>" +
 			"</figcaption></figure>";
 
@@ -5998,10 +8926,10 @@ var componentName = "wb-filter",
 	initEvent = "wb-init" + selector,
 	$document = wb.doc,
 	filterClass = "wb-fltr-out",
-	notFilterClassSel = ":not(." + filterClass + ")",
+	tagFilterClass = "wb-tgfltr-out",
+	notFilterClassSel = ":not(." + filterClass + "):not(." + tagFilterClass + ")",
 	inputClass = "wb-fltr-inpt",
 	dtNameFltrArea = "wbfltrid",
-	visibleSelector = ":visible",
 	selectorInput = "." + inputClass,
 	defaults = {
 		std: {
@@ -6016,25 +8944,30 @@ var componentName = "wb-filter",
 			section: ">tbody"
 		},
 		tblgrp: {
-			selector: "th:not([scope])",
+			selector: " th:not([scope])" + notFilterClassSel,
 			hdnparentuntil: "tbody",
 			section: ">tbody"
 		}
 	},
 	i18n, i18nText,
-	infoText,
 	wait,
 
 	init = function( event ) {
 		var elm = wb.init( event, componentName, selector ),
 			$elm, elmTagName, filterUI, prependUI,
 			settings, setDefault,
-			inptId, totalEntries;
+			itemsObserver,
+			inptId, totalEntries,
+			secSelector,
+			uiTemplate, uiInpt, uiInfo,
+			uiNbItems, uiTotal, uiInfoID;
+
 		if ( elm ) {
 			$elm = $( elm );
-
 			elmTagName = elm.nodeName;
-			if ( [ "DIV", "SECTION", "ARTICLE" ].indexOf( elm.nodeName ) >= 0 ) {
+			uiInfoID = elm.id + "-info";
+
+			if ( [ "DIV", "SECTION", "ARTICLE" ].indexOf( elmTagName ) >= 0 ) {
 				setDefault = defaults.grp;
 				prependUI = true;
 			} else if ( elmTagName === "TABLE" ) {
@@ -6056,40 +8989,73 @@ var componentName = "wb-filter",
 					filter_label: i18n( "fltr-lbl" ),
 					fltr_info: i18n( "fltr-info" )
 				};
-
-				infoText = i18nText.fltr_info;
 			}
-
-			Modernizr.addTest( "stringnormalize", "normalize" in String );
-			Modernizr.load( {
-				test: Modernizr.stringnormalize,
-				nope: [
-					"site!deps/unorm" + wb.getMode() + ".js"
-				]
-			} );
 
 			if ( !elm.id ) {
 				elm.id = wb.getId();
 			}
-			inptId = elm.id + "-inpt";
 
-			totalEntries = $elm.find( ( settings.section || "" ) + " " + settings.selector ).length;
+			if ( settings.uiTemplate ) {
+				uiTemplate = document.querySelector( settings.uiTemplate );
+				uiInpt = uiTemplate.querySelector( "input[type=search]" );
 
-			filterUI = "<div class=\"input-group\"><label for=\"" + inptId + "\" class=\"input-group-addon\"><span class=\"glyphicon glyphicon-filter\" aria-hidden=\"true\"></span> " + i18nText.filter_label + "</label><input id=\"" + inptId + "\" class=\"form-control " + inputClass + "\" data-" + dtNameFltrArea + "=\"" + elm.id + "\" type=\"search\"></div>" + "<p aria-live=\"polite\" id=\"" + elm.id + "-info\">" + infoFormater( totalEntries, totalEntries ) + "</p>";
+				if ( uiInpt ) {
+					uiInfo = uiTemplate.querySelector( ".wb-fltr-info" );
 
-			if ( prependUI ) {
-				$elm.prepend( filterUI );
-			} else {
-				$elm.before( filterUI );
+					uiInpt.classList.add( inputClass );
+					uiInpt.setAttribute( "data-" + dtNameFltrArea, elm.id );
+					uiInpt.setAttribute( "aria-controls", elm.id );
+
+					if ( uiInfo ) {
+						uiInfoID = uiInfo.id || uiInfoID;
+						uiInfo.id = uiInfoID;
+						uiInfo.setAttribute( "role", "status" );
+					}
+				} else {
+					console.error( componentName + ": " + "an <input type=\"search\"> is required in your UI template." );
+				}
+
+				if ( settings.source ) {
+					console.warn( componentName + ": " + "the 'source' option is not compatible with the 'uiTemplate' option. If both options are defined, only 'uiTemplate' will be registered." );
+				}
+			} else if ( !document.querySelector( "input#" + elm.id + "-inpt" ) ) {
+				inptId = elm.id + "-inpt";
+				filterUI = $( "<div class=\"input-group\">" +
+					"<label for=\"" + inptId + "\" class=\"input-group-addon\"><span class=\"glyphicon glyphicon-filter\" aria-hidden=\"true\"></span> " + i18nText.filter_label + "</label>" +
+					"<input id=\"" + inptId + "\" class=\"form-control " + inputClass + "\" data-" + dtNameFltrArea + "=\"" + elm.id + "\" aria-controls=\"" + elm.id + "\" type=\"search\">" +
+					"</div>" +
+					"<p role=\"status\" id=\"" + uiInfoID + "\">" + i18nText.fltr_info + "</p>" );
+
+				if ( settings.source ) {
+					$( settings.source ).prepend( filterUI );
+				} else if ( prependUI ) {
+					$elm.prepend( filterUI );
+				} else {
+					$elm.before( filterUI );
+				}
+			}
+
+			secSelector = ( settings.section || "" ) + " ";
+			totalEntries = $elm.find( secSelector + settings.selector ).length;
+			uiNbItems = document.querySelector( "#" + uiInfoID + " [data-nbitem]" );
+			uiTotal = document.querySelector( "#" + uiInfoID + " [data-total]" );
+
+			if ( uiNbItems ) {
+				uiNbItems.textContent = totalEntries;
+
+				itemsObserver = new MutationObserver( function() {
+					uiNbItems.textContent = $elm.find( secSelector + settings.selector + notFilterClassSel ).length;
+				} );
+
+				itemsObserver.observe( elm, { attributes: true, subtree: true } );
+			}
+
+			if ( uiTotal ) {
+				uiTotal.textContent = totalEntries;
 			}
 
 			wb.ready( $elm, componentName );
 		}
-	},
-	infoFormater = function( nbItem, total ) {
-		return infoText.
-			replace( /_NBITEM_/g, nbItem ).
-			replace( /_TOTAL_/g, total );
 	},
 
 	/*
@@ -6101,7 +9067,7 @@ var componentName = "wb-filter",
 	 */
 	filterQueryParser = function( filter ) {
 
-		// Pattern to seperate the filter text into "words"
+		// Pattern to separate the filter text into "words"
 		var pattern = /[^\s"]+|"([^"]*)"/gi;
 
 		// Make strings safe again for regex
@@ -6126,26 +9092,26 @@ var componentName = "wb-filter",
 
 		switch ( filterType ) {
 
-		case "and":
-			words = filterQueryParser( filter );
-			if ( words ) {
-				wordRegExFilter = ".*";
-				i_len = words.length;
-				for ( i = 0; i < i_len; i++ ) {
-					wordRegExFilter = wordRegExFilter + ( "(?=.*" + words[ i ] + ")" );
+			case "and":
+				words = filterQueryParser( filter );
+				if ( words ) {
+					wordRegExFilter = ".*";
+					i_len = words.length;
+					for ( i = 0; i < i_len; i++ ) {
+						wordRegExFilter = wordRegExFilter + ( "(?=.*" + words[ i ] + ")" );
+					}
 				}
-			}
-			break;
+				break;
 
-		case "or": // If one word fall back on default
-			words = filterQueryParser( filter );
-			if ( words ) {
-				wordRegExFilter =  words.join( "|" );
-			}
-			break;
+			case "or": // If one word fall back on default
+				words = filterQueryParser( filter );
+				if ( words ) {
+					wordRegExFilter =  words.join( "|" );
+				}
+				break;
 
-		default:
-			break;
+			default:
+				break;
 
 		}
 
@@ -6171,9 +9137,15 @@ var componentName = "wb-filter",
 
 		for ( i = 0; i < itemsLength; i += 1 ) {
 			$item = $items.eq( i );
-			text = unAccent( $item.text() );
 
-			if ( !text.match( searchFilterRegularExp ) ) {
+			// Get the text content of the item, either from the shadow DOM or directly
+			if ( $item[ 0 ].shadowRoot ) {
+				text = unAccent( $item[ 0 ].shadowRoot.textContent );
+			} else {
+				text = unAccent( $item.text() );
+			}
+
+			if ( !searchFilterRegularExp.test( text ) ) {
 				if ( hndParentSelector ) {
 					$item = $item.parentsUntil( hndParentSelector );
 				}
@@ -6186,12 +9158,13 @@ var componentName = "wb-filter",
 		}
 		fCallBack.apply( this, arguments );
 
-		$( "#" + $elm.get( 0 ).id + "-info" ).html( infoFormater( $elm.find( secSelector + notFilterClassSel + settings.selector + visibleSelector ).length, itemsLength ) );
+		$elm.trigger( "wb-filtered" );
 	},
+
 	filterCallback = function( $field, $elm, settings ) {
-		var $sections =	$elm.find( settings.section + visibleSelector ),
+		var $sections =	$elm.find( settings.section ),
 			sectionsLength = $sections.length,
-			fndSelector = notFilterClassSel + settings.selector + visibleSelector,
+			fndSelector = notFilterClassSel + settings.selector,
 			s, $section;
 
 		for ( s = 0; s < sectionsLength; s += 1 ) {
@@ -6211,7 +9184,20 @@ $document.on( "keyup", selectorInput, function( event ) {
 		clearTimeout( wait );
 	}
 	wait = setTimeout( filter.bind( this, $input, $elm, $elm.data() ), 250 );
+} );
 
+// Reinitialize filter if content on the page has been updated by another plugin
+$document.on( "wb-contentupdated", selector + ", " + selector + " *", function()  {
+	let that = this;
+
+	if ( wait ) {
+		clearTimeout( wait );
+	}
+
+	wait = setTimeout( function() {
+		that.classList.remove( "wb-init", componentName + "-inited" );
+		$( that ).trigger( "wb-init." + componentName );
+	}, 100 );
 } );
 
 $document.on( "timerpoke.wb " + initEvent, selector, init );
@@ -6236,6 +9222,7 @@ wb.add( selector );
  */
 var componentName = "wb-fnote",
 	selector = "." + componentName,
+	modFlag = "data-" + componentName,
 	initEvent = "wb-init" + selector,
 	setFocusEvent = "setfocus.wb",
 	$document = wb.doc,
@@ -6250,29 +9237,27 @@ var componentName = "wb-fnote",
 		// returns DOM object = proceed with init
 		// returns undefined = do not proceed with init (e.g., already initialized)
 		var elm = wb.init( event, componentName, selector ),
-			$elm, footnoteDd, footnoteDt, i, len, dd, dt, dtId;
+			$elm, footnoteDd, footnoteDt, i, len, dd, dt;
 
 		if ( elm ) {
 			$elm = $( elm );
 			footnoteDd = elm.getElementsByTagName( "dd" );
 			footnoteDt = elm.getElementsByTagName( "dt" );
 
-			// Apply aria-labelledby and set initial event handlers for return to referrer links
+			// Set initial event handlers for return to referrer links
 			len = footnoteDd.length;
 			for ( i = 0; i !== len; i += 1 ) {
 				dd = footnoteDd[ i ];
 				dt = footnoteDt[ i ];
-				dtId = dd.id + "-dt";
 				dd.setAttribute( "tabindex", "-1" );
-				dd.setAttribute( "aria-labelledby", dtId );
-				dt.id = dtId;
+				dt.id = dd.id + "-dt";
 			}
 
 			// Remove "first/premier/etc"-style text from certain footnote return links (via the child spans that hold those bits of text)
 			$elm.find( "dd p.fn-rtn a span span" ).remove();
 
 			// Listen for footnote reference links that get clicked
-			$document.on( "click vclick", "main :not(" + selector + ") sup a.fn-lnk", function( event ) {
+			$document.on( "click", "main :not(" + selector + ") sup a.fn-lnk", function( event ) {
 				var eventTarget = event.target,
 					which = event.which,
 					refId, $refLinkDest;
@@ -6283,7 +9268,8 @@ var componentName = "wb-fnote",
 					$refLinkDest = $document.find( refId );
 
 					$refLinkDest.find( "p.fn-rtn a" )
-								.attr( "href", "#" + eventTarget.parentNode.id );
+						.attr( "href", "#" + eventTarget.parentNode.id )
+						.attr( modFlag, true );
 
 					// Assign focus to $refLinkDest
 					$refLinkDest.trigger( setFocusEvent );
@@ -6292,21 +9278,39 @@ var componentName = "wb-fnote",
 			} );
 
 			// Listen for footnote return links that get clicked
-			$document.on( "click vclick", selector + " dd p.fn-rtn a", function( event ) {
+			$document.on( "click", selector + " dd p.fn-rtn a", function( event ) {
 				var which = event.which,
+					$elmTarget = $( event.target ),
 					ref,
-					refId;
+					refId,
+					refIdSrc,
+					refIdDashIdx,
+					searchRefId;
 
 				// Ignore middle/right mouse button
 				if ( !which || which === 1 ) {
-					ref = event.target.getAttribute( "href" );
+					ref = $elmTarget.attr( "href" );
 
 					// Focus on associated referrer link (if the return link points to an ID)
 					if ( ref.charAt( 0 ) === "#" ) {
-						refId = "#" + wb.jqEscape( ref.substring( 1 ) );
+						refId = wb.jqEscape( ref.substring( 1 ) );
+
+						// When first clicked, ensure we send the user on the first instance when the id follow the recommend pattern
+						refIdDashIdx = refId.indexOf( "-" );
+						if ( refIdDashIdx !== -1 && !$elmTarget.attr( modFlag ) ) {
+							searchRefId = refId.substring( 0, refIdDashIdx + 1 );
+							refIdSrc = wb.jqEscape( $( "sup[id^='" + searchRefId + "']:first()" ).attr( "id" ) );
+							if ( !refIdSrc || refId !== refIdSrc ) {
+								console.warn( componentName + " - Relink first reference of " + ref + " for #" + refIdSrc );
+								refId = refIdSrc;
+								$elmTarget
+									.attr( "href", "#" + refId )
+									.attr( modFlag, true );
+							}
+						}
 
 						// Assign focus to the link
-						$document.find( refId + " a" ).trigger( setFocusEvent );
+						$document.find( "#" + refId + " a" ).trigger( setFocusEvent );
 						return false;
 					}
 				}
@@ -6393,328 +9397,368 @@ var componentName = "wb-frmvld",
 			}
 
 			Modernizr.load( {
-
-				// For loading multiple dependencies
-				both: [
-					"site!deps/jquery.validate" + modeJS,
-					"site!deps/additional-methods" + modeJS
-				],
+				load: [ "site!deps/jquery.validate" + modeJS ],
 				testReady: function() {
-					return ( $.validator && $.validator.methods.bic );
+					return ( $.validator );
 				},
 				complete: function() {
-					var $elm = $( "#" + elmId ),
-						$form = $elm.find( "form" ),
-						formDOM = $form.get( 0 ),
-						formId = $form.attr( "id" ),
-						labels = formDOM.getElementsByTagName( "label" ),
-						$formElms = $form.find( "input, select, textarea" ),
-						$inputs = $formElms.filter( "input" ),
-						$pattern = $inputs.filter( "[pattern]" ),
-						submitted = false,
-						$required = $formElms.filter( "[required], [data-rule-required], .required" ),
-						errorFormId = "errors-" + ( !formId ? "default" : formId ),
-						settings = $.extend(
-							true,
-							{},
-							defaults,
-							window[ componentName ],
-							wb.getData( $elm, componentName )
-						),
-						summaryHeading = settings.hdLvl,
-						i, len, validator;
+					Modernizr.load( {
 
-					// Append the aria-live region (for provide message updates to screen readers)
-					$elm.append( "<div class='arialive wb-inv' aria-live='polite' aria-relevant='all'></div>" );
+						// For loading multiple dependencies
+						load: [ "site!deps/additional-methods" + modeJS ],
+						testReady: function() {
+							return ( $.validator.methods.bic );
+						},
+						complete: function() {
+							var $elm = $( "#" + elmId ),
+								$form = $elm.find( "form" ),
+								formDOM = $form.get( 0 ),
+								formId = $form.attr( "id" ),
+								labels = formDOM.getElementsByTagName( "label" ),
+								submitted = false,
+								showSummary = false,
+								errorFormId = "errors-" + ( !formId ? "default" : formId ),
+								settings = $.extend(
+									true,
+									{},
+									defaults,
+									window[ componentName ],
+									wb.getData( $elm, componentName )
+								),
+								summaryHeading = settings.hdLvl,
+								i, len, validator;
 
-					// Add space to the end of the labels (so separation between label and error when CSS turned off)
-					len = labels.length;
-					for ( i = 0; i !== len; i += 1 ) {
-						labels[ i ].innerHTML += " ";
-					}
+							if ( wb.lang === "fr" ) {
 
-					// Remove the pattern attribute until it is safe to use with jQuery Validation
-					len = $pattern.length;
-					for ( i = 0; i !== len; i += 1 ) {
-						$pattern.eq( i ).removeAttr( "pattern" );
-					}
+								// alphanumeric regex is changed to allow french characters;
+								$.validator.addMethod( "alphanumeric", function( value, element ) {
+									return this.optional( element ) || /^[a-zàâçéèêëîïôûùüÿæœ0-9_]+$/i.test( value );
+								}, "Letters, numbers, and underscores only please." );
 
-					// Change form attributes and values that interfere with validation in IE7/8
-					// TODO: Need better way of dealing with this rather than browser sniffing
-					if ( wb.ieVersion > 0 && wb.ieVersion < 9 ) {
-						len = $required.length;
-						$required.removeAttr( "required" );
-						for ( i = 0; i !== len; i += 1 ) {
-							$required[ i ].setAttribute( "data-rule-required", "true" );
-						}
-						$inputs.filter( "[type=date]" ).each( function() {
-							var $this = $( this ),
-								$parent = $this.wrap( "<div/>" ).parent(),
-								newElm = $( $parent.html().replace( "type=date", "type=text" ) );
-							$parent.replaceWith( newElm );
-						} );
-						$formElms = $form.find( "input, select, textarea" );
-					}
-
-					// The jQuery validation plug-in in action
-					validator = $form.validate( {
-						meta: "validate",
-						focusInvalid: false,
-						ignore: settings.ignore,
-
-						// Set the element which will wrap the inline error messages
-						errorElement: "strong",
-
-						// Location for the inline error messages
-						// In this case we will place them in the associated label element
-						errorPlacement: function( $error, $element ) {
-							var type = $element.attr( "type" ),
-								group = $element.attr( "data-rule-require_from_group" ),
-								$fieldset, $legend;
-
-							$error.data( "element-id", $element.attr( "id" ) );
-							if ( type ) {
-								type = type.toLowerCase();
-								if ( type === "radio" || type === "checkbox" ) {
-									$fieldset = $element.closest( "fieldset" );
-									if ( $fieldset.length !== 0 ) {
-										$legend = $fieldset.find( "legend" ).first();
-										if ( $legend.length !== 0 && $fieldset.find( "input[name='" + $element.attr( "name" ) + "']" ) !== 1 ) {
-											$error.appendTo( $legend );
-											return;
-										}
-									}
-								}
+								// error french text is adjusted to remove the word "spaces"
+								$.extend( $.validator.messages, {
+									alphanumeric: "Veuillez fournir seulement des lettres, nombres et soulignages."
+								} );
 							}
 
-							if ( group ) {
-								$fieldset = $element.closest( "fieldset" );
-								if ( $fieldset.length !== 0 ) {
-									$legend = $fieldset.find( "legend" ).first();
-									if ( $legend.length !== 0 && $fieldset.find( "input[name='" + $element.attr( "name" ) + "']" ) !== 1 ) {
-										var $strong = $legend.find( "strong.error" ),
-											id = $legend.attr( "id" );
+							// Append the aria-live region (for provide message updates to screen readers)
+							$elm.append( "<div class='arialive wb-inv' aria-live='polite' aria-relevant='all'></div>" );
 
-										if ( $strong.length > 0 ) {
-											$strong.remove();
+							// Add space to the end of the labels (so separation between label and error when CSS turned off)
+							len = labels.length;
+							for ( i = 0; i !== len; i += 1 ) {
+								labels[ i ].insertAdjacentHTML( "beforeend", " " );
+							}
+
+							// Hide "required" label text in older forms from screen readers
+							// Prevents redundant "required" announcements on semantically-required fields whose labels mention they're required
+							$form.find( "strong.required:not([aria-hidden='true'])" ).each( function() {
+								const $requiredText = $( this ),
+									$label = $requiredText.closest( "label" ),
+									fieldId = $label.attr( "for" );
+								let $field = fieldId ? $( "#" + fieldId ) : $label.find( ":input" ).first();
+
+								// If the label's field has yet to be found, look for fields that refer to the label via aria-labelledby
+								if ( !$field.length ) {
+									const labelId = $label.attr( "id" ) || $requiredText.closest( "id" );
+									$field = $form.find( "[aria-labelledby~='" + labelId + "']:input" ).first();
+								}
+
+								// Hide the "required" text if its field is semantically-required
+								if ( $field.is( "[required], [aria-required='true']" ) ) {
+									$requiredText.attr( "aria-hidden", "true" );
+								}
+							} );
+
+							// Override the default jQuery validation method for Canadian postal codes to allow for trailing/leading whitespace
+							$.validator.addMethod( "postalCodeCA", function( value, element ) {
+								var trimmed = value.replace( /\u00a0/g, " " ).trim();
+								return this.optional( element ) || /^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ] *\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i.test( trimmed );
+							}, "Please specify a valid Canadian postal code." );
+
+							// The jQuery validation plug-in in action
+							validator = $form.validate( {
+								meta: "validate",
+								focusInvalid: false,
+								ignore: settings.ignore,
+
+								// Set the element which will wrap the inline error messages
+								errorElement: "strong",
+
+								// Location for the inline error messages
+								// In this case we will place them in the associated label element
+								errorPlacement: function( $error, $element ) {
+									var type = $element.attr( "type" ),
+										group = $element.attr( "data-rule-require_from_group" ),
+										$fieldset, $legend;
+
+									$error.data( "element-id", $element.attr( "id" ) );
+									if ( type ) {
+										type = type.toLowerCase();
+										if ( type === "radio" || type === "checkbox" ) {
+											$fieldset = $element.closest( "fieldset" );
+											if ( $fieldset.length !== 0 ) {
+												$legend = $fieldset.find( "legend" ).first();
+												if ( $legend.length !== 0 && $fieldset.find( "input[name='" + $element.attr( "name" ) + "']" ) !== 1 ) {
+													$error.appendTo( $legend );
+													return;
+												}
+											}
 										}
+									}
 
-										if ( !id ) {
-											id = "required-group-" + idCount;
-											idCount += 1;
+									if ( group ) {
+										$fieldset = $element.closest( "fieldset" );
+										if ( $fieldset.length !== 0 ) {
+											$legend = $fieldset.find( "legend" ).first();
+											if ( $legend.length !== 0 && $fieldset.find( "input[name='" + $element.attr( "name" ) + "']" ) !== 1 ) {
+												var $strong = $legend.find( "strong.error" ),
+													id = $legend.attr( "id" );
 
-											$legend.attr( "id", id );
+												if ( $strong.length > 0 ) {
+													$strong.remove();
+												}
+
+												if ( !id ) {
+													id = "required-group-" + idCount;
+													idCount += 1;
+
+													$legend.attr( "id", id );
+												}
+
+												$error.data( "element-id", id );
+												$error.attr( "id", id );
+												$error.appendTo( $legend );
+
+												return;
+											}
 										}
+									}
 
-										$error.data( "element-id", id );
-										$error.attr( "id", id );
-										$error.appendTo( $legend );
-
+									//Std If we have a label and the input field is inside the label
+									// need to add a css-implicite-input
+									if ( $form.find( "label" ).find( ".wb-server-error + input.css-implicite-input[name='" + $element.attr( "name" ) + "']" ).length > 0 ) {
+										$error.insertBefore( $form.find( ".wb-server-error + input.css-implicite-input[name='" + $element.attr( "name" ) + "']" ) );
 										return;
 									}
-								}
-							}
 
-							//Std If we have a label and the input field is inside the label
-							// need to add a css-implicite-input
-							if ( $form.find( "label" ).find( "input[name='" + $element.attr( "name" ) + "']" ).length > 0 ) {
-								$error.insertBefore( $form.find( "input[name='" + $element.attr( "name" ) + "']" ) );
-								return;
-							}
+									$error.appendTo( $form.find( "label[for='" + $element.attr( "id" ) + "']" ) );
+									return;
+								},
 
-							$error.appendTo( $form.find( "label[for='" + $element.attr( "id" ) + "']" ) );
-							return;
-						},
+								// Create our error summary that will appear before the form
+								showErrors: function( errorMap ) {
+									this.defaultShowErrors();
+									var $errors = $form.find( ".wb-server-error, strong.error" ).filter( ":not(:hidden)" ),
+										$errorfields = $form.find( "input.error, select.error, textarea.error" ),
+										prefixStart = "<span class='prefix'>" + i18nText.error + "&#160;",
+										prefixEnd = i18nText.colon + " </span>",
+										separator = i18nText.hyphen,
+										ariaLive = $form.closest( ".wb-frmvld" ).find( ".arialive" )[ 0 ],
+										$summaryContainer, summary, key, i, len, $error, prefix, $fieldName, $fieldset, label, labelString, el;
 
-						// Create our error summary that will appear before the form
-						showErrors: function( errorMap ) {
-							this.defaultShowErrors();
-							var $errors = $form.find( ".wb-server-error, strong.error" ).filter( ":not(:hidden)" ),
-								$errorfields = $form.find( "input.error, select.error, textarea.error" ),
-								prefixStart = "<span class='prefix'>" + i18nText.error + "&#160;",
-								prefixEnd = i18nText.colon + " </span>",
-								separator = i18nText.hyphen,
-								ariaLive = $form.parent().find( ".arialive" )[ 0 ],
-								$summaryContainer, summary, key, i, len, $error, prefix, $fieldName, $fieldset, label, labelString;
+									// Correct the colouring of fields that are no longer invalid
+									$form
+										.find( ".has-error [aria-invalid=false]" )
+										.closest( ".has-error" )
+										.removeClass( "has-error" );
 
-							// Correct the colouring of fields that are no longer invalid
-							$form
-								.find( ".has-error [aria-invalid=false]" )
-								.closest( ".has-error" )
-								.removeClass( "has-error" );
+									if ( $errors.length !== 0 ) {
 
-							if ( $errors.length !== 0 ) {
-
-								// Post process
-								summary = "<" + summaryHeading + ">" +
-									i18nText.formNotSubmitted + $errors.length +
-									(
-										$errors.length !== 1 ?
-										i18nText.errorsFound :
-										i18nText.errorFound
-									) + "</" + summaryHeading + "><ul>";
-								$errorfields
-									.closest( ".form-group" )
-									.addClass( "has-error" );
-								len = $errors.length;
-								for ( i = 0; i !== len; i += 1 ) {
-									$error = $errors.eq( i );
-									prefix = prefixStart + ( i + 1 ) + prefixEnd;
-									$fieldName = $error.closest( "label" ).find( ".field-name" );
-
-									// Try to find the field name in the legend (if one exists)
-									if ( $fieldName.length === 0 ) {
-										$fieldset = $error.closest( "fieldset" );
-										if ( $fieldset.length !== 0 ) {
-											$fieldName = $fieldset.find( "legend .field-name" );
-										}
-									}
-
-									$error.find( "span.prefix" ).detach();
-
-									//Verify if it is a wb-server-error
-									if ( $errors[ i ].classList.contains( "wb-server-error" ) ) {
-										if ( $errors[ i ].id ) {
-											var myParent = document.getElementById( $errors[ i ].id ).parentElement;
-											if ( myParent === null ) {
-												summary += "<li><a>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + separator + i18nText.errorCorrect + "</a></li>";
-											} else {
-												if ( myParent.hasAttribute( "for" ) && myParent.getAttribute( "for" ).length > 0 ) {
-													summary += "<li><a href='#" + myParent.getAttribute( "for" ) + "'>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + separator + i18nText.errorCorrect + "</a></li>";
-												} else {
-													if ( myParent.getElementsByTagName( "input" )[ 0 ] && myParent.getElementsByTagName( "input" )[ 0 ].name.length > 0 ) {
-														summary += "<li><a href='#" + myParent.getElementsByTagName( "input" )[ 0 ].id + "'>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + separator + i18nText.errorCorrect + "</a></li>";
-													} else {
-														if ( myParent.tagName === ( "LEGEND" ) && ( myParent.parentElement.getElementsByTagName( "input" )[ 0 ].type === "checkbox" || myParent.parentElement.getElementsByTagName( "input" )[ 0 ].type === "radio" && myParent.parentElement.getElementsByTagName( "input" )[ 0 ].name.length > 0 ) ) {
-															summary += "<li><a href='#" + myParent.parentElement.getElementsByTagName( "input" )[ 0 ].id + "'>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + separator + i18nText.errorCorrect + "</a></li>";
-														} else {
-															summary += "<li><a>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + separator + i18nText.errorCorrect + "</a></li>";
-														}
-													}
-												}
-											}
-											$error.html( "<strong>" + prefix + $error.text() + "</strong>" );
-										}
-									} else {
-										summary += "<li><a href='#" + $error.data( "element-id" ) + "'>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + "</a></li>";
-										$error.html( "<span class='label label-danger'>" + prefix + $error.text() + "</span>" );
-									}
-								}
-								summary += "</ul>";
-
-								if ( !submitted ) {
-
-									// Update the aria-live region as necessary
-									i = 0;
-									for ( key in errorMap ) {
-										if ( errorMap.hasOwnProperty( key ) ) {
-											i += 1;
-											break;
-										}
-									}
-									if ( i !== 0 ) {
+										// Post process
+										summary = "<" + summaryHeading + ">" +
+											i18nText.formNotSubmitted + $errors.length +
+											(
+												$errors.length !== 1 ?
+													i18nText.errorsFound :
+													i18nText.errorFound
+											) + "</" + summaryHeading + "><ul>";
+										$errorfields
+											.closest( ".form-group" )
+											.addClass( "has-error" );
 										len = $errors.length;
 										for ( i = 0; i !== len; i += 1 ) {
-											label = $errors[ i ].parentNode;
-											if ( label.getAttribute( "for" ) === key ) {
-												labelString = label.innerHTML;
-												if ( labelString !== ariaLive.innerHTML ) {
-													ariaLive.innerHTML = labelString;
+											$error = $errors.eq( i );
+											prefix = prefixStart + ( i + 1 ) + prefixEnd;
+											$fieldName = $error.closest( "label" ).find( ".field-name" );
+
+											// Try to find the field name in the legend (if one exists)
+											if ( $fieldName.length === 0 ) {
+												$fieldset = $error.closest( "fieldset" );
+												if ( $fieldset.length !== 0 ) {
+													$fieldName = $fieldset.find( "legend .field-name" );
 												}
-												break;
+											}
+
+											$error.find( "span.prefix" ).detach();
+
+											//Verify if it is a wb-server-error
+											if ( $errors[ i ].classList.contains( "wb-server-error" ) ) {
+												if ( $errors[ i ].id ) {
+													var myParent = document.getElementById( $errors[ i ].id ).parentElement;
+													if ( myParent === null ) {
+														summary += "<li><a>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + separator + i18nText.errorCorrect + "</a></li>";
+													} else {
+														if ( myParent.hasAttribute( "for" ) && myParent.getAttribute( "for" ).length > 0 ) {
+															summary += "<li><a href='#" + myParent.getAttribute( "for" ) + "'>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + separator + i18nText.errorCorrect + "</a></li>";
+														} else {
+															if ( myParent.getElementsByTagName( "input" )[ 0 ] && myParent.getElementsByTagName( "input" )[ 0 ].name.length > 0 ) {
+																summary += "<li><a href='#" + myParent.getElementsByTagName( "input" )[ 0 ].id + "'>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + separator + i18nText.errorCorrect + "</a></li>";
+															} else {
+																if ( myParent.tagName === ( "LEGEND" ) && ( myParent.parentElement.getElementsByTagName( "input" )[ 0 ].type === "checkbox" || myParent.parentElement.getElementsByTagName( "input" )[ 0 ].type === "radio" && myParent.parentElement.getElementsByTagName( "input" )[ 0 ].name.length > 0 ) ) {
+																	summary += "<li><a href='#" + myParent.parentElement.getElementsByTagName( "input" )[ 0 ].id + "'>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + separator + i18nText.errorCorrect + "</a></li>";
+																} else {
+																	summary += "<li><a>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + separator + i18nText.errorCorrect + "</a></li>";
+																}
+															}
+														}
+													}
+													$error.html( "<strong>" + prefix + $error.text() + "</strong>" );
+												}
+
+												//Force display of summary if wb-server-error present.
+												showSummary = true;
+											} else {
+												summary += "<li><a href='#" + $error.data( "element-id" ) + "'>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + "</a></li>";
+												$error.html( "<span class='label label-danger'>" + prefix + $error.text() + "</span>" );
 											}
 										}
-									} else if ( ariaLive.innerHTML.length !== 0 ) {
+										summary += "</ul>";
+
+										if ( !submitted ) {
+
+											// Update the aria-live region as necessary
+											i = 0;
+											for ( key in errorMap ) {
+												if ( Object.prototype.hasOwnProperty.call( errorMap, key ) ) {
+													i += 1;
+													break;
+												}
+											}
+											if ( i !== 0 ) {
+												len = $errors.length;
+												for ( i = 0; i !== len; i += 1 ) {
+													label = $errors[ i ].parentNode;
+													if ( label.getAttribute( "for" ) === key ) {
+														el = document.getElementById( key );
+														if ( el.matches( ":focus" ) ) {
+															ariaLive.innerHTML = "";
+														} else {
+															labelString = label.innerHTML;
+															if ( labelString !== ariaLive.innerHTML ) {
+																ariaLive.innerHTML = labelString;
+															}
+														}
+														break;
+													}
+												}
+											} else if ( ariaLive.innerHTML.length !== 0 ) {
+												ariaLive.innerHTML = "";
+											}
+										}
+										if ( showSummary ) {
+
+											// Delay updating the summary container in case a summary link was clicked
+											setTimeout( function() {
+												$summaryContainer = $form.find( "#" + errorFormId );
+
+												// Output our error summary and place it in the error container
+												// Create our container if one doesn't already exist
+												if ( $summaryContainer.length === 0 ) {
+													$summaryContainer = $( "<section id='" + errorFormId + "' class='alert alert-danger' tabindex='-1'>" + summary + "</section>" ).prependTo( $form );
+
+													// Replace current error summary content only if it is different
+													// from the incoming error summary content
+												} else if ( $summaryContainer.html() !== summary.replace( /'/g, "\"" ).replace( /&#160;/g, "&nbsp;" ) ) {
+
+													// if the summary container is currently focused then
+													// we will focus the last element in the summary
+													// since we recreate the error list on blur/change
+													var $isFocused = $summaryContainer.find( "a" ).is( ":focus" );
+													$summaryContainer.empty().append( summary );
+													if ( $isFocused ) {
+														$summaryContainer.find( "a" ).last().trigger( "focus" );
+													}
+												}
+
+												// Put focus on the error if the errors are generated by an attempted form submission
+												if ( submitted ) {
+
+													// Assign focus to $summaryContainer
+													$summaryContainer.trigger( setFocusEvent );
+													submitted = false;
+												}
+											}, 100 );
+										}
+									} else {
+
+										// Update the aria-live region as necessary
+										if ( ariaLive.innerHTML.length !== 0 ) {
+											ariaLive.innerHTML = "";
+										}
+										$form.find( "#" + errorFormId ).detach();
+										showSummary = false;
+									}
+								},
+
+								/* End of showErrors() */
+
+								invalidHandler: function() {
+									submitted = true;
+									showSummary = true;
+								}
+
+							} ); /* end of validate() */
+
+							/* fixes validation issue (see PR #7913) */
+							$form.on( "change", "input[type=date], input[type=file], select", function() {
+								$form.validate().element( this );
+							} );
+
+							// Clear the form and remove error messages on reset
+							$document.on( "click", selector + " input[type=reset]", function( event ) {
+								var which = event.which,
+									ariaLive;
+
+								// Ignore middle/right mouse buttons
+								if ( !which || which === 1 ) {
+									validator.resetForm();
+									$( "#" + errorFormId ).detach();
+
+									ariaLive = $form.closest( ".wb-frmvld" ).find( ".arialive" )[ 0 ];
+									if ( ariaLive.innerHTML.length !== 0 ) {
 										ariaLive.innerHTML = "";
 									}
+
+									// Correct the colouring of fields that are no longer invalid
+									$form.find( ".has-error" ).removeClass( "has-error" );
 								}
+							} );
 
-								// Delay updating the summary container in case a summary link was clicked
-								setTimeout( function() {
-									$summaryContainer = $form.find( "#" + errorFormId );
-
-									// Output our error summary and place it in the error container
-									// Create our container if one doesn't already exist
-									if ( $summaryContainer.length === 0 ) {
-										$summaryContainer = $( "<section id='" + errorFormId + "' class='alert alert-danger' tabindex='-1'>" + summary + "</section>" ).prependTo( $form );
-									} else {
-										$summaryContainer.empty().append( summary );
+							//Trigger validation on wb-server-error
+							$form.find( ".wb-server-error" ).filter( ":not( :hidden )" ).parent().each( function() {
+								if ( this.attributes.for && this.attributes.for.value.length > 0 ) {
+									$form.validate().element( $( "[id =" + this.attributes.for.value + "]" ) );
+								} else if ( $( this ).find( "input" )[ 0 ] ) {
+									$form.validate().element( $( this ).find( "input" )[ 0 ] );
+								} else if ( $( this ).next( ".radio, .checkbox" ).children( "label" ).children( "input" )[ 0 ] ) {
+									if ( $( this ).find( $( this ).next( ".radio, .checkbox" ).children( "label" ).children( "input" )[ 0 ].id ) ) {
+										$form.validate().element( $( this ).next( ".radio, .checkbox" ).children( "label" ).children( "input" )[ 0 ] );
 									}
-
-									// Put focus on the error if the errors are generated by an attempted form submission
-									if ( submitted ) {
-
-										// Assign focus to $summaryContainer
-										$summaryContainer.trigger( setFocusEvent );
-										submitted = false;
+								} else if ( $( this ).next( ".radio-inline, .checkbox-inline, .label-inline" ).children( "input" )[ 0 ] ) {
+									if ( $( this ).find( $( this ).next( ".radio-inline, .checkbox-inline, .label-inline" ).children( "input" )[ 0 ].id ) ) {
+										$form.validate().element( $( this ).next( ".radio-inline, .checkbox-inline, .label-inline" ).children( "input" )[ 0 ] );
 									}
-								}, 100 );
-							} else {
-
-								// Update the aria-live region as necessary
-								if ( ariaLive.innerHTML.length !== 0 ) {
-									ariaLive.innerHTML = "";
 								}
-								$form.find( "#" + errorFormId ).detach();
-							}
-						},
+							} );
 
-						/* End of showErrors() */
+							// Tell the i18n file to execute to run any $.validator extends
+							$form.trigger( "formLanguages.wb" );
 
-						invalidHandler: function() {
-							submitted = true;
-						},
-
-						/* adds on tab validation */
-						onfocusout: function( element ) {
-							this.element( element );
-						}
-
-					} ); /* end of validate() */
-
-					/* fixes validation issue (see PR #7913) */
-					$form.on( "change", "input[type=date], input[type=file], select", function() {
-						$form.validate().element( this );
-					} );
-
-					// Clear the form and remove error messages on reset
-					$document.on( "click vclick touchstart", selector + " input[type=reset]", function( event ) {
-						var which = event.which,
-							ariaLive;
-
-						// Ignore middle/right mouse buttons
-						if ( !which || which === 1 ) {
-							validator.resetForm();
-							$( "#" + errorFormId ).detach();
-
-							ariaLive = $form.parent().find( ".arialive" )[ 0 ];
-							if ( ariaLive.innerHTML.length !== 0 ) {
-								ariaLive.innerHTML = "";
-							}
-
-							// Correct the colouring of fields that are no longer invalid
-							$form.find( ".has-error" ).removeClass( "has-error" );
+							// Identify that initialization has completed
+							wb.ready( $( eventTarget ), componentName );
 						}
 					} );
-
-					//Trigger validation on wb-server-error
-					$form.find( ".wb-server-error" ).filter( ":not( :hidden )" ).parent().each( function() {
-						if ( this.attributes.for && this.attributes.for.value.length > 0 ) {
-							$( "form" ).validate().element( $( "[id =" + this.attributes.for.value + "]" ) );
-						} else if ( $( this ).find( "input" )[ 0 ] ) {
-							$( "form" ).validate().element( $( this ).find( "input" )[ 0 ] );
-						} else if ( $( this ).next( ".radio, .checkbox" ).children( "label" ).children( "input" )[ 0 ] ) {
-							if ( $( this ).find( $( this ).next( ".radio, .checkbox" ).children( "label" ).children( "input " )[ 0 ].id ) ) {
-								$( "form" ).validate().element( $( this ).next( ".radio, .checkbox" ).children( "label" ).children( "input" )[ 0 ] );
-							}
-						}
-					} );
-
-					// Tell the i18n file to execute to run any $.validator extends
-					$form.trigger( "formLanguages.wb" );
-
-					// Identify that initialization has completed
-					wb.ready( $( eventTarget ), componentName );
 				}
 			} );
 		}
@@ -6794,12 +9838,222 @@ wb.add( selector );
 } )( jQuery, wb );
 
 /**
+ * @title WET-BOEW JSON Fetch [ json-fetch ]
+ * @overview Load and filter data from a JSON file
+ * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ * @author @duboisp
+ */
+/*global jsonpointer */
+( function( $, wb, DOMPurify ) {
+"use strict";
+
+/*
+ * Variable and function definitions.
+ * These are global to the plugin - meaning that they will be initialized once per page,
+ * not once per instance of plugin on the page. So, this is a good place to define
+ * variables that are common to all instances of the plugin on a page.
+ */
+var $document = wb.doc,
+	component = "json-fetch",
+	fetchEvent = component + ".wb",
+	jsonCache = { },
+	jsonCacheBacklog = { },
+	completeJsonFetch = function( callerId, refId, response, status, xhr, selector, fetchedOpts ) {
+		if ( !window.jsonpointer ) {
+
+			// JSON pointer library is loaded but not executed in memory yet, we need to wait a tick before to continue
+			setTimeout( function() {
+				completeJsonFetch( callerId, refId, response, status, xhr, selector, fetchedOpts );
+			}, 100 );
+			return false;
+		}
+		if ( selector ) {
+			try {
+				response = jsonpointer.get( response, selector );
+			} catch ( ex ) {
+				console.error( "JSON fetch - Bad JSON selector: " + selector );
+				console.error( response );
+				console.error( $( "#" + callerId ).get( 0 ) );
+			}
+		}
+		$( "#" + callerId ).trigger( {
+			type: "json-fetched.wb",
+			fetch: {
+				response: response,
+				status: status,
+				xhr: xhr,
+				refId: refId,
+				fetchedOpts: fetchedOpts
+			}
+		}, this );
+	};
+
+// Event binding
+$document.on( fetchEvent, function( event ) {
+
+	var caller = event.element || event.target,
+		fetchOpts = event.fetch || { url: "" },
+		urlParts = fetchOpts.url.split( "#" ),
+		url = urlParts[ 0 ],
+		fetchNoCache = fetchOpts.nocache,
+		fetchNoCacheKey = fetchOpts.nocachekey || wb.cacheBustKey || "wbCacheBust",
+		fetchNoCacheValue,
+		fetchCacheURL,
+		hashPart,
+		datasetName,
+		selector = urlParts[ 1 ] || false,
+		callerId, refId = fetchOpts.refId,
+		cachedResponse;
+
+	// Filter out any events triggered by descendants
+	if ( caller === event.target || event.currentTarget === event.target ) {
+
+		if ( !caller.id ) {
+			caller.id = wb.getId();
+		}
+		callerId = caller.id;
+
+		if ( selector ) {
+
+			// If a Dataset Name exist let it managed by wb-jsonpatch plugin
+			hashPart = selector.split( "/" );
+			datasetName = hashPart[ 0 ];
+
+			// A dataset name must start with "[" character, if it is a letter, then follow JSON Schema (to be implemented)
+			if ( datasetName.charCodeAt( 0 ) === 91 ) {
+
+				// Let the wb-jsonpatch plugin to manage it
+				$( "#" + callerId ).trigger( {
+					type: "postpone.wb-jsonmanager",
+					postpone: {
+						callerId: callerId,
+						refId: refId,
+						dsname: datasetName,
+						selector: selector.substring( datasetName.length )
+					}
+				} );
+				return;
+			}
+			fetchOpts.url = url;
+		}
+
+		if ( fetchNoCache ) {
+			if ( fetchNoCache === "nocache" ) {
+				fetchNoCacheValue = wb.guid();
+			} else {
+				fetchNoCacheValue = wb.sessionGUID();
+			}
+			fetchCacheURL = fetchNoCacheKey + "=" + fetchNoCacheValue;
+
+			if ( url.indexOf( "?" ) !== -1 ) {
+				url = url + "&" + fetchCacheURL;
+			} else {
+				url = url + "?" + fetchCacheURL;
+			}
+			fetchOpts.url = url;
+		}
+
+		Modernizr.load( {
+			load: "site!deps/jsonpointer" + wb.getMode() + ".js",
+			complete: function() {
+
+				// Ensure this fetch has an URL. There is no URL when only using dataset name (a virtual JSON file).
+				if ( !url ) {
+					return;
+				}
+
+				if ( !fetchOpts.nocache ) {
+					cachedResponse = jsonCache[ url ];
+
+					if ( cachedResponse ) {
+						completeJsonFetch( callerId, refId, cachedResponse, "success", undefined, selector, fetchOpts );
+						return;
+					} else {
+						if ( !jsonCacheBacklog[ url ] ) {
+							jsonCacheBacklog[ url ] = [ ];
+						} else {
+							jsonCacheBacklog[ url ].push( {
+								"callerId": callerId,
+								"refId": refId,
+								"selector": selector
+							} );
+							return;
+						}
+					}
+				}
+
+				// Ensure we only receive JSON data and don't allow jsonp
+				// jQuery will raise an error if other data format is received
+				fetchOpts.dataType = "json";
+				if ( fetchOpts.jsonp ) {
+					fetchOpts.jsonp = false;
+				}
+
+				// Sending Data
+				if ( fetchOpts.data ) {
+					try {
+						fetchOpts.data = ( typeof fetchOpts.data === "string" ? fetchOpts.data : JSON.stringify( fetchOpts.data ) );
+					} catch ( err ) {
+						throw "JSON fetch - Data being sent to server - " + err;
+					}
+
+					fetchOpts.method = fetchOpts.method || "POST";
+					fetchOpts.contentType = fetchOpts.contentType || "application/json";
+				}
+
+				$.ajax( fetchOpts )
+					.done( function( response, status, xhr ) {
+						var i, i_len, i_cache, backlog;
+
+						if ( !fetchOpts.nocache ) {
+							try {
+								jsonCache[ url ] = response;
+							} catch ( error ) {
+								return;
+							}
+						}
+
+						completeJsonFetch( callerId, refId, response, status, xhr, selector, fetchOpts );
+
+						if ( jsonCacheBacklog[ url ] ) {
+							backlog = jsonCacheBacklog[ url ];
+
+							i_len = backlog.length;
+
+							for ( i = 0; i !== i_len; i += 1 ) {
+								i_cache = backlog[ i ];
+								completeJsonFetch( i_cache.callerId, i_cache.refId, response, status, xhr, i_cache.selector, fetchOpts );
+							}
+						}
+
+					} )
+					.fail( function( xhr, status, error ) {
+						xhr.responseText = DOMPurify.sanitize( xhr.responseText );
+						$( "#" + callerId ).trigger( {
+							type: "json-failed.wb",
+							fetch: {
+								xhr: xhr,
+								status: status,
+								error: error,
+								refId: refId,
+								fetchOpts: fetchOpts
+							}
+						}, this );
+					}, this );
+			}
+		} );
+	}
+} );
+
+} )( jQuery, wb, DOMPurify );
+
+/**
  * @title WET-BOEW Lightbox
  * @overview Helps build a photo gallery on a web page.
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
  * @author @pjackson28
  */
-( function( $, window, document, wb, undef ) {
+( function( $, DOMPurify, window, document, wb, undef ) {
 "use strict";
 
 /*
@@ -6816,6 +10070,11 @@ var componentName = "wb-lbx",
 	modalHideSelector = "#wb-tphp, body > header, body > main, body > footer",
 	$document = wb.doc,
 	callbacks, i18n, i18nText,
+	defaults = {
+
+		// exclude 'times' from screen reader with aria-hidden span
+		closeMarkup: "<button type='button' class='mfp-close'><span class='mfp-close' aria-hidden='true'>&times;</span><span class='wb-inv'>%title%</span></button>"
+	},
 
 	/**
 	 * @method init
@@ -6917,7 +10176,7 @@ var componentName = "wb-lbx",
 			i18nText = {
 				close: i18n( "close" ),
 				oClose: i18n( "overlay-close" ),
-				tClose: i18n( "overlay-close" ) + i18n( "space" ) + i18n( "esc-key" ),
+				tClose: i18n( "close" ) + i18n( "space" ) + i18n( "overlay-close" ) + i18n( "space" ) + i18n( "esc-key" ),
 				tLoading: i18n( "load" ),
 				gallery: {
 					tPrev: i18n( "prv-l" ),
@@ -6939,8 +10198,10 @@ var componentName = "wb-lbx",
 					var $item = this.currItem,
 						$content = this.contentContainer,
 						$wrap = this.wrap,
+						$container = $wrap.find( ".mfp-container" ),
+						$containerParent = $container.parent(),
 						$modal = $wrap.find( ".modal-dialog" ),
-						$buttons = $wrap.find( ".mfp-close, .mfp-arrow" ),
+						$buttons = $wrap.find( ".mfp-arrow" ),
 						len = $buttons.length,
 						i, button;
 
@@ -6959,15 +10220,21 @@ var componentName = "wb-lbx",
 						$content.attr( "role", "document" );
 					}
 
-					$wrap.append( "<span tabindex='0' class='lbx-end wb-inv'></span>" )
-						.find( ".activate-open" )
-						.trigger( "wb-activate" );
-
 					this.contentContainer.attr( "data-pgtitle", document.getElementsByTagName( "H1" )[ 0 ].textContent );
+
+					trapTabbing( $wrap );
+
+					if ( !$containerParent.is( "dialog" ) ) {
+						$container.wrap( "<dialog class='mfp-container' open='open'></dialog>" );
+					} else {
+						$containerParent.attr( "open", "open" );
+					}
 				},
 				close: function() {
 					$document.find( "body" ).removeClass( "wb-modal" );
 					$document.find( modalHideSelector ).removeAttr( "aria-hidden" );
+					this.wrap.find( "dialog" ).removeAttr( "open" );
+
 				},
 				change: function() {
 					var $item = this.currItem,
@@ -7024,6 +10291,9 @@ var componentName = "wb-lbx",
 						selector = filter || ( urlHash ? "#" + urlHash : false ),
 						$response;
 
+					// Sanitize the response
+					mfpResponse.data = DOMPurify.sanitize( mfpResponse.data );
+
 					// Provide the ability to filter the AJAX response HTML
 					// by the URL hash or a selector
 					// TODO: Should be dealt with upstream by Magnific Popup
@@ -7036,10 +10306,13 @@ var componentName = "wb-lbx",
 
 					$response
 						.find( ".modal-title, h1" )
-							.first()
-								.attr( "id", "lbx-title" );
+						.first()
+						.attr( "id", "lbx-title" );
 
 					mfpResponse.data = $response;
+				},
+				ajaxContentAdded: function() {
+					trapTabbing( this.wrap );
 				}
 			};
 		}
@@ -7053,7 +10326,7 @@ var componentName = "wb-lbx",
 			complete: function() {
 
 				// Set the dependency i18nText only once
-				$.extend( true, $.magnificPopup.defaults, i18nText );
+				$.extend( true, $.magnificPopup.defaults, i18nText, defaults );
 
 				$document.trigger( dependenciesLoadedEvent );
 			}
@@ -7076,25 +10349,44 @@ var componentName = "wb-lbx",
 				}
 
 				overlayCloseFtr = "<button type='button' class='btn btn-sm btn-primary pull-left " + closeClassFtr +
-					"' title='" + spanTextFtr + "'>" +
+					"'>" +
 					closeTextFtr +
 					"<span class='wb-inv'>" + spanTextFtr + "</span></button>";
 
 				$( footer ).append( overlayCloseFtr );
 				if ( !hasFooter ) {
-					$modal.append( footer );
+					$( footer ).insertAfter( $modal.find( ".modal-body" ) );
 				}
 			}
 		}
+	},
+	trapTabbing = function( $wrap ) {
+
+		$wrap.on( "keydown", function( e ) {
+			if ( e.which === 9 ) {
+				var tabbable = $wrap.find( ".mfp-container :tabbable" ),
+					firstTabbable = tabbable.first()[ 0 ],
+					lastTabbable = tabbable.last()[ 0 ],
+					currentFocus = $( document.activeElement )[ 0 ];
+
+				if ( !e.shiftKey && currentFocus === lastTabbable ) {
+					e.preventDefault();
+					firstTabbable.focus();
+				} else if ( e.shiftKey && ( currentFocus === firstTabbable || currentFocus === $wrap[ 0 ] ) ) {
+					e.preventDefault();
+					lastTabbable.focus();
+				}
+			}
+		} );
 	};
 
 // Bind the init event of the plugin
 $document.on( "timerpoke.wb " + initEvent, selector, init );
 
 // Handler for clicking on a same page link within the overlay to outside the overlay
-$document.on( "click vclick", ".mfp-wrap a[href^='#']", function( event ) {
+$document.on( "click", ".mfp-wrap a[href^='#']", function( event ) {
 	var which = event.which,
-		eventTarget = event.target,
+		eventTarget = event.currentTarget,
 		$lightbox, linkTarget;
 
 	// Ignore middle/right mouse buttons
@@ -7119,10 +10411,43 @@ $document.on( "click vclick", ".mfp-wrap a[href^='#']", function( event ) {
 	}
 } );
 
-// Event handler for closing a modal popup
+// Event handler for closing a modal popup via the close button
 $( document ).on( "click", ".popup-modal-dismiss", function( event ) {
-	event.preventDefault();
+	if ( !this.hasAttribute( "target" ) ) {
+		event.preventDefault();
+	}
+
 	$.magnificPopup.close();
+} );
+
+// Event handler for closing a modal popup via the Escape key
+$( document ).on( "keydown", ".mfp-wrap:not(.mfp-close-btn-in)", function( event ) {
+
+	// If the Escape key was pressed...
+	if ( event.key === "Escape" ) {
+		const closeButtons = event.currentTarget.querySelectorAll( ".popup-modal-dismiss" );
+
+		// Trigger a "fake" click on the last close button
+		// Notes:
+		// -Allows Escape key presses to "piggyback" on additional functionality in close button click handlers (such as preventDefault and the session timeout plugin's confirm method)
+		// -Targets the last close button link to accomodate plugins that use multiple close buttons (such as exit script)... the last button is more likely to represent no in those scenarios
+		$( closeButtons[ closeButtons.length - 1 ] ).trigger( "click" );
+	}
+} );
+
+// Event handler for opening a popup via a button link and the spacebar key
+$( document ).on( "keydown", "." + componentName, function( event ) {
+	const sourceLink = event.currentTarget;
+
+	// If the link contains a role="button" attribute and the spacebar key was pressed...
+	if ( sourceLink.getAttribute( "role" ) === "button" && event.key === " " ) {
+
+		// Don't scroll down (typical spacebar behaviour)
+		event.preventDefault();
+
+		// Trigger a "fake" click on the button link
+		$( sourceLink ).trigger( "click" );
+	}
 } );
 
 // Event handler for opening a popup without a link
@@ -7162,7 +10487,7 @@ $( document ).on( "open" + selector, function( event, items, modal, title, ajax 
 // Add the timer poke to initialize the plugin
 wb.add( selector );
 
-} )( jQuery, window, document, wb );
+} )( jQuery, DOMPurify, window, document, wb );
 
 /**
  * @title WET-BOEW Menu plugin
@@ -7216,7 +10541,7 @@ var componentName = "wb-menu",
 			menuCount += 1;
 
 			// Lets test to see if we have any menus to fetch
-			// This is required for backwards compatibility. In previous versions, the menu was not integrated witht he data ajax plugin.
+			// This is required for backwards compatibility. In previous versions, the menu was not integrated with the data ajax plugin.
 			ajaxFetch = $elm.data( "ajax-fetch" );
 			if ( ajaxFetch ) {
 				$elm.trigger( {
@@ -7299,11 +10624,11 @@ var componentName = "wb-menu",
 
 			if ( elm && subItemsLength === 0 && elm.nodeName.toLowerCase() === "a" ) {
 				sectionHtml += "<li>" + $item[ 0 ].innerHTML.replace(
-						/(<a\s)/,
-						"$1" + menuitem + itemsLength +
+					/(<a\s)/,
+					"$1" + menuitem + itemsLength +
 							posinset + ( k + 1 ) +
 							"' tabindex='-1' "
-					) + "</li>";
+				) + "</li>";
 			} else {
 				sectionHtml += createCollapsibleSection( elm, k, itemsLength, $subItems, $subItems.length );
 			}
@@ -7480,7 +10805,7 @@ var componentName = "wb-menu",
 				panelDOM.innerHTML = "<header class='modal-header'><div class='modal-title'>" +
 						document.getElementById( "wb-glb-mn" )
 							.getElementsByTagName( "h2" )[ 0 ]
-								.innerHTML +
+							.innerHTML +
 						"</div></header><div class='modal-body'>" + panel + "</div>";
 				panelDOM.className += " wb-overlay modal-content overlay-def wb-panel-r";
 
@@ -7498,14 +10823,14 @@ var componentName = "wb-menu",
 				 */
 				$ajaxed
 					.find( ":discoverable" )
-						.attr( "tabindex", "-1" );
+					.attr( "tabindex", "-1" );
 
 				if ( $menu.length !== 0 ) {
 					$menu[ 0 ].setAttribute( "tabindex", "0" );
 					drizzleAria( $menu );
 					$menu
 						.filter( "[aria-haspopup=true]" )
-							.append( "<span class='expicon glyphicon glyphicon-chevron-down'></span>" );
+						.append( "<span class='expicon glyphicon glyphicon-chevron-down'></span>" );
 				}
 
 				// Replace elements
@@ -7525,9 +10850,9 @@ var componentName = "wb-menu",
 						// If not at the top level, then add wb-navcurr to the top level
 						if ( !$menuItem.hasClass( ".mb-item" ) ) {
 							$menuItem = $menuItem
-											.closest( "details" )
-												.children( "summary" )
-													.addClass( "wb-navcurr" );
+								.closest( "details" )
+								.children( "summary" )
+								.addClass( "wb-navcurr" );
 						}
 					}
 
@@ -7537,7 +10862,7 @@ var componentName = "wb-menu",
 						$menuItem
 							.trigger( "click" )
 							.parent()
-								.prop( "open", "open" );
+							.prop( "open", "open" );
 					}
 
 					// Identify that initialization has completed
@@ -7604,20 +10929,20 @@ var componentName = "wb-menu",
 		$elm
 			.removeClass( "sm-open" )
 			.children( ".open" )
-				.removeClass( "open" )
-				.attr( {
-					"aria-hidden": "true",
-					"aria-expanded": "false"
-				} )
+			.removeClass( "open" )
+			.attr( {
+				"aria-hidden": "true",
+				"aria-expanded": "false"
+			} )
 
-				// Close nested submenus
-				.find( "details" )
-					.removeAttr( "open" )
-					.children( "ul" )
-						.attr( {
-							"aria-hidden": "true",
-							"aria-expanded": "false"
-						} );
+		// Close nested submenus
+			.find( "details" )
+			.removeAttr( "open" )
+			.children( "ul" )
+			.attr( {
+				"aria-hidden": "true",
+				"aria-expanded": "false"
+			} );
 
 		if ( removeActive ) {
 			$elm.removeClass( "active" );
@@ -7643,11 +10968,11 @@ var componentName = "wb-menu",
 			menu
 				.addClass( "sm-open" )
 				.children( ".sm" )
-					.addClass( "open" )
-					.attr( {
-						"aria-hidden": "false",
-						"aria-expanded": "true"
-					} );
+				.addClass( "open" )
+				.attr( {
+					"aria-hidden": "false",
+					"aria-expanded": "true"
+				} );
 		}
 	},
 
@@ -7680,26 +11005,26 @@ $document.on( "timerpoke.wb " + initEvent + " ajax-fetched.wb ajax-failed.wb", s
 		elm, $elm;
 
 	switch ( eventType ) {
-	case "ajax-fetched":
-	case "ajax-failed":
-		elm = event.target;
+		case "ajax-fetched":
+		case "ajax-failed":
+			elm = event.target;
 
-		// Filter out any events triggered by descendants
-		if ( event.currentTarget === elm ) {
-			$elm = $( elm );
+			// Filter out any events triggered by descendants
+			if ( event.currentTarget === elm ) {
+				$elm = $( elm );
 
-			// Only replace the menu if there isn't an error
-			onAjaxLoaded(
-				$elm,
-				eventType === "ajax-fetched" ? event.fetch.pointer : $elm
-			);
-		}
-		return false;
+				// Only replace the menu if there isn't an error
+				onAjaxLoaded(
+					$elm,
+					eventType === "ajax-fetched" ? event.fetch.pointer : $elm
+				);
+			}
+			return false;
 
-	case "timerpoke":
-	case "wb-init":
-		init( event );
-		break;
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
 	}
 
 	/*
@@ -7728,13 +11053,12 @@ $document.on( "mouseenter", selector + " .sm", function() {
 } );
 
 // Touchscreen "touches" on menubar items should close the submenu if it is open
-$document.on( "touchstart click", selector + " .item[aria-haspopup=true]", function( event ) {
-	var isTouchstart = event.type === "touchstart",
-		which = event.which,
+$document.on( "click", selector + " .item[aria-haspopup=true]", function( event ) {
+	var which = event.which,
 		$this, $parent;
 
 	// Ignore middle and right mouse buttons
-	if ( isTouchstart || ( !which || which === 1 ) ) {
+	if ( !which || which === 1 ) {
 		event.preventDefault();
 		$this = $( this );
 		$parent = $this.parent();
@@ -7742,10 +11066,6 @@ $document.on( "touchstart click", selector + " .item[aria-haspopup=true]", funct
 		// Open the submenu if it is closed
 		if ( !$parent.hasClass( "sm-open" ) ) {
 			$this.trigger( "focusin" );
-
-		// Close the open submenu for a touch event
-		} else if ( isTouchstart ) {
-			menuClose( $parent, true );
 		}
 	}
 } );
@@ -7762,11 +11082,11 @@ $document.on( "click", selector + " [role=menu] [aria-haspopup=true]", function(
 	if ( !isOpen ) {
 		$( parent )
 			.closest( "[role^='menu']" )
-				.find( "[aria-hidden=false]" )
-					.parent()
-						.find( "[aria-haspopup=true]" )
-							.not( menuItem )
-								.trigger( "click" );
+			.find( "[aria-hidden=false]" )
+			.parent()
+			.find( "[aria-haspopup=true]" )
+			.not( menuItem )
+			.trigger( "click" );
 
 		// Ensure the opened menu is in view if in a mobile panel
 		menuContainer = document.getElementById( "mb-pnl" );
@@ -7783,12 +11103,12 @@ $document.on( "click", selector + " [role=menu] [aria-haspopup=true]", function(
 } );
 
 // Clicks and touches outside of menus should close any open menus
-$document.on( "click touchstart", function( event ) {
+$document.on( "click", function( event ) {
 	var $openMenus,
 		which = event.which;
 
 	// Ignore middle and right mouse buttons
-	if ( event.type === "touchstart" || ( !which || which === 1 ) ) {
+	if ( event.type === "" || ( !which || which === 1 ) ) {
 		$openMenus = $( selector + " .sm-open" );
 		if ( $openMenus.length !== 0 &&
 			$( event.target ).closest( selector ).length === 0 ) {
@@ -7921,11 +11241,11 @@ $document.on( "keydown", selector + " [role=menuitem]", function( event ) {
 					if ( !isOpen ) {
 						$( parent )
 							.closest( "[role^='menu']" )
-								.find( "[aria-hidden=false]" )
-									.parent()
-										.find( "[aria-haspopup=true]" )
-											.not( menuItem )
-												.trigger( "click" );
+							.find( "[aria-hidden=false]" )
+							.parent()
+							.find( "[aria-haspopup=true]" )
+							.not( menuItem )
+							.trigger( "click" );
 
 						// Ensure the opened menu is in view if in a mobile panel
 						menuContainer = document.getElementById( "mb-pnl" );
@@ -7948,7 +11268,7 @@ $document.on( "keydown", selector + " [role=menuitem]", function( event ) {
 							"aria-hidden": "false"
 						} )
 						.find( "[role=menuitem]:first" )
-							.trigger( "setfocus.wb" );
+						.trigger( "setfocus.wb" );
 				}
 
 			// Escape, left / right arrow without a submenu
@@ -7992,8 +11312,8 @@ $document.on( "keydown", selector + " [role=menuitem]", function( event ) {
 						event.preventDefault();
 						$menu.closest( "li" )
 							.find( menuitemSelector )
-								.trigger( "click" )
-								.trigger( "setfocus.wb" );
+							.trigger( "click" )
+							.trigger( "setfocus.wb" );
 
 					// No higher-level menu but the current submenu is open
 					} else if ( $menuItem.parent().children( "ul" ).attr( "aria-hidden" ) === "false" ) {
@@ -8053,7 +11373,7 @@ wb.add( selector );
  * @author WET Community
  */
 /* globals YT */
-( function( $, window, wb, undef ) {
+( function( $, DOMPurify, window, wb, undef ) {
 "use strict";
 
 /* Local scoped variables*/
@@ -8084,6 +11404,7 @@ var componentName = "wb-mltmd",
 		"timeupdate",
 		"waiting",
 		"canplay",
+		"seeked",
 		"progress",
 		captionsLoadedEvent,
 		captionsLoadFailedEvent,
@@ -8142,7 +11463,10 @@ var componentName = "wb-mltmd",
 								}
 							}
 						}
-					} catch ( err ) { }
+					} catch ( err ) {
+
+						/* swallow error */
+					}
 				} );
 
 				//
@@ -8157,6 +11481,7 @@ var componentName = "wb-mltmd",
 					cc_on: i18n( "cc", "on" ),
 					cc_off: i18n( "cc", "off" ),
 					cc_error: i18n( "cc-err" ),
+					fs: i18n( "fs" ),
 					mute_on: i18n( "mute", "on" ),
 					mute_off: i18n( "mute", "off" ),
 					duration: i18n( "dur" ),
@@ -8248,7 +11573,7 @@ var componentName = "wb-mltmd",
 	},
 
 	/*
-	 * Peformant micro templater
+	 * Performant micro templater
 	 * @credit: https://github.com/premasagar/tim/blob/master/tinytim.js
 	 * @todo: caching
 	 */
@@ -8340,22 +11665,22 @@ var componentName = "wb-mltmd",
 	parseXml = function( content ) {
 		var captions = [],
 			captionSelector = "[begin]",
-			captionElements = content.find( captionSelector ),
+			parser = new DOMParser(),
+			doc = parser.parseFromString( content, "application/xml" ),
+			captionElements = doc.querySelectorAll( captionSelector ),
 			len = captionElements.length,
 			i, captionElement, begin, end;
 
 		for ( i = 0; i !== len; i += 1 ) {
-			captionElement = $( captionElements[ i ] );
-			begin = parseTime( captionElement.attr( "begin" ) );
-			end = captionElement.attr( "end" ) !== undef ?
-				parseTime( captionElement.attr( "end" ) ) :
-				parseTime( captionElement.attr( "dur" ) ) + begin;
+			captionElement = captionElements[ i ];
 
-			captionElement = captionElement.clone();
-			captionElement.find( captionSelector ).detach();
+			begin = parseTime( captionElement.getAttribute( "begin" ) + "" );
+			end = captionElement.hasAttribute( "end" ) ?
+				parseTime( captionElement.getAttribute( "end" ) + "" ) :
+				parseTime( captionElement.getAttribute( "dur" ) + "" ) + begin;
 
 			captions[ captions.length ] = {
-				text: captionElement.html(),
+				text: DOMPurify.sanitize( captionElement.textContent ),
 				begin: begin,
 				end: end
 			};
@@ -8381,12 +11706,29 @@ var componentName = "wb-mltmd",
 				return data.replace( /<img|object [^>]*>/g, "" );
 			},
 			success: function( data ) {
-				elm.trigger( {
-					type: captionsLoadedEvent,
-					captions: data.indexOf( "<html" ) !== -1 ?
-						parseHtml( $( data ) ) :
-						parseXml( $( data ) )
-				} );
+
+				var captionItems;
+
+				if ( data.indexOf( "<html" ) !== -1 ) {
+
+					// Sanitize the response
+					captionItems = parseHtml( $( DOMPurify.sanitize( data, { WHOLE_DOCUMENT: true } ) ) );
+				} else {
+
+					// Response is sanitized in the XML parser function
+					captionItems = parseXml( data );
+				}
+
+				if ( captionItems.length ) {
+					elm.trigger( {
+						type: captionsLoadedEvent,
+						captions: captionItems
+					} );
+				} else {
+					elm.trigger( {
+						type: captionsLoadFailedEvent
+					} );
+				}
 			},
 			error: function( response, textStatus, errorThrown ) {
 				elm.trigger( {
@@ -8399,16 +11741,24 @@ var componentName = "wb-mltmd",
 
 	/**
 	 * @method loadCaptionsInternal
-	 * @description Loads same page captions emebed in HTML
+	 * @description Loads same page captions embedded in HTML
 	 * @param {Object} elm The jQuery object for the multimedia player loading the captions
 	 * @param {Object} obj The jQUery object containing the captions
 	 * @fires ccloaded.wb-mltmd
 	 */
 	loadCaptionsInternal = function( elm, obj ) {
-		elm.trigger( {
-			type: captionsLoadedEvent,
-			captions: parseHtml( obj )
-		} );
+		var captionItems = parseHtml( obj );
+
+		if ( captionItems.length ) {
+			elm.trigger( {
+				type: captionsLoadedEvent,
+				captions: captionItems
+			} );
+		} else {
+			elm.trigger( {
+				type: captionsLoadFailedEvent
+			} );
+		}
 	},
 
 	/**
@@ -8445,53 +11795,62 @@ var componentName = "wb-mltmd",
 		var $this, method;
 
 		switch ( fn ) {
-		case "play":
-			try {
-				this.object.play();
-			} catch ( ex ) {
-				this.object.doPlay();
-			}
-			break;
-		case "pause":
-			try {
-				this.object.pause();
-			} catch ( ex ) {
-				this.object.doPause();
-			}
-			break;
-		case "getCaptionsVisible":
-			return $( this ).hasClass( captionClass );
-		case "setCaptionsVisible":
-			$this = $( this );
-			if ( args ) {
-				$this.addClass( captionClass );
-			} else {
-				$this.removeClass( captionClass );
-			}
-			$this.trigger( captionsVisibleChangeEvent );
-			break;
-		case "getBuffering":
-			return this.object.buffering || false;
-		case "setBuffering":
-			this.object.buffering = args;
-			break;
-		case "getPreviousTime":
-			return this.object.previousTime;
-		case "setPreviousTime":
-			this.object.previousTime = args;
-			break;
-		default:
-			method = fn.charAt( 3 ).toLowerCase() + fn.substr( 4 );
-			switch ( fn.substr( 0, 3 ) ) {
-			case "get":
-				return typeof this.object[ method ] !== "function" ?
-					this.object[ method ] :
-					this.object[ method ]();
-			case "set":
-				typeof this.object[ method ] !== "function" ?
-					this.object[ method ] = args :
-					this.object[ fn ]( args );
-			}
+			case "play":
+				try {
+					this.object.play();
+				} catch ( ex ) {
+					this.object.doPlay();
+				}
+				break;
+			case "pause":
+				try {
+					this.object.pause();
+				} catch ( ex ) {
+					this.object.doPause();
+				}
+				break;
+			case "getCaptionsVisible":
+				return $( this ).hasClass( captionClass );
+			case "setCaptionsVisible":
+				$this = $( this );
+				if ( args ) {
+					$this.addClass( captionClass );
+				} else {
+					$this.removeClass( captionClass );
+				}
+				$this.trigger( captionsVisibleChangeEvent );
+				break;
+			case "fullscreen":
+				if ( this.object.requestFullscreen ) {
+					this.object.requestFullscreen();
+				} else if ( this.object.webkitRequestFullscreen ) { /* Safari */
+					this.object.webkitRequestFullscreen();
+				} else if ( this.object.msRequestFullscreen ) { /* IE11 */
+					this.object.msRequestFullscreen();
+				}
+				break;
+			case "getBuffering":
+				return this.object.buffering || false;
+			case "setBuffering":
+				this.object.buffering = args;
+				break;
+			case "getPreviousTime":
+				return this.object.previousTime;
+			case "setPreviousTime":
+				this.object.previousTime = args;
+				break;
+			default:
+				method = fn.charAt( 3 ).toLowerCase() + fn.substr( 4 );
+				switch ( fn.substr( 0, 3 ) ) {
+					case "get":
+						return typeof this.object[ method ] !== "function" ?
+							this.object[ method ] :
+							this.object[ method ]();
+					case "set":
+						typeof this.object[ method ] !== "function" ?
+							this.object[ method ] = args :
+							this.object[ fn ]( args );
+				}
 		}
 	},
 
@@ -8506,68 +11865,81 @@ var componentName = "wb-mltmd",
 			state;
 
 		switch ( fn ) {
-		case "play":
-			return this.object.playVideo();
-		case "pause":
-			return this.object.pauseVideo();
-		case "getPaused":
-			state = this.object.getPlayerState();
-			return state === -1 || state === 0 || state === 2 || state === 5;
-		case "getPlayed":
-			return this.object.getPlayerState() > -1;
-		case "getEnded":
-			return this.object.getPlayerState() === 0;
-		case "getDuration":
-			return this.object.getDuration();
-		case "getCurrentTime":
-			return this.object.getCurrentTime();
-		case "setCurrentTime":
-			return this.object.seekTo( args, true );
-		case "getMuted":
-			return this.object.isMuted();
-		case "setMuted":
-			if ( args ) {
-				this.object.mute();
-			} else {
-				this.object.unMute();
-			}
-			setTimeout( function() {
-				$media.trigger( "volumechange" );
-			}, 50 );
-			break;
-		case "getVolume":
-			return this.object.getVolume() / 100;
-		case "setVolume":
-			this.object.setVolume( args * 100 );
-			setTimeout( function() {
-				$media.trigger( "volumechange" );
-			}, 50 );
-			break;
-		case "getCaptionsVisible":
-			return $( this ).hasClass( captionClass );
-		case "setCaptionsVisible":
-			if ( args ) {
-				$( this ).addClass( captionClass );
-				try {
-					this.object.loadModule( "cc" );
-					this.object.setOption( "cc", "track", { languageCode: this.object.getOption( "cc", "tracklist" )[ 0 ].languageCode } );
-				} catch ( e ) {
-					this.object.loadModule( "captions" );
-					this.object.setOption( "captions", "track", { languageCode: this.object.getOption( "captions", "tracklist" )[ 0 ].languageCode } );
+			case "play":
+				this.object.wasMutedPlay = this.object.isMuted();
+				return this.object.playVideo();
+			case "pause":
+				return this.object.pauseVideo();
+			case "getPaused":
+				state = this.object.getPlayerState();
+				return state === -1 || state === 0 || state === 2 || state === 5;
+			case "getPlayed":
+				return this.object.getPlayerState() > -1;
+			case "getEnded":
+				return this.object.getPlayerState() === 0;
+			case "getDuration":
+				return this.object.getDuration();
+			case "getCurrentTime":
+				return this.object.getCurrentTime();
+			case "setCurrentTime":
+				return this.object.seekTo( args, true );
+			case "fullscreen":
+				return this.object.getIframe().requestFullscreen();
+			case "getMuted":
+				if ( !this.object.playedOnce && this.object.wasMutedPlay ) {
+					state = this.object.wasMutedPlay;
+					this.object.playedOnce = true;
+					return state;
+				} else {
+					return this.object.isMuted();
 				}
-			} else {
-				$( this ).removeClass( captionClass );
-				this.object.unloadModule( "cc" );
-				this.object.unloadModule( "captions" );
-			}
-			$media.trigger( "ccvischange" );
+			case "setMuted":
+				if ( args ) {
+					this.object.mute();
+				} else {
+					this.object.unMute();
+				}
+				setTimeout( function() {
+					$media.trigger( "volumechange" );
+				}, ( wb.isReady ? 50 : 500 ) );
+				break;
+			case "getVolume":
+				return this.object.getVolume() / 100;
+			case "setVolume":
+				this.object.setVolume( args * 100 );
+				setTimeout( function() {
+					$media.trigger( "volumechange" );
+				}, 50 );
+				break;
+			case "getCaptionsVisible":
+				return $( this ).hasClass( captionClass );
+			case "setCaptionsVisible":
+				if ( args ) {
+					$( this ).addClass( captionClass );
+					this.object.loadModule( "cc" );
+					var ccList = this.object.getOption( "cc", "tracklist" );
+					if ( ccList && ccList.length > 0 ) {
+						this.object.setOption( "cc", "track", { languageCode: this.object.getOption( "cc", "tracklist" )[ 0 ].languageCode } );
+					} else {
+						this.object.loadModule( "captions" );
+						var captionsList = this.object.getOption( "captions", "tracklist" );
+						if ( captionsList && captionsList.length > 0 ) {
+							this.object.setOption( "captions", "track", { languageCode: this.object.getOption( "captions", "tracklist" )[ 0 ].languageCode } );
+						}
+					}
+				} else {
+					$( this ).removeClass( captionClass );
+					this.object.unloadModule( "cc" );
+					this.object.unloadModule( "captions" );
+				}
+				$( this ).trigger( captionsVisibleChangeEvent );
 		}
 	},
 
 	/**
 	 * @method youTubeEvents
-	 * @description Youtube API event manager
-	 * @param {object} event The event object fior the triggered event
+	 * @description YouTube API event manager
+	 * @param {object} event The event object for the triggered event
 	 */
 	youTubeEvents = function( event ) {
 		var media = event.target.getIframe(),
@@ -8575,42 +11947,67 @@ var componentName = "wb-mltmd",
 			timeline = function() {
 				$media.trigger( "timeupdate" );
 			},
-			$mltmPlayerElm;
+			$mltmPlayerElm,
+			mltmPlayerElm,
+			isMuted;
 
 		switch ( event.data ) {
-		case null:
-			$media
-				.trigger( "canplay" )
-				.trigger( "durationchange" );
-			break;
-		case -1:
-			event.target.unMute();
-			$media.trigger( "durationchange" );
-			break;
-		case 0:
-			$media.trigger( "ended" );
-			media.timeline = clearInterval( media.timeline );
-			break;
-		case 1:
-			if ( media.dataset.L2 ) {
+			case null: // init
+				$media
+					.trigger( "canplay" )
+					.trigger( "durationchange" );
+
+				// Put video on mute if the video is muted on init, run once
+				$mltmPlayerElm = $media.parentsUntil( selector ).parent();
+
+				// Mute the player, GUI
+				if ( $mltmPlayerElm.data( "putMutedOnInit" ) ) {
+					youTubeApi.call( $mltmPlayerElm.get( 0 ), "setMuted", true );
+					$mltmPlayerElm.data( "putMutedOnInit", false );
+				}
+				break;
+			case -1:
+				event.target.unMute();
+				$media.trigger( "durationchange" );
+				break;
+			case 0:
+				$media.trigger( "ended" );
+				media.timeline = clearInterval( media.timeline );
+				break;
+			case 1: // play
+
+				// Get the media player
+				$mltmPlayerElm = $media.parentsUntil( selector ).parent();
+				mltmPlayerElm = $mltmPlayerElm.get( 0 );
+
+				// Need to be muted here
+				isMuted = mltmPlayerElm.player( "getMuted" );
 
 				// Reset the close caption state when iframe was reloaded
-				$mltmPlayerElm = $media.parentsUntil( selector ).parent();
-				youTubeApi.call( $mltmPlayerElm.get( 0 ), "setCaptionsVisible", $mltmPlayerElm.hasClass( captionClass ) );
-			}
-			$media
-				.trigger( "canplay" )
-				.trigger( "play" )
-				.trigger( "playing" );
-			media.timeline = setInterval( timeline, 250 );
-			break;
-		case 2:
-			$media.trigger( "pause" );
-			media.timeline = clearInterval( media.timeline );
-			break;
-		case 3:
-			media.timeline = clearInterval( media.timeline );
-			break;
+				if ( media.dataset.L2 ) {
+					youTubeApi.call( mltmPlayerElm, "setCaptionsVisible", $mltmPlayerElm.hasClass( captionClass ) );
+				}
+
+				// Play
+				$media
+					.trigger( "canplay" )
+					.trigger( "play" )
+					.trigger( "playing" );
+
+				// Reset muted as needed because youtube onMute by default when playing
+				if ( isMuted ) {
+					youTubeApi.call( mltmPlayerElm, "setMuted", true );
+				}
+
+				media.timeline = setInterval( timeline, 250 );
+				break;
+			case 2:
+				$media.trigger( "pause" );
+				media.timeline = clearInterval( media.timeline );
+				break;
+			case 3:
+				media.timeline = clearInterval( media.timeline );
+				break;
 		}
 	},
 
@@ -8627,8 +12024,6 @@ var componentName = "wb-mltmd",
 $document.on( "timerpoke.wb " + initEvent, selector, init );
 
 $window.on( "resize", onResize );
-
-$document.on( "ready", onResize );
 
 $document.on( "ajax-fetched.wb " + templateLoadedEvent, selector, function( event ) {
 	var $this = $( this );
@@ -8669,7 +12064,8 @@ $document.on( initializedEvent, selector, function( event ) {
 			}, i18nText ),
 			media = $media.get( 0 ),
 			youTube = window.youTube,
-			url;
+			url,
+			i18n = wb.i18n;
 
 		if ( $media.attr( "id" ) === undef ) {
 			$media.attr( "id", mId );
@@ -8677,6 +12073,7 @@ $document.on( initializedEvent, selector, function( event ) {
 
 		if ( settings !== undef ) {
 			data.shareUrl = settings.shareUrl;
+			data.fullscreen = settings.fullscreenBtn || false;
 		}
 
 		$this.addClass( type );
@@ -8689,6 +12086,18 @@ $document.on( initializedEvent, selector, function( event ) {
 			// lets set the flag for the call back
 			data.youTubeId = url.params.v ? url.params.v : url.pathname.substr( 1 );
 
+			// Defaults config set on the video element
+			data.isInitMuted = $media.get( 0 ).muted;
+
+			// Set default Youtube video dimensions if none specified
+			if ( $media[ 0 ].width && $media[ 0 ].height ) {
+				data.width = $media[ 0 ].width;
+				data.height = $media[ 0 ].height;
+			} else {
+				data.width = 640;
+				data.height = 360;
+			}
+
 			if ( youTube.ready === false ) {
 				$document.one( youtubeReadyEvent, function() {
 					$this.trigger( youtubeEvent, data );
@@ -8699,24 +12108,53 @@ $document.on( initializedEvent, selector, function( event ) {
 
 			// finally lets load safely
 			return Modernizr.load( {
-				load: "https://www.youtube.com/iframe_api"
+				load: "https://www.youtube.com/iframe_api",
+
+				//possible solution for multimedia and doaction conflict in corporate network
+				complete: function() {
+
+					// Ensure that YouTube API is loading the iframe and if it fails, ensure that it will show a message, like accessing the web via our GC network.
+					setTimeout( function() {
+						var resources, arrIframesYt, $notifText;
+
+						resources = window.performance.getEntriesByType( "resource" );
+
+						/* get all the iframe initiators that have the same YT url id */
+						arrIframesYt  = resources.filter( function( obj ) {
+
+							return obj.initiatorType === "iframe" && obj.name.includes( data.youTubeId );
+
+						} );
+
+
+						/* if none found, most probably wb is loaded in restricted network so wb.ready() is triggered for not preventing other wb components to load*/
+						if ( arrIframesYt.length < 1 ) {
+							if ( !wb.isReady ) {
+
+								// show the video notification error
+								$notifText = $( "<div aria-live='polite' class='pstn-lft-xs bg-dark text-white'><p class='mrgn-tp-md mrgn-rght-md mrgn-bttm-md mrgn-lft-md'>" + i18n( "msgYoutubeNotLoad" ) + "</p></div>" );
+								$this.prepend( $notifText );
+								data.notifyText = $notifText;
+								wb.ready( $this, componentName );
+							}
+						}
+					}, 1000 );
+
+				}
 			} );
 
 		} else if ( media.error === null && media.currentSrc !== "" && media.currentSrc !== undef ) {
 			$this.trigger( renderUIEvent, [ type, data ] );
-		} else {
+			onResize();
 
-			// Do nothing since IE8 support is no longer required
-			return;
+			// Identify that initialization has completed
+			wb.ready( $this, componentName );
 		}
-
-		// Identify that initialization has completed
-		wb.ready( $this, componentName );
 	}
 } );
 
 /*
- *  Youtube Video mode Event
+ *  YouTube Video mode Event
  */
 $document.on( youtubeEvent, selector, function( event, data ) {
 	if ( event.namespace === componentName ) {
@@ -8726,20 +12164,26 @@ $document.on( youtubeEvent, selector, function( event, data ) {
 
 		ytPlayer = new YT.Player( mId, {
 			videoId: data.youTubeId,
+			width: data.width,
+			height: data.height,
 			playerVars: {
 				autoplay: 0,
 				controls: 0,
+				hl: wb.lang,
 				origin: wb.pageUrlParts.host,
-				modestbranding: 1,
 				rel: 0,
-				showinfo: 0,
-				html5: 1,
 				cc_load_policy: 1
 			},
 			events: {
 				onReady: function( event ) {
+					if ( data.notifyText ) {
+						data.notifyText.hide();
+					}
 					onResize();
 					youTubeEvents( event );
+					if ( !wb.isReady ) {
+						wb.ready( $this, componentName );
+					}
 				},
 				onStateChange: youTubeEvents,
 				onApiChange: function() {
@@ -8747,20 +12191,28 @@ $document.on( youtubeEvent, selector, function( event, data ) {
 					//If captions were enabled before the module was ready, re-enable them
 					var t = $this.get( 0 );
 					t.player( "setCaptionsVisible", t.player( "getCaptionsVisible" ) );
+				},
+				onError: function() {
+					console.warn( "There is an issue loading the YouTube player" );
 				}
 			}
 		} );
 
 		$this.addClass( "youtube" );
 
-		$media = $this.find( "#" + mId ).attr( "tabindex", -1 );
+		$media = $this.find( "#" + mId );
 
 		data.media = $media;
 		data.ytPlayer = ytPlayer;
 
+		// The fullscreen button is not visible by default because there are no controls when in full screen.
+		if ( data.fullscreen ) {
+			$this.attr( "data-fullscreen-btn", true );
+		}
+
 		// Detect if the YT player reloads, like when magnific Popup show the modal, because it moves the iframe
 		// and then the iframe gets refreshed and reloaded. So the issue is that the iframe stops emitting the event
-		// needed to adjust the multimedia player controler, like the "onStateChange" event.
+		// needed to adjust the multimedia player controller, like the "onStateChange" event.
 		$media.on( "load", function( evt ) {
 
 			var elm = evt.currentTarget,
@@ -8813,12 +12265,18 @@ $document.on( renderUIEvent, selector, function( event, type, data ) {
 
 		// Create the share widgets if needed
 		if ( data.shareUrl !== undef ) {
-			$( "<div class='wb-share' data-wb-share=\'{\"type\": \"" +
+			$( "<div class='wb-share' data-wb-share='{\"type\": \"" +
 				( type === "audio" ? type : "video" ) + "\", \"title\": \"" +
 				data.title.replace( /'/g, "&apos;" ) + "\", \"url\": \"" + data.shareUrl +
-				"\", \"pnlId\": \"" + data.id + "-shr\"}\'></div>" )
+				"\", \"pnlId\": \"" + data.id + "-shr\"}'></div>" )
 				.insertBefore( $media.parent() )
 				.trigger( "wb-init.wb-share" );
+		}
+
+		if ( data.isInitMuted ) {
+			$this.data( "putMutedOnInit", true );
+		} else if ( !data.ytPlayer && this.object.muted ) {
+			$media.trigger( "volumechange" );
 		}
 
 		if ( data.captions === undef ) {
@@ -8830,6 +12288,11 @@ $document.on( renderUIEvent, selector, function( event, type, data ) {
 			loadCaptionsExternal( $media, captionsUrl.absolute );
 		} else {
 			loadCaptionsInternal( $media, $( "#" + wb.jqEscape( captionsUrl.hash.substring( 1 ) ) ) );
+		}
+
+		// The fullscreen button is not visible by default because there are no controls when in full screen.
+		if ( data.fullscreen ) {
+			$this.attr( "data-fullscreen-btn", true );
 		}
 	}
 } );
@@ -8850,20 +12313,22 @@ $document.on( "click", selector, function( event ) {
 	// Optimized multiple class tests to include child glyphicon because Safari was reporting the click event
 	// from the child span not the parent button, forcing us to have to check for both elements
 	// JSPerf for multiple class matching https://jsperf.com/hasclass-vs-is-stackoverflow/7
-	if ( className.match( /playpause|-play|-pause|display/ ) || $target.is( "object" ) || $target.is( "video" ) ) {
+	if (  /playpause|-play|-pause|display/.test( className ) || $target.is( "object" ) || $target.is( "video" ) ) {
 		this.player( "getPaused" ) || this.player( "getEnded" ) ? this.player( "play" ) : this.player( "pause" );
-	} else if ( className.match( /\bcc\b|-subtitles/ )  ) {
+	} else if ( /(^|\s)cc\b|-subtitles/.test( className ) && !$target.attr( "disabled" ) && !$target.parent().attr( "disabled" ) ) {
 		this.player( "setCaptionsVisible", !this.player( "getCaptionsVisible" ) );
-	} else if ( className.match( /\bmute\b|-volume-(up|off)/ ) ) {
+	} else if ( /\bmute\b|-volume-(up|off)/.test( className ) ) {
 		this.player( "setMuted", !this.player( "getMuted" ) );
 	} else if ( $target.is( "progress" ) || $target.hasClass( "progress" ) || $target.hasClass( "progress-bar" ) ) {
 		this.player( "setCurrentTime", this.player( "getDuration" ) * ( ( event.pageX - $target.offset().left ) / $target.width() ) );
-	} else if ( className.match( /\brewind\b|-backward/ ) ) {
+	} else if ( /\brewind\b|-backward/.test( className ) ) {
 		this.player( "setCurrentTime", this.player( "getCurrentTime" ) - this.player( "getDuration" ) * 0.05 );
-	} else if ( className.match( /\bfastforward\b|-forward/ ) ) {
+	} else if ( /\bfastforward\b|-forward/.test( className ) ) {
 		this.player( "setCurrentTime", this.player( "getCurrentTime" ) + this.player( "getDuration" ) * 0.05 );
-	} else if ( className.match( /cuepoint/ ) ) {
+	} else if ( className.includes( "cuepoint" ) ) {
 		$( this ).trigger( { type: "cuepoint", cuepoint: $target.data( "cuepoint" ) } );
+	} else if ( /fullscreen|fs/.test( className ) ) {
+		this.player( "fullscreen" );
 	}
 } );
 
@@ -8885,42 +12350,46 @@ $document.on( "keydown", dispCtrls, function( event ) {
 
 	if ( !( event.ctrlKey || event.altKey || event.metaKey ) ) {
 		switch ( which ) {
-		case 32:
+			case 32:
 
-			// Mute/unmute if focused on the mute/unmute button or volume input.
-			if ( $( event.target ).hasClass( "mute" ) || event.target.nodeName === "INPUT" ) {
-				$playerTarget.find( ".mute" ).trigger( "click" );
-			} else if ( $( event.target ).hasClass( "cc" ) ) {
+				// Mute/unmute if focused on the mute/unmute button or volume input.
+				if ( $( event.target ).hasClass( "mute" ) || event.target.nodeName === "INPUT" ) {
+					$playerTarget.find( ".mute" ).trigger( "click" );
+				} else if ( $( event.target ).hasClass( "fs" ) ) {
 
-				// Show/hide captions if focused on the closed captions button.
-				$playerTarget.find( ".cc" ).trigger( "click" );
-			} else {
+					// Enter full screen if focused on the full screen button
+					$playerTarget.find( ".fs" ).trigger( "click" );
+				} else if ( $( event.target ).hasClass( "cc" ) ) {
 
-				// Play/pause if focused on anything else (i.e. the video itself, play/pause button or progress bar).
-				$playerTarget.find( ".playpause" ).trigger( "click" );
-			}
-			break;
+					// Show/hide captions if focused on the closed captions button.
+					$playerTarget.find( ".cc" ).trigger( "click" );
+				} else {
 
-		case 37:
-			playerTarget.player( "setCurrentTime", this.parentNode.player( "getCurrentTime" ) - this.parentNode.player( "getDuration" ) * 0.05 );
-			break;
+					// Play/pause if focused on anything else (i.e. the video itself, play/pause button or progress bar).
+					$playerTarget.find( ".playpause" ).trigger( "click" );
+				}
+				break;
 
-		case 39:
-			playerTarget.player( "setCurrentTime", this.parentNode.player( "getCurrentTime" ) + this.parentNode.player( "getDuration" ) * 0.05 );
-			break;
+			case 37:
+				playerTarget.player( "setCurrentTime", this.parentNode.player( "getCurrentTime" ) - this.parentNode.player( "getDuration" ) * 0.05 );
+				break;
 
-		case 38:
-			volume = Math.round( playerTarget.player( "getVolume" ) * 100 ) / 100 + step;
-			playerTarget.player( "setVolume", volume < 1 ? volume : 1 );
-			break;
+			case 39:
+				playerTarget.player( "setCurrentTime", this.parentNode.player( "getCurrentTime" ) + this.parentNode.player( "getDuration" ) * 0.05 );
+				break;
 
-		case 40:
-			volume = Math.round( playerTarget.player( "getVolume" ) * 100 ) / 100 - step;
-			playerTarget.player( "setVolume", volume > 0 ? volume : 0 );
-			break;
+			case 38:
+				volume = Math.round( playerTarget.player( "getVolume" ) * 100 ) / 100 + step;
+				playerTarget.player( "setVolume", volume < 1 ? volume : 1 );
+				break;
 
-		default:
-			return true;
+			case 40:
+				volume = Math.round( playerTarget.player( "getVolume" ) * 100 ) / 100 - step;
+				playerTarget.player( "setVolume", volume > 0 ? volume : 0 );
+				break;
+
+			default:
+				return true;
 		}
 		return false;
 	}
@@ -8954,124 +12423,129 @@ $document.on( multimediaEvents, selector, function( event, simulated ) {
 		invEnd = "</span>",
 		currentTime, $button, $slider, buttonData, isPlay, isMuted, isCCVisible, skipTo, volume;
 	switch ( eventType ) {
-	case "playing":
-	case "pause":
-	case "ended":
-		isPlay = eventType === "playing";
-		$button = $this.find( ".playpause" );
-		buttonData = $button.data( "state-" + ( isPlay ? "off" : "on" ) );
-		if ( isPlay ) {
-			$this.addClass( "playing" );
-			$this.find( ".progress" ).addClass( "active" );
-		} else {
-			if ( eventType === "ended" ) {
-				this.loading = clearTimeout( this.loading );
+		case "playing":
+		case "pause":
+		case "ended":
+			isPlay = eventType === "playing";
+			$button = $this.find( ".playpause" );
+			buttonData = $button.data( "state-" + ( isPlay ? "off" : "on" ) );
+			if ( isPlay ) {
+				$this.addClass( "playing" );
+				$this.find( ".progress" ).addClass( "active" );
+			} else {
+				if ( eventType === "ended" ) {
+					this.loading = clearTimeout( this.loading );
+				}
+				$this.removeClass( "playing" );
 			}
-			$this.removeClass( "playing" );
-		}
-		$button
-			.attr( "title", buttonData )
-			.children( "span" )
+			$button
+				.attr( "title", buttonData )
+				.children( "span" )
 				.toggleClass( "glyphicon-play", !isPlay )
 				.toggleClass( "glyphicon-pause", isPlay )
 				.html( invStart + buttonData + invEnd );
-		break;
+			break;
 
-	case "volumechange":
-		isMuted = eventTarget.player( "getMuted" );
-		$button = $this.find( ".mute" );
-		buttonData = $button.data( "state-" + ( isMuted ? "off" : "on" ) );
-		volume = eventTarget.player( "getVolume" ) * 100;
-		$button
-			.attr( {
-				title: buttonData,
-				"aria-pressed": isMuted
-			} )
-			.children( "span" )
+		case "volumechange":
+			isMuted = eventTarget.player( "getMuted" );
+			$button = $this.find( ".mute" );
+			buttonData = $button.data( "state-" + ( isMuted ? "off" : "on" ) );
+			volume = eventTarget.player( "getVolume" ) * 100;
+			$button
+				.attr( {
+					title: buttonData,
+					"aria-pressed": isMuted
+				} )
+				.children( "span" )
 				.toggleClass( "glyphicon-volume-up", !isMuted )
 				.toggleClass( "glyphicon-volume-off", isMuted )
 				.html( invStart + buttonData + invEnd );
-		$slider = $this.find( "input[type='range']" );
-		$slider[ 0 ].value = isMuted ? 0 : volume;
-		$slider.trigger( "wb-update.wb-slider" );
-		break;
+			$slider = $this.find( "input[type='range']" );
+			$slider[ 0 ].value = isMuted ? 0 : volume;
+			$slider.trigger( "wb-update.wb-slider" );
+			break;
 
-	case "timeupdate":
-		currentTime = eventTarget.player( "getCurrentTime" );
-		$this.find( "progress" )
-			.attr(
-				"value",
-				Math.round( currentTime / eventTarget.player( "getDuration" ) * 1000 ) / 10
-			).trigger( "wb-update.wb-progress" );
+		case "timeupdate":
+			currentTime = eventTarget.player( "getCurrentTime" );
+			$this.find( "progress" )
+				.attr(
+					"value",
+					Math.round( currentTime / eventTarget.player( "getDuration" ) * 1000 ) / 10
+				).trigger( "wb-update.wb-progress" );
 
-		$this.find( ".wb-mm-tmln-crrnt span:nth-child(2)" )
-			.text( formatTime( currentTime ) );
+			$this.find( ".wb-mm-tmln-crrnt span:nth-child(2)" )
+				.text( formatTime( currentTime ) );
 
-		if ( $this.hasClass( captionClass ) && $.data( eventTarget, "captions" ) !== undef ) {
-			updateCaptions(
-				$this.find( ".wb-mm-cc" ),
-				currentTime,
-				$.data( eventTarget, "captions" )
-			);
-		}
-		break;
+			if ( $this.hasClass( captionClass ) && $.data( eventTarget, "captions" ) !== undef ) {
+				updateCaptions(
+					$this.find( ".wb-mm-cc" ),
+					currentTime,
+					$.data( eventTarget, "captions" )
+				);
+			}
+			break;
 
-	case "durationchange":
-		$this.find( ".wb-mm-tmln-ttl span:nth-child(2)" )
-			.text( formatTime( eventTarget.player( "getDuration" ) ) );
+		case "durationchange":
+			$this.find( ".wb-mm-tmln-ttl span:nth-child(2)" )
+				.text( formatTime( eventTarget.player( "getDuration" ) ) );
 
-		// Skip to pointer from the querystring
-		skipTo = wb.pageUrlParts.params[ event.target.id ];
-		if ( skipTo ) {
-			skipTo = parseTime( skipTo );
-			eventTarget.player( "setCurrentTime", skipTo );
-		}
-		break;
+			// Skip to pointer from the querystring
+			skipTo = wb.pageUrlParts.params[ event.target.id ];
+			if ( skipTo ) {
+				skipTo = parseTime( skipTo );
+				eventTarget.player( "setCurrentTime", skipTo );
+			}
+			break;
 
-	case "ccloaded":
-		if ( eventNamespace === componentName ) {
-			$.data( eventTarget, "captions", event.captions );
-		}
-		break;
+		case "ccloaded":
+			if ( eventNamespace === componentName ) {
+				$.data( eventTarget, "captions", event.captions );
+			}
+			break;
 
-	case "ccloadfail":
-		if ( eventNamespace === componentName ) {
-			$this.find( ".wb-mm-cc" )
-				.append( "<p class='errmsg'><span>" + i18nText.cc_error + "</span></p>" )
-				.end()
-				.find( ".cc" )
-				.attr( "disabled", "" );
-		}
-		break;
+		case "ccloadfail":
+			if ( eventNamespace === componentName ) {
+				if ( !$this.hasClass( "errmsg" ) ) {
+					$this.addClass( "cc_on errmsg" )
+						.find( ".wb-mm-cc" )
+						.append( "<div>" + i18nText.cc_error + "</div>" )
+						.end()
+						.find( ".cc" )
+						.attr( "disabled", "" )
+						.removeAttr( "aria-pressed" );
+				}
+			}
+			break;
 
-	case "ccvischange":
-		if ( eventNamespace === componentName ) {
-			isCCVisible = eventTarget.player( "getCaptionsVisible" );
-			$button = $this.find( ".cc" );
-			buttonData = $button.data( "state-" + ( isCCVisible ? "off" : "on" ) );
-			$button.attr( {
-				title: buttonData,
-				"aria-pressed": isCCVisible
-			} ).children( "span" ).html( invStart + buttonData + invEnd );
-		}
-		break;
+		case "ccvischange":
+			if ( eventNamespace === componentName ) {
+				isCCVisible = eventTarget.player( "getCaptionsVisible" );
+				$button = $this.find( ".cc" );
+				buttonData = $button.data( "state-" + ( isCCVisible ? "off" : "on" ) );
+				$button.attr( {
+					title: buttonData,
+					"aria-pressed": isCCVisible
+				} ).children( "span" ).html( invStart + buttonData + invEnd );
+			}
+			break;
 
-	case "waiting":
-		if ( !simulated ) {
-			$document.off( "progress", selector );
-		}
-		this.loading = setTimeout( function() {
-			$this.addClass( "waiting" );
-		}, 500 );
-		break;
+		case "waiting":
+			if ( !simulated ) {
+				$document.off( "progress", selector );
+			}
+			this.loading = setTimeout( function() {
+				$this.addClass( "waiting" );
+			}, 500 );
+			break;
 
-	case "canplay":
-		this.loading = clearTimeout( this.loading );
-		$this.removeClass( "waiting" );
-		break;
-	case "cuepoint":
-		eventTarget.player( "setCurrentTime", parseTime( event.cuepoint ) );
-		break;
+		case "canplay":
+		case "seeked":
+			this.loading = clearTimeout( this.loading );
+			$this.removeClass( "waiting" );
+			break;
+		case "cuepoint":
+			eventTarget.player( "setCurrentTime", parseTime( event.cuepoint ) );
+			break;
 	}
 } );
 
@@ -9099,20 +12573,21 @@ $document.on( resizeEvent, selector, function( event ) {
 	if ( event.namespace === componentName ) {
 		var media = event.target,
 			$media = $( media ),
-			ratio, newHeight;
+			figure = event.currentTarget,
+			ratio, newHeight,
+			heightDiff;
 
-		if ( $( event.currentTarget ).hasClass( "video" ) ) {
-			if ( media.videoWidth === 0 || media.videoWidth === undef ) {
-				ratio = $media.attr( "height" ) / $media.attr( "width" );
+		ratio = $media.attr( "height" ) / $media.attr( "width" );
 
-				// Calculate the new height based on the specified ratio or assume a default 16:9 ratio
-				newHeight = Math.round( $media.width() * ( !isNaN( ratio ) ? ratio : 0.5625 ) );
+		// Calculate the new height based on the specified ratio or assume a default 16:9 ratio
+		newHeight = Math.round( $media.width() * ( !isNaN( ratio ) ? ratio : 0.5625 ) );
 
-				$media.css( "height", newHeight + "px" );
-			} else {
-				$media.css( "height", "" );
-			}
+		if ( newHeight > window.innerHeight ) {
+			heightDiff = figure.offsetHeight - window.innerHeight;
+			newHeight = $media.height() - heightDiff;
 		}
+
+		$media.css( "height", newHeight + "px" );
 	}
 } );
 
@@ -9124,7 +12599,7 @@ window.youTube = {
 
 wb.add( selector );
 
-} )( jQuery, window, wb );
+} )( jQuery, DOMPurify, window, wb );
 
 /**
  * @title WET-BOEW NavCurrent
@@ -9163,7 +12638,7 @@ var componentName = "wb-navcurr",
 				menuLinksArray = [],
 				menuLinksUrlArray = [],
 				windowLocation = window.location,
-				pageUrl = windowLocation.hostname + windowLocation.pathname.replace( /^([^\/])/, "/$1" ),
+				pageUrl = windowLocation.hostname + windowLocation.pathname.replace( /^([^/])/, "/$1" ),
 				pageUrlQuery = windowLocation.search,
 				match = false,
 				className = classNameOverride ? classNameOverride : componentName,
@@ -9180,7 +12655,7 @@ var componentName = "wb-navcurr",
 					linkHref = link.getAttribute( "href" );
 					if ( linkHref !== null ) {
 						if ( linkHref.length !== 0 && linkHref.charAt( 0 ) !== "#" ) {
-							linkUrl = link.hostname + link.pathname.replace( /^([^\/])/, "/$1" );
+							linkUrl = link.hostname + link.pathname.replace( /^([^/])/, "/$1" );
 							linkQuery = link.search;
 							linkQueryLen = linkQuery.length;
 							if ( pageUrl.slice( -linkUrl.length ) === linkUrl && ( linkQueryLen === 0 || pageUrlQuery.slice( -linkQueryLen ) === linkQuery ) ) {
@@ -9210,7 +12685,7 @@ var componentName = "wb-navcurr",
 							linkHref = ( child && child.nodeName === "A" ) ? child.getAttribute( "href" ) : "";
 							if ( linkHref && linkHref.charAt( 0 ) !== "#" ) {
 								localBreadcrumbLinksArray.push( child );
-								localBreadcrumbLinksUrlArray.push( child.hostname + child.pathname.replace( /^([^\/])/, "/$1" ) );
+								localBreadcrumbLinksUrlArray.push( child.hostname + child.pathname.replace( /^([^/])/, "/$1" ) );
 							}
 						}
 
@@ -9327,7 +12802,7 @@ var componentName = "wb-overlay",
 				footer = $elm.find( ".modal-footer" )[ 0 ];
 
 				var hasFooter = ( footer && footer.length !== 0 ) ? true : false,
-					hasButton = hasFooter && $( footer ).find( closeClass ).length !== 0,
+					hasButton = hasFooter && $( footer ).find( "." + closeClass ).length !== 0,
 					closeClassFtr = ( $elm.hasClass( "wb-panel-l" ) ? "pull-right " : "pull-left " )  + closeClass,
 					closeTextFtr = i18nText.close,
 					spanTextFtr = i18nText.closeOverlay,
@@ -9382,6 +12857,7 @@ var componentName = "wb-overlay",
 
 		$overlay
 			.addClass( "open" )
+			.attr( "role", "dialog" )
 			.attr( "aria-hidden", "false" );
 
 		if ( $overlay.hasClass( "wb-popup-full" ) || $overlay.hasClass( "wb-popup-mid" ) ) {
@@ -9412,6 +12888,7 @@ var componentName = "wb-overlay",
 
 		$overlay
 			.removeClass( "open" )
+			.removeAttr( "role" )
 			.attr( "aria-hidden", "true" );
 
 		if ( $overlay.hasClass( "wb-popup-full" ) || $overlay.hasClass( "wb-popup-mid" ) ) {
@@ -9440,62 +12917,62 @@ $document.on( "timerpoke.wb " + initEvent + " keydown open" + selector +
 	var eventType = event.type,
 		which = event.which,
 		eventTarget = event.target,
-		eventTurrentTarget = event.currentTarget,
-		overlayId = eventTurrentTarget.id,
+		eventCurrentTarget = event.currentTarget,
+		overlayId = eventCurrentTarget.id,
 		overlay, $focusable, index, length;
 
 	switch ( eventType ) {
-	case "timerpoke":
-	case "wb-init":
-		init( event );
-		break;
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
 
-	case "open":
-		if ( eventTurrentTarget === eventTarget ) {
-			openOverlay( overlayId, event.noFocus );
-		}
-		break;
-
-	case "close":
-		if ( eventTurrentTarget === eventTarget ) {
-			closeOverlay( overlayId, event.noFocus );
-		}
-		break;
-
-	default:
-		overlay = document.getElementById( overlayId );
-
-		switch ( which ) {
-
-		// Tab key
-		case 9:
-
-			// No special tab handling when ignoring outside activity
-			if ( overlay.className.indexOf( ignoreOutsideClass ) === -1 ) {
-				$focusable = $( overlay ).find( ":focusable:not([tabindex='-1'])" );
-				length = $focusable.length;
-				index = $focusable.index( event.target ) + ( event.shiftKey ? -1 : 1 );
-
-				if ( index === -1 || index === length ) {
-					event.preventDefault();
-					$focusable.eq( index === -1 ? length - 1 : 0 )
-						.trigger( setFocusEvent );
-				}
+		case "open":
+			if ( eventCurrentTarget === eventTarget ) {
+				openOverlay( overlayId, event.noFocus );
 			}
 			break;
 
-		// Escape key
-		case 27:
-			if ( !event.isDefaultPrevented() ) {
-				closeOverlay( overlayId, false, true );
+		case "close":
+			if ( eventCurrentTarget === eventTarget ) {
+				closeOverlay( overlayId, event.noFocus );
 			}
 			break;
-		}
+
+		default:
+			overlay = document.getElementById( overlayId );
+
+			switch ( which ) {
+
+				// Tab key
+				case 9:
+
+					// No special tab handling when ignoring outside activity
+					if ( overlay.className.indexOf( ignoreOutsideClass ) === -1 ) {
+						$focusable = $( overlay ).find( ":tabbable" );
+						length = $focusable.length;
+						index = $focusable.index( event.target ) + ( event.shiftKey ? -1 : 1 );
+
+						if ( index === -1 || index === length ) {
+							event.preventDefault();
+							$focusable.eq( index === -1 ? length - 1 : 0 )
+								.trigger( setFocusEvent );
+						}
+					}
+					break;
+
+				// Escape key
+				case 27:
+					if ( !event.isDefaultPrevented() ) {
+						closeOverlay( overlayId, false, true );
+					}
+					break;
+			}
 	}
 } );
 
 // Handler for clicking on the close button of the overlay
-$document.on( "click vclick", "." + closeClass, function( event ) {
+$document.on( "click", "." + closeClass, function( event ) {
 	var which = event.which;
 
 	// Ignore if not initialized and middle/right mouse buttons
@@ -9509,7 +12986,7 @@ $document.on( "click vclick", "." + closeClass, function( event ) {
 } );
 
 // Handler for clicking on a source link for the overlay
-$document.on( "click vclick keydown", "." + linkClass, function( event ) {
+$document.on( "click keydown", "." + linkClass, function( event ) {
 	var which = event.which,
 		sourceLink = event.currentTarget,
 		overlayId = sourceLink.hash.substring( 1 );
@@ -9531,7 +13008,7 @@ $document.on( "click vclick keydown", "." + linkClass, function( event ) {
 } );
 
 // Handler for clicking on a same page link within the overlay to outside the overlay
-$document.on( "click vclick", selector + " a[href^='#']", function( event ) {
+$document.on( "click", selector + " a[href^='#']", function( event ) {
 	var which = event.which,
 		eventTarget = event.target,
 		href, overlay, linkTarget;
@@ -9560,7 +13037,7 @@ $document.on( "click vclick", selector + " a[href^='#']", function( event ) {
 } );
 
 // Outside activity detection
-$document.on( "click vclick touchstart focusin", "body", function( event ) {
+$document.on( "click focusin", "body", function( event ) {
 	var eventTarget = event.target,
 		which = event.which,
 		overlayId, overlay;
@@ -9616,7 +13093,7 @@ $document.on( "keyup", function( ) {
 		}
 
 		// Ensure the element in focus is visible
-		// TODO: Find a solution for when there isn't enough page to scoll up or down
+		// TODO: Find a solution for when there isn't enough page to scroll up or down
 		if ( elmInFocusRect.top < focusAreaBelow ) {
 
 			// Scroll down till the top of the element is visible
@@ -9633,6 +13110,535 @@ $document.on( "keyup", function( ) {
 wb.add( selector );
 
 } )( jQuery, window, document, wb );
+
+/**
+ * @title WET-BOEW Paginate Plugin
+ * @overview This plugin provides pagination functionality for lists, tables, and groups of elements.
+ * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ * @author @duboisp
+ */
+( function( $, window, document, wb ) {
+"use strict";
+
+let i18n, i18nText;
+
+const componentName = "wb-paginate",
+	selector = "." + componentName,
+	initEvent = "wb-init" + selector,
+	$document = wb.doc,
+	filterClass = "wb-fltr-out",
+	pgFilterOutClass = "wb-pgfltr-out",
+	tagFilterClass = "wb-tgfltr-out",
+	pagerClass = "wb-paginate-pager",
+	pageData = "data-pagination-idx",
+	notFilterClassSel = ":not(." + filterClass + "):not(." + tagFilterClass + ")",
+	defaults = {
+		lst: {
+			selector: "li"
+		},
+		grp: {
+			selector: "> *"
+		},
+		tbl: {
+			selector: "tr",
+			section: ":scope > tbody"
+		},
+		itemsPerPage: 10
+	},
+
+	init = function( event ) {
+		const elm = wb.init( event, componentName, selector );
+
+		if ( elm ) {
+			var $elm = $( elm ),
+				paginationElm,
+				elmTagName = elm.nodeName,
+				setDefault,
+				uiTargetElm;
+
+			if ( !i18nText ) {
+				i18n = wb.i18n;
+				i18nText = {
+					prv: i18n( "prv" ),
+					nxt: i18n( "nxt" ),
+					paginationLabel: i18n( "pagination-label" )
+				};
+			}
+
+			// Setup configurations
+			switch ( elmTagName ) {
+				case "UL":
+					setDefault = defaults.lst;
+					break;
+				case "TABLE":
+					setDefault = defaults.tbl;
+					break;
+				default:
+					setDefault = defaults.grp;
+					break;
+			}
+
+			elm.id = elm.id || wb.getId();
+			elm.pgSettings = $.extend( true, {}, setDefault, window[ componentName ], wb.getData( $elm, componentName ) );
+			elm.pgSettings.currPage = 1;
+			elm.pgSettings.itemsPerPage = elm.pgSettings.itemsPerPage || defaults.itemsPerPage;
+			elm.pgSettings.items = elm.querySelectorAll( ( elm.pgSettings.section || ":scope" ) + " " + elm.pgSettings.selector + notFilterClassSel );
+
+			// Setup pagination container
+			paginationElm = document.createElement( "nav" );
+			paginationElm.id = componentName + "-" + elm.id;
+			paginationElm.classList.add( pagerClass );
+			paginationElm.setAttribute( "aria-label", i18nText.paginationLabel );
+
+			// Add pagination container
+			if ( elm.pgSettings.uiTarget ) {
+				uiTargetElm = document.querySelector( elm.pgSettings.uiTarget );
+				uiTargetElm.appendChild( paginationElm );
+			} else if ( elm.pgSettings.section ) {
+				if ( elmTagName === "UL" || elmTagName === "TABLE" ) {
+					elm.after( paginationElm );
+				} else {
+					elm.querySelector( elm.pgSettings.section ).after( paginationElm );
+				}
+			} else {
+				elm.after( paginationElm );
+			}
+
+			// Show/hide items and generate pagination
+			updateItems( elm );
+			generateUI( elm );
+
+			wb.ready( $( elm ), componentName );
+		}
+	},
+
+	// Set or reset pagination UI
+	generateUI = function( elm ) {
+		var paginationUI = "",
+			currPage = elm.pgSettings.currPage,
+			pagesCount = elm.pgSettings.pagesCount,
+			paginationElm = document.querySelector( "#" + componentName + "-" + elm.id ),
+			i = 1;
+
+		// Make sure the defined current page is not bigger than the total pages
+		if ( currPage > pagesCount ) {
+			currPage = pagesCount;
+		}
+
+		// Only add pagination if there is more than one page
+		if ( pagesCount > 1 ) {
+			paginationUI = "<ol class=\"pagination\">";
+
+			// Add Previous page button
+			var prevLI = "";
+			prevLI += "<li" + ( i === currPage ? " class=\"disabled\"" : "" ) + ">";
+			prevLI += "<button type=\"button\" class=\"paginate-prev\" aria-controls=\"" + elm.id + "\">" + i18nText.prv + "</button>";
+			prevLI += "</li>";
+
+			paginationUI += prevLI;
+
+			// Add pages buttons
+			for ( i; i <= pagesCount; i++ ) {
+				var pageButtonLI = "";
+				pageButtonLI += "<li class=\"" + returnItemClass( currPage, pagesCount, i ) + "\"" + ">";
+				pageButtonLI += "<button type=\"button\" " + pageData + "=\"" + i + "\" aria-controls=\"" + elm.id + "\"" + ( i === currPage ? " aria-current=\"true\"" : "" ) + "><span class=\"wb-inv\">Page </span>" + i + "</button>";
+				pageButtonLI += "</li>";
+				paginationUI += pageButtonLI;
+			}
+
+			// Add Next page button
+			var nextLI = "";
+			nextLI += "<li" + ( i === currPage ? " class=\"disabled\"" : "" ) + ">";
+			nextLI += "<button type=\"button\" class=\"paginate-next\" aria-controls=\"" + elm.id + "\">" + i18nText.nxt + "</button>";
+			nextLI += "</li>";
+			paginationUI += nextLI;
+			paginationUI += "</ol>";
+		}
+
+		// Insert HTML
+		paginationElm.innerHTML = paginationUI;
+	},
+
+	// Show/hide items to reflect current page
+	updateItems = function( elm ) {
+		let currPage = elm.pgSettings.currPage,
+			items = elm.pgSettings.items,
+			itemsPerPage = elm.pgSettings.itemsPerPage;
+
+		items.forEach( function( item, index ) {
+			if ( ( index < ( itemsPerPage * currPage ) ) && ( index >= ( itemsPerPage * currPage ) - itemsPerPage ) ) {
+				item.classList.remove( pgFilterOutClass );
+			} else {
+				item.classList.add( pgFilterOutClass );
+			}
+		} );
+
+		elm.pgSettings.pagesCount = Math.ceil( items.length / itemsPerPage );
+	},
+
+	// Update pagination to reflect current page
+	goToPage = function( elm ) {
+		let paginationElm = document.querySelector( "#" + componentName + "-" + elm.id ),
+			pageItems = paginationElm.querySelectorAll( "li" ),
+			itemClass,
+			pageLink,
+			currPage = elm.pgSettings.currPage,
+			pagesCount = elm.pgSettings.pagesCount;
+
+		pageItems.forEach( function( pageItem, i ) {
+			pageLink = pageItem.querySelector( "button" );
+
+			if ( pageLink.classList.contains( "paginate-prev" ) ) {
+				currPage > 1 ? pageItem.classList.remove( "disabled" ) : pageItem.classList.add( "disabled" );
+			} else if ( pageLink.classList.contains( "paginate-next" ) ) {
+				currPage < pagesCount ? pageItem.classList.remove( "disabled" ) : pageItem.classList.add( "disabled" );
+			} else {
+				pageItem.className = "";
+				pageItem.children[ 0 ].removeAttribute( "aria-current" );
+
+				itemClass = returnItemClass( currPage, pagesCount, i );
+
+				if ( i === currPage ) {
+					pageItem.children[ 0 ].setAttribute( "aria-current", "true" );
+				}
+
+				pageItem.className = itemClass;
+			}
+		} );
+	},
+
+	// Return the list item classname
+	returnItemClass = function( currPage, pagesCount, i ) {
+		let itemClass = "";
+
+		if ( currPage > 1 && currPage < pagesCount ) {
+			if ( Math.abs( currPage - i ) > 1 ) {
+				itemClass += "hidden-xs hidden-sm";
+
+				if ( Math.abs( currPage - i ) > 2 ) {
+					itemClass += " hidden-md";
+				}
+			}
+		} else {
+			if ( Math.abs( currPage - i ) > 2 ) {
+				itemClass += "hidden-xs hidden-sm";
+
+				if ( Math.abs( currPage - i ) > 4 ) {
+					itemClass += " hidden-md";
+				}
+			}
+		}
+
+		if ( pagesCount > 10 ) {
+			if ( currPage <= 5 ) {
+				if ( i > 10 ) {
+					itemClass += " hidden";
+				}
+			} else if ( ( currPage > 5 ) && ( currPage < pagesCount - 5 ) ) {
+				if ( ( i < currPage - 4 ) || ( i > currPage + 5 ) ) {
+					itemClass += " hidden";
+				}
+			} else {
+				if ( i <= pagesCount - 10 ) {
+					itemClass += " hidden";
+				}
+			}
+		}
+
+		if ( i === currPage ) {
+			itemClass += " active";
+		}
+
+		return itemClass;
+	};
+
+// When a page button is clicked
+$document.on( "click", "." + pagerClass + " button", function()  {
+	let elm = document.querySelector( "#" + this.getAttribute( "aria-controls" ) ),
+		pageDest = ( ( this.getAttribute( pageData ) ) * 1 ) || elm.pgSettings.currPage;
+
+	if ( this.classList.contains( "paginate-next" ) ) {
+		pageDest++;
+	} else if ( this.classList.contains( "paginate-prev" ) ) {
+		pageDest--;
+	}
+
+	if ( pageDest !== elm.pgSettings.currPage && pageDest > 0 && pageDest <= elm.pgSettings.pagesCount ) {
+		elm.pgSettings.currPage = pageDest;
+
+		updateItems( elm );
+		goToPage( elm );
+
+		$( elm ).trigger( "setfocus.wb" );
+		if ( elm.getBoundingClientRect().top < 0 ) {
+			elm.scrollIntoView( { behavior: "smooth" }, true );
+		}
+	}
+
+
+} );
+
+// Resets items and pagination on filter or if content is updated
+$document.on( "wb-contentupdated wb-filtered", selector, function() {
+	this.pgSettings.currPage = 1;
+	this.pgSettings.items = this.querySelectorAll( ( this.pgSettings.section || ":scope" ) + " " + this.pgSettings.selector + notFilterClassSel );
+
+	updateItems( this );
+	generateUI( this );
+} );
+
+$document.on( "timerpoke.wb " + initEvent, selector, init );
+
+wb.add( selector );
+
+} )( jQuery, window, document, wb );
+
+/**
+ * @title WET-BOEW wb-pii-scrub
+ * @overview This plugin delete Personal Identifiable Information (PII) from the flagged form fields before form submit
+ * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ * @author @polmih, @duboisp, @GormFrank
+ **/
+( function( $, wb ) {
+"use strict";
+
+var $document = wb.doc,
+	componentName = "wb-pii-scrub",
+	selector = "." + componentName,
+	initEvent = "wb-init" + selector,
+	attrPIIBlocked = "data-wb-pii-blocked",
+	attrScrubField = "data-scrub-field",
+	attrScrubSubmit = "data-scrub-submit",
+	piiModalID = componentName + "-modal",
+	defaults = {
+		scrubChar: "********"
+	},
+	i18n, i18nText,
+	currSubmitter,
+	btnAsInput,
+
+	init = function( event ) {
+		var elm = wb.init( event, componentName, selector ),
+			$elm = $( elm );
+
+		if ( elm ) {
+			var settings = elm.getAttribute( "data-" + componentName );
+
+			// Initialize i18n strings
+			if ( !i18nText ) {
+				i18n = wb.i18n;
+				i18nText = {
+					header: i18n( "pii-header" ),
+					intro: i18n( "pii-intro" ),
+					viewMore: i18n( "pii-view-more" ),
+					viewMoreInfo: i18n( "pii-view-more-info" ),
+					confirmBtn: i18n( "pii-yes-btn" ),
+					cancelBtn: i18n( "pii-cancel-btn" ),
+					redacted: i18n( "redacted" )
+				};
+			}
+
+			// Parse settings defined on element
+			if ( settings ) {
+				settings = JSON.parse( settings );
+			}
+
+			// Initialize settings
+			elm.settings = { ...defaults, ...settings };
+
+			// Ensure the form has an ID
+			elm.id = elm.id ? elm.id : wb.getId();
+
+			// Block form submission for Postback forms by default
+			elm.setAttribute( attrPIIBlocked, "true" );
+
+			elm.addEventListener( "submit", function( e ) {
+				e.preventDefault(); // This is needed because of the setTimeout
+
+				// Go through form values
+				checkFormValues( elm );
+
+				// Check if form has validation errors before showing PII popup or submitting
+				setTimeout( function() {
+					let errorElm = elm.querySelector( ".error .label.label-danger" );
+
+					if ( !errorElm ) {
+						currSubmitter = e.submitter;
+
+						// Add submitter data if it is present (only if not a Postback form as it has its own method)
+						if ( currSubmitter.name && !elm.classList.contains( "wb-postback" ) ) {
+							btnAsInput = document.createElement( "input" );
+							btnAsInput.type = "hidden";
+							btnAsInput.name = currSubmitter.name;
+							btnAsInput.value = currSubmitter.value;
+							elm.appendChild( btnAsInput );
+						}
+
+						// Open modal
+						if ( elm.PIIFields.length > 0 ) {
+							generateModal( elm );
+
+							$( "#" + piiModalID ).trigger( "open.wb-lbx", [
+								[ {
+									src: "#" + piiModalID,
+									type: "inline"
+								} ],
+								true
+							] );
+						} else {
+							if ( elm.classList.contains( "wb-postback" ) ) {
+								$( elm ).trigger( "wb-postback.submit", currSubmitter );
+							} else {
+								elm.submit();
+							}
+						}
+					}
+				}, 50 );
+			} );
+
+			wb.ready( $elm, componentName );
+		}
+	},
+
+	/*
+	* Log all PII positive fields inside the form's "PIIFields" property
+	* @param form: a reference to the form containing PII fields
+	*/
+	checkFormValues = function( form ) {
+		let fieldsToScrub = form.querySelectorAll( "[" + attrScrubField + "]" );
+
+		form.PIIFields = [];
+
+		// identify form elements that were assigned to be scrubbed
+		fieldsToScrub.forEach( ( field ) => {
+
+			// If the field contains PII add field to list
+			if ( wb.findPotentialPII( field.value, false ) ) {
+				let fieldLabel = form.querySelector( "[for=" + field.id + "] > span.field-name" ),
+					fieldLabelText = fieldLabel ? fieldLabel.innerText : form.querySelector( "[for=" + field.id + "]" ).innerText,
+					scrubbedFieldValue = wb.findPotentialPII( field.value, true, { replaceWith: form.settings.scrubChar } ),
+					scrubValHTML = wb.findPotentialPII( field.value.replace( /</g, "&lt;" ), true, { replaceWith: "<span role='img' aria-label='" + i18nText.redacted + "'>" + form.settings.scrubChar + "</span>" } );
+
+				form.PIIFields.push( {
+					elm: field,
+					scrubVal: scrubbedFieldValue,
+					scrubValHTML: scrubValHTML,
+					label: fieldLabelText
+				} );
+			}
+		} );
+
+		if ( form.PIIFields.length === 1 ) {
+			document.getElementById( form.PIIFields[ 0 ].elm.id ).focus();
+		}
+
+		// If PII is found, block Postback form submission
+		form.PIIFields.length > 0 ? form.setAttribute( attrPIIBlocked, "true" ) : form.setAttribute( attrPIIBlocked, "false" );
+	},
+
+	/*
+	* Scrub all PII positive fields
+	* @param form: a reference to the form containing PII fields
+	*/
+	scrubFormValues = function( form ) {
+
+		// Scrub the value of each PII positive fields
+		form.PIIFields.forEach( ( field ) => {
+			field.elm.value = field.scrubVal;
+		} );
+
+		// Clear PII fields as their value has been replaced by the scrubbed value
+		form.PIIFields = [];
+	},
+
+	/*
+	* Generate the modal UI
+	* @param form: a reference to the form containing PII fields
+	*/
+	generateModal = function( form ) {
+		let piiModalFields = "",
+			piiModal = document.createElement( "section" ),
+			moreInfoContent = form.settings.moreInfo ? form.settings.moreInfo : i18nText.viewMoreInfo,
+			modalTemplate = form.querySelector( "template" + form.settings.modalTemplate );
+
+		// Destroy modal if present
+		if ( document.getElementById( piiModalID ) ) {
+			document.getElementById( piiModalID ).remove();
+		}
+
+		// Generate PII fields list
+		if ( form.PIIFields.length > 1 ) {
+			piiModalFields += "<dl>";
+			form.PIIFields.forEach( ( field ) => {
+				piiModalFields += "<dt>" + field.label + "</dt><dd class=\"well well-sm\">" + field.scrubValHTML.replace( /\n/g, "<br>" ) + "</dd>";
+			} );
+			piiModalFields += "</dl>";
+		} else {
+			piiModalFields += "<div class=\"well well-sm\">" + form.PIIFields[ 0 ].scrubValHTML.replace( /\n/g, "<br>" ) + "</div>";
+		}
+
+		piiModal.id = piiModalID;
+		piiModal.className = "modal-dialog modal-content overlay-def";
+		piiModal.setAttribute( "data-form", form.id );
+
+		if ( modalTemplate ) {
+			piiModal.appendChild( modalTemplate.content.cloneNode( true ) );
+		} else {
+			piiModal.innerHTML = `<header class="modal-header">
+					<h2 class="modal-title">${ i18nText.header }</h2>
+				</header>
+				<div class="modal-body">
+					<p>${ i18nText.intro }</p>
+					${ piiModalFields }
+					<details class="mrgn-tp-md">
+						<summary>${ i18nText.viewMore }</summary>
+						${ moreInfoContent }
+					</details>
+				</div>
+				<div class="modal-footer">
+					<div class="row">
+						<div class="col-xs-12 col-sm-5 mrgn-tp-sm"><button type="button" class="btn btn-link btn-block popup-modal-dismiss">${ i18nText.cancelBtn }</button></div>
+						<div class="col-xs-12 col-sm-7 mrgn-tp-sm"><button type="button" class="btn btn-primary btn-block" ${ attrScrubSubmit }>${ i18nText.confirmBtn }</button></div>
+					</div>
+				</div>`;
+		}
+
+		// Using jQuery here to pass the content through DOMpurify
+		$( "body" ).append( piiModal );
+
+		// Add PII fields HTML if using a custom UI template
+		if ( modalTemplate ) {
+
+			// Fix for implementers that added the "popup-modal-dismiss" class to the submit button
+			$( ".popup-modal-dismiss[" + attrScrubSubmit + "]" ).removeClass( "popup-modal-dismiss" );
+
+			$( "#" + piiModalID + " [data-scrub-modal-fields]" ).html( piiModalFields );
+		}
+	};
+
+// Bind the init event of the plugin
+$document.on( "timerpoke.wb " + initEvent, selector, init );
+
+// Scrub the form fields on click of the "Confirm" button
+$document.on( "click", "#" + piiModalID + " [" + attrScrubSubmit + "]", function( ) {
+	let modal = document.getElementById( piiModalID ),
+		form = document.getElementById( modal.dataset.form );
+
+	scrubFormValues( form );
+
+	if ( form.classList.contains( "wb-postback" ) ) {
+		$( form ).trigger( "wb-postback.submit", currSubmitter );
+	} else {
+		form.submit();
+	}
+
+	$.magnificPopup.close();
+} );
+
+// Add the timer poke to initialize the plugin
+wb.add( selector );
+
+} )( jQuery, wb );
 
 /**
  * @title WET-BOEW Prettify Plugin
@@ -9718,7 +13724,7 @@ var componentName = "wb-prettify",
 				}
 			}
 
-			// CSS class overides of settings
+			// CSS class overrides of settings
 			settings.allpre = settings.allpre || $elm.hasClass( "all-pre" );
 			settings.linenums = settings.linenums || $elm.hasClass( "linenums" );
 
@@ -9923,7 +13929,7 @@ wb.add( selector );
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
  * @author @patheard
  */
-( function( $, window, document, wb ) {
+( function( $, DOMPurify, window, document, wb ) {
 "use strict";
 
 /*
@@ -9953,10 +13959,12 @@ var $modal, $modalLink, countdownInterval, i18n, i18nText,
 		reactionTime: 180000,		/* default confirmation period of 3 minutes */
 		sessionalive: 1200000,		/* default keepalive period of 20 minutes */
 		refreshCallbackUrl: null,	/* refresh callback if using AJAX keepalive (no default) */
-		logouturl: "./",			/* logout URL once the session has expired */
+		logouturl: "./",			/* logout URL to end the session */
+		signInUrl: null,			/* sign-in URL once the session has expired */
 		refreshOnClick: true,		/* refresh session if user clicks on the page */
 		refreshLimit: 120000,		/* default period of 2 minutes (ajax calls happen only once during this period) */
 		method: "POST",				/* the request method to use */
+		textOverrides: null,		/* text overrides (no default) */
 		additionalData: null,		/* additional data to send with the request */
 		refreshCallback: function( response ) {	/* callback function used to check the server response */
 			return response.replace( /\s/g, "" ) === "true";
@@ -9991,15 +13999,28 @@ var $modal, $modalLink, countdownInterval, i18n, i18nText,
 			// Only initialize the i18nText once
 			if ( !i18nText ) {
 				i18n = wb.i18n;
-				i18nText = {
-					buttonContinue: i18n( "st-btn-cont" ),
-					buttonEnd: i18n( "st-btn-end" ),
-					buttonSignin: i18n( "tmpl-signin" ),
-					timeoutBegin: i18n( "st-to-msg-bgn" ),
-					timeoutEnd: i18n( "st-to-msg-end" ),
-					timeoutTitle: i18n( "st-msgbx-ttl" ),
-					timeoutAlready: i18n( "st-alrdy-to-msg" )
-				};
+				const textOverrides = settings.textOverrides;
+				if ( textOverrides ) {
+					i18nText = {
+						buttonContinue: Object.hasOwn( textOverrides, "buttonContinue" ) ? DOMPurify.sanitize( textOverrides.buttonContinue ) : i18n( "st-btn-cont" ),
+						buttonEnd: Object.hasOwn( textOverrides, "buttonEnd" ) ? DOMPurify.sanitize( textOverrides.buttonEnd ) : i18n( "st-btn-end" ),
+						buttonSignin: Object.hasOwn( textOverrides, "buttonSignin" ) ? DOMPurify.sanitize( textOverrides.buttonSignin ) : i18n( "tmpl-signin" ),
+						timeoutBegin: i18n( "st-to-msg-bgn" ),
+						timeoutEnd: Object.hasOwn( textOverrides, "timeoutEnd" ) ? DOMPurify.sanitize( textOverrides.timeoutEnd ) : i18n( "st-to-msg-end" ),
+						timeoutTitle: i18n( "st-msgbx-ttl" ),
+						timeoutAlready: Object.hasOwn( textOverrides, "timeoutAlready" ) ? DOMPurify.sanitize( textOverrides.timeoutAlready ) : i18n( "st-alrdy-to-msg" )
+					};
+				} else {
+					i18nText = {
+						buttonContinue: i18n( "st-btn-cont" ),
+						buttonEnd: i18n( "st-btn-end" ),
+						buttonSignin: i18n( "tmpl-signin" ),
+						timeoutBegin: i18n( "st-to-msg-bgn" ),
+						timeoutEnd: i18n( "st-to-msg-end" ),
+						timeoutTitle: i18n( "st-msgbx-ttl" ),
+						timeoutAlready: i18n( "st-alrdy-to-msg" )
+					};
+				}
 			}
 
 			onReady = function() {
@@ -10028,6 +14049,7 @@ var $modal, $modalLink, countdownInterval, i18n, i18nText,
 	 * @param {Object} settings Key-value object
 	 */
 	initEventTimeout = function( $elm, eventName, time, settings ) {
+		var duration = parseTime( time );
 
 		// Clear any existing timeout for the event
 		clearTimeout( $elm.data( eventName ) );
@@ -10035,7 +14057,7 @@ var $modal, $modalLink, countdownInterval, i18n, i18nText,
 		// Create the new timeout that will trigger the event
 		$elm.data( eventName, setTimeout( function() {
 			$elm.trigger( eventName, settings );
-		}, parseTime( time ) ) );
+		}, duration ) );
 	},
 
 	/**
@@ -10122,6 +14144,9 @@ var $modal, $modalLink, countdownInterval, i18n, i18nText,
 				method: settings.method,
 				success: function( response ) {
 
+					// Sanitize the response
+					response = DOMPurify.sanitize( response );
+
 					// Session is valid
 					if ( response && settings.refreshCallback( response ) ) {
 						$elm.trigger( resetEvent, settings );
@@ -10137,7 +14162,7 @@ var $modal, $modalLink, countdownInterval, i18n, i18nText,
 							body: "<p>" + i18nText.timeoutAlready + "</p>",
 							buttons: $( "<button type='button' class='" + confirmClass +
 								" btn btn-primary popup-modal-dismiss'>" + i18nText.buttonSignin + "</button>" )
-									.data( "logouturl", settings.logouturl )
+								.data( "logouturl", settings.logouturl )
 						} );
 					}
 				}
@@ -10154,6 +14179,7 @@ var $modal, $modalLink, countdownInterval, i18n, i18nText,
 	inactivity = function( event, settings ) {
 		var $buttonContinue, $buttonEnd,
 			time = getTime( settings.reactionTime ),
+			startTime = getCurrentTime(),
 			timeoutBegin = i18nText.timeoutBegin
 				.replace( "#min#", "<span class='min'>" + time.minutes + "</span>" )
 				.replace( "#sec#", "<span class='sec'>" + time.seconds + "</span>" ),
@@ -10161,24 +14187,26 @@ var $modal, $modalLink, countdownInterval, i18n, i18nText,
 			buttonEnd = "</button>";
 
 		// Clear the keepalive timeout to avoid double firing of requests
-		clearTimeout( $( event.target ).data( keepaliveEvent ) );
+		clearInterval( $( event.target ).data( keepaliveEvent ) );
 
 		$buttonContinue = $( buttonStart + confirmClass +
 			" btn btn-primary popup-modal-dismiss'>" + i18nText.buttonContinue + buttonEnd )
-				.data( settings )
-				.data( "start", getCurrentTime() );
+			.data( settings )
+			.data( "start", startTime );
 		$buttonEnd = $( buttonStart + confirmClass + " btn btn-default'>" +
 			i18nText.buttonEnd + buttonEnd )
-				.data( "logouturl", settings.logouturl );
+			.data( "logouturl", settings.logouturl );
 
 		openModal( {
 			body: "<p>" + timeoutBegin + "<br />" + i18nText.timeoutEnd + "</p>",
 			buttons: [ $buttonContinue, $buttonEnd ],
 			open: function() {
 				var $minutes = $modal.find( ".min" ),
-					$seconds = $modal.find( ".sec" );
+					$seconds = $modal.find( ".sec" ),
+					endDuration = settings.reactionTime;
+
 				countdownInterval = setInterval( function() {
-					if ( countdown( $minutes, $seconds ) ) {
+					if ( countdown( $minutes, $seconds, startTime, endDuration ) ) {
 						clearInterval( countdownInterval );
 
 						// Let the user know their session has timed out
@@ -10186,7 +14214,7 @@ var $modal, $modalLink, countdownInterval, i18n, i18nText,
 						$buttonContinue.text( i18nText.buttonSignin );
 						$buttonEnd.hide();
 					}
-				}, 1000 );
+				}, 500 );
 			}
 		} );
 	},
@@ -10228,7 +14256,11 @@ var $modal, $modalLink, countdownInterval, i18n, i18nText,
 
 		// Negative confirmation or the user took too long; logout
 		} else {
-			window.location.href = settings.logouturl;
+
+			// Use setTimeout() to navigate asynchronously (to support lightbox Escape key presses)
+			setTimeout( function() {
+				window.location.href = settings.signInUrl ? settings.signInUrl : settings.logouturl;
+			} );
 		}
 	},
 
@@ -10285,7 +14317,7 @@ var $modal, $modalLink, countdownInterval, i18n, i18nText,
 			return null;
 		}
 
-		result = /^([0-9]+(?:\.[0-9]*)?)\s*(.*s)?$/.exec( $.trim( value.toString() ) );
+		result = /^([0-9]+(?:\.[0-9]*)?)\s*(.*s)?$/.exec( value.toString().trim() );
 		if ( result[ 2 ] ) {
 			num = parseFloat( result[ 1 ] );
 			mult = powers[ result[ 2 ] ] || 1;
@@ -10315,25 +14347,18 @@ var $modal, $modalLink, countdownInterval, i18n, i18nText,
 	 * @function countdown
 	 * @param {jQuery DOM Element} $minutes Element that contains the minute value
 	 * @param {jQuery DOM Element} $seconds Element that contains the second value
+	 * @param { integer } startTime The time value of when the countdown started in milliseconds
+	 * @param { integer } endDuration The time value of the duration of the countdown in milliseconds
 	 * @returns {boolean} Is the countdown finished?
 	 */
-	countdown = function( $minutes, $seconds ) {
-		var minutes = parseInt( $minutes.text(), 10 ),
-			seconds = parseInt( $seconds.text(), 10 );
-
-		// Decrement seconds and minutes
-		if ( seconds > 0 ) {
-			seconds -= 1;
-		} else if ( minutes > 0 ) {
-			minutes -= 1;
-			seconds = 59;
-		}
+	countdown = function( $minutes, $seconds, startTime, endDuration ) {
+		var newTime = getTime( endDuration - ( getCurrentTime() - startTime ) );
 
 		// Update the DOM elements
-		$minutes.text( minutes );
-		$seconds.text( seconds );
+		$minutes.text( newTime.minutes );
+		$seconds.text( newTime.seconds );
 
-		return minutes === 0 && seconds === 0;
+		return newTime.minutes <= 0 && newTime.seconds <= 0;
 	};
 
 // Bind the plugin events
@@ -10343,22 +14368,22 @@ inactivityEvent + " " + resetEvent, selector, function( event, settings ) {
 	var eventType = event.type;
 
 	switch ( eventType ) {
-	case "timerpoke":
-	case "wb-init":
-		init( event );
-		break;
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
 
-	case "keepalive":
-		keepalive( event, settings );
-		break;
+		case "keepalive":
+			keepalive( event, settings );
+			break;
 
-	case "inactivity":
-		inactivity( event, settings );
-		break;
+		case "inactivity":
+			inactivity( event, settings );
+			break;
 
-	case "reset":
-		reset( event, settings );
-		break;
+		case "reset":
+			reset( event, settings );
+			break;
 	}
 } );
 
@@ -10367,7 +14392,7 @@ $document.on( "click", "." + confirmClass, confirm );
 // Add the timer poke to initialize the plugin
 wb.add( selector );
 
-} )( jQuery, window, document, wb );
+} )( jQuery, DOMPurify, window, document, wb );
 
 /**
  * @title WET-BOEW Share widget
@@ -10424,17 +14449,13 @@ var componentName = "wb-share",
 
 			// The definitions of the available bookmarking sites, in URL use
 			// '{u}' for the page URL, '{t}' for the page title, {i} for the image, and '{d}' for the description
-			bitly: {
-				name: "bitly",
-				url: "https://bitly.com/a/bitmarklet?u={u}"
-			},
 			blogger: {
 				name: "Blogger",
 				url: "https://www.blogger.com/blog_this.pyra?t=&amp;u={u}&amp;n={t}"
 			},
-			digg: {
-				name: "Digg",
-				url: "http://digg.com/submit?phase=2&amp;url={u}&amp;title={t}"
+			bluesky: {
+				name: "Bluesky",
+				url: "https://bsky.app/intent/compose?text={t}+{u}"
 			},
 			diigo: {
 				name: "Diigo",
@@ -10464,17 +14485,29 @@ var componentName = "wb-share",
 				name: "reddit",
 				url: "https://reddit.com/submit?url={u}&amp;title={t}"
 			},
+			tinyurl: {
+				name: "TinyURL",
+				url: "https://tinyurl.com/create.php?url={u}"
+			},
 			tumblr: {
 				name: "tumblr",
 				url: "https://www.tumblr.com/share/link?url={u}&amp;name={t}&amp;description={d}"
 			},
 			twitter: {
-				name: "Twitter",
+				name: "X",
+				url: "https://twitter.com/intent/tweet?text={t}&url={u}"
+			},
+			x: {
+				name: "X",
 				url: "https://twitter.com/intent/tweet?text={t}&url={u}"
 			},
 			yahoomail: {
 				name: "Yahoo! Mail",
 				url: "https://compose.mail.yahoo.com/?to=&subject={t}&body={u}%0A{d}"
+			},
+			whatsapp: {
+				name: "WhatsApp",
+				url: "https://api.whatsapp.com/send?text={t}%0A{d}%0A{u}"
 			}
 		}
 	},
@@ -10511,7 +14544,7 @@ var componentName = "wb-share",
 				// Add an email mailto option
 				defaults.sites.email = {
 					name: i18nText.email,
-					url: "mailto:?to=&subject={t}&body={u}%0A{d}",
+					url: "mailto:?subject={t}&body={u}%0A{d}",
 					isMailto: true
 				};
 			}
@@ -10533,12 +14566,12 @@ var componentName = "wb-share",
 			id = "shr-pg" + ( pnlId.length !== 0 ? "-" + pnlId : panelCount );
 			pageHref = encodeURIComponent( settings.url );
 
-			regex = /\'|&#39;|&apos;/g;
+			regex = /'|&#39;|&apos;/g;
 			pageTitle = encodeURIComponent( settings.title )
-							.replace( regex, "%27" );
+				.replace( regex, "%27" );
 			pageImage = encodeURIComponent( settings.img );
 			pageDescription = encodeURIComponent( settings.desc )
-								.replace( regex, "%27" );
+				.replace( regex, "%27" );
 
 			// Don't create the panel for the second link (class="link-only")
 			if ( elm.className.indexOf( "link-only" ) === -1 ) {
@@ -10551,7 +14584,7 @@ var componentName = "wb-share",
 				if ( !filter || filter.length === 0 ) {
 					keys = [];
 					for ( key in sites ) {
-						if ( sites.hasOwnProperty( key ) ) {
+						if ( Object.prototype.hasOwnProperty.call( sites, key ) ) {
 							keys.push( key );
 						}
 					}
@@ -10563,6 +14596,14 @@ var componentName = "wb-share",
 				keys.sort( function( x, y ) {
 					return wb.normalizeDiacritics( x ).localeCompare( wb.normalizeDiacritics( y ) );
 				} );
+
+				// If Twitter and X are both present, only keep X
+				if ( keys.includes( "twitter" ) && keys.includes( "x" ) ) {
+					keys = keys.filter( function( item ) {
+						return item !== "twitter";
+					} );
+				}
+
 				len = keys.length;
 
 				// Generate the panel
@@ -10570,10 +14611,10 @@ var componentName = "wb-share",
 					key = keys[ i ];
 					siteProperties = sites[ key ];
 					url = siteProperties.url
-							.replace( /\{u\}/, pageHref )
-							.replace( /\{t\}/, pageTitle )
-							.replace( /\{i\}/, pageImage )
-							.replace( /\{d\}/, pageDescription );
+						.replace( /\{u\}/, pageHref )
+						.replace( /\{t\}/, pageTitle )
+						.replace( /\{i\}/, pageImage )
+						.replace( /\{d\}/, pageDescription );
 					panel += "<li><a href='" + url + "' class='" + shareLink +
 						" " + ( siteProperties.isMailto ? "email" : key ) +
 						" btn btn-default' target='_blank' rel='noreferrer noopener'>" +
@@ -10598,6 +14639,289 @@ var componentName = "wb-share",
 
 			// Identify that initialization has completed
 			wb.ready( $elm, componentName );
+		}
+	};
+
+// Bind the init event of the plugin
+$document.on( "timerpoke.wb " + initEvent, selector, init );
+
+// Add the timer poke to initialize the plugin
+wb.add( selector );
+
+} )( jQuery, window, document, wb );
+
+/**
+ * @title WET-BOEW step form
+ * @overview Provide ability for a form to be broken into steps.
+ * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ * @author @kodecount
+ */
+( function( $, window, document, wb ) {
+"use strict";
+
+/*
+ * Variable and function definitions.
+ * These are global to the plugin - meaning that they will be initialized once per page,
+ * not once per instance of plugin on the page. So, this is a good place to define
+ * variables that are common to all instances of the plugin on a page.
+ */
+var componentName = "wb-steps",
+	selector = "." + componentName,
+	initEvent = "wb-init" + selector,
+	$document = wb.doc,
+	i18n, i18nText,
+	btnPrevious, btnNext, btnSubmit,
+	quizSelector = selector + ".quiz",
+
+	/**
+	 * @method init
+	 * @param {jQuery Event} evt Event that triggered the function call
+	 */
+	init = function( evt ) {
+
+		// Start initialization
+		// returns DOM object = proceed with init
+		// returns undefined = do not proceed with init (e.g., already initialized)
+		var elm = wb.init( evt, componentName, selector );
+
+		if ( elm ) {
+
+			// Ensure there is a unique id on the element
+			if ( !elm.id ) {
+				elm.id = wb.getId();
+			}
+
+			// Only initialize the i18nText once
+			if ( !i18nText ) {
+				i18n = wb.i18n;
+				i18nText = {
+					prv: i18n( "prv" ),
+					nxt: i18n( "nxt" ),
+					relpreposition: i18n( "rel-preposition" ),
+					progresslabel: i18n( "progress-label" )
+				};
+			}
+
+			/*
+			 * Variable and function definitions
+			 * These will be initialized once per instance of plugin.
+			 */
+			var form = elm.getElementsByTagName( "FORM" )[ 0 ],
+				fieldsets = ( form ) ? $( form ).children( "fieldset" ) : 0,
+				hasStepsInitialized;
+
+			// Initialize navigation buttons
+			btnPrevious = createStepsButton( "prev", "mrgn-rght-sm mrgn-bttm-md", i18nText.prv );
+			btnNext = createStepsButton( "next", "mrgn-bttm-md", i18nText.nxt );
+			btnSubmit = form.querySelector( "input[type=submit], button[type=submit]" );
+			btnSubmit.classList.add( "mrgn-bttm-md" );
+
+			/*
+			 * Determines if html is correctly formatted and initialize all fieldsets/legend combinations into steps.
+			 */
+			for ( var i = 0, len = fieldsets.length; i < len; i++ ) {
+
+				/*
+				 * Variable and function definitions
+				 * These well be initialized once per instance of each fieldset.
+				 * Determines the following business rules:
+				 *  -Only allow steps if elements are in proper order fieldset -> legend -> div
+				 *  -Only allow NEXT button on first step
+				 *  -Only allow final SUBMIT button on last step
+				 */
+				var fieldset = fieldsets[ i ],
+					isFirstFieldset = ( i === 0 ) ? true : false,
+					isLastFieldset = ( i === ( len - 1 ) ) ? true : false,
+					legend = fieldset.firstElementChild,
+					div = ( legend && legend.tagName === "LEGEND" ) ? legend.nextElementSibling : false,
+					buttonGroup = document.createElement( "div" ),
+					wrapper = document.createElement( "div" ),
+					buttonGroupClassList = buttonGroup.classList,
+					divClassList = div.classList;
+
+				buttonGroupClassList.add( "buttons" );
+				fieldset.parentNode.insertBefore( wrapper, fieldset );
+				wrapper.appendChild( fieldset );
+				wrapper.classList.add( "steps-wrapper" );
+
+				if ( div && div.tagName === "DIV" ) {
+					var btnClone;
+					hasStepsInitialized = true;
+
+					if ( !isFirstFieldset ) {
+						btnClone = btnPrevious.cloneNode( true );
+						setStepsBtnEvent( btnClone );
+						buttonGroup.appendChild( btnClone );
+						wrapper.appendChild( buttonGroup );
+					}
+
+					if ( !isLastFieldset ) {
+						btnClone = btnNext.cloneNode( true );
+						setStepsBtnEvent( btnClone );
+						buttonGroup.appendChild( btnClone );
+					} else {
+						buttonGroup.appendChild( btnSubmit );
+					}
+
+					wrapper.appendChild( buttonGroup );
+
+					fieldset.classList.add( "wb-tggle-fildst" );
+					divClassList.add( "hidden" );
+					buttonGroupClassList.add( "hidden" );
+
+					if ( isFirstFieldset ) {
+						legend.classList.add( "wb-steps-active" );
+						btnClone.classList.remove( "hidden" );
+						divClassList.remove( "hidden" );
+						buttonGroupClassList.remove( "hidden" );
+					}
+				}
+			}
+
+			/*
+			 * if steps has initialized hide any precreated submit or reset buttons
+			 */
+			if ( form && hasStepsInitialized ) {
+				$( form ).children( "input" ).hide();
+				wb.ready( $( elm ), componentName );
+			}
+
+			//Quiz code
+			if ( elm.classList.contains( "quiz" ) ) {
+
+				//Initialize all instances
+				let $elm = $( elm ),
+					numQuestion = $( ".steps-wrapper", $elm ).length; // Calculate number of questions
+
+				// Addition to UI (Ex: progress bar)
+				if ( !elm.querySelector( "progress" ) ) {
+					$( "form", $elm ).prepend( "<label class='full-width'><span class='wb-inv'>" + i18nText.progresslabel + "</span><progress class='progressBar' max='" + numQuestion + "'></progress><p class='progressText' role='status'></p></label>" );
+				}
+
+				updateQuizStep( evt );
+
+				$( document ).on( "click", quizSelector + " .steps-wrapper div.buttons > :button", updateQuizStep );
+			}
+		}
+	},
+
+	/**
+	 * @method updateQuizStep
+	 * @param {JavaScript element} e
+	 */
+	updateQuizStep = function( e ) {
+
+		// Get wb-steps component
+		let quizElement,
+			currentElement = e.currentTarget;
+
+		if ( currentElement.classList.contains( "quiz" ) ) {
+			quizElement = currentElement;
+		} else {
+			quizElement = $( currentElement ).parentsUntil( quizSelector ).parent().get( 0 );
+		}
+
+		// Find the steps form context and validate it is a quiz
+		let currentTabId = $( "legend.wb-steps-active:first-child", quizElement ).parents().prevAll( ".steps-wrapper" ).length + 1,
+			$progressBar = $( ".progressBar", quizElement ), // Get progress bar
+			numQuestion = $progressBar.attr( "max" ); // Get number of questions
+
+		// Set the progress label
+		$( "p.progressText", quizElement ).text( currentTabId + i18nText.relpreposition + numQuestion );
+
+		// Update progress bar
+		$progressBar.val( currentTabId );
+
+		// Hide other steps that are not active
+		$( ".steps-wrapper", quizElement ).removeClass( "hidden" );
+		$( ".steps-wrapper:has( div.hidden )", quizElement ).addClass( "hidden" );
+	},
+
+
+	/**
+	 * @method createStepsButton
+	 * @param {string var} tagName, {string var} type, {boolean var} isPrimary, {string var} style, {string var} text
+	 * @returns {Object} A ready-to-use button element
+	 */
+	createStepsButton = function( type, style, text ) {
+		var control = document.createElement( "BUTTON" );
+
+		// set default attributes
+		control.className = ( type === "prev" ? "btn btn-md btn-default" : "btn btn-md btn-primary" ) + " " + style;
+		control.setAttribute( "type", "button" );
+		control.innerHTML = text;
+
+		return control;
+	},
+
+	/**
+	 * @method setStepsBtnEvent
+	 * @param {JavaScript element} elm
+	 */
+	setStepsBtnEvent = function( elm ) {
+		elm.addEventListener( "click", function( evt ) {
+			evt.preventDefault();
+			var classes = ( this.className ) ? this.className : false,
+				isNext = ( classes && classes.indexOf( "btn-primary" ) > -1 ),
+				isFormValid = true,
+				parentElement = this.parentElement,
+				parentParentElement = parentElement.parentElement,
+				parentPreviousClassList = parentElement.previousElementSibling.classList;
+
+			// confirm if form is valid
+			if ( isNext && jQuery.validator && jQuery.validator !== "undefined" ) {
+				isFormValid =  $( "#" + parentParentElement.parentElement.id ).valid();
+			}
+
+			// continue if valid
+			if ( isFormValid ) {
+				showSteps( parentParentElement, isNext );
+				if ( isNext ) {
+					parentPreviousClassList.remove( "wb-steps-error" );
+				}
+			} else if ( isNext && !isFormValid ) {
+				parentPreviousClassList.add( "wb-steps-error" );
+			}
+		} );
+	},
+
+	/**
+	 * @method showSteps
+	 * @param {JavaScript element} elm and {boolean var} isNext
+	 */
+	showSteps = function( elm, isNext ) {
+		var fieldsetElement = elm.getElementsByTagName( "FIELDSET" )[ 0 ],
+			fields = fieldsetElement.getElementsByTagName( "div" )[ 0 ],
+			legend = fieldsetElement.getElementsByTagName( "legend" )[ 0 ],
+			buttonGroup = elm.querySelector( "div.buttons" ),
+			fieldset;
+
+		if ( elm ) {
+			fields.classList.add( "hidden" );
+			buttonGroup.classList.add( "hidden" );
+
+			if ( legend ) {
+				legend.classList.remove( "wb-steps-active" );
+			}
+
+			fieldset = ( !isNext ) ? elm.previousElementSibling : elm.nextElementSibling;
+			if ( fieldset ) {
+				legend = fieldset.getElementsByTagName( "LEGEND" )[ 0 ];
+				elm = fieldset.getElementsByTagName( "DIV" )[ 0 ];
+				buttonGroup = fieldset.querySelector( "div.buttons" );
+				if ( legend ) {
+					legend.classList.add( "wb-steps-active" );
+					legend.tabIndex = 0;
+					legend.focus();
+					legend.tabIndex = -1;
+				}
+				if ( elm ) {
+					elm.classList.remove( "hidden" );
+				}
+				if ( buttonGroup ) {
+					buttonGroup.classList.remove( "hidden" );
+				}
+			}
 		}
 	};
 
@@ -10678,7 +15002,8 @@ var componentName = "wb-tables",
 					processing: i18n( "process" ),
 					search: i18n( "filter" ),
 					thousands: i18n( "info1000" ),
-					zeroRecords: i18n( "infoEmpty" )
+					zeroRecords: i18n( "infoEmpty" ),
+					tblFilterInstruction: i18n( "tbFilterInst" )
 				};
 			}
 
@@ -10695,7 +15020,13 @@ var componentName = "wb-tables",
 				},
 				complete: function() {
 					var $elm = $( "#" + elmId ),
-						dataTableExt = $.fn.dataTableExt;
+						dataTableExt = $.fn.dataTableExt,
+						settings = wb.getData( $elm, componentName ) || {};
+
+					// Explicitly deactivate the paging for the filterEmphasis provisional feature/styling when not configured
+					if ( $elm.hasClass( "provisional" ) && $elm.hasClass( "filterEmphasis" ) ) {
+						settings.paging = settings.paging ? settings.paging : false;
+					}
 
 					/*
 					 * Extend sorting support
@@ -10725,34 +15056,25 @@ var componentName = "wb-tables",
 						}
 					} );
 
-					// Add the container or the sorting icons
-					$elm.find( "th" ).append( "<span class='sorting-cnt'><span class='sorting-icons'></span></span>" );
-
 					// Create the DataTable object
-					$elm.dataTable( $.extend( true, {}, defaults, window[ componentName ], wb.getData( $elm, componentName ) ) );
+					$elm.dataTable( $.extend( true, {}, defaults, window[ componentName ], settings ) );
 				}
 			} );
 		}
-	};
+	},
+	updatePaginationMarkup = function( $pagination, setFocusOnId ) {
 
-// Bind the init event of the plugin
-$document.on( "timerpoke.wb " + initEvent, selector, init );
+		var ol = document.createElement( "OL" ),
+			li = document.createElement( "LI" ),
+			paginate_buttons = $pagination.find( ".paginate_button" ),
+			navFocusOnId;
 
-// Handle the draw.dt event
-$document.on( "draw.dt", selector, function( event, settings ) {
-	var $elm = $( event.target ),
-		pagination = $elm.next( ".bottom" ).find( "div:first-child" ),
-		paginate_buttons = $elm.next( ".bottom" ).find( ".paginate_button" ),
-		ol = document.createElement( "OL" ),
-		li = document.createElement( "LI" );
+		if ( $pagination.length === 0 ) {
+			return;
+		}
 
-	// Determine if Pagination required
-	if ( paginate_buttons.length === 1 || ( pagination.find( ".previous, .next" ).length === 2 && paginate_buttons.length < 4 ) ) {
-		pagination.addClass( "hidden" );
-	} else {
-
-		// Make sure Pagination is visible
-		pagination.removeClass( "hidden" );
+		// Set the element to get the focus upon navigation
+		navFocusOnId = setFocusOnId || $pagination.get( 0 ).id;
 
 		// Update Pagination List
 		for ( var i = 0; i < paginate_buttons.length; i++ ) {
@@ -10762,14 +15084,14 @@ $document.on( "draw.dt", selector, function( event, settings ) {
 		}
 
 		ol.className = "pagination mrgn-tp-0 mrgn-bttm-0";
-		pagination.empty();
-		pagination.append( ol );
+		$pagination.empty();
+		$pagination.append( ol );
 
 		// Update the aria-pressed properties on the pagination buttons
 		// Should be pushed upstream to DataTables
-		$elm.next( ".bottom" ).find( ".paginate_button" )
+		$pagination.find( ".paginate_button" )
 			.attr( {
-				"href": "#" + $elm.context.id
+				"href": "#" + navFocusOnId
 			} )
 
 			// This is required to override the datatable.js (v1.10.13) behavior to cancel the event propagation on anchor element.
@@ -10780,12 +15102,66 @@ $document.on( "draw.dt", selector, function( event, settings ) {
 			} )
 
 			.not( ".previous, .next" )
-				.attr( "aria-pressed", "false" )
-				.html( function( index, oldHtml ) {
-					return "<span class='wb-inv'>" + i18nText.paginate.page + " </span>" + oldHtml;
-				} )
-				.filter( ".current" )
-					.attr( "aria-pressed", "true" );
+			.attr( "aria-pressed", "false" )
+			.html( function( index, oldHtml ) {
+				return "<span class='wb-inv'>" + i18nText.paginate.page + " </span>" + oldHtml;
+			} )
+			.filter( ".current" )
+			.attr( "aria-pressed", "true" );
+	};
+
+// Bind the init event of the plugin
+$document.on( "timerpoke.wb " + initEvent, selector, init );
+
+// Handle the draw.dt event
+$document.on( "draw.dt", selector, function( event, settings ) {
+	var $elm = $( event.target ),
+		pagination = $elm.next( ".bottom" ).find( "div:first-child" ),
+		pagination_top = $elm.prevAll( ".top" ).find( "div.dataTables_paginate" ),
+		paginate_buttons = $elm.next( ".bottom" ).find( ".paginate_button" ),
+		pbLength = paginate_buttons.length,
+		pHasLF = pagination.find( ".last, .first" ).length === 2,
+		pHasPN = pagination.find( ".previous, .next" ).length === 2;
+
+	// Handle sorting/ordering
+	var order = $elm.dataTable( { "retrieve": true } ).api().order();
+	$elm.find( "th" ).each( function( index ) {
+		var $th = $( this ),
+			$btn = $th.find( "button" );
+		if ( order && order.length && order[ 0 ][ 0 ] === index ) {
+			var label = ( order[ 0 ][ 1 ] === "desc" ) ? i18nText.aria.sortAscending : i18nText.aria.sortDescending;
+			label = $btn.text() + label.replace( /&#160;/g, " " );
+			$btn.attr( "title", label );
+		}
+		$th.removeAttr( "aria-label" );
+	} );
+
+	// Determine if Pagination required
+	if (
+		pbLength === 1 ||
+		(
+			pbLength === 3 &&
+			(
+				pHasLF ||
+				pHasPN
+			)
+		) ||
+		(
+			pbLength === 5 &&
+			pHasLF &&
+			pHasPN
+		)
+	) {
+		pagination.addClass( "hidden" );
+		pagination_top.addClass( "hidden" );
+	} else {
+
+		// Make sure Pagination is visible
+		pagination.removeClass( "hidden" );
+		pagination_top.removeClass( "hidden" );
+
+		updatePaginationMarkup( pagination, $elm.get( 0 ).id );
+		updatePaginationMarkup( pagination_top );
 	}
 
 	// Identify that the table has been updated
@@ -10793,7 +15169,29 @@ $document.on( "draw.dt", selector, function( event, settings ) {
 } );
 
 // Identify that initialization has completed
-$document.on( "init.dt", function( event ) {
+$document.on( "init.dt", selector, function( event ) {
+	var $elm = $( event.target ),
+		settings = $.extend( true, {}, defaults, window[ componentName ], wb.getData( $elm, componentName ) );
+
+	// Handle sorting/ordering
+	var ordering = ( settings && settings.ordering === false ) ? false : true;
+	if ( ordering ) {
+		$elm.find( "thead th" ).each( function() {
+			var $th = $( this ),
+				label = ( $th.attr( "aria-sort" ) === "ascending" ) ? i18nText.aria.sortDescending : i18nText.aria.sortAscending;
+			if ( ( $th.attr( "data-orderable" ) !== "false" ) && !( $th.hasClass( "sorting_disabled" ) ) ) {
+				$th.html( "<button type='button' aria-controls='" + $th.attr( "aria-controls" ) +  "' title='" + $th.text().replace( /'/g, "&#39;" ) + label + "'>" + $th.html() + "<span class='sorting-cnt'><span class='sorting-icons' aria-hidden='true'></span></span></button>" );
+				$th.removeAttr( "aria-label tabindex aria-controls" );
+			}
+		} );
+		$elm.attr( "aria-label", i18nText.tblFilterInstruction );
+	}
+
+	// Apply the filter emphasis style
+	if ( $elm.hasClass( "provisional" ) && $elm.hasClass( "filterEmphasis" ) ) {
+		$elm.parent().addClass( "provisional filterEmphasis" );
+	}
+
 	wb.ready( $( event.target ), componentName );
 } );
 
@@ -10803,85 +15201,186 @@ $document.on( "submit", ".wb-tables-filter", function( event ) {
 	event.preventDefault();
 
 	var $form = $( this ),
-		$datatable = $( "#" + $form.data( "bind-to" ) ).dataTable( { "retrieve": true } ).api();
+		$datatable = $( "#" + $form.data( "bind-to" ) ).dataTable( { "retrieve": true } ).api(),
+		$toNumber = function stringToNumber( number ) {
+			number = number.replace( /[^0-9\-,.]+/g, "" );
+			if ( /[,]\d{1,2}$/.test( number ) ) {
+				number = number.replace( /(\d{2})$/, ".$1" );
+			}
+			number = number.replace( /,/g, "" );
+			return parseFloat( number );
+		},
+		$isDate = function isDate( date ) {
+			return date instanceof Date && !isNaN( date );
+		};
 
 	// Lets reset the search
-	$datatable.search( "" ).columns().search( "" ).draw();
+	$datatable.search( "" ).columns().search( "" );
 
-	// Lets loop throug all options
-	var $lastColumn = -1, $cbVal = "";
+	// Lets loop through all options
+	var $prevCol = -1, $cachedVal = "";
 	$form.find( "[name]" ).each( function() {
 		var $elm = $( this ),
+			$val = $elm.val(),
 			$value = "",
 			$regex = "",
+			$column = parseInt( $elm.attr( "data-column" ), 10 ),
 			$isAopts = $elm.data( "aopts" ),
-			$column = parseInt( $elm.attr( "data-column" ), 10 );
+			$aoptsSelector = "[data-aopts*='\"column\": \"" + $column + "\"']:checked",
+			$aopts = $( $aoptsSelector ),
+			$aoType = ( $aopts && $aopts.data( "aopts" ) ) ? $aopts.data( "aopts" ).type.toLowerCase() : "",
+			$fData;
 
 		// Ignore the advanced options fields
 		if ( $isAopts ) {
 			return;
 		}
 
+		// Verifies if filtering the same column
+		if ( $column !== $prevCol || $prevCol === -1 ) {
+			$cachedVal = "";
+		}
+		$prevCol = $column;
+
 		// Filters based on input type
 		if ( $elm.is( "select" ) ) {
 			$value = $elm.find( "option:selected" ).val();
-		} else if ( $elm.is( ":checkbox" ) ) {
+		} else if ( $elm.is( "input[type='number']" ) ) {
+			var $minNum, $maxNum = null;
 
-			// Verifies if using same checkbox list
-			if ( $column !== $lastColumn || $lastColumn === -1 ) {
-				$cbVal = "";
+			// Retain minimum number (always the first number input)
+			if ( $cachedVal === "" ) {
+				$cachedVal = parseFloat( $val );
+				$cachedVal = ( $cachedVal ) ? $cachedVal : "-0";
+			} else {
+				$maxNum = parseFloat( $val );
+				$maxNum = ( $maxNum ) ? $maxNum : "-0";
 			}
-			$lastColumn = $column;
+			$minNum = $cachedVal;
+
+			//Number filtering logic needs to be reviewed in order to remove the "-0" value (issue #9235)
+			// Generates a list of numbers (within the min and max number)
+			if ( !isNaN( $minNum ) && !isNaN( $maxNum ) ) {
+				$fData = $datatable.column( $column ).data().filter( function( obj ) {
+					var $num = $toNumber( obj.toString() );
+
+					if ( !isNaN( $num ) ) {
+						if ( $aoType === "and" ) {
+							if ( $cachedVal !== $maxNum && $cachedVal !== "-0" && $maxNum !== "0" && $num >= $minNum && $num <= $maxNum ) {
+								return true;
+							}
+						} else {
+							if ( $maxNum === null ) { // only one input number
+								return $minNum === "-0" || $minNum === $num;
+							} else if ( $maxNum === $cachedVal && $cachedVal === "-0" ) { // both are empty
+								return true;
+							} else if ( $maxNum !== "-0" && $minNum === $maxNum && $num === $maxNum ) { // min and max are the same
+								return true;
+							} else if ( $maxNum === "-0" && $num >= $minNum ) { // max number is missing
+								return true;
+							} else if ( $cachedVal === "-0" && $num <= $maxNum ) { // min number is missing
+								return true;
+							} else if ( $cachedVal !== "-0" && $num >= $minNum && $num <= $maxNum ) { // min and max are present
+								return true;
+							}
+						}
+					}
+					return false;
+				} );
+				$fData = $fData.join( "|" );
+
+				// If no numbers match set as -0, so no results return
+				$value = ( $fData ) ? $fData : "-0";
+				$regex = "(" + $value.replace( /&nbsp;|\s/g, "\\s" ).replace( /\$/g, "\\$" ) + ")";
+			}
+		} else if ( $elm.is( "input[type='date']" ) && $val ) {
+			var $minDate, $maxDate;
+
+			// Retain minimum date (always the first date input)
+			if ( $cachedVal === "" ) {
+				$cachedVal = new Date( $val );
+				$cachedVal.setDate( $cachedVal.getDate() + 1 );
+				$cachedVal.setHours( 0, 0, 0, 0 );
+			}
+			$minDate = $cachedVal;
+
+			// Maximum date is always the current selected date
+			$maxDate = new Date( $val );
+			$maxDate.setDate( $maxDate.getDate() + 1 );
+			$maxDate.setHours( 23, 59, 59, 999 );
+
+			// Generates a list of date strings (within the min and max date)
+			$fData = $datatable.column( $column ).data().filter( function( obj ) {
+				var $date = obj.replace( /[0-9]{2}\s[0-9]{2}:/g, function( e ) {
+					return e.replace( /\s/g, "T" );
+				} );
+
+				if ( !$date.includes( "T" ) ) {
+					$date = $date + "T00:00:00";
+				}
+				$date = new Date( $date );
+				$date.setHours( 0, 0, 0, 0 );
+
+				if ( !$isDate( $minDate ) || !$isDate( $maxDate ) || !$isDate( $date ) ) {
+					return;
+				}
+				return ( $date >= $minDate && $date <= $maxDate );
+			} );
+			$fData = $fData.join( "|" );
+
+			// If no dates match set as element value, so no results return
+			$value = ( $fData ? $fData : $val );
+		} else if ( $elm.is( ":checkbox" ) ) {
 
 			// Verifies if checkbox is checked before setting value
 			if ( $elm.is( ":checked" ) ) {
-				var $aoptsSelector = "[data-aopts*='\"column\": \"" + $column + "\"']:checked",
-					$aopts = $( $aoptsSelector ),
-					$aoType = ( $aopts && $aopts.data( "aopts" ) ) ? $aopts.data( "aopts" ).type.toLowerCase() : "";
-
 				if ( $aoType === "both" ) {
-					$cbVal += "(?=.*\\b" + $elm.val() + "\\b)";
+					$cachedVal += "(?=.*\\b" + $val + "\\b)";
 				} else {
-					$cbVal += ( $cbVal.length > 0 ) ? "|" : "";
-					$cbVal += $elm.val();
+					$cachedVal += ( $cachedVal.length > 0 ) ? "|" : "";
+					$cachedVal += $val;
 				}
 
-				$value = $cbVal;
+				$value = $cachedVal;
 				$value = $value.replace( /\s/g, "\\s*" );
 
 				// Adjust regex based on advanced options
 				switch ( $aoType ) {
-				case "both":
-					$regex = "(" + $value + ").*";
-					break;
-				case "either":
-					$regex = "^(" + $value + ")$";
-					break;
-				case "and":
-					$regex = ( $value.indexOf( "|" ) > -1 ) ? "^(" + $value + "|[,\\s])(" + $value + "|[,\\s])+$" : "(" + $value + ")";
-					break;
-				case "any":
-				default:
-					$regex = "(" + $value + ")";
-					break;
+					case "both":
+						$regex = "(" + $value + ").*";
+						break;
+					case "either":
+						$regex = "^(" + $value + ")$";
+						break;
+					case "and":
+						$regex = ( $value.indexOf( "|" ) > -1 ) ? "^(" + $value + "|[,\\s])(" + $value + "|[,\\s])+$" : "(" + $value + ")";
+						break;
+					case "any":
+					default:
+						$regex = "(" + $value + ")";
+						break;
 				}
 			}
 		} else {
-			$value = $elm.val();
+			$value = $val;
 		}
 
 		if ( $value ) {
 
 			// Verifies if regex was preset, if not preset use 'contains value' as default
 			if ( !$regex ) {
-				$value = $value.replace( /\s/g, "\\s*" );
-				$regex = "(" + $value + ")";
+				if ( $elm[ 0 ].getAttribute( "data-exact" ) ) {
+					$regex = "^" + $value + "$";
+				} else {
+					$value = $value.replace( /\s/g, "\\s*" );
+					$regex = "(" + $value + ")";
+				}
 			}
 
-			$datatable.column( $column ).search( $regex, true ).draw();
+			$datatable.column( $column ).search( $regex, true );
 		}
 	} );
-
+	$datatable.draw();
 	return false;
 } );
 
@@ -10894,10 +15393,8 @@ $document.on( "click", ".wb-tables-filter [type='reset']", function( event ) {
 	$datatable.search( "" ).columns().search( "" ).draw();
 
 	$form.find( "select" ).prop( "selectedIndex", 0 );
-	$form.find( "input:checkbox" ).prop( "checked", false );
-	$form.find( "input:radio" ).prop( "checked", false );
-	$form.find( "input[type=date]" ).val( "" );
-
+	$form.find( "input:checkbox, input:radio" ).prop( "checked", false );
+	$form.find( ":input" ).not( ":button, :submit, :reset, :hidden, :checkbox, :radio" ).val( "" );
 	return false;
 } );
 
@@ -10971,7 +15468,7 @@ var componentName = "wb-tabs",
 
 			// For backwards compatibility. Should be removed in WET v4.1
 			if ( $elm.children( ".tabpanels" ).length === 0 ) {
-				$elm.children( "[role=tabpanel], details" ).wrapAll( "<div class='tabpanels'/>" );
+				$elm.children( "[role=tabpanel], details" ).wrapAll( "<div class='tabpanels'></div>" );
 			}
 
 			$panels = $elm.find( "> .tabpanels > [role=tabpanel], > .tabpanels > details" );
@@ -10997,8 +15494,8 @@ var componentName = "wb-tabs",
 				defaults,
 				{
 					interval: $elm.hasClass( "slow" ) ?
-								9 : $elm.hasClass( "fast" ) ?
-									3 : defaults.interval,
+						9 : $elm.hasClass( "fast" ) ?
+							3 : defaults.interval,
 					excludeControls: $elm.hasClass( "exclude-controls" ),
 					excludePlay: $elm.hasClass( "exclude-play" ),
 					updateHash: $elm.hasClass( "update-hash" ),
@@ -11039,10 +15536,14 @@ var componentName = "wb-tabs",
 						try {
 							sessionStorage.setItem( pagePath + elmId + activePanel, activeId );
 						} catch ( error ) {
+
+							/* swallow error */
 						}
 					}
 				}
 			} catch ( error ) {
+
+				/* swallow error */
 			}
 
 			// Determine the current view
@@ -11106,7 +15607,7 @@ var componentName = "wb-tabs",
 					isOpen = !!$panel.attr( open );
 
 					if ( isSmallView ) {
-						if ( !Modernizr.details ) {
+						if ( !wb.supportsDetails ) {
 							$panel.toggleClass( "open", isOpen );
 						}
 					} else {
@@ -11114,8 +15615,7 @@ var componentName = "wb-tabs",
 							role: "tabpanel",
 							open: open
 						} );
-						$panel.addClass( ( Modernizr.details ? "" :  open + " " ) +
-							"fade " + ( isOpen ? "in" : "noheight out wb-inv" ) );
+						$panel.addClass( ( wb.supportsDetails ? "" : open + " " ) + "fade " + ( isOpen ? "in" : "noheight out wb-inv" ) );
 					}
 
 					tablist += "<li" + ( isOpen ? " class='active'" : "" ) +
@@ -11145,7 +15645,7 @@ var componentName = "wb-tabs",
 				$tablist.find( "a" )
 					.filter( "[href$='" + activeId + "']" )
 					.parent()
-						.addClass( "active" );
+					.addClass( "active" );
 			}
 
 			drizzleAria( $panels, $tablist );
@@ -11274,6 +15774,7 @@ var componentName = "wb-tabs",
 		if ( !excludeControls && !excludePlay ) {
 			$tablist.append( playControl );
 		}
+		$tablist.find( "a[role=button]" ).attr( "href", "javascript:;" );
 
 		return isPlaying;
 	},
@@ -11391,17 +15892,17 @@ var componentName = "wb-tabs",
 
 		$controls
 			.find( ".active" )
-				.removeClass( "active" )
-				.children( "a" )
-					.attr( {
-						"aria-selected": "false",
-						tabindex: "-1"
-					} );
+			.removeClass( "active" )
+			.children( "a" )
+			.attr( {
+				"aria-selected": "false",
+				tabindex: "-1"
+			} );
 
 		// Update the Item x of n
 		$controls
 			.find( ".curr-index" )
-				.html( newIndex );
+			.html( newIndex );
 
 		$control
 			.attr( {
@@ -11409,7 +15910,7 @@ var componentName = "wb-tabs",
 				tabindex: "0"
 			} )
 			.parent()
-				.addClass( "active" );
+			.addClass( "active" );
 
 		// Update sessionStorage with the current active panel
 		if ( !tabSettings.ignoreSession ) {
@@ -11419,6 +15920,8 @@ var componentName = "wb-tabs",
 					$next.attr( "id" )
 				);
 			} catch ( error ) {
+
+				/* swallow error */
 			}
 		}
 
@@ -11490,12 +15993,12 @@ var componentName = "wb-tabs",
 	/**
 	 * @method onCycle
 	 * @param {jQuery DOM element} $elm The plugin element
-	 * @param {integer} shifto The item to shift to
+	 * @param {integer} shiftto The item to shift to
 	 */
-	onCycle = function( $elm, shifto ) {
+	onCycle = function( $elm, shiftto ) {
 		$elm.trigger( {
 			type: shiftEvent,
-			shiftto: shifto
+			shiftto: shiftto
 		} );
 	},
 
@@ -11556,10 +16059,10 @@ var componentName = "wb-tabs",
 								if ( !isInit ) {
 									$detailsElm
 										.children( "summary" )
-											.attr( {
-												"aria-expanded": isActive,
-												"aria-selected": isActive
-											} );
+										.attr( {
+											"aria-expanded": isActive,
+											"aria-selected": isActive
+										} );
 								}
 							}
 						} else if ( oldIsSmallView ) {
@@ -11576,11 +16079,11 @@ var componentName = "wb-tabs",
 									open: "open"
 								} )
 								.not( $openDetails )
-									.addClass( "fade out noheight wb-inv" )
-									.attr( {
-										"aria-hidden": "true",
-										"aria-expanded": "false"
-									} );
+								.addClass( "fade out noheight wb-inv" )
+								.attr( {
+									"aria-hidden": "true",
+									"aria-expanded": "false"
+								} );
 
 							$details.children( ".tgl-panel" ).removeAttr( "role" );
 
@@ -11641,35 +16144,35 @@ $document.on( "timerpoke.wb " + initEvent + " " + shiftEvent + " " + selectEvent
 	// Filter out any events triggered by descendants
 	if ( eventCurrentTarget === eventTarget ) {
 		switch ( event.type ) {
-		case "timerpoke":
-			$elm = $( eventTarget );
-			if ( !$elm.hasClass( componentName + "-inited" ) ) {
+			case "timerpoke":
+				$elm = $( eventTarget );
+				if ( !$elm.hasClass( componentName + "-inited" ) ) {
+					init( event );
+				} else if ( $elm.hasClass( "playing" ) ) {
+					onTimerPoke( $elm );
+				}
+				break;
+
+			/*
+			 * Init
+			 */
+			case "wb-init":
 				init( event );
-			} else if ( $elm.hasClass( "playing" ) ) {
-				onTimerPoke( $elm );
-			}
-			break;
+				break;
 
-		/*
-		 * Init
-		 */
-		case "wb-init":
-			init( event );
-			break;
+			/*
+			 * Change tab panels by a delta
+			 */
+			case "wb-shift":
+				onShift( event, $( eventTarget ) );
+				break;
 
-		/*
-		 * Change tab panels by a delta
-		 */
-		case "wb-shift":
-			onShift( event, $( eventTarget ) );
-			break;
-
-		/*
-		 * Select a specific tab panel
-		 */
-		case "wb-select":
-			onSelect( event.id );
-			break;
+			/*
+			 * Select a specific tab panel
+			 */
+			case "wb-select":
+				onSelect( event.id );
+				break;
 		}
 	}
 
@@ -11794,8 +16297,8 @@ $document.on( activateEvent, selector + " [role=tabpanel]", function( event ) {
 		} else {
 			$( currentTarget )
 				.closest( selector )
-					.find( "[href$='#" + currentTarget.id + "']" )
-						.trigger( setFocusEvent );
+				.find( "[href$='#" + currentTarget.id + "']" )
+				.trigger( setFocusEvent );
 		}
 
 	// Left mouse button click or escape key
@@ -11855,6 +16358,8 @@ $document.on( activateEvent, selector + " > .tabpanels > details > summary", fun
 					details.id
 				);
 			} catch ( error ) {
+
+				/* swallow error */
 			}
 		}
 
@@ -11886,6 +16391,331 @@ $document.on( "click", ".wb-tabs-ext", function( event ) {
 wb.add( selector );
 
 } )( jQuery, window, wb );
+
+/**
+ * @title WET-BOEW Tag filter
+ * @overview Filter based content tagging
+ * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ * @author @duboisp
+ */
+( function( $, window, document, wb ) {
+"use strict";
+
+let wait;
+
+const componentName = "wb-tagfilter",
+	selector = ".provisional." + componentName,
+	selectorCtrl = "." + componentName + "-ctrl",
+	initEvent = "wb-init" + selector,
+	$document = wb.doc,
+	tgFilterOutClass = "wb-tgfltr-out",
+	itemsWrapperClass = "wb-tagfilter-items",
+	noResultWrapperClass = "wb-tagfilter-noresult",
+
+	init = function( event ) {
+		const elm = wb.init( event, componentName, selector );
+
+		if ( elm ) {
+			const filterControls = elm.querySelectorAll( selectorCtrl ),
+				taggedItems = elm.querySelectorAll( "[data-wb-tags]" ),
+				taggedItemsWrapper = elm.querySelector( "." + itemsWrapperClass ),
+				noResultWrapper = elm.querySelector( "." + noResultWrapperClass );
+
+			elm.items = [];
+			elm.filters = {};
+			elm.activeFilters = [];
+
+			if ( taggedItemsWrapper ) {
+				taggedItemsWrapper.id = taggedItemsWrapper.id || wb.getId(); // Ensure the element has an ID
+				taggedItemsWrapper.setAttribute( "aria-live", "polite" );
+			}
+
+			// Handle filters
+			if ( filterControls.length ) {
+				elm.filters = buildFiltersObj( filterControls );
+
+				filterControls.forEach( function( item ) {
+					item.setAttribute( "aria-controls", taggedItemsWrapper.id );
+				} );
+			}
+
+			// Handle tagged items
+			if ( taggedItems.length ) {
+				elm.items = buildTaggedItemsArr( taggedItems );
+			}
+
+			// Add accessibility to no result element
+			if ( noResultWrapper ) {
+				noResultWrapper.setAttribute( "role", "status" );
+			}
+
+			// Update list of visible items (in case of predefined filters)
+			update( elm );
+
+			wb.ready( $( elm ), componentName );
+		}
+	},
+
+	// Add every tagged item to an array of objects with their DOM ID, list of associated tags, and default isMatched attribute
+	buildTaggedItemsArr = function( taggedItems ) {
+		let taggedItemsArr = [];
+
+		taggedItems.forEach( function( taggedItem ) {
+			let tagsList = taggedItem.dataset.wbTags.split( " " ),
+				timeElm = taggedItem.querySelector( "time" ),
+				dateStr = timeElm ? timeElm.getAttribute( "datetime" ) : null;
+
+			if ( !taggedItem.id ) {
+				taggedItem.setAttribute( "id", wb.getId() );
+			}
+
+			taggedItemsArr.push( {
+				id: taggedItem.id,
+				tags: tagsList,
+				isMatched: true,
+				itemText: taggedItem.innerText.toLowerCase(),
+				date: dateStr
+			} );
+		} );
+
+		return taggedItemsArr;
+	},
+
+	// Build list of available filters using all filters grouped by filter name
+	buildFiltersObj = function( filterControls ) {
+		let filtersObj = {};
+
+		filterControls.forEach( function( control ) {
+			if ( !control.name ) {
+				console.error( componentName + ": Filter controls require an attribute 'name'." );
+			}
+
+			switch ( control.type ) {
+				case "checkbox":
+				case "radio":
+					if ( !( control.name in filtersObj ) ) {
+						filtersObj[ control.name ] = [ ];
+					}
+
+					filtersObj[ control.name ].push( {
+						isChecked: control.checked,
+						type: control.type,
+						value: control.value
+					} );
+
+					break;
+				case "select-one":
+				case "date":
+					filtersObj[ control.name ] = [ {
+						type: control.type,
+						value: control.value
+					} ];
+					break;
+			}
+		} );
+
+		return filtersObj;
+	},
+
+	// Update array of active filters according to UI selected controls
+	refineFilters = function( instance ) {
+		instance.activeFilters = [ ]; // Clear active filters
+
+		for ( let filterGroupName in instance.filters ) {
+
+			// Skip date filters here
+			if ( filterGroupName === "startDate" || filterGroupName === "endDate" ) {
+				continue;
+			}
+
+			let filterGroup = instance.filters[ filterGroupName ],
+				filterGroupChkCnt = filterGroup.filter( function( o ) {
+					return o.isChecked === true;
+				} ).length,
+				filterGroupActiveFilters = [ ];
+
+			switch ( filterGroup[ 0 ].type ) {
+				case "checkbox":
+					if ( filterGroupChkCnt > 0 ) {
+						filterGroup.forEach( function( filterItem ) {
+							if ( filterItem.isChecked ) {
+								filterGroupActiveFilters.push( filterItem.value );
+							}
+						} );
+					}
+					break;
+
+				case "radio":
+					if ( filterGroupChkCnt > 0 ) {
+						for ( let filterItem of filterGroup ) {
+							if ( filterItem.isChecked === true ) {
+								if ( filterItem.value !== "" ) {
+									filterGroupActiveFilters.push( filterItem.value );
+								}
+								break;
+							}
+						}
+					} else {
+						console.warn( componentName + ": Radio button groups must have a default selected value. If you want to display all items, add an option called \"All\" with an empty value." );
+					}
+					break;
+
+				case "select-one":
+					if ( filterGroup[ 0 ].value !== "" ) {
+						filterGroupActiveFilters.push( filterGroup[ 0 ].value );
+					}
+					break;
+			}
+
+			instance.activeFilters.push( filterGroupActiveFilters );
+		}
+	},
+
+	// Match tagged items to active filters and only return items that have an active filter in every filter group
+	matchItemsToFilters = function( instance ) {
+
+		// Count tag filter groups only (ignore dates here)
+		let filtersGroups = instance.activeFilters.length,
+			startDate = ( instance.filters.startDate && instance.filters.startDate[ 0 ] && instance.filters.startDate[ 0 ].value ) || "",
+			endDate   = ( instance.filters.endDate && instance.filters.endDate[ 0 ] && instance.filters.endDate[ 0 ].value ) || "";
+
+		instance.items.forEach( function( item ) {
+			let matchCount = 0,
+				dateMatch = true; // default true unless proven otherwise
+
+			// --- DATE FILTERING ---
+			if ( item.date ) {
+
+				// If only startDate is set
+				if ( startDate !== "" && endDate === "" ) {
+					dateMatch = wb.date.compare( item.date, startDate ) >= 0;
+				}
+
+				// If only endDate is set
+				if ( endDate !== "" && startDate === "" ) {
+					dateMatch = wb.date.compare( item.date, endDate ) <= 0;
+				}
+
+				// If both startDate and endDate are set
+				if ( startDate !== "" && endDate !== "" ) {
+					dateMatch = (
+						wb.date.compare( item.date, startDate ) >= 0 &&
+						wb.date.compare( item.date, endDate ) <= 0
+					);
+				}
+			}
+
+			// --- TAG FILTERING ---
+			instance.activeFilters.forEach( function( filterGroup ) {
+				if ( filterGroup.length === 0 ) {
+					matchCount++;
+				} else {
+					let itemIncludesFilter = filterGroup.filter( function( f ) {
+						return item.tags.includes( f );
+					} ).length;
+
+					if ( itemIncludesFilter ) {
+						matchCount++;
+					}
+				}
+			} );
+
+			// Show item if it matches any filter and is within date range
+			matchCount === filtersGroups && dateMatch ? item.isMatched = true : item.isMatched = false;
+		} );
+	},
+
+	// Update list of visible items according to their "isMatched" property
+	updateDOMItems = function( instance ) {
+		const updatedItemsList = instance.items.forEach( function( item ) {
+			let domItem = instance.querySelector( "#" + item.id ),
+				matched = item.isMatched;
+
+			if ( matched ) {
+				if ( domItem.classList.contains( tgFilterOutClass ) ) {
+					domItem.classList.remove( tgFilterOutClass );
+				}
+			} else {
+				if ( !domItem.classList.contains( tgFilterOutClass ) ) {
+					domItem.classList.add( tgFilterOutClass );
+				}
+			}
+		} );
+
+		return updatedItemsList;
+	},
+
+	// Utility method to update stored active filters, update stored items and update visibility of tagged items
+	update = function( instance ) {
+		refineFilters( instance );
+		matchItemsToFilters( instance );
+		updateDOMItems( instance );
+
+		$( instance ).trigger( "wb-filtered", [ { source: componentName } ] );
+	};
+
+// When a filter is updated
+$document.on( "change", selectorCtrl, function( event )  {
+	let control = event.currentTarget,
+		filterType = control.type,
+		filterName = control.name,
+		filterValue = control.value,
+		elm = control.closest( selector ),
+		filterGroup = elm.filters[ filterName ];
+
+	switch ( filterType ) {
+		case "checkbox":
+
+			// Update virtual filter to the new state
+			filterGroup.find( function( filter ) {
+				return filter.value === filterValue;
+			} ).isChecked = !!control.checked;
+			break;
+
+		case "radio":
+
+			// Set all virtual radio items to unchecked
+			filterGroup.forEach( function( filterItem ) {
+				filterItem.isChecked = false;
+			} );
+
+			// Set selected radio button's associated virtual filter to checked
+			filterGroup.find( function( filter ) {
+				return filter.value === filterValue;
+			} ).isChecked = true;
+			break;
+
+		case "select-one":
+		case "date":
+
+			// Update virtual filter to the new value
+			filterGroup[ 0 ].value = filterValue;
+			break;
+	}
+
+	// Update list of visible items
+	update( elm );
+} );
+
+// Reinitialize tagfilter if content on the page has been updated by another plugin
+$document.on( "wb-contentupdated", selector + ", " + selector + " *", function()  {
+	let that = this;
+
+	if ( wait ) {
+		clearTimeout( wait );
+	}
+
+	wait = setTimeout( function() {
+		that.classList.remove( "wb-init", componentName + "-inited" );
+		$( that ).trigger( "wb-init." + componentName );
+	}, 100 );
+} );
+
+$document.on( "timerpoke.wb " + initEvent, selector, init );
+
+wb.add( selector );
+
+} )( jQuery, window, document, wb );
 
 /**
  * @title WET-BOEW Text highlighting
@@ -11922,11 +16752,11 @@ var componentName = "wb-txthl",
 
 		if ( elm ) {
 			if ( event.txthl ) {
-				searchCriteria = $.isArray( event.txthl ) ? event.txthl.join( "|" ) : event.txthl;
+				searchCriteria = Array.isArray( event.txthl ) ? event.txthl.join( "|" ) : event.txthl;
 			} else if ( params && params.txthl ) {
 				searchCriteria = decodeURIComponent(
 					wb.pageUrlParts.params.txthl
-						.replace( /^\s+|\s+$|\|+|\"|\(|\)/g, "" ).replace( /\++/g, "|" )
+						.replace( /^\s+|\s+$|\|+|"|\(|\)/g, "" ).replace( /\++/g, "|" )
 				);
 			}
 
@@ -11942,7 +16772,7 @@ var componentName = "wb-txthl",
 				searchCriteria = "(?=([^>]*<))([\\s'])?(" + searchCriteria + ")(?!>)";
 
 				newText = elm.innerHTML.replace( new RegExp( searchCriteria, "gi" ), function( match, group1, group2, group3 ) {
-					return ( !group2 ? "" : group2 ) + "<mark class='txthl'>" + group3 + "</mark>";
+					return ( !group2 ? "" : group2 ) + "<mark>" + group3 + "</mark>";
 				} );
 				elm.innerHTML = newText;
 			}
@@ -12041,7 +16871,7 @@ var componentName = "wb-toggle",
 	 * @param {Object} data Simple key/value data object passed when the event was triggered
 	 */
 	initAria = function( link, data ) {
-		var i, len, elm, elms, parent, tabs, tab, panel, isOpen,
+		var i, len, elm, elms, parent, tabs, tab, panel, isOpen, wrapper,
 			ariaControls = "",
 			hasOpen = false;
 
@@ -12071,7 +16901,7 @@ var componentName = "wb-toggle",
 					// Check if the element is toggled on based on the
 					// open attribute or "on" CSS class
 					isOpen = elm.nodeName.toLowerCase() === "details" ?
-						!!elm.getAttribute( "open" ) :
+						!!elm.hasAttribute( "open" ) :
 						( " " + tab.className + " " ).indexOf( " " + data.stateOn + " " );
 					if ( isOpen ) {
 						hasOpen = true;
@@ -12080,12 +16910,25 @@ var componentName = "wb-toggle",
 					if ( !tab.getAttribute( "id" ) ) {
 						tab.setAttribute( "id", wb.getId() );
 					}
-					tab.setAttribute( "role", "tab" );
-					tab.setAttribute( "aria-selected", isOpen );
-					tab.setAttribute( "tabindex", isOpen ? "0" : "-1" );
-					tab.setAttribute( "aria-posinset", i + 1 );
-					tab.setAttribute( "aria-setsize", len );
 
+					//Details and summary don't support aria roles and some aria attribute that is why they are wrapped in a div
+					if ( elm.nodeName.toLowerCase() === "details" && elm.parentNode.className.toLowerCase().indexOf( "accordion" ) > -1 ) {
+						wrapper = document.createElement( "div" );
+						wrapper.classList.add( "tgl-tab" );
+						wrapper.setAttribute( "role", "tab" );
+						wrapper.setAttribute( "aria-selected", isOpen );
+						wrapper.setAttribute( "tabindex", isOpen ? "0" : "-1" );
+						wrapper.setAttribute( "aria-posinset", i + 1 );
+						wrapper.setAttribute( "aria-setsize", len );
+						parent.replaceChild( wrapper, elm );
+						wrapper.appendChild( elm );
+					} else {
+						tab.setAttribute( "role", "tab" );
+						tab.setAttribute( "aria-selected", isOpen );
+						tab.setAttribute( "tabindex", isOpen ? "0" : "-1" );
+						tab.setAttribute( "aria-posinset", i + 1 );
+						tab.setAttribute( "aria-setsize", len );
+					}
 					panel.setAttribute( "role", "tabpanel" );
 					panel.setAttribute( "aria-labelledby", tab.getAttribute( "id" ) );
 					panel.setAttribute( "aria-expanded", isOpen );
@@ -12246,6 +17089,8 @@ var componentName = "wb-toggle",
 				try {
 					data.persist.setItem( data.persistKey, stateTo );
 				} catch ( error ) {
+
+					/* swallow error */
 				}
 			}
 		}
@@ -12276,7 +17121,7 @@ var componentName = "wb-toggle",
 			if ( data.isTablist ) {
 
 				// Set the required aria attributes
-				$elms.find( selectorTab ).attr( {
+				$elms.find( selectorTab ).parents( selectorTab ).attr( {
 					"aria-selected": isOn,
 					tabindex: isOn ? "0" : "-1"
 				} );
@@ -12343,8 +17188,8 @@ var componentName = "wb-toggle",
 			return anyCollapsed ? data.stateOff : data.stateOn;
 
 		// Get the current on/off state of the elements specified by the selector and parent
-		} else if ( states.hasOwnProperty( selector ) ) {
-			return states[ selector ].hasOwnProperty( parent ) ?
+		} else if ( Object.prototype.hasOwnProperty.call( states, selector ) ) {
+			return Object.prototype.hasOwnProperty.call( states[ selector ], parent ) ?
 				states[ selector ][ parent ] :
 				states[ selector ].all;
 		}
@@ -12380,7 +17225,7 @@ var componentName = "wb-toggle",
 			// links that are restricted by parent.
 			} else {
 				for ( prop in elmsState ) {
-					if ( elmsState.hasOwnProperty( prop ) ) {
+					if ( Object.prototype.hasOwnProperty.call( elmsState, prop ) ) {
 						elmsState[ prop ] = state;
 					}
 				}
@@ -12398,18 +17243,18 @@ $document.on( "timerpoke.wb " + initEvent + " " + toggleEvent +
 	var eventType = event.type;
 
 	switch ( eventType ) {
-	case "click":
-		click( event );
-		break;
+		case "click":
+			click( event );
+			break;
 
-	case "toggle":
-		toggle( event, data );
-		break;
+		case "toggle":
+			toggle( event, data );
+			break;
 
-	case "timerpoke":
-	case "wb-init":
-		init( event );
-		break;
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
 	}
 } );
 
@@ -12430,40 +17275,40 @@ $document.on( "keydown", selectorTab, function( event ) {
 
 		switch ( which ) {
 
-		// End
-		case 35:
-			$newPanel = $group.last();
-			break;
-
-		// Home
-		case 36:
-			$newPanel = $group.first();
-			break;
-
-		// Left / up arrow
-		case 37:
-		case 38:
-			if ( index === 0 ) {
+			// End
+			case 35:
 				$newPanel = $group.last();
-			} else {
-				$newPanel = $group.eq( index - 1 );
-			}
-			break;
+				break;
 
-		// Right / down arrow
-		case 39:
-		case 40:
-			if ( index === $group.length - 1 ) {
+			// Home
+			case 36:
 				$newPanel = $group.first();
-			} else {
-				$newPanel = $group.eq( index + 1 );
-			}
-			break;
+				break;
+
+			// Left / up arrow
+			case 37:
+			case 38:
+				if ( index === 0 ) {
+					$newPanel = $group.last();
+				} else {
+					$newPanel = $group.eq( index - 1 );
+				}
+				break;
+
+			// Right / down arrow
+			case 39:
+			case 40:
+				if ( index === $group.length - 1 ) {
+					$newPanel = $group.first();
+				} else {
+					$newPanel = $group.eq( index + 1 );
+				}
+				break;
 		}
 
 		$newPanel
 			.children( "summary" )
-				.trigger( setFocusEvent );
+			.trigger( setFocusEvent );
 	}
 } );
 
@@ -12475,7 +17320,7 @@ $document.on( "keydown", selectorPanel, function( event ) {
 		// Move focus to the summary element
 		$( event.currentTarget )
 			.prev()
-				.trigger( setFocusEvent );
+			.trigger( setFocusEvent );
 	}
 } );
 
@@ -12503,6 +17348,7 @@ var componentName = "wb-twitter",
 	selector = "." + componentName,
 	initEvent = "wb-init" + selector,
 	$document = wb.doc,
+	i18n, i18nText,
 
 	/**
 	 * @method init
@@ -12517,6 +17363,117 @@ var componentName = "wb-twitter",
 			protocol = wb.pageUrlParts.protocol;
 
 		if ( eventTarget ) {
+			const twitterLink = eventTarget.querySelector( "a.twitter-timeline" );
+
+			// Ignore IE11
+			// Note: Twitter's widget no longer supports it...
+			if ( wb.ie11 ) {
+				wb.ready( $( eventTarget ), componentName );
+				return;
+			}
+
+			// Process the Twitter link
+			if ( twitterLink ) {
+				const loadingDiv = document.createElement( "div" );
+				let observer;
+
+				// Only initialize the i18nText once
+				if ( !i18nText ) {
+					i18n = wb.i18n;
+					i18nText = {
+						startNotice: i18n( "twitter-start-notice" ),
+						endNotice: i18n( "twitter-end-notice" ),
+						skipEnd: i18n( "twitter-skip-end" ),
+						skipStart: i18n( "twitter-skip-start" ),
+						timelineTitle: i18n( "twitter-timeline-title" )
+					};
+				}
+
+				// Show a warning if the timelineTitle variable isn't a string
+				if ( typeof i18nText.startNotice !== "string" ) {
+					console.warn( componentName + ": i18n text is missing. Iframe title override and skip links will be disabled." );
+				}
+
+				// Set Chinese (Simplified)'s language code to "zh-cn"
+				// If the link doesn't specify a widget language and its "in-page" language code is "zh-Hans"...
+				// Notes:
+				// -WET uses "zh-Hans", Twitter uses "zh-ch" and falls back to English if the former is used
+				// -Language code sourced from https://developer.twitter.com/en/docs/twitter-for-websites/supported-languages
+				if ( !twitterLink.dataset.lang && twitterLink.closest( "[lang='zh-Hans']" ) ) {
+					twitterLink.dataset.lang = "zh-cn";
+				}
+
+				// Match the Facebook page plugin's default height
+				// If data-height is set to "fb-page" OR the widget has a tweet limit and lacks a custom height...
+				// Notes:
+				// -Counteracts enormous default widget heights that can reach tens of thousands of pixels without a scrollbar
+				// -Timeline widgets stopped honouring tweet limits on July 21, 2023 and began showing up to 100 tweets at a time ("verified" accounts only)
+				// -Facebook page plugin's default height is documented in https://developers.facebook.com/docs/plugins/page-plugin#settings
+				if ( twitterLink.dataset.height === "fb-page" || ( twitterLink.dataset.tweetLimit && !twitterLink.dataset.height ) ) {
+					twitterLink.dataset.height = "500";
+				}
+
+				// Add a "do not track" parameter (i.e. data-dnt="true" attribute) unless it's already been set
+				// Note: Covered in https://developer.twitter.com/en/docs/twitter-for-websites/webpage-properties
+				if ( !twitterLink.dataset.dnt ) {
+					twitterLink.dataset.dnt = "true";
+				}
+
+				// Add a loading icon below the link
+				loadingDiv.className = "twitter-timeline-loading";
+				twitterLink.after( loadingDiv );
+
+				// Observe DOM mutations
+				observer = new MutationObserver( function( mutations ) {
+					mutations.forEach( function( mutation ) {
+						switch ( mutation.type ) {
+
+							// Check for attribute changes
+							case "attributes": {
+								const mutationTarget = mutation.target;
+
+								// Override the timeline iframe's title right after Twitter's widget script adds it
+								// Notes:
+								// -The timeline's iframe title is English-only, uses "Twitter" and is written in title case ("Twitter Timeline")... This replaces it with an i18n version that uses "X" and is written in sentence case.
+								// -Only proceed if the i18n variable is a string... otherwise this'll trigger an infinite loop of attribute mutations
+								if ( mutationTarget.nodeName === "IFRAME" && mutationTarget.title !== i18nText.timelineTitle && typeof i18nText.timelineTitle === "string" ) {
+									mutationTarget.title = i18nText.timelineTitle;
+								}
+								break;
+							}
+
+							// Check for node removals
+							case "childList": {
+								mutation.removedNodes.forEach( function( removedNode ) {
+
+									// If the removed node was a Twitter link, remove its adjacent loading icon, add skip links and stop observing
+									// Note: Twitter's widget script removes "a.twitter-timeline" upon displaying the timeline iframe's content... at which point the loading icon is no longer useful
+									if ( removedNode === twitterLink && mutation.nextSibling === loadingDiv ) {
+										const iframeContainer = loadingDiv.previousElementSibling;
+
+										loadingDiv.remove();
+										addSkipLinks( iframeContainer );
+
+										// The following 2 lines were added as a workaround in Safari where the iFrame is not displayed
+										eventTarget.style.opacity = 1;
+										eventTarget.style.opacity = "";
+
+										observer.disconnect();
+									}
+								} );
+							}
+						}
+					} );
+				} );
+
+				// Observe changes to the plugin container's child elements and title attributes
+				observer.observe( eventTarget, {
+					attributeFilter: [ "title" ],
+					childList: true,
+					subtree: true
+				} );
+			}
+
 			Modernizr.load( {
 				load: ( protocol.indexOf( "http" ) === -1 ? "http:" : protocol ) + "//platform.twitter.com/widgets.js",
 				complete: function() {
@@ -12526,12 +17483,1197 @@ var componentName = "wb-twitter",
 				}
 			} );
 		}
+	},
+
+	// Add skip links immediately before and after the timeline widget
+	// Note: Verified account timelines may contain several hundred interactive elements... this provides a mechanism to spare keyboard-only users from needing to tab through everything to move past the widget.
+	addSkipLinks = function( iframeContainer ) {
+		const timelineIframe = iframeContainer.getElementsByTagName( "iframe" )[ 0 ];
+		const username = getTwitterUsername( timelineIframe.src );
+		const noticeClass = componentName + "-" + "notice";
+		const skipClass = componentName + "-" + "skip";
+		const startText = "start";
+		const endText = "end";
+		let startNotice;
+		let endNotice;
+		let skipToEndLink;
+		let skipToStartLink;
+
+		// Abort if Twitter username is falsy or i18n variables aren't strings
+		if ( !username || typeof i18nText.timelineTitle !== "string" ) {
+			return;
+		}
+
+		// Add a start of timeline notice
+		startNotice = createNotice( i18nText.startNotice, username, timelineIframe.id, noticeClass, startText );
+		iframeContainer.before( startNotice );
+
+		// Add an end of timeline notice
+		endNotice = createNotice( i18nText.endNotice, username, timelineIframe.id, noticeClass, endText );
+		iframeContainer.after( endNotice );
+
+		// Add a skip to end link
+		skipToEndLink = createSkipLink( i18nText.skipEnd, username, endNotice.id, skipClass, endText );
+		startNotice.after( skipToEndLink );
+
+		// Add a skip to start link
+		skipToStartLink = createSkipLink( i18nText.skipStart, username, startNotice.id, skipClass, startText );
+		endNotice.before( skipToStartLink );
+	},
+
+	// Extract a Twitter username from the iframe's timeline URL
+	getTwitterUsername = function( iframeSrc ) {
+		let username = iframeSrc.match( /\/screen-name\/([^?]+)/ );
+		username = username ? username[ 1 ] : null;
+
+		return username;
+	},
+
+	// Create a timeline notice
+	createNotice = function( textTemplate, username, iframeId, noticeClass, position ) {
+		const spanElm = document.createElement( "span" );
+		const pElm = document.createElement( "p" );
+
+		spanElm.innerHTML = textTemplate.replace( "%username%", username );
+
+		pElm.id = iframeId + "-" + position;
+		pElm.className = noticeClass + "-" + position;
+		pElm.prepend( spanElm );
+
+		// Hide the notice upon losing focus
+		// Removes its tabindex attribute to make its CSS hide it from screen readers
+		pElm.addEventListener( "blur", function( e ) {
+			e.target.removeAttribute( "tabindex" );
+		} );
+
+		return pElm;
+	},
+
+	// Create a skip link
+	createSkipLink = function( textTemplate, username, linkDestId, skipClass, linkDir ) {
+		const spanElm = document.createElement( "span" );
+		const aElm = document.createElement( "a" );
+		const pElm = document.createElement( "p" );
+
+		spanElm.innerHTML = textTemplate.replace( "%username%", username );
+
+		aElm.href = "#" + linkDestId;
+		aElm.prepend( spanElm );
+
+		// Focus onto the destination of a clicked link
+		$( aElm ).on( "click", function( event ) {
+			const currentTarget = event.currentTarget;
+			const linkDestId = "#" + wb.jqEscape( currentTarget.getAttribute( "href" ).substring( 1 ) );
+			const $linkDest = $document.find( linkDestId );
+
+			// Assign focus to the link's destination
+			// Note: The focus event's scrolling behaviour is more graceful than "jumping" to an anchor link's destination
+			$linkDest.trigger( "setfocus.wb" );
+
+			// Don't engage normal link navigation behaviour (i.e. "jumping" to the link destination, changing address/navigation history)
+			return false;
+		} );
+
+		pElm.className = skipClass + " " + skipClass + "-" + linkDir;
+		pElm.prepend( aElm );
+
+		return pElm;
 	};
 
 $document.on( "timerpoke.wb " + initEvent, selector, init );
 
 // Add the timer poke to initialize the plugin
 wb.add( selector );
+
+} )( jQuery, window, wb );
+
+/**
+ * @title WET-BOEW Data Json [data-json-after], [data-json-append],
+ * [data-json-before], [data-json-prepend], [data-json-replace], [data-json-replacewith] and [data-wb-json]
+ * @overview Insert content extracted from JSON file.
+ * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ * @author @duboisp
+ */
+/*global jsonpointer */
+( function( $, window, wb ) {
+"use strict";
+
+/*
+ * Variable and function definitions.
+ * These are global to the plugin - meaning that they will be initialized once per page,
+ * not once per instance of plugin on the page. So, this is a good place to define
+ * variables that are common to all instances of the plugin on a page.
+ */
+var componentName = "wb-data-json",
+	shortName = "wb-json",
+	selectors = [
+		"[data-json-after]",
+		"[data-json-append]",
+		"[data-json-before]",
+		"[data-json-prepend]",
+		"[data-json-replace]",
+		"[data-json-replacewith]",
+		"[data-" + shortName + "]"
+	],
+	allowJsonTypes = [ "after", "append", "before", "prepend", "val" ],
+	allowAttrNames = /(href|src|data-*|aria-*|role|pattern|min|max|step|low|high|lang|hreflang|action)/,
+	allowPropNames = /(checked|selected|disabled|required|readonly|multiple|hidden)/,
+	selectorsLength = selectors.length,
+	selector = selectors.join( "," ),
+	initEvent = "wb-init." + componentName,
+	updateEvent = "wb-update." + componentName,
+	contentUpdatedEvent = "wb-contentupdated",
+	dataQueue = componentName + "-queue",
+	$document = wb.doc,
+	isExtensionRegistered,
+	s,
+
+	/**
+	 * @method init
+	 * @param {jQuery Event} event Event that triggered this handler
+	 * @param {string} ajaxType The type of JSON operation, either after, append, before or replace
+	 */
+	init = function( event ) {
+
+		// Start initialization
+		// returns DOM object = proceed with init
+		// returns undefined = do not proceed with init (e.g., already initialized)
+		var elm = wb.init( event, componentName, selector ),
+			jsSettings = window[ componentName ] || { },
+			prop,
+			$elm;
+
+		if ( elm ) {
+
+			var jsonCoreTypes = [
+					"before",
+					"replace",
+					"replacewith",
+					"after",
+					"append",
+					"prepend"
+				],
+				jsonType, jsondata,
+				i, i_len = jsonCoreTypes.length, i_cache,
+				lstCall = [],
+				url;
+
+			$elm = $( elm );
+
+			for ( i = 0; i !== i_len; i += 1 ) {
+				jsonType = jsonCoreTypes[ i ];
+				url = elm.getAttribute( "data-json-" + jsonType );
+				if ( url !== null ) {
+					lstCall.push( {
+						type: jsonType,
+						url: url
+					} );
+				}
+			}
+
+			// Extend but not overwrite the functionTest and the functionForOperand if some was added
+			if ( !isExtensionRegistered ) {
+				if ( jsSettings.functionForTest ) {
+					for ( prop in jsSettings.functionForTest ) {
+						if ( !functionForTest[ prop ] ) {
+							functionForTest[ prop ] = jsSettings.functionForTest[ prop ];
+						}
+					}
+				}
+				if ( jsSettings.functionForOperand ) {
+					for ( prop in jsSettings.functionForOperand ) {
+						if ( !functionForOperand[ prop ] ) {
+							functionForOperand[ prop ] = jsSettings.functionForOperand[ prop ];
+						}
+					}
+				}
+				isExtensionRegistered = true;
+			}
+
+			// Identify that initialization has completed
+			wb.ready( $elm, componentName );
+
+			jsondata = wb.getData( $elm, shortName );
+
+			if ( jsondata && jsondata.url ) {
+				lstCall.push( jsondata );
+			} else if ( jsondata && Array.isArray( jsondata ) ) {
+				i_len = jsondata.length;
+				for ( i = 0; i !== i_len; i += 1 ) {
+					lstCall.push( jsondata[ i ] );
+				}
+			}
+
+			// Save it to the dataJSON object.
+			$elm.data( dataQueue, lstCall );
+
+			i_len = lstCall.length;
+			for ( i = 0; i !== i_len; i += 1 ) {
+				i_cache = lstCall[ i ];
+				loadJSON( elm, i_cache.url, i, i_cache.nocache, i_cache.nocachekey, i_cache.data, i_cache.contenttype, i_cache.method );
+			}
+
+		}
+	},
+
+	loadJSON = function( elm, url, refId, nocache, nocachekey, data, contentType, method ) {
+		var $elm = $( elm ),
+			fetchObj = {
+				url: url,
+				refId: refId,
+				nocache: nocache,
+				nocachekey: nocachekey,
+				data: data,
+				contentType: contentType,
+				method: method
+			};
+
+		$elm.trigger( {
+			type: "json-fetch.wb",
+			fetch: fetchObj
+		} );
+	},
+
+
+	// Manage JSON value After the json data has been fetched. This function can deal with array.
+	jsonFetched = function( event ) {
+
+		var elm = event.target,
+			$elm = $( elm ),
+			lstCall = $elm.data( dataQueue ),
+			fetchObj = event.fetch,
+			itmSettings = lstCall[ fetchObj.refId ],
+			jsonType = itmSettings.type,
+			attrname = itmSettings.prop || itmSettings.attr,
+			showEmpty = itmSettings.showempty,
+			content = fetchObj.response,
+			typeOfContent = typeof content,
+			jQueryCaching;
+
+		if ( showEmpty || typeOfContent !== "undefined" ) {
+
+			if ( showEmpty && typeOfContent === "undefined" ) {
+				content = "";
+			}
+
+			//Prevents the force caching of nested resources
+			jQueryCaching = jQuery.ajaxSettings.cache;
+			jQuery.ajaxSettings.cache = true;
+
+			// "replace" and "replaceWith" doesn't map to a jQuery function
+			if ( !jsonType ) {
+				jsonType = "template";
+				applyTemplate( elm, itmSettings, content );
+
+				// Trigger wet
+				if ( itmSettings.trigger && !wb.isDisabled ) {
+					$elm
+						.find( wb.allSelectors )
+						.addClass( "wb-init" )
+						.filter( ":not(#" + elm.id + " .wb-init .wb-init)" )
+						.trigger( "timerpoke.wb" );
+				}
+			} else if ( jsonType === "replace" ) {
+				$elm.html( content );
+			} else if ( jsonType === "replacewith" ) {
+				$elm.replaceWith( content );
+			} else if ( jsonType === "addclass" ) {
+				$elm.addClass( content );
+			} else if ( jsonType === "removeclass" ) {
+				$elm.removeClass( content );
+			} else if ( jsonType === "prop" && attrname && allowPropNames.test( attrname ) ) {
+				$elm.prop( attrname, content );
+			} else if ( jsonType === "attr" && attrname && allowAttrNames.test( attrname ) ) {
+				$elm.attr( attrname, content );
+			} else if ( typeof $elm[ jsonType ] === "function" && allowJsonTypes.indexOf( jsonType ) !== -1 ) {
+				$elm[ jsonType ]( content );
+			} else {
+				throw componentName + " do not support type: " + jsonType;
+			}
+
+			//Resets the initial jQuery caching setting
+			jQuery.ajaxSettings.cache = jQueryCaching;
+
+			$elm.trigger( contentUpdatedEvent, { "json-type": jsonType, "content": content } );
+		}
+	},
+
+	// Apply the template as per the configuration
+	applyTemplate = function( elm, settings, content ) {
+
+		var elmClass = elm.className,
+			dataTable,
+			dataTableAddRow,
+			template = settings.source ? document.querySelector( settings.source ) : elm.querySelector( "template" );
+
+		// If combined with wb-tables plugin
+		if ( elm.tagName === "TABLE" && elmClass.indexOf( "wb-tables" ) !== -1 ) {
+
+			//  Wait for its initialization before to applyTemplate
+			if ( elmClass.indexOf( "wb-tables-inited" ) === -1 || !$.fn.dataTable || !$.fn.dataTable.isDataTable( elm ) ) {
+				$( elm ).one( "wb-ready.wb-tables", function( ) {
+					applyTemplate( elm, settings, content );
+				} );
+				return;
+			}
+
+			dataTable = $( elm ).dataTable( { "retrieve": true } ).api();
+			dataTableAddRow = dataTable.row.add;
+			settings.tobeclone = "tr"; // Only table row can be added
+		}
+
+		if ( !template ) {
+			return;
+		}
+
+		// Needed when executing sub-template that wasn't polyfill, like in IE11
+		if ( !template.content ) {
+			wb.tmplPolyfill( template );
+		}
+
+		if ( !settings.streamline ) {
+			dataIterator( elm, content, settings );
+		} else {
+			processMapping( elm, elm, content, settings );
+		}
+
+		// Refresh the dataTable display
+		if ( dataTableAddRow ) {
+			dataTable.draw();
+		}
+	},
+
+	// Iterate over the dataset
+	dataIterator = function( elm, content, mappingConfig, useClone ) {
+
+		var i, i_len, i_cache,
+			elmAppendTo = elm,
+			clone, template,
+			dataTable, dataTableAddRow;
+
+		if ( mappingConfig.appendto ) {
+			elmAppendTo = $( mappingConfig.appendto ).get( 0 );
+		}
+
+		// Connection with data table plugin
+		if ( elm.tagName === "TABLE" && elm.className.indexOf( "wb-tables" ) !== -1 ) {
+			dataTable = $( elm ).dataTable( { "retrieve": true } ).api();
+			dataTableAddRow = dataTable.row.add;
+			mappingConfig.tobeclone = "tr";
+		}
+
+
+		// if content is object, transform into array @id and @value
+		if ( !Array.isArray( content ) ) {
+			if ( typeof content !== "object" ) {
+				content = [ content ];
+			} else {
+				content = $.map( content, function( val, index ) {
+					if ( val && typeof val === "object" && !Array.isArray( val ) ) {
+						if ( !val[ "@id" ] ) {
+							val[ "@id" ] = index;
+						}
+					} else {
+						val = {
+							"@id": index,
+							"@value": val
+						};
+					}
+					return [ val ];
+				} );
+			}
+		}
+		i_len = content.length;
+
+		// Get the template to be iterated.
+		if ( !useClone && mappingConfig.source ) {
+			template = document.querySelector( mappingConfig.source );
+		} else if ( !useClone && mappingConfig.template ) {
+			template = elm.querySelector( mappingConfig.template );
+		} else if ( !useClone ) {
+			template = elm.querySelectorAll( ":scope > template" );
+			if ( template.length === 1 || template[ 0 ].attributes.length === 0 ) {
+
+				// Only when there is one choice or take the first one only if only there is no attribute set on the element
+				template = template[ 0 ];
+			} else {
+
+				// let the mapping instructions to define which template to use
+				template = false;
+			}
+		}
+
+		// Iterate the data array
+		for ( i = 0; i < i_len; i += 1 ) {
+			i_cache = content[ i ];
+
+
+			// If the data are filtered. This is deprecated and are only for backward compatible purpose
+			if ( !filterPassJSON( i_cache, mappingConfig.filter, mappingConfig.filternot ) ) {
+				continue;
+			}
+
+			// Get the template (if applicable)
+			if ( !clone && useClone ) {
+				clone = useClone;
+			}
+
+			// Create a clone if one unique template is found
+			if ( !useClone && template && !mappingConfig.tobeclone ) {
+				clone = template.content.cloneNode( true );
+			} else if ( !useClone && template ) {
+				clone = template.content.querySelector( mappingConfig.tobeclone ).cloneNode( true );
+			}
+
+			// process the mapping, return value is the new clone object if applicable
+			var tmpClone;
+			tmpClone = processMapping( elm, clone, i_cache, mappingConfig );
+
+			// Remove the template flag, to ensure we do reuse it for the subsequent iteration
+			if ( tmpClone ) {
+				delete mappingConfig.template;
+				clone = tmpClone;
+			}
+
+			// Add the clone object
+			if ( dataTableAddRow ) {
+				dataTableAddRow( $( clone ) ); // If wb-tables, use its API to add rows
+			} else if ( !useClone && template ) {
+				elmAppendTo.appendChild( clone );
+			}
+		}
+
+		// Refresh the dataTable display (if applicable)
+		if ( dataTableAddRow ) {
+			dataTable.draw();
+		}
+
+	},
+
+	// Check if the mapping are met or not
+	canProcessMapping = function( content, mappingConfig ) {
+
+		var rawValue, value,
+			testableData,
+			operand = mappingConfig.operand || "softEq",
+			operandOutcome;
+
+		if ( !mappingConfig.test ) {
+			return;
+		}
+
+		// Get the value to be tested
+		try {
+			rawValue = getRawValue( content, mappingConfig.assess || mappingConfig.value );
+			value = getValue( rawValue );
+		} catch ( ex ) {
+
+			// If this is an error, the path probably don't exist
+			rawValue = undefined;
+			value = undefined;
+		}
+
+		// Get the function to use
+		if ( !functionForTest[ mappingConfig.test ] ) {
+			console.error( "The test function '" + mappingConfig.test + "' don't exist. Default to false test result" );
+			console.error( mappingConfig );
+			return false;
+		}
+		testableData = functionForTest[ mappingConfig.test ].call( mappingConfig, value, rawValue );
+
+		// Run the operand
+		if ( !functionForOperand[ operand ] ) {
+			console.error( "The operand '" + operand + "' don't exist" );
+			console.error( mappingConfig );
+			operand = "softEq";
+		}
+		operandOutcome = functionForOperand[ operand ].call( mappingConfig, testableData, mappingConfig.expect );
+
+		// If not true, go next
+		if ( !operandOutcome ) {
+			return false;
+		}
+
+		// Run mapping if satisfied
+		return true;
+	},
+
+	// Special mapping typed function
+	functionForTypedMapping = {
+
+		"rdf:Alt": function( elm, clone, content, mappingConfig ) {
+
+			var mapping = mappingConfig.mapping,
+				i, i_cache,
+				i_len = mapping.length,
+				value = content;
+
+			for ( i = 0; i < i_len || i === 0; i += 1 ) {
+				i_cache = mapping[ i ];
+
+				if ( canProcessMapping( content, i_cache ) ) {
+
+					// Clone the object to avoid conflict when it is reused for other data
+					i_cache = $.extend( true, {}, i_cache );
+
+					// Remove the test, because it was checked
+					delete i_cache.test;
+
+					// Navigate the content if specified
+					if ( i_cache.value ) {
+						value = getValue( content, i_cache.value );
+					}
+
+					// Process the mapping
+					processMapping( elm, clone, value, i_cache );
+
+					// End
+					return;
+				}
+			}
+		}
+	},
+
+	// Function called for testing the mapping condition, which can be extend via the js configuration
+	functionForTest = {
+
+		"fn:isArray": function( value ) {
+			return Array.isArray( value );
+		},
+
+		"fn:isLiteral": function( value ) {
+
+			// Check if the value are set under the JSON-LD parameter @value
+			if ( value && value[ "@value" ] ) {
+				value = value[ "@value" ];
+			}
+
+			if ( value && typeof value !== "object" ) {
+				return true;
+			}
+
+			return false;
+		},
+
+		"fn:getType": function( value, rawValue ) {
+
+			var tp = value[ "@type" ] || rawValue[ "@type" ];
+
+			if ( tp === "@json" ) {
+				return "rdf:JSON";
+			} else if ( Array.isArray( tp ) && tp.indexOf( "@json" ) !== -1 ) {
+				tp[ tp.indexOf( "@json" ) ] = "rdf:JSON";
+			}
+
+			if ( tp ) {
+				return tp;
+			} else {
+				return typeof value;
+			}
+		},
+
+		"fn:getValue": function( value ) {
+
+			return value;
+
+		},
+
+		"fn:guessType": function( value, rawValue ) {
+
+			var guessType;
+
+			if ( !value ) {
+				guessType = "undefined";
+			} else if ( value[ "@type" ] ) {
+				guessType = value[ "@type" ];
+			} else if ( rawValue[ "@type" ] ) {
+				guessType = rawValue[ "@type" ];
+			} else if ( value[ "@value" ] ) {
+
+				// Only if we are in JSON ld mode
+				// Check if the value are set under the JSON-LD parameter @value
+				value = value[ "@value" ];
+			}
+
+			// Edge case to convert the @json data type into its RDF form
+			if ( guessType && guessType !== "undefined" ) {
+				if ( guessType === "@json" ) {
+					guessType = "rdf:JSON";
+				} else if ( Array.isArray( guessType ) && guessType.indexOf( "@json" ) !== -1 ) {
+					guessType[ guessType.indexOf( "@json" ) ] = "rdf:JSON";
+				}
+			}
+
+			if ( !guessType ) {
+				if ( typeof value === "string" && value.match( /^([a-z][a-z0-9+\-.]*):/i ) ) {
+					guessType = [ "xsd:anyURI", "rdfs:Literal" ];
+				} else if ( typeof value === "string" ) {
+					guessType = [ "xsd:string", "rdfs:Literal" ];
+				} else if ( typeof value === "boolean" ) {
+					guessType = [ "xsd:boolean", "rdfs:Literal" ];
+				} else if ( typeof value === "number" ) {
+					guessType = [ "xsd:double", "rdfs:Literal" ];
+				} else if ( typeof value === "undefined" ) {
+					guessType = "undefined";
+				} else if ( Array.isArray( value ) ) {
+					guessType = "rdfs:Container";
+				} else {
+
+					// The type is a generic Object
+					guessType = "rdfs:Resource";
+				}
+			}
+
+			return guessType;
+		}
+
+	},
+
+	// Operand used to evaluate the testable output from functionForTest to determine if the mapping condition is met or not, which can be extend via the js configuration
+	functionForOperand = {
+
+		"softEq": function( value, expect ) {
+			var i, i_len;
+
+			if ( Array.isArray( value ) && !Array.isArray( expect ) && value.indexOf( expect ) !== -1 ) {
+				return true;
+			} else if ( Array.isArray( value ) &&  Array.isArray( expect ) ) {
+				i_len = expect.length;
+				for ( i = 0; i !== i_len; i++ ) {
+					if ( value.indexOf( expect[ i ] ) ) {
+						return true;
+					}
+				}
+			} else if ( expect && value === expect ) {
+				return true;
+			} else if ( !expect && value ) {
+				return true;
+			}
+
+			return false;
+
+		},
+
+		"eq": function( value, expect ) {
+
+			if ( _equalsJSON( value, expect ) ) {
+				return true;
+			}
+
+			return false;
+		},
+
+		"neq": function( value, expect ) {
+			if ( !_equalsJSON( value, expect ) ) {
+				return true;
+			}
+
+			return false;
+		},
+
+		"in": function( value, expect ) {
+
+			var i;
+
+			if ( !expect ) {
+				console.error( "Expected value is missing. Defaulting to false." );
+				console.error( this );
+				return false;
+			}
+
+			if ( Array.isArray( value ) && !Array.isArray( expect ) && value.indexOf( expect ) !== -1 ) {
+				return true;
+			} else if ( Array.isArray( value ) &&  Array.isArray( expect ) ) {
+				for ( i = 0; i !== expect.length; i++ ) {
+					if ( value.indexOf( expect[ i ] ) ) {
+						return true;
+					}
+				}
+			} else if ( !Array.isArray( value ) &&  Array.isArray( expect ) && expect.indexOf( value ) !== -1  ) {
+				return true;
+			} else if ( value === expect ) {
+				return true;
+			}
+
+			return false;
+		},
+
+		"nin": function( value, expect ) {
+			return !functionForOperand.in.call( this, value, expect );
+		}
+	},
+
+	// Mapping the data into a template or into a node
+	processMapping = function( elm, clone, content, mappingConfig ) {
+
+		var j, j_cache,
+			cached_node, cached_value,
+			cached_value_is_HTML, cached_value_is_JSON, cached_value_is_IRI,
+			queryAll = mappingConfig.queryall,
+			selElements,
+			mapping = mappingConfig.mapping,
+			mapping_len,
+			upstreamClone, template;
+
+
+		// Is this mapping a special mapping type?
+		if ( mappingConfig[ "@type" ] ) {
+			functionForTypedMapping[ mappingConfig[ "@type" ] ].call( content, elm, clone, content, mappingConfig );
+			return;
+		}
+
+		// Can we proceed?
+		if ( mappingConfig.test && !canProcessMapping( content, mappingConfig ) ) {
+			return;
+		}
+
+		// Check if there is some mapping configuration
+		if ( !mapping && !queryAll && !mappingConfig.template && typeof mapping !== "object" ) {
+			return;
+		}
+
+		// Clone mappingConfig to ensure it don't interfere with subsequent data iteration
+		mappingConfig = $.extend( true, {}, mappingConfig );
+
+		// If there is no clone, let use the element (parent)
+		clone = clone || elm;
+
+		// If there is a "template" property, get the inner template
+		if ( mappingConfig.template ) {
+			template = clone.querySelector( mappingConfig.template );
+
+			upstreamClone = clone; // Keep reference of the top clone
+
+			clone = template.content.cloneNode( true );
+
+			// Ensure we don't recreated it if during a subsequent iteration
+			delete mappingConfig.template;
+		}
+
+
+		// Is content an array? then iterate the content
+		if ( Array.isArray( content ) ) {
+
+
+			dataIterator( clone, content, mappingConfig, clone );
+
+			// Case of where a template is associated with this mapping action
+			if ( template ) {
+				if ( template.parentNode ) {
+
+					if ( !mappingConfig.append ) {
+						template.parentNode.insertBefore( clone, template );
+					} else {
+						template.parentNode.appendChild( clone );
+					}
+				} else {
+					upstreamClone.appendChild( clone );
+				}
+
+				return elm;
+
+			}
+			return;
+		}
+
+		// Prepare the mapping object to be iterated
+		if ( !mapping ) {
+			mapping = [ {} ];
+		}
+		if ( !Array.isArray( mapping ) ) {
+			mapping = [ mapping ];
+		}
+		mapping_len = mapping.length;
+
+		// Ensure the mapping is an array of Mapping Object
+		for ( j = 0; j < mapping_len || j === 0; j += 1 ) {
+			if ( typeof mapping[ j ] === "string" ) {
+				mapping[ j ] = {
+					value: mapping[ j ]
+				};
+			}
+		}
+
+		if ( queryAll ) {
+			selElements = clone.querySelectorAll( queryAll );
+
+			// Replicate this setting the in the mapping
+			for ( j = 0; j < selElements.length || j === 0; j += 1 ) {
+				if ( !mapping[ j ].selector && queryAll.indexOf( "nth-child" ) === -1 ) {
+					mapping[ j ].selector = queryAll + ":nth-child(" + ( j + 1 ) + ")";
+				} else if ( !mapping[ j ].selector ) {
+					mapping[ j ].selector = queryAll;
+				}
+			}
+		}
+
+
+		//
+		// Process the mapping
+		//
+		for ( j = 0; j < mapping_len || j === 0; j += 1 ) {
+			j_cache = mapping[ j ];
+
+			// Reset the cache value special type flag
+			cached_value_is_IRI = false;
+			cached_value_is_HTML = false;
+			cached_value_is_JSON = false;
+
+			// Get the element to be updated
+			if ( j_cache.selector ) {
+				cached_node = clone.querySelector( j_cache.selector );
+			} else {
+				cached_node = clone;
+			}
+
+			// Get the value to be set
+			try {
+				cached_value = getRawValue( content, j_cache );
+			} catch ( ex ) {
+
+				// The path don't exist, let continue to the next mapping item
+				console.info( "JSON selector path for mapping don't exist in content" );
+				console.info( j_cache );
+				console.info( content );
+				continue;
+			}
+
+			// Go to the next mapping if the value of JSON node don't exist to ensure we keep the default text set in the template, but move ahead if empty or null
+			if ( typeof cached_value === "undefined" ) {
+				continue;
+			}
+
+			// Do the cache value contain special @type
+			if ( cached_value && cached_value[ "@value" ] && cached_value[ "@type" ] ) {
+				if ( !Array.isArray( cached_value[ "@type" ] ) ) {
+					cached_value[ "@type" ] = [ cached_value[ "@type" ] ];
+				}
+				cached_value_is_IRI = cached_value[ "@type" ].indexOf( "@id" ) !== -1;
+				cached_value_is_HTML = cached_value[ "@type" ].indexOf( "rdf:HTML" ) !== -1;
+				cached_value_is_JSON = cached_value[ "@type" ].indexOf( "rdf:JSON" ) !== -1 || cached_value[ "@type" ].indexOf( "@json" ) !== -1;
+			}
+
+			// Action the value
+			if ( Array.isArray( cached_value ) && ( j_cache.mapping || j_cache.queryall ) ) {
+
+				// Deep dive into the content if a mapping exist
+				dataIterator( cached_node, cached_value, j_cache );
+
+			} else if ( j_cache.mapping || j_cache.queryall || !j_cache.mapping && typeof j_cache.mapping === "object" ) {
+				try {
+
+					// Map the inner mapping
+					processMapping( template || elm, cached_node, cached_value, j_cache );
+				} catch ( ex ) {
+
+					if ( ex === "cached_node: null" && typeof cached_value === "object" ) {
+
+						// If it fail, let iterate the cached_value object
+						dataIterator( cached_node, cached_value, j_cache );
+					} else {
+						throw ex;
+					}
+				}
+			} else if ( cached_value_is_IRI && cached_value_is_HTML ) {
+
+				// The import file type are expected to be HTML
+				// Add the data-ajax instruction so the content would be added once the JSON mapping is completed and added on the page.
+				cached_node.dataset.wbAjax = JSON.stringify( {
+					url: cached_value[ "@value" ],
+					type: "replace",
+					dataType: cached_value_is_JSON ? "json" : null,
+					encode: j_cache.encode
+				} );
+			} else if ( cached_value_is_HTML && cached_value_is_JSON && !cached_value_is_IRI ) {
+
+				// Get content from the "@value" property which contain JSON value and use it as a string value
+				cached_value = JSON.stringify( cached_value[ "@value" ] );
+
+				// Map the value in the element
+				mapValue( cached_node, cached_value, j_cache );
+
+			} else if ( !cached_node && typeof cached_value === "object" ) {
+				throw "cached_node: null";
+			} else if ( mappingConfig.mapping !== null ) {
+
+				cached_value = getValue( cached_value );
+
+				// Serialize the value if it is an JS object and its not a null object
+				if ( typeof cached_value === "object" &&  cached_value !== null ) {
+					cached_value = JSON.stringify( cached_value );
+				}
+
+				// Map the value in the element
+				mapValue( cached_node, cached_value, j_cache );
+			}
+
+		}
+
+		// Add the template, if applicable
+		if ( template ) {
+			if ( template.parentNode ) {
+
+				if ( !mappingConfig.append ) {
+					template.parentNode.insertBefore( clone, template );
+				} else {
+					template.parentNode.appendChild( clone );
+				}
+			} else {
+				upstreamClone.appendChild( clone );
+			}
+
+			return elm;
+		}
+
+	},
+
+	// Extract the value of an JS object
+	getValue = function( source, pointer ) {
+
+		var value = getRawValue( source, pointer );
+
+		// for JSON-LD @value support
+		if ( typeof value === "object" && value !== null && Object.prototype.hasOwnProperty.call( value, "@value" ) ) {
+			value = value[ "@value" ];
+		}
+
+		return value;
+	},
+
+	// Extract the value without considering it possible JSON-LD value
+	getRawValue = function( source, pointer ) {
+
+		var value;
+		pointer = pointer || false; // Ensure pointer is defined
+
+		// Get the value if source is string or pointer is pointing to root
+		if ( typeof source === "string" || pointer === "/" || pointer === "/@value" || pointer.value === "/" || pointer.value === "/@value" ) {
+			value = source;
+		} else if ( typeof pointer === "string" ) {
+			value = jsonpointer.get( source, pointer );
+		} else if ( pointer.value ) {
+			value = jsonpointer.get( source, pointer.value );
+		} else {
+			value = source;
+		}
+
+		return value;
+	},
+
+	// Map a value into an HTML element or attribute
+	mapValue = function( element, value, mappingConfig ) {
+
+		var attributeName, placeholderText;
+
+		attributeName = mappingConfig.attr;
+		if ( attributeName ) {
+			if ( !element.hasAttribute( attributeName ) ) {
+				element.setAttribute( attributeName, "" );
+			}
+			element = element.getAttributeNode( attributeName );
+		}
+
+		// Placeholder text replacement if any
+		if ( mappingConfig.placeholder ) {
+			placeholderText = element.textContent || "";
+			value = placeholderText.replace( mappingConfig.placeholder, value );
+		}
+
+		// Exclude null values and replace with default text
+		if ( value !== null ) {
+			if ( mappingConfig.isHTML ) {
+				element.innerHTML = value;
+			} else {
+				element.textContent = value;
+			}
+		}
+	},
+
+
+	// Filtering a JSON
+	// Return true if trueness && falseness
+	// Return false if !( trueness && falseness )
+	// trueness and falseness is an array of { "path": "", "value": "" } object
+	filterPassJSON = function( obj, trueness, falseness ) {
+		var i, i_cache,
+			trueness_len = trueness ? trueness.length : 0,
+			falseness_len = falseness ? falseness.length : 0,
+			compareResult = false,
+			isEqual;
+
+		if ( trueness_len || falseness_len ) {
+
+			for ( i = 0; i < trueness_len; i += 1 ) {
+				i_cache = trueness[ i ];
+				isEqual = _equalsJSON( jsonpointer.get( obj, i_cache.path ), i_cache.value );
+
+				if ( i_cache.optional ) {
+					compareResult = compareResult || isEqual;
+				} else if ( !isEqual ) {
+					return false;
+				} else {
+					compareResult = true;
+				}
+			}
+			if ( trueness_len && !compareResult ) {
+				return false;
+			}
+
+			for ( i = 0; i < falseness_len; i += 1 ) {
+				i_cache = falseness[ i ];
+				isEqual = _equalsJSON( jsonpointer.get( obj, i_cache.path ), i_cache.value );
+
+				if ( isEqual && !i_cache.optional || isEqual && i_cache.optional ) {
+					return false;
+				}
+			}
+
+		}
+		return true;
+	},
+
+	//
+	_equalsJSON = function( a, b ) {
+		switch ( typeof a ) {
+			case "undefined":
+				return false;
+			case "boolean":
+			case "string":
+			case "number":
+				return a === b;
+			case "object":
+				if ( a === null ) {
+					return b === null;
+				}
+				var i, l;
+				if ( Array.isArray( a ) ) {
+					if (  !Array.isArray( b ) || a.length !== b.length ) {
+						return false;
+					}
+					for ( i = 0, l = a.length; i < l; i++ ) {
+						if ( !_equalsJSON( a[ i ], b[ i ] ) ) {
+							return false;
+						}
+					}
+					return true;
+				}
+				var bKeys = _objectKeys( b ),
+					bLength = bKeys.length;
+				if ( _objectKeys( a ).length !== bLength ) {
+					return false;
+				}
+				for ( i in a ) {
+					if ( !_equalsJSON( a[ i ], b[ i ] ) ) {
+						return false;
+					}
+				}
+				return true;
+			default:
+				return false;
+		}
+	},
+	_objectKeys = function( obj ) {
+		var keys;
+		if ( Array.isArray( obj ) ) {
+			keys = new Array( obj.length );
+			for ( var k = 0; k < keys.length; k++ ) {
+				keys[ k ] = "" + k;
+			}
+			return keys;
+		}
+		if ( Object.keys ) {
+			return Object.keys( obj );
+		}
+		keys = [];
+		for ( var i in obj ) {
+			if ( Object.prototype.hasOwnProperty.call( obj, i ) ) {
+				keys.push( i );
+			}
+		}
+		return keys;
+	},
+
+	// Manage JSON value After the json data has been fetched
+	jsonUpdate = function( event ) {
+		var elm = event.target,
+			$elm = $( elm ),
+			lstCall = $elm.data( dataQueue ),
+			refId = lstCall.length,
+			wbJsonConfig = event[ "wb-json" ];
+
+		if ( !( wbJsonConfig.url && ( wbJsonConfig.type || wbJsonConfig.source ) ) ) {
+			throw "Data JSON update not configured properly";
+		}
+
+		lstCall.push( wbJsonConfig );
+		$elm.data( dataQueue, lstCall );
+
+		loadJSON( elm, wbJsonConfig.url, refId );
+	};
+
+$document.on( "json-failed.wb", selector, function( event ) {
+
+	var elm = event.currentTarget,
+		$elm = $( elm ),
+		lstCall = $elm.data( dataQueue ),
+		fetchObj = event.fetch,
+		xhrResponse = fetchObj.xhr,
+		itmSettings = lstCall[ fetchObj.refId ],
+		failSettings = itmSettings.fail;
+
+	if ( failSettings ) {
+
+		// Mapping is always streamline because the data structure is a static object not an array
+		failSettings.streamline = true;
+
+		// apply the template to display an error message
+		applyTemplate( elm, failSettings, {
+			error: fetchObj.error.message || xhrResponse.statusText,
+			status: fetchObj.status,
+			url: fetchObj.fetchOpts.url,
+			response: {
+				text: xhrResponse.responseText || "",
+				status: xhrResponse.status,
+				statusText: xhrResponse.statusText
+			}
+		} );
+	}
+
+	console.info( event.currentTarget );
+	console.error( "Error or bad JSON Fetched from url in " + componentName );
+} );
+
+// Load template polyfill
+Modernizr.load( {
+	test: ( "content" in document.createElement( "template" ) ),
+	nope: "site!deps/template" + wb.getMode() + ".js"
+} );
+
+$document.on( "timerpoke.wb " + initEvent + " " + updateEvent + " json-fetched.wb", selector, function( event ) {
+
+	if ( event.currentTarget === event.target ) {
+		switch ( event.type ) {
+
+			case "timerpoke":
+			case "wb-init":
+				init( event );
+				break;
+			case "wb-update":
+				jsonUpdate( event );
+				break;
+			default:
+				jsonFetched( event );
+				break;
+		}
+	}
+
+	return true;
+} );
+
+// Add the timerpoke to initialize the plugin
+for ( s = 0; s !== selectorsLength; s += 1 ) {
+	wb.add( selectors[ s ] );
+}
 
 } )( jQuery, window, wb );
 
@@ -12552,6 +18694,40 @@ wb.add( selector );
 var componentName = "wb-disable",
 	selector = "#wb-tphp",
 	$document = wb.doc,
+	allowOnDisableClass = "wb-disable-allow",
+	allowedPlugins = [
+		{
+			selectors: "[data-wb-jsonmanager]",
+			initEvent: "wb-jsonmanager"
+		},
+		{
+			selectors: "[data-wb-postback]",
+			initEvent: "wb-postback"
+		},
+		{
+			selectors: [
+				"[data-ajax-after]",
+				"[data-ajax-append]",
+				"[data-ajax-before]",
+				"[data-ajax-prepend]",
+				"[data-ajax-replace]",
+				"[data-wb-ajax]"
+			],
+			initEvent: "wb-data-ajax"
+		},
+		{
+			selectors: [
+				"[data-json-after]",
+				"[data-json-append]",
+				"[data-json-before]",
+				"[data-json-prepend]",
+				"[data-json-replace]",
+				"[data-json-replacewith]",
+				"[data-wb-json]"
+			],
+			initEvent: "wb-data-json"
+		}
+	],
 
 	/**
 	 * @method init
@@ -12567,36 +18743,61 @@ var componentName = "wb-disable",
 			$html = wb.html,
 			i18n = wb.i18n,
 			pageUrl = wb.pageUrlParts,
-			li, param,
+			param,
 			noticeHeader = i18n( "disable-notice-h" ),
 			noticeBody = i18n( "disable-notice" ),
 			noticehtml = "<section",
-			noticehtmlend = "</a>.</p></section>";
+			noticehtmlend = "</a>.</p></section>",
+			canonicalUrl,
+			canonicalLink;
 
 		if ( elm ) {
-			li = document.createElement( "li" );
-			li.className = "wb-slc";
 
 			// Rebuild the query string
 			for ( param in pageUrl.params ) {
-				if ( param && pageUrl.params.hasOwnProperty( param ) && param !== "wbdisable" ) {
-					nQuery += param + "=" + pageUrl.params[ param ] + "&#38;";
+				if ( param && Object.prototype.hasOwnProperty.call( pageUrl.params, param ) && param !== "wbdisable" ) {
+					nQuery += param + "=" + pageUrl.params[ param ] + "&";
 				}
 			}
 
 			try {
-				if ( wb.isDisabled || ( wb.ie && wb.ielt7 ) ) {
+				if ( wb.isDisabled || wb.ie ) {
 					$html.addClass( "wb-disable" );
 
 					try {
 
 						// Store preference for WET plugins and polyfills to be disabled in localStorage
 						localStorage.setItem( "wbdisable", "true" );
-					} catch ( e ) {}
+					} catch ( e ) {
+
+						/* swallow error */
+					}
+
+					// Trigger initialization of plugins that are needed in basic mode
+					runAllowedPlugins();
+
+					// Add canonical link if not already present
+					if ( !document.querySelector( "link[rel=canonical]" ) ) {
+
+						// Remove wbdisable from URL
+						canonicalUrl = window.location.href.replace( /&?wbdisable=true/gi, "" ).replace( "?&", "?" ).replace( "?#", "#" );
+
+						if ( canonicalUrl.indexOf( "?" ) === ( canonicalUrl.length - 1 ) ) {
+							canonicalUrl = canonicalUrl.replace( "?", "" );
+						}
+
+						canonicalLink = document.createElement( "link" );
+						canonicalLink.rel = "canonical";
+						canonicalLink.href = canonicalUrl;
+
+						document.head.appendChild( canonicalLink );
+					}
 
 					// Add notice and link to re-enable WET plugins and polyfills
-					noticehtml = noticehtml + " class='alert alert-warning text-center'><h2>" + noticeHeader + "</h2><p>" + noticeBody + "</p><p><a rel='alternate' property='significantLink' href='" + nQuery + "wbdisable=false'>" + i18n( "wb-enable" ) + noticehtmlend;
+					let significantLinkId = wb.getId();
+					noticehtml = noticehtml + " class='container-fluid bg-warning text-center mrgn-tp-sm py-4'><h2 class='mrgn-tp-0'>" + noticeHeader + "</h2><p>" + noticeBody + "</p><p><a id='" + significantLinkId + "' rel='alternate' href='" + nQuery + "wbdisable=false'>" + i18n( "wb-enable" ) + noticehtmlend;
 					$( elm ).after( noticehtml );
+					document.querySelector( "#" + significantLinkId ).setAttribute( "property", "significantLink" );
 					return true;
 				} else {
 					$html.addClass( "wb-enable" );
@@ -12608,28 +18809,50 @@ var componentName = "wb-disable",
 					}
 
 					// Remove variable from URL
-					var lc = window.location.href.replace( "wbdisable=false", "" ).replace( "?#", "#" );
+					var lc = window.location.href.replace( /&?wbdisable=false/gi, "" ).replace( "?&", "?" ).replace( "?#", "#" );
 					if ( lc.indexOf( "?" ) === ( lc.length - 1 ) ) {
 						lc = lc.replace( "?", "" );
 					}
 					window.history.replaceState( "", "", lc );
 				}
 			} catch ( error ) {
+
+				/* swallow error */
 			}
 
 			// Append the Basic HTML version link version
-			li.innerHTML = "<a class='wb-sl' rel='alternate' href='" + nQuery + "wbdisable=true'>" + i18n( "wb-disable" ) + "</a>";
-
 			// Add link to disable WET plugins and polyfills
-			elm.appendChild( li );
+			wb.addSkipLink( i18n( "wb-disable" ), {
+				href: nQuery + "wbdisable=true",
+				rel: "alternate"
+			}, false, true );
 
 			// Identify that initialization has completed
 			wb.ready( $document, componentName );
 		}
+	},
+
+	// Trigger initialization of plugins that are needed in basic mode
+	// TODO: Remove once basic initialization is implemented at the core level
+	runAllowedPlugins = function() {
+		allowedPlugins.forEach( allowedPlugin => {
+			if ( typeof( allowedPlugin.selectors ) === "object" ) {
+				allowedPlugin.selectors = allowedPlugin.selectors.join( "." + allowOnDisableClass + "," );
+			}
+
+			allowedPlugin.selectors = allowedPlugin.selectors + "." + allowOnDisableClass;
+
+			$( allowedPlugin.selectors ).trigger( "wb-init." + allowedPlugin.initEvent );
+		} );
 	};
 
 // Bind the events
 $document.on( "timerpoke.wb", selector, init );
+
+// Go through allowed plugins once again when content has been added dynamically
+$document.on( "wb-contentupdated", function() {
+	runAllowedPlugins();
+} );
 
 // Add the timer poke to initialize the plugin
 wb.add( selector );
@@ -12647,7 +18870,7 @@ wb.add( selector );
 
 var $document = wb.doc,
 	$window = wb.win,
-	clickEvents = "click vclick",
+	clickEvents = "click",
 	setFocusEvent = "setfocus.wb",
 	linkSelector = "a[href]",
 	$linkTarget,
@@ -12666,7 +18889,8 @@ var $document = wb.doc,
 // Bind the setfocus event
 $document.on( setFocusEvent, function( event ) {
 	if ( event.namespace === "wb" ) {
-		var $elm = $( event.target ),
+		var elm = event.target,
+			$elm = $( elm ),
 			$closedParents = $elm.not( "summary" ).parents( "details, [role='tabpanel']" ),
 			$closedPanels, $closedPanel, len, i;
 
@@ -12682,24 +18906,45 @@ $document.on( setFocusEvent, function( event ) {
 				$closedPanel = $closedPanels.eq( i );
 				$closedPanel.closest( ".wb-tabs" )
 					.find( "#" + $closedPanel.attr( "aria-labelledby" ) )
-						.trigger( "click" );
+					.trigger( "click" );
 			}
 		}
 
-		// Set the tabindex to -1 (as needed) to ensure the element is focusable
-		$elm
-			.filter( ":not([tabindex], a[href], button, input, textarea, select)" )
-				.attr( "tabindex", "-1" );
-
 		// Assigns focus to an element (delay allows for revealing of hidden content)
 		setTimeout( function() {
+			let addedTabIndexAttr = false;
+
 			$elm.trigger( "focus" );
 
-			var $topBar = $( ".wb-bar-t[aria-hidden=false]" );
+			// If the element hasn't gained focus, retry with a tabindex attribute...
+			if ( elm !== document.activeElement && elm.getAttribute( "tabindex" ) === null ) {
 
-			// Ensure the top bar overlay does not conceal the focus target
-			if ( $topBar.length !== 0 ) {
-				document.documentElement.scrollTop -= $topBar.outerHeight();
+				// Add a tabindex="-1" attribute and keep track of it for later
+				elm.setAttribute( "tabindex", "-1" );
+				addedTabIndexAttr = true;
+
+				// Try re-focusing
+				$elm.trigger( "focus" );
+			}
+
+			// If the element has gained focus...
+			if ( elm === document.activeElement ) {
+				const $topBar = $( ".wb-bar-t[aria-hidden=false]" );
+
+				// Ensure the top bar overlay does not conceal the focus target
+				if ( $topBar.length !== 0 ) {
+					document.documentElement.scrollTop -= $topBar.outerHeight();
+				}
+			} else {
+
+				// Remove the element's tabindex attribute (no point in keeping it if it didn't help)
+				if ( addedTabIndexAttr ) {
+					elm.removeAttribute( "tabindex" );
+				}
+
+				// Show a console error
+				console.error( setFocusEvent + ": Unable to focus onto the destination element... maybe it's hidden?" );
+				console.error( elm );
 			}
 
 			return $elm;
@@ -12732,6 +18977,1230 @@ $document.on( clickEvents, linkSelector, function( event ) {
 } );
 
 } )( jQuery, wb );
+
+/**
+ * @title WET-BOEW JSON Manager
+ * @overview Manage JSON dataset, execute JSON patch operation.
+ * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ * @author @duboisp
+ */
+/*global jsonpointer, jsonpatch */
+( function( $, window, wb ) {
+"use strict";
+
+/*
+ * Variable and function definitions.
+ * These are global to the plugin - meaning that they will be initialized once per page,
+ * not once per instance of plugin on the page. So, this is a good place to define
+ * variables that are common to all instances of the plugin on a page.
+ */
+var componentName = "wb-jsonmanager",
+	selector = "[data-" + componentName + "]",
+	initEvent = "wb-init." + componentName,
+	postponeEvent = "postpone." + componentName,
+	patchesEvent = "patches." + componentName,
+	jsonFailedClass = "jsonfail",
+	reloadFlag = "data-" + componentName + "-reload",
+	dsNameRegistered = [],
+	datasetCache = {},
+	datasetCacheSettings = {},
+	dsDelayed = {},
+	dsPostponePatches = {},
+	dsFetching = {},
+	dsFetchIsArray = {},
+	dsFetchMerged = {},
+	$document = wb.doc,
+	defaults = {
+		ops: [
+			{
+				name: "patches",
+				fn: function( obj, key, tree ) {
+					var path = this.path,
+						patches = this.patches,
+						newTree = jsonpointer.get( tree, path );
+
+					patches.forEach( ( patchConf ) => {
+						patchConf.mainTree = tree;
+						patchConf.pathParent = path;
+						jsonpatch.apply( newTree, [ patchConf ] );
+					} );
+				}
+			},
+			{
+				name: "wb-count",
+				fn: function( obj, key, tree ) {
+					var countme = obj[ key ],
+						len = 0, i_len, i,
+						filter = this.filter || [ ],
+						filternot = this.filternot || [ ];
+
+					if ( !Array.isArray( filter ) ) {
+						filter = [ filter ];
+					}
+					if ( !Array.isArray( filternot ) ) {
+						filternot = [ filternot ];
+					}
+
+					if ( ( filter.length || filternot.length ) && Array.isArray( countme ) ) {
+
+						// Iterate in obj[key] / item and check if is true for the given path is any.
+						i_len = countme.length;
+
+						for ( i = 0; i !== i_len; i = i + 1 ) {
+							if ( filterPassJSON( countme[ i ], filter, filternot ) ) {
+								len = len + 1;
+							}
+						}
+					} else if ( Array.isArray( countme ) ) {
+						len = countme.length;
+					}
+					applyPatch( tree, "add", this.set, len );
+				}
+			},
+			{
+				name: "wb-first",
+				fn: function( obj, key, tree ) {
+					var currObj = obj[ key ];
+					if ( !Array.isArray( currObj ) || currObj.length === 0 ) {
+						return;
+					}
+
+					applyPatch( tree, "add", this.set, currObj[ 0 ] );
+				}
+			},
+			{
+				name: "wb-last",
+				fn: function( obj, key, tree ) {
+					var currObj = obj[ key ];
+					if ( !Array.isArray( currObj ) || currObj.length === 0 ) {
+						return;
+					}
+
+					applyPatch( tree, "add", this.set, currObj[ currObj.length - 1 ] );
+				}
+			},
+			{
+				name: "wb-nbtolocal",
+				fn: function( obj, key, tree ) {
+					var val = obj[ key ],
+						loc = this.locale || window.wb.lang,
+						suffix = this.suffix || "",
+						prefix = this.prefix || "";
+
+					if ( typeof val === "string" ) {
+						val = parseFloat( val );
+						if ( isNaN( val ) ) {
+							return;
+						}
+					}
+
+					applyPatch( tree, "replace", this.path, prefix + val.toLocaleString( loc ) + suffix );
+				}
+			},
+			{
+				name: "wb-decodeUTF8Base64",
+				fn: function( obj, key, tree ) {
+					var val = obj[ key ];
+
+					if ( !this.set ) {
+						applyPatch( tree, "replace", this.path, wb.decodeUTF8Base64( val ) );
+					} else {
+						applyPatch( tree, "add", this.set, wb.decodeUTF8Base64( val ) );
+					}
+				}
+			},
+			{
+				name: "wb-escapeHTML",
+				fn: function( obj, key, tree ) {
+					var val = obj[ key ];
+
+					if ( !this.set ) {
+						applyPatch( tree, "replace", this.path, wb.escapeHTML( val ) );
+					} else {
+						applyPatch( tree, "add", this.set, wb.escapeHTML( val ) );
+					}
+				}
+			},
+			{
+				name: "wb-toDateISO",
+				fn: function( obj, key, tree ) {
+					if ( !this.set ) {
+						applyPatch( tree, "replace", this.path, wb.date.toDateISO( obj[ key ] ) );
+					} else {
+						applyPatch( tree, "add", this.set, wb.date.toDateISO( obj[ key ] ) );
+					}
+				}
+			},
+			{
+				name: "wb-toDateTimeISO",
+				fn: function( obj, key, tree ) {
+					if ( !this.set ) {
+						applyPatch( tree, "replace", this.path, wb.date.toDateISO( obj[ key ], true ) );
+					} else {
+						applyPatch( tree, "add", this.set, wb.date.toDateISO( obj[ key ], true ) );
+					}
+				}
+			},
+			{
+				name: "wb-swap",
+				fn: function( obj, key, tree ) {
+					var val = obj[ key ],
+						ref = this.ref,
+						mainTree = this.mainTree || obj,
+						path = this.path,
+						newVal,
+						refObject, refIsArray, valWasArray,
+						i, i_len, i_item,
+						j, j_len, j_item;
+
+					if ( val ) {
+
+						refObject = jsonpointer.get( mainTree, ref );
+						refIsArray = Array.isArray( refObject );
+						valWasArray = Array.isArray( val );
+
+						if ( !valWasArray ) {
+							val =  [ val ];
+						}
+
+						i_len = val.length;
+
+						for ( i = 0; i !== i_len; i++ ) {
+							i_item = val[ i ];
+							newVal = undefined; // Reinit
+							if ( !refIsArray ) {
+								i_item = i_item.replaceAll( "~", "~0" ).replaceAll( "/", "~1" ); // Escape slashed and tilde in val when the key is an IRI for JSON pointer compatibility
+								newVal = mainTree ? jsonpointer.get( mainTree, ref + "/" + i_item ) : jsonpointer.get( tree, ref + "/" + i_item );
+							} else {
+
+								// Iterate until we found a corresponding value in the property "@id"
+								j_len = refObject.length;
+								for ( j = 0; j !== j_len; j++ ) {
+									j_item = refObject[ j ];
+									if ( j_item[ "@id" ] && j_item[ "@id" ] === i_item ) {
+										newVal = j_item;
+										break;
+									}
+								}
+								if ( !newVal ) {
+									console.error( "wb-swap: Unable to find a corresponding value for: " + val + " in reference " + ref );
+									break;
+								}
+							}
+							if ( newVal && !valWasArray ) {
+								applyPatch( tree, "replace", path, newVal );
+							} else if ( newVal ) {
+								applyPatch( tree, "replace", path + "/" + i, newVal );
+							}
+						}
+					}
+				}
+			}
+		],
+		opsArray: [
+			{
+				name: "wb-toDateISO",
+				fn: function( arr )  {
+					var setval = this.set,
+						pathval = this.path,
+						i, i_len = arr.length;
+					for ( i = 0; i !== i_len; i += 1 ) {
+						if ( setval ) {
+							jsonpatch.apply( arr, [
+								{ op: "wb-toDateISO", set: "/" + i + setval, path: "/" + i + pathval }
+							] );
+						} else {
+							jsonpatch.apply( arr, [
+								{ op: "wb-toDateISO", path: "/" + i + pathval }
+							] );
+						}
+					}
+				}
+			},
+			{
+				name: "wb-toDateTimeISO",
+				fn: function( arr ) {
+					var setval = this.set,
+						pathval = this.path,
+						i, i_len = arr.length;
+					for ( i = 0; i !== i_len; i += 1 ) {
+						if ( setval ) {
+							jsonpatch.apply( arr, [
+								{ op: "wb-toDateTimeISO", set: "/" + i + setval, path: "/" + i + pathval }
+							] );
+						} else {
+							jsonpatch.apply( arr, [
+								{ op: "wb-toDateTimeISO", path: "/" + i + pathval }
+							] );
+						}
+					}
+				}
+			},
+			{
+				name: "wb-swap",
+				fn: function( arr ) {
+					arr.forEach( ( item, i ) => {
+						jsonpatch.apply( arr, [
+							{ op: "wb-swap", path: "/" + i + this.path, ref: this.ref, mainTree: this.mainTree }
+						] );
+					} );
+				}
+			},
+			{
+				name: "patches",
+				fn: function( arr ) {
+					arr.forEach( ( item, i ) => {
+						jsonpatch.apply( this.mainTree || arr, [
+							{ op: "patches", path: ( this.pathParent || "" ) + "/" + i + this.path, patches: this.patches }
+						] );
+					} );
+				}
+			}
+		],
+		opsRoot: [],
+		settings: { },
+		docMapKeys: { "referer": document.referrer, "locationHref": location.href }
+	},
+
+	// Add debug information after the JSON manager element
+	debugPrintOut = function( $elm, name, json, patches ) {
+		$elm.after( "<p lang=\"en\"><strong>JSON Manager Debug</strong> (" +  name + ")</p><ul lang=\"en\"><li>JSON: <pre><code>" + JSON.stringify( json ) + "</code></pre></li><li>Patches: <pre><code>" + JSON.stringify( patches ) + "</code></pre>" );
+		console.log( json );
+	},
+
+	/**
+	 * @method init
+	 * @param {jQuery Event} event Event that triggered the function call
+	 */
+	init = function( event ) {
+
+		// Start initialization
+		// returns DOM object = proceed with init
+		// returns undefined = do not proceed with init (e.g., already initialized)
+		var elm = wb.init( event, componentName, selector ),
+			$elm,
+			jsSettings = window[ componentName ] || { },
+			ops, opsArray, opsRoot,
+			i, i_len, i_cache,
+			url, urlActual, dsName,
+			fetchOpts = { };
+
+		if ( elm ) {
+			$elm = $( elm );
+
+			// Load handlebars
+			Modernizr.load( {
+
+				// For loading multiple dependencies
+				load: [
+					"site!deps/json-patch" + wb.getMode() + ".js",
+					"site!deps/jsonpointer" + wb.getMode() + ".js"
+				],
+				testReady: function() {
+					return window.jsonpatch && window.jsonpointer;
+				},
+				complete: function() {
+					var elmData = wb.getData( $elm, componentName );
+
+					if ( !defaults.registered ) {
+						ops = defaults.ops.concat( jsSettings.ops || [ ] );
+						opsArray = defaults.opsArray.concat( jsSettings.opsArray || [ ] );
+						opsRoot = defaults.opsRoot.concat( jsSettings.opsRoot || [ ] );
+
+						if ( ops.length ) {
+							for ( i = 0, i_len = ops.length; i !== i_len; i++ ) {
+								i_cache = ops[ i ];
+								jsonpatch.registerOps( i_cache.name, i_cache.fn );
+							}
+						}
+						if ( opsArray.length ) {
+							for ( i = 0, i_len = opsArray.length; i !== i_len; i++ ) {
+								i_cache = opsArray[ i ];
+								jsonpatch.registerOpsArray( i_cache.name, i_cache.fn );
+							}
+						}
+						if ( opsRoot.length ) {
+							for ( i = 0, i_len = opsRoot.length; i !== i_len; i++ ) {
+								i_cache = opsRoot[ i ];
+								jsonpatch.registerOpsRoot( i_cache.name, i_cache.fn );
+							}
+						}
+						defaults.settings = $.extend( {}, defaults.settings, jsSettings.settings || {} );
+						defaults.registered = true;
+					}
+
+					dsName = elmData.name;
+					if ( !dsName || dsName in dsNameRegistered ) {
+						throw "Dataset name must be unique";
+					}
+					dsNameRegistered.push( dsName );
+
+					url = elmData.url;
+
+					if ( url ) {
+
+						url = typeof url === "string" ? [ url ] : url;
+						i_len = url.length;
+
+						dsFetching[ dsName ] = i_len;
+
+						for ( i = 0; i !== i_len; i++ ) {
+
+							urlActual = url[ i ];
+
+							// Fetch default configuration
+							fetchOpts = {
+								nocache: elmData.nocache,
+								nocachekey: elmData.nocachekey,
+								data: elmData.data,
+								contentType: elmData.contenttype,
+								method: elmData.method
+							};
+
+							// When the "url" is an extended configuration
+							if ( urlActual.url ) {
+								fetchOpts.savingPath = urlActual.path || "";
+								fetchOpts.url = urlActual.url;
+							} else {
+								fetchOpts.url = urlActual;
+							}
+
+							// Fetch the JSON
+							$elm.trigger( {
+								type: "json-fetch.wb",
+								fetch: fetchOpts
+							} );
+
+							// If the URL is a dataset, make it ready
+							if ( fetchOpts.url.charCodeAt( 0 ) === 35 && fetchOpts.url.charCodeAt( 1 ) === 91 ) {
+								wb.ready( $elm, componentName );
+							}
+						}
+					} else if ( !url && elmData.extractor ) {
+						$elm.trigger( {
+							type: "json-fetched.wb",
+							fetch: {
+								response: {}
+							}
+						} );
+						wb.ready( $elm, componentName );
+
+					} else {
+
+						$elm.trigger( {
+							type: "json-fetch.wb"
+						} );
+						wb.ready( $elm, componentName );
+					}
+
+				}
+			} );
+		}
+	},
+	extractData = function( elmObj ) {
+
+		var isGroup = false,
+			selectedTag,
+			targetTag,
+			lastIndex = [],
+			j_tag = "",
+			group = {},
+			arrMap = [],
+			node_children = [],
+			j_node = 0,
+			arrRepeatPath = [],
+			combineToObj = function( cur_obj ) {
+				if ( cur_obj.selector === j_tag ) {
+					if ( !lastIndex.includes( j_tag ) ) {
+						group[ cur_obj.path ] = cur_obj.attr && node_children[ j_node ].getAttributeNode( cur_obj.attr ) ?
+							node_children[ j_node ].getAttributeNode( cur_obj.attr ).textContent :
+							node_children[ j_node ].textContent;
+						lastIndex.push( j_tag );
+					}
+				}
+			},
+			manageObjDir = function( selector, selectedValue, json_return ) {
+				var arrPath = selector.path.split( "/" ).filter( Boolean );
+
+				// Check if selectedValue is an empty value returned by querySelectorAll
+				if ( selectedValue && selectedValue instanceof NodeList && selectedValue.length === 0 ) {
+					selectedValue = null;
+				}
+
+				if ( arrPath.length > 1 ) {
+					var pointer = "";
+					pointer = arrPath.pop();
+
+					if ( arrPath[ 0 ] && arrPath[ 0 ] !== "" ) {
+
+						if ( !json_return[ arrPath[ 0 ] ] && !arrRepeatPath.includes( arrPath[ 0 ] ) ) {
+							arrRepeatPath.push( arrPath[ 0 ] );
+							json_return[ arrPath[ 0 ] ] = {};
+						}
+						if ( selector.selectAll && !json_return[ arrPath[ 0 ] ] [ pointer ]  ) {
+							json_return[ arrPath[ 0 ] ] [ pointer ] = [];
+						}
+						if ( selector.selectAll ) {
+							json_return[ arrPath[ 0 ] ] [ pointer ].push( selectedValue );
+						} else {
+							json_return[ arrPath[ 0 ] ] [ pointer ] = selectedValue;
+						}
+
+					} else {
+
+						if ( selector.selectAll ) {
+							json_return[ arrPath[ 0 ] ].push( selectedValue );
+						} else {
+							json_return[ pointer ] = selectedValue;
+						}
+					}
+				} else {
+
+					if ( selector.selectAll ) {
+						if ( !json_return[ selectedTag.path ] ) {
+							json_return[ selectedTag.path ] = [];
+						}
+						json_return[ selectedTag.path ].push( selectedValue );
+					} else {
+						json_return[ selectedTag.path ] = selectedValue;
+					}
+				}
+			},
+			jsonSource = {};
+
+
+		for ( var tag = 0; tag <= elmObj.length - 1; tag++ ) {
+
+			selectedTag = elmObj[ tag ];
+
+			if ( !selectedTag.interface ) {
+
+				targetTag = document.querySelectorAll( selectedTag.selector || "" );
+				isGroup = selectedTag.extractor && selectedTag.extractor.length >= 1 ? true : false;
+
+				if ( selectedTag.selectAll ) {
+
+					for ( var i_node = 0; i_node <= targetTag.length - 1; i_node++ ) {
+
+						var selectedTagValue = selectedTag.attr && targetTag [ i_node ].getAttributeNode( selectedTag.attr ) ?
+							targetTag [ i_node ].getAttributeNode( selectedTag.attr ).textContent :
+							targetTag [ i_node ].textContent;
+
+						manageObjDir( selectedTag, selectedTagValue, jsonSource );
+					}
+				}
+
+				// extract from combined selectors and group the values e.g dt with dd
+				if ( isGroup ) {
+
+					jsonSource[ selectedTag.path ] = [];
+
+					node_children = targetTag[ 0 ].children;
+
+					var extractorLength = Object.keys( selectedTag.extractor ).length;
+
+					for ( j_node = 0; j_node <= node_children.length - 1; j_node++ ) {
+
+						j_tag = node_children[ j_node ].tagName.toLowerCase();
+
+						selectedTag.extractor.find( combineToObj );
+						if ( Object.keys( group ).length === extractorLength ) {
+							arrMap.push( group );
+							group = {};
+							lastIndex = [];
+						}
+					}
+					$.extend( jsonSource[ selectedTag.path ], arrMap );
+				}
+
+				if ( targetTag.length ) {
+					targetTag = selectedTag.attr && targetTag [ 0 ].getAttributeNode( selectedTag.attr ) ?
+						targetTag [ 0 ].getAttributeNode( selectedTag.attr ).textContent :
+						targetTag [ 0 ].textContent;
+				}
+
+			} else {
+
+				targetTag = defaults.docMapKeys[ selectedTag.interface ];
+
+				manageObjDir( selectedTag, targetTag, jsonSource );
+			}
+
+			if ( !selectedTag.selectAll  ) {
+				if ( isGroup === false ) {
+					manageObjDir( selectedTag, targetTag, jsonSource );
+				}
+			}
+		}
+
+		return jsonSource;
+	},
+
+	// Filtering a JSON
+	// Return true if trueness && falseness
+	// Return false if !( trueness && falseness )
+	// trueness and falseness is an array of { "path": "", "value": "" } object
+	filterPassJSON = function( obj, trueness, falseness ) {
+		var i, i_cache,
+			trueness_len = trueness.length,
+			falseness_len = falseness.length,
+			compareResult = false,
+			isEqual;
+
+		if ( trueness_len || falseness_len ) {
+
+			for ( i = 0; i < trueness_len; i += 1 ) {
+				i_cache = trueness[ i ];
+				isEqual = _equalsJSON( jsonpointer.get( obj, i_cache.path ), i_cache.value );
+
+				if ( i_cache.optional ) {
+					compareResult = compareResult || isEqual;
+				} else if ( !isEqual ) {
+					return false;
+				} else {
+					compareResult = true;
+				}
+			}
+			if ( trueness_len && !compareResult ) {
+				return false;
+			}
+
+			for ( i = 0; i < falseness_len; i += 1 ) {
+				i_cache = falseness[ i ];
+				isEqual = _equalsJSON( jsonpointer.get( obj, i_cache.path ), i_cache.value );
+
+				if ( isEqual && !i_cache.optional || isEqual && i_cache.optional ) {
+					return false;
+				}
+			}
+
+		}
+		return true;
+	},
+
+	// Utility function to compare two JSON value
+	_equalsJSON = function( a, b ) {
+		switch ( typeof a ) {
+			case "undefined":
+				return false;
+			case "boolean":
+			case "string":
+			case "number":
+				return a === b;
+			case "object":
+				if ( a === null ) {
+					return b === null;
+				}
+				var i, l;
+				if ( Array.isArray( a ) ) {
+					if (  Array.isArray( b ) || a.length !== b.length ) {
+						return false;
+					}
+					for ( i = 0, l = a.length; i < l; i++ ) {
+						if ( !_equalsJSON( a[ i ], b[ i ] ) ) {
+							return false;
+						}
+					}
+					return true;
+				}
+				var bKeys = _objectKeys( b ),
+					bLength = bKeys.length;
+				if ( _objectKeys( a ).length !== bLength ) {
+					return false;
+				}
+				for ( i = 0; i < bLength; i++ ) {
+					if ( !_equalsJSON( a[ i ], b[ i ] ) ) {
+						return false;
+					}
+				}
+				return true;
+			default:
+				return false;
+		}
+	},
+	_objectKeys = function( obj ) {
+		var keys;
+		if ( Array.isArray( obj ) ) {
+			keys = new Array( obj.length );
+			for ( var k = 0; k < keys.length; k++ ) {
+				keys[ k ] = "" + k;
+			}
+			return keys;
+		}
+		if ( Object.keys ) {
+			return Object.keys( obj );
+		}
+		keys = [];
+		for ( var i in obj ) {
+			if ( Object.prototype.hasOwnProperty.call( obj, i ) ) {
+				keys.push( i );
+			}
+		}
+		return keys;
+	},
+
+	// Utility function to apply a JSON patch
+	applyPatch = function( tree, op, path, value ) {
+		jsonpatch.apply( tree, [
+			{ op: op, path: path, value: value }
+		] );
+	},
+
+	// Create series of patches for filtering
+	getPatchesToFilter = function( JSONsource, filterPath, filterTrueness, filterFalseness ) {
+		var filterObj,
+			i, i_len;
+
+		if ( !Array.isArray( filterTrueness ) ) {
+			filterTrueness = [ filterTrueness ];
+		}
+		if ( !Array.isArray( filterFalseness ) ) {
+			filterFalseness = [ filterFalseness ];
+		}
+
+		filterObj = jsonpointer.get( JSONsource, filterPath );
+		if ( Array.isArray( filterObj ) ) {
+			i_len = filterObj.length - 1;
+			for ( i = i_len; i !== -1; i -= 1 ) {
+				if ( !filterPassJSON( filterObj[ i ], filterTrueness, filterFalseness ) ) {
+					jsonpatch.apply( JSONsource, [ { op: "remove", path: filterPath + "/" + i } ] );
+				}
+			}
+		}
+		return JSONsource;
+	};
+
+$document.on( "json-failed.wb", selector, function( event ) {
+	var elm = event.target,
+		$elm;
+
+	if ( elm === event.currentTarget ) {
+		$elm = $( elm );
+		$elm.addClass( jsonFailedClass );
+
+		// Identify that initialization has completed
+		wb.ready( $elm, componentName );
+	}
+} );
+
+$document.on( "json-fetched.wb", selector, function( event ) {
+	var elm = event.target,
+		$elm = $( elm ),
+		settings,
+		fetchedOpts = event.fetch.fetchedOpts,
+		isReloading = elm.hasAttribute( reloadFlag ),
+		dsName,
+		JSONresponse = event.fetch.response,
+		isArrayResponse,
+		resultSet,
+		i, i_len, i_cache, backlog, selector,
+		objIterator, savingPathSplit,
+		patches, filterTrueness, filterFalseness, filterPath, extractor;
+
+	if ( elm === event.currentTarget ) {
+		settings = wb.getData( $elm, componentName );
+
+		// Is the fetched JSON need to be wrap in another plain object
+		if ( fetchedOpts && fetchedOpts.savingPath ) {
+			savingPathSplit = fetchedOpts.savingPath.split( "/" );
+
+			for ( i = savingPathSplit.length - 1; i > 0; i-- ) {
+				if ( !savingPathSplit[ i ] ) {
+					continue;
+				}
+				objIterator = {};
+				objIterator[ savingPathSplit[ i ] ] = JSONresponse;
+				JSONresponse = objIterator;
+			}
+		}
+
+		// Determine if the response is an array
+		isArrayResponse = Array.isArray( JSONresponse );
+
+		// Ensure the response is an independent clone
+		if ( isArrayResponse ) {
+			JSONresponse = $.extend( true, [], JSONresponse );
+		} else {
+			JSONresponse = $.extend( true, {}, JSONresponse );
+		}
+
+		dsName = settings.name;
+		dsFetching[ dsName ]--;
+
+		// Ensure that we do have fetched and merged all urls everything before to move ahead
+		dsFetchIsArray[ dsName ] = dsFetchIsArray[ dsName ] ? dsFetchIsArray[ dsName ] : isArrayResponse;
+
+		if ( dsFetchIsArray[ dsName ] !== isArrayResponse ) {
+			throw "Can't merge, incompatible JSON type (array vs object)";
+		}
+
+		if ( !dsFetchMerged[ dsName ] ) {
+			dsFetchMerged[ dsName ] = JSONresponse;
+		} else if ( dsFetchMerged[ dsName ] && isArrayResponse ) {
+			dsFetchMerged[ dsName ] = dsFetchMerged[ dsName ].concat( JSONresponse );
+		} else {
+			dsFetchMerged[ dsName ] = $.extend( dsFetchMerged[ dsName ], JSONresponse );
+		}
+
+		// Quit and wait for the next fetch
+		if ( !isReloading && dsFetching[ dsName ] ) {
+			return;
+		}
+
+		JSONresponse = dsFetchMerged[ dsName ];
+
+		extractor = settings.extractor;
+		if ( extractor ) {
+			if ( !Array.isArray( extractor ) ) {
+				extractor = [ extractor ];
+			}
+			JSONresponse = $.extend( JSONresponse, extractData( extractor ) );
+
+		}
+
+		dsName = "[" + dsName + "]";
+		patches = settings.patches || [];
+		filterPath = settings.fpath;
+		filterTrueness = settings.filter || [];
+		filterFalseness = settings.filternot || [];
+
+		if ( !Array.isArray( patches ) ) {
+			patches = [ patches ];
+		}
+
+		// Apply a filtering
+		if ( filterPath ) {
+			JSONresponse = getPatchesToFilter( JSONresponse, filterPath, filterTrueness, filterFalseness );
+		}
+
+		// Apply the wraproot
+		if ( settings.wraproot  ) {
+			i_cache = { };
+			i_cache[ settings.wraproot ] = JSONresponse;
+			JSONresponse = i_cache;
+		}
+
+		// Apply the patches
+		if ( patches.length ) {
+			jsonpatch.apply( JSONresponse, patches );
+		}
+
+		if ( settings.debug ) {
+			debugPrintOut( $elm, "initEvent", JSONresponse, patches );
+		}
+
+		try {
+			datasetCache[ dsName ] = JSONresponse;
+		} catch ( error ) {
+			return;
+		}
+		datasetCacheSettings[ dsName ] = settings;
+
+		if ( isReloading ) {
+			elm.removeAttribute( reloadFlag );
+			i_cache = dsPostponePatches[ dsName ];
+			if ( i_cache ) {
+				$elm.trigger( i_cache );
+			}
+		}
+
+		if ( !settings.wait && dsDelayed[ dsName ] ) {
+			backlog = dsDelayed[ dsName ];
+			i_len = backlog.length;
+			for ( i = 0; i !== i_len; i += 1 ) {
+				i_cache = backlog[ i ];
+				selector = i_cache.selector;
+				if ( selector.length ) {
+					try {
+						resultSet = jsonpointer.get( JSONresponse, selector );
+					} catch  ( e ) {
+						throw dsName + " - JSON selector not found: " + selector;
+					}
+				} else {
+					resultSet = JSONresponse;
+				}
+				$( "#" + i_cache.callerId ).trigger( {
+					type: "json-fetched.wb",
+					fetch: {
+						response: resultSet,
+						status: "200",
+						refId: i_cache.refId,
+						xhr: null
+					}
+				}, this );
+			}
+		}
+
+		// Identify that initialization has completed
+		wb.ready( $elm, componentName );
+	}
+} );
+
+// Apply patches to a preloaded JSON data
+$document.on( patchesEvent, selector, function( event ) {
+	var elm = event.target,
+		$elm = $( elm ),
+		patches = event.patches,
+		filterPath = event.fpath,
+		filterTrueness = event.filter || [],
+		filterFalseness = event.filternot || [],
+		isCumulative = !!event.cumulative,
+		settings,
+		dsName,
+		dsJSON, resultSet,
+		delayedLst,
+		i, i_len, i_cache, pntrSelector;
+
+	if ( elm === event.currentTarget && Array.isArray( patches ) ) {
+		settings = wb.getData( $elm, componentName );
+
+		if ( !settings ) {
+			return true;
+		}
+		dsName = "[" + settings.name + "]";
+
+		// Check if the patches need to be hold until the next json-fetch event
+		if ( elm.hasAttribute( reloadFlag ) ) {
+			dsPostponePatches[ dsName ] = event;
+			return true;
+		}
+
+		if ( !dsDelayed[ dsName ] ) {
+			throw "Applying patched on undefined dataset name: " + dsName;
+		}
+
+		dsJSON = datasetCache[ dsName ];
+		if ( !isCumulative ) {
+			dsJSON = $.extend( true, ( Array.isArray( dsJSON ) ? [] : {} ), dsJSON );
+		}
+
+		// Apply a filtering
+		if ( filterPath ) {
+			dsJSON = getPatchesToFilter( dsJSON, filterPath, filterTrueness, filterFalseness );
+		}
+
+		jsonpatch.apply( dsJSON, patches );
+
+		if ( settings.debug ) {
+			debugPrintOut( $elm, "patchesEvent", dsJSON, patches );
+		}
+
+		delayedLst = dsDelayed[ dsName ];
+		i_len = delayedLst.length;
+		for ( i = 0; i !== i_len; i += 1 ) {
+			i_cache = delayedLst[ i ];
+			pntrSelector = i_cache.selector;
+			if ( pntrSelector.length ) {
+				try {
+					resultSet = jsonpointer.get( dsJSON, pntrSelector );
+				} catch  ( e ) {
+					throw dsName + " - JSON selector not found: " + pntrSelector;
+				}
+			} else {
+				resultSet = dsJSON;
+			}
+			$( "#" + i_cache.callerId ).trigger( {
+				type: "json-fetched.wb",
+				fetch: {
+					response: resultSet,
+					status: "200",
+					refId: i_cache.refId,
+					xhr: null
+				}
+			}, this );
+		}
+	}
+} );
+
+
+// Used by the JSON-fetch plugin for when trying fetching a resource that is mapped a dataset name
+$document.on( postponeEvent, function( event ) {
+	var jsonPostpone = event.postpone,
+		dsName = jsonPostpone.dsname,
+		callerId = jsonPostpone.callerId,
+		refId = jsonPostpone.refId,
+		selector = jsonPostpone.selector,
+		resultSet;
+
+	if ( !dsDelayed[ dsName ] ) {
+		dsDelayed[ dsName ] = [ ];
+	}
+
+	// Add to the delayed updates list
+	dsDelayed[ dsName ].push( {
+		"callerId": callerId,
+		"refId": refId,
+		"selector": selector
+	} );
+
+	// Send the data if the dataset is ready?
+	if ( datasetCache[ dsName ] && !datasetCacheSettings[ dsName ].wait ) {
+		resultSet = datasetCache[ dsName ];
+		if ( selector.length ) {
+			try {
+				resultSet = jsonpointer.get( resultSet, selector );
+			} catch  ( e ) {
+				throw dsName + " - JSON selector not found: " + selector;
+			}
+		}
+		$( "#" + callerId ).trigger( {
+			type: "json-fetched.wb",
+			fetch: {
+				response: resultSet,
+				status: "200",
+				refId: refId,
+				xhr: null
+			}
+		}, this );
+	}
+
+} );
+
+/*
+ * Integration with wb-fieldflow
+ *
+ */
+function pushData( $elm, prop, data, reset ) {
+	var dtCache = $elm.data( prop );
+	if ( !dtCache || reset ) {
+		dtCache = [];
+	}
+	dtCache.push( data );
+	return $elm.data( prop, dtCache );
+}
+
+// Fieldflow "op" action
+$document.on( "op.action.wb-fieldflow", ".wb-fieldflow", function( event, data ) {
+
+	if ( !data.op ) {
+		return;
+	}
+
+	// Postpone the event for form submission
+	data.preventSubmit = true;
+	pushData( $( data.provEvt ), "wb-fieldflow-submit", data );
+} );
+
+// Fieldflow "op" submit
+$document.on( "op.submit.wb-fieldflow", ".wb-fieldflow", function( event, data ) {
+
+	// Get the hbs Plugin
+	var op = data.op,
+		source = data.source,
+		ops;
+
+	if ( !op ) {
+		return true;
+	}
+
+	if ( !Array.isArray( op ) ) {
+		ops = [];
+		ops.push( op );
+	} else {
+		ops = op;
+	}
+
+	$( source ).trigger( {
+		type: "patches.wb-jsonmanager",
+		patches: ops
+	} );
+} );
+
+// Bind the init event of the plugin
+$document.on( "timerpoke.wb " + initEvent, selector, init );
+
+
+// Add the timer poke to initialize the plugin
+wb.add( selector );
+
+} )( jQuery, window, wb );
+
+/**
+ * @title WET-BOEW wb-postback
+ * @overview This plugin implements AJAX request for form data to submit on same page without refresh
+ * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ * @author @masterbee, @namjohn920, @GormFrank
+ **/
+( function( $, wb ) {
+"use strict";
+
+var $document = wb.doc,
+	componentName = "wb-postback",
+	selector = "." + componentName,
+	initEvent = "wb-init" + selector,
+	failEvent = "fail" + selector,
+	successEvent = "success" + selector,
+	defaults = {},
+
+	init = function( event ) {
+		var elm = wb.init( event, componentName, selector );
+
+		if ( elm ) {
+			var $elm = $( elm ),
+				settings = $.extend(
+					true,
+					{},
+					defaults,
+					wb.getData( $elm, componentName )
+				),
+				multiple = typeof $elm.data( componentName + "-multiple" ) !== "undefined",
+				classToggle = settings.toggle || "hide",
+				selectorSuccess = settings.success,
+				selectorFailure = settings.failure || selectorSuccess;
+			const attrBlocked = "data-wb-blocked",
+				attrPIIBlocked = "data-wb-pii-blocked",
+				attrSending = "data-wb-sending";
+
+			elm.addEventListener( "submit", function( e ) {
+
+				// Prevent regular form submit
+				e.preventDefault();
+
+				//Check if the form use the validation plugin
+				if ( elm.parentElement.classList.contains( "wb-frmvld" ) ) {
+
+					// Block invalid forms and allow valid ones
+					if ( !$elm.valid() ) {
+						$( this ).attr( attrBlocked, "true" );
+					} else {
+						$( this ).removeAttr( attrBlocked );
+					}
+				}
+
+				// Submit the form unless it's blocked or currently being sent
+				if ( !$( this ).attr( attrBlocked ) && !$( this ).attr( attrSending ) && !$( this ).attr( attrPIIBlocked ) ) {
+					$elm.trigger( componentName + ".submit", e.submitter );
+				}
+			} );
+
+			$elm.on( componentName + ".submit", function( event, submitter ) {
+				var data = $elm.serializeArray(),
+					$selectorSuccess = $( selectorSuccess ),
+					$selectorFailure = $( selectorFailure );
+
+				// Indicate that the form is currently being sent (to prevent multiple submissions in parallel)
+				$( this ).attr( attrSending, true );
+
+				// If the submit button contains a variable, add it to the form's parameters
+				// Note: Submitting a form via Enter will act as if the FIRST submit button was pressed. Therefore, that button's variable will be added (as opposed to nothing). This is in line with default form submission behaviour.
+				if ( submitter && submitter.name ) {
+					data.push( { name: submitter.name, value: submitter.value } );
+				}
+
+				// Hide feedback messages
+				$selectorFailure.addClass( classToggle );
+				$selectorSuccess.addClass( classToggle );
+
+				// Send the form through ajax and ignore the response body.
+				$.ajax( {
+					type: this.method,
+					url: this.action,
+					data: $.param( data )
+				} )
+					.done( function() {
+						$elm.trigger( successEvent );
+						$selectorSuccess.removeClass( classToggle );
+					} )
+					.fail( function( response ) {
+						$elm.trigger( failEvent, response );
+						$selectorFailure.removeClass( classToggle );
+					} )
+					.always( function() {
+
+						// Hide the form unless multiple submits are allowed
+						if ( !multiple ) {
+							$elm.addClass( classToggle );
+						}
+
+						// Remove the sending indicator now that submission is fully complete (i.e. HTTP response code has been received)
+						$elm.removeAttr( attrSending );
+					} );
+			} );
+
+			wb.ready( $( elm ), componentName );
+		}
+	};
+
+// Bind the init event of the plugin
+$document.on( "timerpoke.wb " + initEvent, selector, init );
+
+// Add the timer poke to initialize the plugin
+wb.add( selector );
+
+} )( jQuery, wb );
+
+/**
+ * @title WET-BOEW Randomize
+ * @overview This plugin randomly picks one of the child component to be shown on the browser.
+ * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ * @author @masterbee @namjohn920
+ */
+( function( $, window, wb ) {
+"use strict";
+
+var $document = wb.doc,
+	componentName = "wb-randomize",
+	selector = "[data-wb-randomize]",
+	initEvent = "wb-init" + selector,
+	defaults = {},
+
+	init = function( event ) {
+		var elm = wb.init( event, componentName, selector ),
+			$elm, settings, $selectedElm, valuesList;
+
+		if ( elm ) {
+			$elm = $( elm );
+			settings = $.extend(
+				true,
+				{},
+				defaults,
+				window[ componentName ],
+				wb.getData( $elm, componentName )
+			);
+
+			if ( settings.attribute ) {
+				if ( settings.values && Array.isArray( settings.values ) ) {
+					valuesList = settings.values;
+					shuffleArray( valuesList );
+					elm.setAttribute( settings.attribute, valuesList[ 0 ] );
+				} else {
+					throw componentName + ": You must define the property \"values\" to an array of strings when \"attribute\" property is defined.";
+				}
+			} else {
+				$selectedElm = settings.selector ? $( settings.selector, $elm ) : $elm.children();
+
+				if ( !$selectedElm.length ) {
+					throw componentName + " selector setting is invalid or no children";
+				}
+
+				if ( settings.shuffle ) {
+					$selectedElm = wb.shuffleDOM( $selectedElm );
+				}
+
+				if ( settings.toggle ) {
+					$selectedElm = wb.pickElements( $selectedElm, settings.number );
+					$selectedElm.toggleClass( settings.toggle );
+				}
+			}
+
+			wb.ready( $elm, componentName );
+		}
+	},
+
+	shuffleArray = function( array ) {
+		for ( let i = array.length - 1; i > 0; i-- ) {
+			const j = Math.floor( Math.random() * ( i + 1 ) );
+			[ array[ i ], array[ j ] ] = [ array[ j ], array[ i ] ];
+		}
+	};
+
+// Bind the init event of the plugin
+$document.on( "timerpoke.wb " + initEvent, selector, init );
+
+// Add the timer poke to initialize the plugin
+wb.add( selector );
+
+} )( jQuery, window, wb );
 
 /**
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
@@ -12877,22 +20346,22 @@ $document.on( "timerpoke.wb " + initEvent + " " + tableParsingCompleteEvent, sel
 
 	switch ( event.type ) {
 
-	/*
-	 * Init
-	 */
-	case "timerpoke":
-	case "wb-init":
-		init( event );
-		break;
+		/*
+		 * Init
+		 */
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
 
-	/*
-	 * Data table parsed
-	 */
-	case "parsecomplete":
-		if ( event.currentTarget === eventTarget ) {
-			zebraTable( $( eventTarget ) );
-		}
-		break;
+		/*
+		 * Data table parsed
+		 */
+		case "parsecomplete":
+			if ( event.currentTarget === eventTarget ) {
+				zebraTable( $( eventTarget ) );
+			}
+			break;
 	}
 
 	/*

@@ -15,9 +15,8 @@ $document.on( "change", pluginSelector, function( event ) {
 	$( this ).trigger( {
 		type: "ajax-fetch.wb",
 		fetch: {
-			url: encodeURI( "https://api.github.com/repos/wet-boew/wet-boew/issues?labels=Plugin: " + componentName ),
-			dataType: wb.ielt10 ? "jsonp" : "json",
-			jsonp: wb.ielt10 ? "callback" : null
+			url: encodeURI( "https://api.github.com/repos/wet-boew/wet-boew/issues?labels=Feature: " + componentName ),
+			dataType: "json"
 		}
 	} );
 

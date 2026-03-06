@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-12">
       <h2 class="wb-inv">{{ _("Language selection link") }}</h2>
-      <ul class="list-inline margin-bottom-none">
+      <ul class="list-inline mrgn-bttm-0">
 
         {% if h.lang() == 'fr' %}
         <li><a lang="en" hreflang="en" href="{% url_for h.current_url(), locale='en' %}">English</a></li>

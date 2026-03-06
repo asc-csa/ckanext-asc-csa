@@ -88,12 +88,15 @@ wb.i18nDict = {
 		on: "Zobraziť Skryté titulky"
 	},
 	"cc-err": "Chyba pri načítaní uzavreté titulkami",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Povoliť zvukový opis",
 		off: "Zakázať zvukový opis"
 	},
 	pos: "Aktuálna pozícia:",
 	dur: "Celkový čas:",
+	msgYoutubeNotLoad: "Video encountered loading issues",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Zdieľať",
@@ -184,6 +187,14 @@ wb.i18nDict = {
 	info1000: "&#160;",
 	lenMenu: "Zobraziť _MENU_ položiek",
 	filter: "Filtrovanie položiek",
+	tbFilterInst: "This table provides a sorting feature via the buttons across the column header row with only one instance visible at a time.",
+
+	/* Twitter embedded timeline */
+	"twitter-start-notice": "Start of @%username%’s X timeline",
+	"twitter-end-notice": "End of @%username%’s X timeline",
+	"twitter-skip-end": "Skip to end of @%username%’s X timeline",
+	"twitter-skip-start": "Skip to start of @%username%’s X timeline",
+	"twitter-timeline-title": "X timeline",
 
 	/* Geomap */
 	"geo-mapctrl": "@geo-mapctrl@",
@@ -227,6 +238,7 @@ wb.i18nDict = {
 	"wb-enable": "Switch to standard version",
 	"disable-notice-h": "Notice: Basic HTML",
 	"disable-notice": "You are viewing Basic HTML view. Some features may be disabled.",
+	"skip-prefix": "Skip to:",
 
 	/* Dismissable content */
 	"dismiss": "Dismiss",
@@ -236,7 +248,23 @@ wb.i18nDict = {
 
 	/* Filter */
 	"fltr-lbl": "Filter<span class=\"wb-inv\"> content: results appear below as you type.</span>",
-	"fltr-info": "Showing _NBITEM_ filtered from _TOTAL_ total entries"
+	"fltr-info": "Showing <span data-nbitem></span> filtered from <span data-total></span> total entries",
+
+	/* Data scrub */
+	"pii-header": "Remove Personal information",
+	"pii-intro": "Some information in your form is identified as personal information and it will be replaced as follows:",
+	"pii-view-more": "What is considered personal information?",
+	"pii-view-more-info": "<p>The following types of information are considered personal information:</p><ul><li>email address</li><li>telephone number</li><li>postal code</li><li>passport number</li><li>business number</li><li>social insurance number (SIN)</li></ul>",
+	"pii-yes-btn": "Remove personal information and submit",
+	"pii-cancel-btn": "Go back and edit fields",
+	"redacted": "redacted",
+
+	/* Steps form */
+	"rel-preposition": " of ",
+	"progress-label": "Questionnaire progress:",
+
+	/* Pagination */
+	"pagination-label": "Pagination"
 };
 
 } )( wb );
@@ -270,7 +298,8 @@ $.extend( $.validator.messages, {
 	range: $.validator.format( "Musí byť medzi {0} a {1}." ),
 	max: $.validator.format( "Nemôže byť viac ako {0}." ),
 	min: $.validator.format( "Nemôže byť menej ako {0}." ),
-	creditcard: "Číslo platobnej karty musí byť platné."
+	creditcard: "Číslo platobnej karty musí byť platné.",
+	step: $.validator.format( "Musí byť násobkom čísla {0}." )
 } );
 return $;
 }));

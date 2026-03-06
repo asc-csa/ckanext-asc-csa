@@ -60,12 +60,12 @@
 
                         {%-if item.active %}
                         <a href="{{ href }}" title="{{  _('Remove the filter')+' '+item.label }}">
-                        <i class="fa fa-{{ "check-" if item.active else "" }}square-o"></i>&nbsp;
+                        <i class="fa-regular fa-square-check"></i>&nbsp;
                         <span>{{ item.label }} {{ count }}</span>
                         <span class="wb-inv">{{ _('Remove the filter')+' '+item.label }}</span>
                         {%- else -%}
                         <a href="{{ href }}" title="{{  _('Add the filter')+' '+item.label }}">
-                        <i class="fa fa-{{ "check-" if item.active else "" }}square-o"></i>&nbsp;
+                        <i class="fa-regular fa-square"></i>&nbsp;
                         <span>{{ item.label }} {{ count }}</span>
                         <span class="wb-inv">{{ _('Add the filter')+' '+item.label }}</span>
                         {%endif%}

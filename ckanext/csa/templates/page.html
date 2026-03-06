@@ -33,13 +33,16 @@
           {% endblock %}
 
           {% block toolbar %}
-            <div class="toolbar" role="navigation"  aria-label="breadcrumbs">
+            <nav id="wb-bc" property="breadcrumb">
+              <h2 class="wb-inv">{{ _('You are here:') }}</h2>
               {% block breadcrumb %}
+                <div class="container">
                   <ol class="breadcrumb">
                     {% snippet 'snippets/home_breadcrumb_item.html' %}
                   </ol>
+                </div>
               {% endblock %}
-            </div>
+            </nav>
           {% endblock %}
 
           <div {% block main_search_role %}{% endblock %} class="row wrapper{% block wrapper_class %}{% endblock %}{% if self.secondary()|trim == '' or c.action=='resource_read' %} no-nav{% endif %}">
