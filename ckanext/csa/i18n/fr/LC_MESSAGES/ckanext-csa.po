@@ -1,15 +1,14 @@
-# French translations for ckanext-csa.
+# French translations for PROJECT.
 # Copyright (C) 2020 ORGANIZATION
-# This file is distributed under the same license as the ckanext-csa
-# project.
+# This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ckanext-csa 0.0.1\n"
+"Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-03-02 10:42-0800\n"
-"PO-Revision-Date: 2020-01-23 10:19-0500\n"
+"POT-Creation-Date: 2021-04-30 10:28-0300\n"
+"PO-Revision-Date: 2020-07-10 16:35-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -17,7 +16,11 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
+"Generated-By: Babel 2.8.0\n"
+
+#: ckanext/csa/plugin.py:231
+msgid "Search Tips"
+msgstr "Astuces de recherche"
 
 #: ckanext/csa/plugin.py:231
 msgid "Data or information"
@@ -1670,10 +1673,15 @@ msgid "full {format} dump"
 msgstr "décharge {format} complète"
 
 #: ckanext/csa/templates/package/search.html:69
-#, fuzzy, python-format
-#| msgid "" " You can also access this registry using the %(api_doc_link)s) or
-#| " "download a %(dump_link)s. "
-msgid ""
+msgid "" 
+" You can also access this registry using the %(api_doc_link)s) or " 
+"download a %(dump_link)s. "
+msgstr ""
+"Vous pouvez également accéder à ce registre en utilisant les "
+"liens%(api_doc_link)s) ou télécharger un %(dump_link)s. "
+
+#: ckanext/csa/templates/package/search.html:69
+msgid "" 
 " You can also access these datasets using the %(api_doc_link)s) or "
 "download a %(dump_link)s. "
 msgstr ""
@@ -1981,9 +1989,6 @@ msgstr "Dimension du jeu de données"
 #~ msgid "Federal"
 #~ msgstr "Fédérale"
 
-#~ msgid "Language selection"
-#~ msgstr "Sélection de la langue"
-
 #~ msgid "Filter Results"
 #~ msgstr "Filtrer les résultats"
 
@@ -2030,9 +2035,6 @@ msgstr "Dimension du jeu de données"
 #~ msgstr ""
 
 #~ msgid "There are no {facet_type} that match this search"
-#~ msgstr ""
-
-#~ msgid ""
 #~ msgstr ""
 
 #~ msgid "Scientific data"
