@@ -28,23 +28,29 @@
     {%- endif %}
   {% endblock %}
 
-  {% block search_sortby %}
-    {% if sorting %}
-      <div class="form-group control-order-by" style="display:flex; flex-direction: row; justify-content: right">
-        <label for="field-order-by" style="margin: 0 5px">{{ _('Order by')}} </label>
-        <select id="field-order-by" name="sort" class="form-control">
-          {% for label, value in sorting %}
-            {% if label and value %}
-              <option value="{{ value }}"{% if sorting_selected == value %} selected="selected"{% endif %}>{{ label }}</option>
-            {% endif %}
-          {% endfor %}
-        </select>
-          {% block search_sortby_button %}
-            <button class="btn btn-default" type="submit">{{ _('Sort') }}</button>
-          {% endblock %}
-        </div>
-
-    {% endif %}
+  {% block search_tips_and_sortby %}
+    <div class="mrgn-tp-sm mrgn-bttm-sm" style="display: flex; align-items: center; justify-content: space-between;">
+      {% block search_tips %}
+        <a href="{{ h.url_for('csa.search_tips') }}"><i class="fa fa-question-circle"></i> {{ _('Search Tips') }}</a>
+      {% endblock %}
+      {% block search_sortby %}
+        {% if sorting %}
+          <div style="display: flex; align-items: center; gap: 5px;">
+            <label for="field-order-by" class="mrgn-bttm-0">{{ _('Order by') }}</label>
+            <select id="field-order-by" name="sort" class="form-control" style="width: auto;">
+              {% for label, value in sorting %}
+                {% if label and value %}
+                  <option value="{{ value }}"{% if sorting_selected == value %} selected="selected"{% endif %}>{{ label }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+            {% block search_sortby_button %}
+              <button class="btn btn-default" type="submit">{{ _('Sort') }}</button>
+            {% endblock %}
+          </div>
+        {% endif %}
+      {% endblock %}
+    </div>
   {% endblock %}
 
   {% block search_title %}
