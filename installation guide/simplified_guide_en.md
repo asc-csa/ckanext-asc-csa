@@ -211,6 +211,17 @@ ckan -c /etc/ckan/default/ckan.ini run
 
 The portal will be available at `http://localhost:5000`. There are no datasets at this point.
 
+### Background Jobs (link)
+
+You might need to start the jobs worker to detect the broken links:
+
+```bash
+source /usr/lib/ckan/default/bin/activate
+ckan -c /etc/ckan/default/ckan.ini jobs worker
+```
+You can view the broken links on this page:
+[[https://datatest.asc-csa.gc.ca/ckan-admin](https://datatest.asc-csa.gc.ca/ckan-admin/link-checker)](https://datatest.asc-csa.gc.ca/ckan-admin/link-checker)
+
 ### Background Jobs (XLoader)
 
 In a separate terminal, start the background job worker for XLoader:
