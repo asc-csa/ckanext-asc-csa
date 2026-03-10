@@ -139,7 +139,7 @@ ckan.plugins = stats text_view image_view webpage_view recline_view
                fluent scheming_datasets scheming_organizations scheming_groups
                pdf_view geo_view geojson_view wmts_view shp_view
                xloader spatial_metadata spatial_query
-               officedocs_view bulk similar_datasets csa
+               officedocs_view bulk similar_datasets link csa
 
 ## Scheming Configuration
 scheming.dataset_schemas = ckanext.csa:csa_dataset.yaml
