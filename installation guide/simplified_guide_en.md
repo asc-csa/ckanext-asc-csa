@@ -220,7 +220,7 @@ source /usr/lib/ckan/default/bin/activate
 ckan -c /etc/ckan/default/ckan.ini jobs worker
 ```
 You can view the broken links on this page:
-[[https://datatest.asc-csa.gc.ca/ckan-admin](https://datatest.asc-csa.gc.ca/ckan-admin/link-checker)](https://datatest.asc-csa.gc.ca/ckan-admin/link-checker)
+[https://<<portal_url>>/ckan-admin](https://<<portal_url>>/ckan-admin/link-checker)
 
 ### Background Jobs (XLoader)
 
