@@ -80,3 +80,23 @@ a.btn {
 .module-shallow .panel-title {
     font-size: 16px;
 }
+
+/* CKAN 2.11 uses Bootstrap 5 JS which adds .show to modals,
+   but GCWeb uses Bootstrap 3 CSS which expects .in. */
+.modal.show {
+    display: block;
+}
+.modal.show .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+.modal-backdrop.show {
+    opacity: 0.5;
+}
+
+/* GCWeb sets .modal-content { background: transparent } and only gives
+   .modal-body and .modal-footer a white background, leaving .modal-header
+   transparent. Restore the background so the header is visible. */
+.modal-header {
+    background: #fff;
+}
