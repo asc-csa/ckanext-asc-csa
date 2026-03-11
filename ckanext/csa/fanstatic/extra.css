@@ -82,7 +82,11 @@ a.btn {
 }
 
 /* CKAN 2.11 uses Bootstrap 5 JS which adds .show to modals,
-   but GCWeb uses Bootstrap 3 CSS which expects .in. */
+   but GCWeb uses Bootstrap 3 CSS which expects .in.
+   .fade sets opacity:0; .fade.in sets opacity:1 — alias .show to match. */
+.fade.show {
+    opacity: 1;
+}
 .modal.show {
     display: block;
 }
