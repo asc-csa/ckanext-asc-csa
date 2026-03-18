@@ -11,3 +11,4 @@
 -e git+https://github.com/jqnatividad/ckanext-officedocs.git#egg=ckanext-officedocs
 -e git+https://github.com/asc-csa/ckanext-similar-datasets.git#egg=ckanext-similar-datasets
 -e git+https://github.com/TkTech/ckanext-link.git#egg=ckanext-link
+-e git+https://github.com/TkTech/ckanext-feedback.git#egg=ckanext-feedback

@@ -139,7 +139,7 @@ ckan.plugins = stats text_view image_view webpage_view recline_view
                fluent scheming_datasets scheming_organizations scheming_groups
                pdf_view geo_view geojson_view wmts_view shp_view
                xloader spatial_metadata spatial_query
-               officedocs_view bulk similar_datasets link csa
+               officedocs_view bulk similar_datasets csa link feedback
 
 ## Scheming Configuration
 scheming.dataset_schemas = ckanext.csa:csa_dataset.yaml
@@ -191,6 +191,16 @@ sudo systemctl restart solr
 ```bash
 source /usr/lib/ckan/default/bin/activate
 ckan -c /etc/ckan/default/ckan.ini db init
+```
+
+### 5. Run Extension Migrations
+
+The link checker and feedback extensions require their own database tables:
+
+```bash
+source /usr/lib/ckan/default/bin/activate
+ckan -c /etc/ckan/default/ckan.ini db upgrade -p link
+ckan -c /etc/ckan/default/ckan.ini db upgrade -p feedback
 ```
 
 ### 5. Create System Administrator

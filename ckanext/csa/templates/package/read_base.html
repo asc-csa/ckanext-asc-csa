@@ -278,5 +278,9 @@
   {% block package_license %}
     {% snippet "snippets/license.html", pkg_dict=pkg %}
   {% endblock %}
+
+  {% block package_rating %}
+    {% snippet "feedback/snippets/rating_widget.html", pkg=pkg %}
+  {% endblock %}
 <!--template/package/read_base.html end-->
 {% endblock %}
