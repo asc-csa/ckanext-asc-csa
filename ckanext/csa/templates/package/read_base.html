@@ -44,6 +44,10 @@
 
   {% block secondary_help_content %}{% endblock %}
 
+  {% block package_rating %}
+    {% snippet "feedback/snippets/rating_widget.html", pkg=pkg %}
+  {% endblock %}
+
   {% block package_info %}
     {% snippet 'package/snippets/info.html', pkg=pkg %}
   {% endblock %}
@@ -279,8 +283,5 @@
     {% snippet "snippets/license.html", pkg_dict=pkg %}
   {% endblock %}
 
-  {% block package_rating %}
-    {% snippet "feedback/snippets/rating_widget.html", pkg=pkg %}
-  {% endblock %}
 <!--template/package/read_base.html end-->
 {% endblock %}
