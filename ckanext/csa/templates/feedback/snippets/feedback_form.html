@@ -1,0 +1,65 @@
+{% set recaptcha_key = h.feedback_recaptcha_site_key() %}
+{% set subject_types = h.feedback_subject_types() %}
+{% set reasons = h.feedback_reasons() %}
+
+<section class="panel panel-default mrgn-tp-lg">
+  <div class="panel-heading">
+    <h2 class="panel-title">{{ _('Provide feedback on this dataset') }}</h2>
+  </div>
+  <div class="panel-body">
+    <form method="POST"
+          action="{{ h.url_for('feedback.submit', package_id=pkg.id) }}"
+          class="feedback-submission-form"
+          {% if recaptcha_key %}data-recaptcha-sitekey="{{ recaptcha_key }}"{% endif %}>
+      {{ h.csrf_input() }}
+
+      <div class="form-group">
+        <label for="feedback-name">{{ _('Name') }} <small class="text-muted">({{ _('optional') }})</small></label>
+        <input type="text" class="form-control" id="feedback-name" name="author_name"
+               placeholder="{{ _('Your name') }}" style="width: 100%;">
+      </div>
+
+      <div class="form-group">
+        <label for="feedback-email">{{ _('Email') }} <small class="text-muted">({{ _('optional') }})</small></label>
+        <input type="email" class="form-control" id="feedback-email" name="author_email"
+               placeholder="{{ _('Your email address') }}" style="width: 100%;">
+      </div>
+
+      <div class="form-group">
+        <label for="feedback-subject-type">{{ _('I am a') }} <span class="text-danger">*</span></label>
+        <select class="form-control" id="feedback-subject-type" name="subject_type" required style="width: 100%;">
+          <option value="">{{ _('-- Select --') }}</option>
+          {% for st in subject_types %}
+            <option value="{{ st }}">{{ _(st) }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="feedback-reason">{{ _('Reason for feedback') }} <span class="text-danger">*</span></label>
+        <select class="form-control" id="feedback-reason" name="reason" required style="width: 100%;">
+          <option value="">{{ _('-- Select --') }}</option>
+          {% for r in reasons %}
+            <option value="{{ r }}">{{ _(r) }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="feedback-body">{{ _('Feedback') }} <span class="text-danger">*</span></label>
+        <textarea class="form-control" id="feedback-body" name="body" rows="5" required
+                  placeholder="{{ _('Please describe your feedback...') }}" style="width: 100%;"></textarea>
+      </div>
+
+      {% if recaptcha_key %}
+        <div class="form-group">
+          <div id="feedback-recaptcha"></div>
+        </div>
+      {% endif %}
+
+      <button type="submit" class="btn btn-primary">
+        {{ _('Submit Feedback') }}
+      </button>
+    </form>
+  </div>
+</section>
