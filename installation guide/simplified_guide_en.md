@@ -203,7 +203,7 @@ ckan -c /etc/ckan/default/ckan.ini db upgrade -p link
 ckan -c /etc/ckan/default/ckan.ini db upgrade -p feedback
 ```
 
-### 5. Create System Administrator
+### 6. Create System Administrator
 
 ```bash
 ckan -c /etc/ckan/default/ckan.ini sysadmin add admin email=admin@example.com
