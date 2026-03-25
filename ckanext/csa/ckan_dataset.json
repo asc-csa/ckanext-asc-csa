@@ -1288,6 +1288,39 @@
     },
     {
       "preset": "canada_resource_data_quality"
+    },
+    {
+      "field_name": "is_tutorial",
+      "label": {
+        "en": "Is Tutorial",
+        "fr": "Est un tutoriel"
+      },
+      "help_text": {
+        "en": "Mark this resource as a tutorial. Tutorials are displayed in a separate section below the resources list.",
+        "fr": "Marquer cette ressource comme tutoriel. Les tutoriels sont affichés dans une section distincte sous la liste des ressources."
+      },
+      "form_snippet": "select.html",
+      "display_snippet": "select.html",
+      "validators": "ignore_missing scheming_choices",
+      "required": false,
+      "form_include_blank_choice": true,
+      "form_panel": "resource",
+      "choices": [
+        {
+          "label": {
+            "en": "Yes",
+            "fr": "Oui"
+          },
+          "value": "yes"
+        },
+        {
+          "label": {
+            "en": "No",
+            "fr": "Non"
+          },
+          "value": "no"
+        }
+      ]
     }
   ]
 }

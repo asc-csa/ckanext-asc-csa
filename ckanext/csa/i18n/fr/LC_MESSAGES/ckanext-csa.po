@@ -2054,3 +2054,15 @@ msgstr "Dimension du jeu de données"
 
 #~ msgid "Information or data"
 #~ msgstr ""
+
+msgid "Tutorial list table"
+msgstr "Tableau des tutoriels"
+
+msgid "Tutorial name"
+msgstr "Nom du tutoriel"
+
+msgid "Go to"
+msgstr "Accéder"
+
+msgid "Go to the tutorial named:"
+msgstr "Accéder au tutoriel :"

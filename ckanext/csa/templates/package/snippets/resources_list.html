@@ -15,6 +15,8 @@ Example:
 <!--template/package/resource_list.html start-->
 {% if resources %}
 
+    {% set has_tutorials = resources | selectattr('is_tutorial', 'defined') | selectattr('is_tutorial', 'equalto', 'yes') | list | length > 0 %}
+
     {% if pkg.resources %}
     {% block resource_list_inner %}
       <section>
@@ -32,13 +34,39 @@ Example:
 
         {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
         {% for resource in resources %}
-          {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource, res_num=loop.index, client_lang=client_lang, can_edit=can_edit %}
+          {% if resource.get('is_tutorial') != 'yes' %}
+            {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource, res_num=loop.index, client_lang=client_lang, can_edit=can_edit %}
+          {% endif %}
         {% endfor %}
 
         </table>
       </section>
     {% endblock %}
     {% endif %}
+
+    {% if has_tutorials %}
+      <section class="mrgn-tp-lg">
+        <table class="table table-striped resource-list">
+          <caption class="wb-inv">{{ _('Tutorial list table') }}</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="td-center-nowrap">{{ _('Tutorial name') }}</th>
+              <th scope="col" class="td-center-nowrap">{{ _('Language') }}</th>
+              <th scope="col" class="td-center-nowrap">{{ _('Links') }}</th>
+            </tr>
+          </thead>
+
+        {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
+        {% for resource in resources %}
+          {% if resource.get('is_tutorial') == 'yes' %}
+            {% snippet 'package/snippets/tutorial_item.html', pkg=pkg, res=resource, res_num=loop.index, client_lang=client_lang, can_edit=can_edit %}
+          {% endif %}
+        {% endfor %}
+
+        </table>
+      </section>
+    {% endif %}
+
 {% else %}
   <p>
     {# Comment out "add some" as action doesn't exist yet #}
