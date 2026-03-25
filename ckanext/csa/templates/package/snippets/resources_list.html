@@ -45,6 +45,29 @@ Example:
     {% endblock %}
     {% endif %}
 
+    {% if has_data_dictionaries %}
+      <section class="mrgn-tp-lg">
+        <table class="table table-striped resource-list">
+          <caption class="wb-inv">{{ _('Data dictionary list table') }}</caption>
+          <thead>
+          <tr>
+            <th scope="col" class="td-center-nowrap">{{ _('Names') }}</th>
+            <th scope="col" class="td-center-nowrap">{{ _('Language') }}</th>
+            <th scope="col" class="td-center-nowrap">{{ _('Links') }}</th>
+          </tr>
+          </thead>
+
+          {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
+          {% for resource in resources %}
+            {% if resource.get('is_data_dictionary') == 'yes' %}
+              {% snippet 'package/snippets/data_dictionary_item.html', pkg=pkg, res=resource, res_num=loop.index, client_lang=client_lang, can_edit=can_edit %}
+            {% endif %}
+          {% endfor %}
+
+        </table>
+      </section>
+    {% endif %}
+
     {% if has_tutorials %}
       <section class="mrgn-tp-lg">
         <table class="table table-striped resource-list">
@@ -61,29 +84,6 @@ Example:
         {% for resource in resources %}
           {% if resource.get('is_tutorial') == 'yes' %}
             {% snippet 'package/snippets/tutorial_item.html', pkg=pkg, res=resource, res_num=loop.index, client_lang=client_lang, can_edit=can_edit %}
-          {% endif %}
-        {% endfor %}
-
-        </table>
-      </section>
-    {% endif %}
-
-    {% if has_data_dictionaries %}
-      <section class="mrgn-tp-lg">
-        <table class="table table-striped resource-list">
-          <caption class="wb-inv">{{ _('Data dictionary list table') }}</caption>
-          <thead>
-            <tr>
-              <th scope="col" class="td-center-nowrap">{{ _('Names') }}</th>
-              <th scope="col" class="td-center-nowrap">{{ _('Language') }}</th>
-              <th scope="col" class="td-center-nowrap">{{ _('Links') }}</th>
-            </tr>
-          </thead>
-
-        {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
-        {% for resource in resources %}
-          {% if resource.get('is_data_dictionary') == 'yes' %}
-            {% snippet 'package/snippets/data_dictionary_item.html', pkg=pkg, res=resource, res_num=loop.index, client_lang=client_lang, can_edit=can_edit %}
           {% endif %}
         {% endfor %}
 
