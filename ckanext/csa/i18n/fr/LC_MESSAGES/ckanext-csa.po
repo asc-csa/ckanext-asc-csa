@@ -2066,3 +2066,15 @@ msgstr "Accéder"
 
 msgid "Go to the tutorial named:"
 msgstr "Accéder au tutoriel :"
+
+msgid "Data dictionary list table"
+msgstr "Tableau des dictionnaires de données"
+
+msgid "Names"
+msgstr "Noms"
+
+msgid "Data dictionary"
+msgstr "Dictionnaire de données"
+
+msgid "Go to the data dictionary named:"
+msgstr "Accéder au dictionnaire de données :"
