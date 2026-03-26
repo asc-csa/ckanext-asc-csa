@@ -2070,8 +2070,8 @@ msgstr "Accéder au tutoriel :"
 msgid "Data dictionary list table"
 msgstr "Tableau des dictionnaires de données"
 
-msgid "Names"
-msgstr "Noms"
+msgid "Dictionary name"
+msgstr "Nom du dictionnaire"
 
 msgid "Data dictionary"
 msgstr "Dictionnaire de données"

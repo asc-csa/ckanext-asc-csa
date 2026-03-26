@@ -13,6 +13,7 @@ Example:
 
 {% block resource_list %}
 <!--template/package/resource_list.html start-->
+<br><br>
 {% if resources %}
 
     {% set has_tutorials = resources | selectattr('is_tutorial', 'defined') | selectattr('is_tutorial', 'equalto', 'yes') | list | length > 0 %}
@@ -46,12 +47,15 @@ Example:
     {% endif %}
 
     {% if has_data_dictionaries %}
+	  <br><br>
       <section class="mrgn-tp-lg">
         <table class="table table-striped resource-list">
           <caption class="wb-inv">{{ _('Data dictionary list table') }}</caption>
           <thead>
           <tr>
-            <th scope="col" class="td-center-nowrap">{{ _('Names') }}</th>
+            <th scope="col" class="td-center-nowrap">{{ _('Dictionary name') }}</th>
+            <th scope="col" class="td-center-nowrap"></th>
+            <th scope="col" class="td-center-nowrap"></th>
             <th scope="col" class="td-center-nowrap">{{ _('Language') }}</th>
             <th scope="col" class="td-center-nowrap">{{ _('Links') }}</th>
           </tr>
@@ -69,12 +73,15 @@ Example:
     {% endif %}
 
     {% if has_tutorials %}
+	  <br><br>
       <section class="mrgn-tp-lg">
         <table class="table table-striped resource-list">
           <caption class="wb-inv">{{ _('Tutorial list table') }}</caption>
           <thead>
             <tr>
               <th scope="col" class="td-center-nowrap">{{ _('Tutorial name') }}</th>
+              <th scope="col" class="td-center-nowrap"></th>
+              <th scope="col" class="td-center-nowrap"></th>
               <th scope="col" class="td-center-nowrap">{{ _('Language') }}</th>
               <th scope="col" class="td-center-nowrap">{{ _('Links') }}</th>
             </tr>
@@ -88,6 +95,7 @@ Example:
         {% endfor %}
 
         </table>
+		<br><br>
       </section>
     {% endif %}
 
