@@ -1,0 +1,1 @@
+/usr/lib/ckan/default/src/ckanext-spatial/ckanext/spatial/templates/spatial/snippets/dataset_map.html
