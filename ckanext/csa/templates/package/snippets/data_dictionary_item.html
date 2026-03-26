@@ -3,7 +3,7 @@
 {% set lang_field = h.scheming_field_by_name(schema.resource_fields, 'language') %}
 
 <tr>
-  <td>
+  <td style="width:30%">
     {% set name, machine_translated = h.get_translated_t(res, 'name') %}
     {% if ' ' not in name %}
       <span class="wrapall">{{ name }}</span>
@@ -14,15 +14,15 @@
        <i class="fa fa-language text-muted mrgn-lft-sm" title="{{ _("This third party metadata element has been translated using an automated translation tool (DeepL).  To report any discrepancies please contact open-ouvert@tbs-sct.gc.ca") }}"></i>
     {% endif %}
   </td>
-  <td class="td-center">
+  <td class="td-center" style="width:15%">
   </td>
-  <td class="td-center">
+  <td class="td-center" style="width:15%">
   </td>
-  <td class="td-center">
+  <td class="td-center" style="width:20%">
     {% snippet 'scheming/snippets/display_field.html',
       field=lang_field, data=res, entity_type='dataset', object_type=pkg.type %}
   </td>
-  <td class="td-center">
+  <td class="td-center" style="width:20%">
     <a href="{{ res.url }}" title="{{ _('Data dictionary') ~ ' ' ~ res_num }}" class="resource-url-analytics btn btn-primary" target="_blank" data-pkg-id="{{ pkg.id }}" data-res-id="{{ res.id }}" data-org-id="{{ pkg.organization.id }}">
       {{ _('Go to') }}
       <span class="wb-inv">{{ _('Go to the data dictionary named:') }} {{ name }}</span>
