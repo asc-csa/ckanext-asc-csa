@@ -184,7 +184,7 @@
                                      {%endif%}
                                      -->
           {% elif field_to_show=='license_id' %}
-            {% set license_label = field_title or _('Licence') %}
+            {% set license_label = _('Licence') %}
             {% set license_obj = c.pkg.license if c is defined and c.pkg is defined and c.pkg.license is defined else None %}
             {% if h.lang() == 'fr' and license_obj %}
               {% set license_url = license_obj.url_fra %}
@@ -195,7 +195,7 @@
             {% endif %}
             {% if license_title %}
               <li class="list-group-item">
-                <strong>{{ license_label }}</strong>
+                <strong>{{ license_label }}:</strong>
                 {% if license_url %}
                   <a href="{{ license_url }}">{{ license_title }}</a>
                 {% else %}
