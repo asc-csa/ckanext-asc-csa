@@ -3829,7 +3829,7 @@
         },
         "label": {
           "en": "Licence",
-          "fr": "Licence"
+          "fr": "Licence "
         },
         "help_text": {
           "en": "The licence applied to the dataset",
