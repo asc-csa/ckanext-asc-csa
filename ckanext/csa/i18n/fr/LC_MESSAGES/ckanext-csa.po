@@ -2084,3 +2084,6 @@ msgstr "Dictionnaire de données"
 
 msgid "Go to the data dictionary named:"
 msgstr "Accéder au dictionnaire de données :"
+
+msgid "Licence:"
+msgstr "Licence :"
