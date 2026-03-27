@@ -1960,7 +1960,13 @@ msgstr "Dimension du jeu de données"
 #~ msgstr "contactez-nous"
 
 #~ msgid "You are here:"
-#~ msgstr "Tu es ici:"
+#~ msgstr "Vous êtes ici:"
+
+#~ msgid "Themes and topics"
+#~ msgstr "Thèmes et sujets"
+
+#~ msgid "Government of Canada"
+#~ msgstr "Gouvernement du Canada"
 
 #~ msgid "Home"
 #~ msgstr "Accueil"
