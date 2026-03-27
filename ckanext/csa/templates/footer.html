@@ -5,7 +5,11 @@
 	<div class="gc-main-footer">
 		<div class="container">
 			<nav>
-				<h3>{{ _('Government of Canada') }}</h3>
+				{% if h.lang() == 'fr' %}
+					<h3>{{ _('Gouvernement du Canada') }}</h3>
+				{% else %}
+					<h3>{{ _('Government of Canada') }}</h3>
+				{% endif %}
 				<ul class="list-unstyled colcount-sm-2 colcount-md-3">
 					{% if h.lang() == 'fr' %}
 					<li><a href="https://www.canada.ca/fr/contact.html">{{ _("Toutes les coordonnées") }}</a></li>
