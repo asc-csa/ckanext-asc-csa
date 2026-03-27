@@ -130,6 +130,12 @@ msgstr ""
 msgid "Contact us"
 msgstr ""
 
+#~ msgid "Themes and topics"
+#~ msgstr ""
+
+#~ msgid "Government of Canada"
+#~ msgstr ""
+
 #: ckanext/csa/templates/footer.html:9
 msgid "https://www.canada.ca/en/government/dept.html"
 msgstr ""
