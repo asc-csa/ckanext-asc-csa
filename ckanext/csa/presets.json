@@ -440,6 +440,316 @@
       }
     },
     {
+      "preset_name": "canada_maintainer_email",
+      "values": {
+        "field_name": "maintainer_email",
+        "label": {
+          "en": "Contact email",
+          "fr": "Personne-ressource "
+        },
+        "help_text": {
+          "en": "The contact person's email for the dataset",
+          "fr": "Courriel de la personne-ressource à contacter au sujet du jeu de données ou de l’ensemble de données"
+        },
+        "validators": "if_empty_set_to(open-ouvert@tbs-sct.gc.ca) email_validator",
+        "display_snippet": "email.html"
+      }
+    },
+    {
+      "preset_name": "canada_notes",
+      "values": {
+        "field_name": "notes_translated",
+        "label": {
+          "en": "Description",
+          "fr": "Description"
+        },
+        "fluent_form_label": {
+          "en": {
+            "en": "Description (English)",
+            "fr": "Description (anglais)"
+          },
+          "fr": {
+            "en": "Description (French)",
+            "fr": "Description (français)"
+          }
+        },
+        "form_placeholder": {
+          "en": "The National Pollutant Release Inventory (NPRI) is Canada's public inventory of pollutant releases (to air, water and land), disposals and transfers for recycling. The NPRI includes...",
+          "fr": "L’Inventaire national des rejets de polluants (INRP) est l’inventaire public des rejets de polluants du Canada…"
+        },
+        "fluent_help_text": {
+          "en": {
+            "en": "An account of the dataset, in English. A description may include but is not limited to: an abstract, a table of contents, or a free-text account of the resource.",
+            "fr": "Description du jeu de données, en anglais. La description peut comprendre un résumé, une table des matières ou un texte libre."
+          },
+          "fr": {
+            "en": "An account of the dataset, in French. A description may include but is not limited to: an abstract, a table of contents, or a free-text account of the resource.",
+            "fr": "Description du jeu de données, en anglais. La description peut comprendre un résumé, une table des matières ou un texte libre."
+          }
+        },
+        "required": true,
+        "form_snippet": "fluent_markdown.html",
+        "display_snippet": "fluent_markdown.html",
+        "error_snippet": "fluent_text.html",
+        "validators": "fluent_text",
+        "output_validators": "fluent_core_translated_output",
+        "form_languages": ["en", "fr"]
+      }
+    },
+    {
+      "preset_name": "canada_keywords",
+      "values": {
+        "field_name": "keywords",
+        "label": {
+          "en": "Keywords",
+          "fr": "Mots clés "
+        },
+        "fluent_form_label": {
+          "en": {
+            "en": "Keywords (English)",
+            "fr": "Mots clés (anglais)"
+          },
+          "fr": {
+            "en": "Keywords (French)",
+            "fr": "Mots clés (français)"
+          }
+        },
+        "fluent_help_text": {
+          "en": {
+            "en": "Commonly used words or phrases which describe the dataset, in English. (Separate multiple entries by commas)",
+            "fr": "Mots ou phrases couramment utilisés qui décrivent le jeu de données, en anglais. (Séparer les mots ou phrases par une virgule)"
+          },
+          "fr": {
+            "en": "Commonly used words or phrases which describe the dataset, in French. (Separate multiple entries by commas)",
+            "fr": "Mots ou phrases couramment utilisés qui décrivent le jeu de données, en français. (Séparer les mots ou phrases par une virgule)"
+          }
+        },
+        "required": true,
+        "tag_validators": "canada_tags",
+        "form_snippet": "fluent_tags.html",
+        "display_snippet": "fluent_tags.html",
+        "error_snippet": "fluent_text.html",
+        "validators": "fluent_tags",
+        "output_validators": "fluent_tags_output",
+        "form_attrs": {
+          "data-module": "autocomplete",
+          "data-module-tags": ""
+        },
+        "form_languages": ["en", "fr"]
+      }
+    },
+    {
+      "preset_name": "canada_subject",
+      "values": {
+        "field_name": "subject",
+        "label": {
+          "en": "Subject",
+          "fr": "Sujet "
+        },
+        "help_text": {
+          "en": "The topic of the content of the dataset. You may select or deselect multiple subjects (Ctrl+Click)",
+          "fr": "Le sujet du contenu du jeu de données. Vous pouvez sélectionner ou désélectionner de multiples sujets (Ctrl+Clic)"
+        },
+        "required": true,
+        "form_snippet": "multiple_select.html",
+        "display_snippet": "list_inline.html",
+        "validators": "scheming_multiple_choice",
+        "output_validators": "scheming_multiple_choice_output",
+        "choices": [
+          {
+            "label": {
+              "en": "Arts, Music, Literature",
+              "fr": "Arts, musique, littérature"
+            },
+            "replaces": [
+              "AA"
+            ],
+            "value": "arts_music_literature"
+          },
+          {
+            "label": {
+              "en": "Agriculture",
+              "fr": "Agriculture"
+            },
+            "replaces": [
+              "AG"
+            ],
+            "value": "agriculture"
+          },
+          {
+            "label": {
+              "en": "Economics and industry",
+              "fr": "Économie et industrie"
+            },
+            "replaces": [
+              "EC"
+            ],
+            "value": "economics_and_industry"
+          },
+          {
+            "label": {
+              "en": "Education and training",
+              "fr": "Éducation et formation"
+            },
+            "replaces": [
+              "ET"
+            ],
+            "value": "education_and_training"
+          },
+          {
+            "label": {
+              "en": "Form Descriptors",
+              "fr": "Format"
+            },
+            "replaces": [
+              "FM"
+            ],
+            "value": "form_descriptors"
+          },
+          {
+            "label": {
+              "en": "Government and politics",
+              "fr": "Gouvernement et vie politique"
+            },
+            "replaces": [
+              "GV"
+            ],
+            "value": "government_and_politics"
+          },
+          {
+            "label": {
+              "en": "Health and safety",
+              "fr": "Santé et sécurité"
+            },
+            "replaces": [
+              "HE"
+            ],
+            "value": "health_and_safety"
+          },
+          {
+            "label": {
+              "en": "History and archaeology",
+              "fr": "Histoire et archéologie"
+            },
+            "replaces": [
+              "HI"
+            ],
+            "value": "history_and_archaeology"
+          },
+          {
+            "label": {
+              "en": "Information and communications",
+              "fr": "Information et communication"
+            },
+            "replaces": [
+              "IN"
+            ],
+            "value": "information_and_communications"
+          },
+          {
+            "label": {
+              "en": "Labour",
+              "fr": "Travail et emploi"
+            },
+            "replaces": [
+              "LB"
+            ],
+            "value": "labour"
+          },
+          {
+            "label": {
+              "en": "Language and linguistics",
+              "fr": "Langue et linguistique"
+            },
+            "replaces": [
+              "LN"
+            ],
+            "value": "language_and_linguistics"
+          },
+          {
+            "label": {
+              "en": "Law",
+              "fr": "Droit"
+            },
+            "replaces": [
+              "LW"
+            ],
+            "value": "law"
+          },
+          {
+            "label": {
+              "en": "Military",
+              "fr": "Histoire et science militaire"
+            },
+            "replaces": [
+              "MI"
+            ],
+            "value": "military"
+          },
+          {
+            "label": {
+              "en": "Nature and environment",
+              "fr": "Nature et environnement"
+            },
+            "replaces": [
+              "NE"
+            ],
+            "value": "nature_and_environment"
+          },
+          {
+            "label": {
+              "en": "Persons",
+              "fr": "Personnes"
+            },
+            "replaces": [
+              "PE"
+            ],
+            "value": "persons"
+          },
+          {
+            "label": {
+              "en": "Processes",
+              "fr": "Liens et fonctions"
+            },
+            "replaces": [
+              "PR"
+            ],
+            "value": "processes"
+          },
+          {
+            "label": {
+              "en": "Society and culture",
+              "fr": "Société et culture"
+            },
+            "replaces": [
+              "SO"
+            ],
+            "value": "society_and_culture"
+          },
+          {
+            "label": {
+              "en": "Science and technology",
+              "fr": "Sciences et technologie"
+            },
+            "replaces": [
+              "ST"
+            ],
+            "value": "science_and_technology"
+          },
+          {
+            "label": {
+              "en": "Transport",
+              "fr": "Transport"
+            },
+            "replaces": [
+              "TR"
+            ],
+            "value": "transport"
+          }
+        ]
+      }
+    },
+    {
       "preset_name": "canada_project",
       "values": {
         "field_name": "project",
@@ -3264,6 +3574,46 @@
         }
       }
     },
+    {
+      "preset_name": "canada_program_page_url",
+      "values": {
+        "field_name": "program_page_url",
+        "label": {
+          "en": "Homepage",
+          "fr": "URL de la page d'accueil "
+        },
+        "fluent_form_label": {
+          "en": {
+            "en": "Homepage URL (English)",
+            "fr": "URL de la page d’accueil (anglais)"
+          },
+          "fr": {
+            "en": "Homepage URL (French)",
+            "fr": "URL de la page d’accueil (français)"
+          }
+        },
+        "fluent_help_text": {
+          "en": {
+            "en": "English program or homepage that can be navigated to gain additional or contextual information about the dataset",
+            "fr": "Programme ou page d’accueil pouvant être consulté pour obtenir de l’information supplémentaire ou contextuelle au sujet du jeu de données, en anglais"
+          },
+          "fr": {
+            "en": "French program or homepage that can be navigated to gain additional or contextual information about the dataset",
+            "fr": "Programme ou page d’accueil pouvant être consulté pour obtenir de l’information supplémentaire ou contextuelle au sujet du jeu de données, en français"
+          }
+        },
+        "form_snippet": "fluent_text.html",
+        "display_snippet": "fluent_link.html",
+        "display_attributes": {
+          "style": "word-wrap: break-word"
+        },
+        "error_snippet": "fluent_text.html",
+        "validators": "fluent_text",
+        "output_validators": "fluent_text_output",
+        "form_languages": ["en", "fr"]
+      }
+    },
+
     {
     "preset_name": "link_language",
     "values": {
