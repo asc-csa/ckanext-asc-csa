@@ -104,3 +104,12 @@ a.btn {
 .modal-header {
     background: #fff;
 }
+
+/* GCWeb's .form-control sets `appearance: none`, which strips the native
+   dropdown arrow off <select> elements. Restore native appearance so the
+   arrow is visible again (issue #222). */
+select.form-control {
+    -webkit-appearance: auto;
+    -moz-appearance: auto;
+    appearance: auto;
+}

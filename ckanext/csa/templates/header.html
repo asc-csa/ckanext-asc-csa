@@ -3,7 +3,8 @@
 <!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
 		wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
 
-<header>
+{# The wrapping <header> element is provided by page.html so that the
+   breadcrumb (rendered in page.html) can also live inside <header> per WET. #}
 	<div id="wb-bnr" class="container">
 		<div class="row">
 			<section id="wb-lng" class="col-xs-3 col-sm-12 pull-right text-right">
@@ -12,15 +13,15 @@
 					{% if h.lang() == 'fr' %}
 					<li>
 						<a lang="en" hreflang="en" href="{% url_for h.current_url(), locale='en' %}">
-							<span class="hidden-xs">English</span>
-							<abbr title="English" class="visible-xs h3 mrgn-tp-sm mrgn-bttm-0 text-uppercase">en</abbr>
+							<span class="hidden-xs" translate="no">English</span>
+							<abbr title="English" translate="no" class="visible-xs h3 mrgn-tp-sm mrgn-bttm-0 text-uppercase">en</abbr>
 						</a>
 					</li>
 					{% else %}
 					<li>
 						<a lang="fr" hreflang="fr" href="{% url_for h.current_url(), locale='fr' %}">
-							<span class="hidden-xs">Français</span>
-							<abbr title="Français" class="visible-xs h3 mrgn-tp-sm mrgn-bttm-0 text-uppercase">fr</abbr>
+							<span class="hidden-xs" translate="no">Français</span>
+							<abbr title="Français" translate="no" class="visible-xs h3 mrgn-tp-sm mrgn-bttm-0 text-uppercase">fr</abbr>
 						</a>
 					</li>
 					{% endif %}
@@ -117,6 +118,5 @@
 			</ul>
 		</div>
 	</nav>
-</header>
 <!-- Static header ends -->
 {% endblock %}

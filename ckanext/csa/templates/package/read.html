@@ -6,7 +6,7 @@
   {{ super() }}
   {% block similar_datasets %}{% endblock %}
   {% block package_description %}
-    <h1>
+    <h1 property="name" id="wb-cont">
       {% block page_heading %}
         {{ h.dataset_display_name(pkg) }}
         {% if pkg.state.startswith('draft') %}

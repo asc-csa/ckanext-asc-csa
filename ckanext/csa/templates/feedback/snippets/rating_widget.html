@@ -1,26 +1,41 @@
 {% set rating_data = h.feedback_rating_avg(pkg.id) %}
 {% set user_rating = h.feedback_user_rating(pkg.id) %}
 
-<div class="panel panel-primary feedback-rating-widget"
+<section class="panel panel-primary feedback-rating-widget"
      data-package-id="{{ pkg.id }}"
-     data-rate-url="{{ h.url_for('feedback.rate', package_id=pkg.id) }}">
-  <div class="panel-heading">
-    <div class="panel-title">{{ _('Have your say') }}</div>
-  </div>
-  <div class="panel-body" style="text-align: center;">
+     data-rate-url="{{ h.url_for('feedback.rate', package_id=pkg.id) }}"
+     data-user-rating="{{ user_rating or 0 }}">
+  <header class="panel-heading">
+    <h2 class="panel-title">{{ _('Have your say') }}</h2>
+  </header>
+  <div class="panel-body text-center">
     {{ h.csrf_input() }}
-    <div class="feedback-stars" style="font-size: 1.8em; cursor: pointer; letter-spacing: 4px;">
-      {% for i in range(1, 6) %}
-        <span class="feedback-star" data-value="{{ i }}"
-              style="color: {{ '#f0ad4e' if user_rating and i <= user_rating else '#ccc' }};"
-              title="{{ i }}">&#9733;</span>
+    <fieldset class="feedback-stars">
+      <legend class="wb-inv">{{ _('Rate this dataset from 1 to 5 stars') }}</legend>
+      {# Natural DOM order so the browser's built-in radio-group keyboard
+         navigation (Left/Right arrows) matches the visual left-to-right
+         order. The "fill" highlight is driven by JS adding `.is-filled`
+         to each label, not by a CSS sibling selector. #}
+      {% for i in [1, 2, 3, 4, 5] %}
+        <input type="radio"
+               name="feedback-rating"
+               id="feedback-rating-{{ i }}"
+               class="feedback-star-input"
+               value="{{ i }}"
+               {% if user_rating and i == user_rating %}checked{% endif %}>
+        <label for="feedback-rating-{{ i }}"
+               class="feedback-star-label"
+               title="{{ _('Rate {n} out of 5').format(n=i) }}">
+          <span class="wb-inv">{{ _('{n} out of 5').format(n=i) }}</span>
+        </label>
       {% endfor %}
-    </div>
-    <p class="feedback-rating-info text-muted mrgn-tp-sm mrgn-bttm-0" style="font-size: 0.9em;">
+    </fieldset>
+    <p class="feedback-rating-info text-muted mrgn-tp-sm mrgn-bttm-0">
       <span class="feedback-avg">{{ rating_data.average }}</span> / 5
       (<span class="feedback-count">{{ rating_data.count }}</span> {{ _('votes') }})
     </p>
   </div>
-</div>
+</section>
 
+{% asset "ckanext_feedback/feedback_css" %}
 {% asset "ckanext_feedback/feedback_js" %}

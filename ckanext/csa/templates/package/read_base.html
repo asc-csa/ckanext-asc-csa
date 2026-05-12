@@ -183,6 +183,17 @@
                                      <p>{{_('English only')}}</p>
                                      {%endif%}
                                      -->
+          {% elif field_to_show in ['date_published', 'date_created', 'date_captured', 'date_modified'] %}
+            {# Issue #227: wrap dataset dates in <time class="nowrap"> so the
+               yyyy-MM-dd value is marked up semantically and never wraps
+               across lines. The schema stores these fields as ISO date
+               strings, so the value is also valid for the datetime attribute. #}
+            {% if field_title and field_value %}
+              <li class="list-group-item">
+                <strong>{{ field_title }}:</strong>
+                <time class="nowrap" datetime="{{ field_value }}">{{ field_value }}</time>
+              </li>
+            {% endif %}
           {% elif field_to_show=='license_id' %}
             {% set license_label = field_title or _('Licence') %}
             {% set license_obj = c.pkg.license if c is defined and c.pkg is defined and c.pkg.license is defined else None %}

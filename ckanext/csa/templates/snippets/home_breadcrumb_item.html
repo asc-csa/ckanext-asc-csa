@@ -1,20 +1,78 @@
 <!--template/snippets/home_breadcrumb.html start-->
 {% set pkg = c.pkg_dict %}
 {% set res = c.resource %}
-{# Used to insert the home icon into a breadcrumb #}
+{#
+  Breadcrumb items follow the schema.org BreadcrumbList microdata pattern
+  (typeof on the <a>, property on the <span>, and a <meta property="position">
+  with the 1-based index). The "Portal" entry was added per issue #224 so
+  visitors on a dataset page can return to the Open Data portal home in one
+  click — "Portal" is short because the previous crumb already says
+  "Open data and information".
+
+  Note: id="wb-cont" used to live on a <li> here; per WET v4 it belongs on
+  the page's <h1>, so it now lives on the dataset page's <h1>.
+#}
 {% if h.lang() == 'en' %}
-<li><a href="https://www.canada.ca/en.html">Canada.ca</a></li>
-<li><a href="https://www.asc-csa.gc.ca/eng/Default.asp">Canadian Space Agency</a></li>
-<li id="wb-cont"><a href="https://asc-csa.gc.ca/eng/open-data/default.asp">Open data and information</a></li>
-{% if pkg %}
-    <li>{{ h.dataset_display_name(pkg) }}</li>
-{% endif %}
+  <li property="itemListElement" typeof="ListItem">
+    <a property="item" typeof="WebPage" href="https://www.canada.ca/en.html">
+      <span property="name">Canada.ca</span>
+    </a>
+    <meta property="position" content="1">
+  </li>
+  <li property="itemListElement" typeof="ListItem">
+    <a property="item" typeof="WebPage" href="https://www.asc-csa.gc.ca/eng/Default.asp">
+      <span property="name">Canadian Space Agency</span>
+    </a>
+    <meta property="position" content="2">
+  </li>
+  <li property="itemListElement" typeof="ListItem">
+    <a property="item" typeof="WebPage" href="https://asc-csa.gc.ca/eng/open-data/default.asp">
+      <span property="name">Open data and information</span>
+    </a>
+    <meta property="position" content="3">
+  </li>
+  {% if pkg %}
+    <li property="itemListElement" typeof="ListItem">
+      <a property="item" typeof="WebPage" href="{{ h.url_for('dataset.search') }}">
+        <span property="name">Portal</span>
+      </a>
+      <meta property="position" content="4">
+    </li>
+    <li property="itemListElement" typeof="ListItem">
+      <span property="name">{{ h.dataset_display_name(pkg) }}</span>
+      <meta property="position" content="5">
+    </li>
+  {% endif %}
 {% else %}
-<li><a href="https://www.canada.ca/fr.html">Canada.ca</a></li>
-<li><a href="https://www.asc-csa.gc.ca/fra/Default.asp">Agence spatiale canadienne</a></li>
-<li id="wb-cont"><a href="https://asc-csa.gc.ca/fra/donnees-ouvertes/default.asp">Données et information ouvertes</a></li>
-{% if pkg %}
-    <li>{{ h.dataset_display_name(pkg) }}</li>
-{% endif %}
+  <li property="itemListElement" typeof="ListItem">
+    <a property="item" typeof="WebPage" href="https://www.canada.ca/fr.html">
+      <span property="name">Canada.ca</span>
+    </a>
+    <meta property="position" content="1">
+  </li>
+  <li property="itemListElement" typeof="ListItem">
+    <a property="item" typeof="WebPage" href="https://www.asc-csa.gc.ca/fra/Default.asp">
+      <span property="name">Agence spatiale canadienne</span>
+    </a>
+    <meta property="position" content="2">
+  </li>
+  <li property="itemListElement" typeof="ListItem">
+    <a property="item" typeof="WebPage" href="https://asc-csa.gc.ca/fra/donnees-ouvertes/default.asp">
+      <span property="name">Données et information ouvertes</span>
+    </a>
+    <meta property="position" content="3">
+  </li>
+  {% if pkg %}
+    <li property="itemListElement" typeof="ListItem">
+      <a property="item" typeof="WebPage" href="{{ h.url_for('dataset.search') }}">
+        <span property="name">Portail</span>
+      </a>
+      <meta property="position" content="4">
+    </li>
+    <li property="itemListElement" typeof="ListItem">
+      <span property="name">{{ h.dataset_display_name(pkg) }}</span>
+      <meta property="position" content="5">
+    </li>
+  {% endif %}
 {% endif %}
 <!--template/snippets/home_breadcrumb.html end-->

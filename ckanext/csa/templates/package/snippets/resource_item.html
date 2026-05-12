@@ -79,9 +79,24 @@
       field=lang_field, data=res, entity_type='dataset', object_type=pkg.type %}
   </td>
   <td class="td-center" style="width:20%">
+      {# Build a language string for the wb-inv text. When two resources
+         share the same display name (e.g. an EN and FR copy), the language
+         is what differentiates them for a screen reader (issue #231). #}
+      {% set res_lang_value = res.language %}
+      {% set res_lang_text = '' %}
+      {% if res_lang_value %}
+        {% if res_lang_value is string %}
+          {% set res_lang_text = res_lang_value %}
+        {% elif res_lang_value is iterable %}
+          {% set res_lang_text = res_lang_value|join(', ') %}
+        {% endif %}
+      {% endif %}
       <a href="{{ res.url }}" title="{{_('Resource') ~ ' ' ~ res_num}}" class="resource-url-analytics btn btn-primary" target="_blank" data-pkg-id="{{ pkg.id }}" data-res-id="{{ res.id }}" data-org-id="{{ pkg.organization.id }}">
           {{ _('Download') }}
-        <span class="wb-inv">{{_('Download the resource named :')}} {{ name }} </span>
+        {# Don't repeat the visible verb ("Download") inside the wb-inv —
+           the screen reader already reads the visible text, so the hidden
+           text continues the sentence rather than restarting it. #}
+        <span class="wb-inv">{{ _('the resource named:') }} {{ name }}{% if res_lang_text %} ({{ res_lang_text }}){% endif %}</span>
         </a>
         <br>
 

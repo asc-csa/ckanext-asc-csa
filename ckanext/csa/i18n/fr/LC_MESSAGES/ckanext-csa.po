@@ -2085,3 +2085,33 @@ msgstr "Dictionnaire de données"
 msgid "Go to the data dictionary named:"
 msgstr "Accéder au dictionnaire de données :"
 
+# Strings added/updated by the WET v4 a11y pass (issues #221-#231)
+msgid "Skip to main content"
+msgstr "Aller au contenu principal"
+
+msgid "Skip to \"About this site\""
+msgstr "Passer à « À propos de ce site »"
+
+msgid "Rate this dataset from 1 to 5 stars"
+msgstr "Évaluez ce jeu de données de 1 à 5 étoiles"
+
+msgid "Rate {n} out of 5"
+msgstr "Attribuer la note de {n} sur 5"
+
+msgid "{n} out of 5"
+msgstr "{n} sur 5"
+
+msgid "The form could not be submitted because errors were found"
+msgstr "Le formulaire n'a pas pu être soumis parce que des erreurs ont été trouvées"
+
+msgid "required"
+msgstr "obligatoire"
+
+msgid "the resource named:"
+msgstr "la ressource nommée :"
+
+msgid "the data dictionary named:"
+msgstr "le dictionnaire de données nommé :"
+
+msgid "the tutorial named:"
+msgstr "le tutoriel nommé :"

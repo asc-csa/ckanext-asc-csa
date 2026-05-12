@@ -23,9 +23,22 @@
       field=lang_field, data=res, entity_type='dataset', object_type=pkg.type %}
   </td>
   <td class="td-center" style="width:20%">
+    {# Build a language string so a screen reader can distinguish two
+       data dictionaries that share a display name (issue #231). #}
+    {% set res_lang_value = res.language %}
+    {% set res_lang_text = '' %}
+    {% if res_lang_value %}
+      {% if res_lang_value is string %}
+        {% set res_lang_text = res_lang_value %}
+      {% elif res_lang_value is iterable %}
+        {% set res_lang_text = res_lang_value|join(', ') %}
+      {% endif %}
+    {% endif %}
     <a href="{{ res.url }}" title="{{ _('Data dictionary') ~ ' ' ~ res_num }}" class="resource-url-analytics btn btn-primary" target="_blank" data-pkg-id="{{ pkg.id }}" data-res-id="{{ res.id }}" data-org-id="{{ pkg.organization.id }}">
       {{ _('Go to') }}
-      <span class="wb-inv">{{ _('Go to the data dictionary named:') }} {{ name }}</span>
+      {# Don't repeat the visible verb ("Go to") inside wb-inv — the screen
+         reader already reads it, so the hidden text continues the sentence. #}
+      <span class="wb-inv">{{ _('the data dictionary named:') }} {{ name }}{% if res_lang_text %} ({{ res_lang_text }}){% endif %}</span>
     </a>
     {% if can_edit %}
       {% link_for _('Edit'), controller='dataset_resource', action='edit', id=pkg.name, resource_id=res.id, class_='btn btn-default' %}

@@ -3,22 +3,52 @@
 {%- block page -%}
 
   {% block skip %}
-    <div class="hide"><a href="#content">{{ _('Skip to content') }}</a></div>
+    {# WET v4 skip block — must be the first element in <body>. The links
+       are visually hidden until focused (handled by GCWeb's .wb-sl style),
+       which lets keyboard users tab past the header straight to the main
+       content (#wb-cont) or the footer (#wb-info). #}
+    <nav>
+      <ul id="wb-tphp">
+        <li class="wb-slc">
+          <a class="wb-sl" href="#wb-cont">{{ _('Skip to main content') }}</a>
+        </li>
+        <li class="wb-slc visible-sm visible-md visible-lg">
+          <a class="wb-sl" href="#wb-info">{{ _('Skip to "About this site"') }}</a>
+        </li>
+      </ul>
+    </nav>
   {% endblock %}
 
   {#
   Override the header on a page by page basis by extending this block. If
   making sitewide header changes it is preferable to override the header.html
   file.
+
+  Per WET v4 the breadcrumb must live inside <header>, so we wrap both the
+  header include and the toolbar/breadcrumb block in a single <header>.
   #}
   {%- block header %}
-    {% include "header.html" %}
+    <header>
+      {% include "header.html" %}
+      {% block toolbar %}
+        <nav id="wb-bc" property="breadcrumb">
+          <h2 class="wb-inv">{{ _('You are here:') }}</h2>
+          {% block breadcrumb %}
+            <div class="container">
+              <ol class="breadcrumb">
+                {% snippet 'snippets/home_breadcrumb_item.html' %}
+              </ol>
+            </div>
+          {% endblock %}
+        </nav>
+      {% endblock %}
+    </header>
   {% endblock -%}
 
   {# The content block allows you to replace the content of the page if needed #}
   {%- block content %}
     {% block maintag %}<div class='page-wrap'>{% endblock %}
-      <div id="content" class="container" role="main">
+      <main id="content" class="container">
         {% block main_content %}
           {% block flash %}
             <div class="flash-messages">
@@ -30,19 +60,6 @@
                 {% endfor %}
               {% endblock %}
             </div>
-          {% endblock %}
-
-          {% block toolbar %}
-            <nav id="wb-bc" property="breadcrumb">
-              <h2 class="wb-inv">{{ _('You are here:') }}</h2>
-              {% block breadcrumb %}
-                <div class="container">
-                  <ol class="breadcrumb">
-                    {% snippet 'snippets/home_breadcrumb_item.html' %}
-                  </ol>
-                </div>
-              {% endblock %}
-            </nav>
           {% endblock %}
 
           <div {% block main_search_role %}{% endblock %} class="row wrapper{% block wrapper_class %}{% endblock %}{% if self.secondary()|trim == '' or c.action=='resource_read' %} no-nav{% endif %}">
@@ -117,7 +134,7 @@
           </div>
         {% endblock %}
         {% snippet 'snippets/bottom_buttons.html' %}
-      </div>
+      </main>
     </div>
   {% endblock -%}
 

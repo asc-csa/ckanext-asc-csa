@@ -2,53 +2,91 @@
 {% set subject_types = h.feedback_subject_types() %}
 {% set reasons = h.feedback_reasons() %}
 
+{# Both helpers pop from session, so call once and reuse the local var.
+   Errors and form data come from ckanext-feedback's submit view after a
+   failed POST. The error list is rendered inside the form so its location
+   matches WET's wb-frmvld client-side error placement. #}
+{% set form_errors = h.feedback_form_errors() %}
+{% set form_data = h.feedback_form_data() %}
+
 <section class="panel panel-default mrgn-tp-lg">
   <div class="panel-heading">
     <h2 class="panel-title">{{ _('Provide feedback on this dataset') }}</h2>
   </div>
-  <div class="panel-body">
+  {# wb-frmvld activates WET's client-side form validator on this wrapper. #}
+  <div class="panel-body wb-frmvld">
     <form method="POST"
           action="{{ h.url_for('feedback.submit', package_id=pkg.id) }}"
           class="feedback-submission-form"
           {% if recaptcha_key %}data-recaptcha-sitekey="{{ recaptcha_key }}"{% endif %}>
       {{ h.csrf_input() }}
 
+      {% if form_errors %}
+        {# Mirror the structure WET's wb-frmvld JS uses for client-side
+           errors so server- and client-side error displays line up. #}
+        <section class="alert alert-danger feedback-form-errors" role="alert" tabindex="-1">
+          <h3>{{ _('The form could not be submitted because errors were found') }}</h3>
+          <ul>
+            {% for error in form_errors %}
+              <li><a href="#{{ error.field }}">{{ error.message }}</a></li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endif %}
+
       <div class="form-group">
-        <label for="feedback-name">{{ _('Name') }} <small class="text-muted">({{ _('optional') }})</small></label>
+        <label for="feedback-name">
+          <span class="field-name">{{ _('Name') }}</span>
+          <strong class="optional">({{ _('optional') }})</strong>
+        </label>
         <input type="text" class="form-control" id="feedback-name" name="author_name"
+               value="{{ form_data.get('author_name', '') }}"
                placeholder="{{ _('Your name') }}" style="width: 100%;">
       </div>
 
       <div class="form-group">
-        <label for="feedback-email">{{ _('Email') }} <small class="text-muted">({{ _('optional') }})</small></label>
+        <label for="feedback-email">
+          <span class="field-name">{{ _('Email') }}</span>
+          <strong class="optional">({{ _('optional') }})</strong>
+        </label>
         <input type="email" class="form-control" id="feedback-email" name="author_email"
+               value="{{ form_data.get('author_email', '') }}"
                placeholder="{{ _('Your email address') }}" style="width: 100%;">
       </div>
 
       <div class="form-group">
-        <label for="feedback-subject-type">{{ _('I am a') }} <span class="text-danger">*</span></label>
+        <label for="feedback-subject-type" class="required">
+          <span class="field-name">{{ _('I am a') }}</span>
+          <strong class="required" aria-hidden="true">({{ _('required') }})</strong>
+        </label>
         <select class="form-control" id="feedback-subject-type" name="subject_type" required style="width: 100%;">
           <option value="">{{ _('-- Select --') }}</option>
           {% for st in subject_types %}
-            <option value="{{ st }}">{{ _(st) }}</option>
+            <option value="{{ st }}" {% if form_data.get('subject_type') == st %}selected{% endif %}>{{ _(st) }}</option>
           {% endfor %}
         </select>
       </div>
 
       <div class="form-group">
-        <label for="feedback-reason">{{ _('Reason for feedback') }} <span class="text-danger">*</span></label>
+        <label for="feedback-reason" class="required">
+          <span class="field-name">{{ _('Reason for feedback') }}</span>
+          <strong class="required" aria-hidden="true">({{ _('required') }})</strong>
+        </label>
         <select class="form-control" id="feedback-reason" name="reason" required style="width: 100%;">
           <option value="">{{ _('-- Select --') }}</option>
           {% for r in reasons %}
-            <option value="{{ r }}">{{ _(r) }}</option>
+            <option value="{{ r }}" {% if form_data.get('reason') == r %}selected{% endif %}>{{ _(r) }}</option>
           {% endfor %}
         </select>
       </div>
 
       <div class="form-group">
-        <label for="feedback-body">{{ _('Feedback') }} <span class="text-danger">*</span></label>
+        <label for="feedback-body" class="required">
+          <span class="field-name">{{ _('Feedback') }}</span>
+          <strong class="required" aria-hidden="true">({{ _('required') }})</strong>
+        </label>
         <textarea class="form-control" id="feedback-body" name="body" rows="5" required
-                  placeholder="{{ _('Please describe your feedback...') }}" style="width: 100%;"></textarea>
+                  placeholder="{{ _('Please describe your feedback...') }}" style="width: 100%;">{{ form_data.get('body', '') }}</textarea>
       </div>
 
       {% if recaptcha_key %}
