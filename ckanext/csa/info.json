@@ -620,7 +620,7 @@
 			"preset": "canada_portal_release_date",
 			"help_text": {
 				"en": "The date the asset may be published on the Portal (YYYY-MM-DD)",
-				"fr": "La date que le jeu de données peut être publier sur le portail information ouvertes (AAAA-MM-JJ)"
+				"fr": "La date que le jeu de données peut être publié sur le portail des données et informations ouvertes (AAAA-MM-JJ)"
 			}
 		}
 	],
