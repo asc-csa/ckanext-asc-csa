@@ -90,6 +90,8 @@ pip install --upgrade pip setuptools wheel
 
 ```bash
 pip install -e 'git+https://github.com/ckan/ckan.git@ckan-2.11.0#egg=ckan[requirements]'
+OR
+pip install -e 'ckan[requirements] @ git+https://github.com/ckan/ckan.git@ckan-2.11.0'
 ```
 
 ### 4. Install the CSA Extension and Dependencies
