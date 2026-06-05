@@ -175,10 +175,10 @@ sudo -u solr /opt/solr/bin/solr create -c ckan
 Copy the CSA-specific Solr configuration files:
 
 ```bash
-sudo cp /usr/lib/ckan/default/src/ckanext-asc-csa/my_conf/schema.xml /var/solr/data/ckan/conf/
-sudo cp /usr/lib/ckan/default/src/ckanext-asc-csa/my_conf/solrconfig.xml /var/solr/data/ckan/conf/
-sudo cp -r /usr/lib/ckan/default/src/ckanext-asc-csa/my_conf/lang /var/solr/data/ckan/conf/
-sudo cp /usr/lib/ckan/default/src/ckanext-asc-csa/my_conf/*.txt /var/solr/data/ckan/conf/
+sudo cp /usr/lib/ckan/default/src/ckanext-asc-csa/misc/schema.xml /var/solr/data/ckan/conf/
+sudo cp /usr/lib/ckan/default/src/ckanext-asc-csa/misc/solrconfig.xml /var/solr/data/ckan/conf/
+sudo cp -r /usr/lib/ckan/default/src/ckanext-asc-csa/misc/lang /var/solr/data/ckan/conf/
+sudo cp /usr/lib/ckan/default/src/ckanext-asc-csa/misc/*.txt /var/solr/data/ckan/conf/
 sudo chown -R solr:solr /var/solr/data/ckan
 ```
 
