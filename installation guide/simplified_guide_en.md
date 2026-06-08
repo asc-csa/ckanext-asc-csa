@@ -261,6 +261,9 @@ If you have imported existing data:
 ```bash
 source /usr/lib/ckan/default/bin/activate
 ckan -c /etc/ckan/default/ckan.ini search-index rebuild
+OR
+source /usr/lib/ckan/default/bin/activate
+ckan --config /etc/ckan/default/ckan.ini search-index rebuild
 ```
 
 
