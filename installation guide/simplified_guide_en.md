@@ -97,13 +97,17 @@ pip install -e 'ckan[requirements] @ git+https://github.com/ckan/ckan.git@ckan-2
 ### 4. Install the CSA Extension and Dependencies
 
 ```bash
-cd /usr/lib/ckan/default/src
+cd /usr/lib/ckan
 git clone https://github.com/asc-csa/ckanext-asc-csa.git
 OR
+cd /usr/lib/ckan
 git clone --branch cleanups --single-branch https://github.com/asc-csa/ckanext-asc-csa.git
 cd ckanext-asc-csa
 pip install -r requirements.txt
 pip install -e .
+cd /usr/lib/ckan/default/src
+pip install geomet==0.2.0.post2
+pip install pandas==3.0.0
 ```
 
 
