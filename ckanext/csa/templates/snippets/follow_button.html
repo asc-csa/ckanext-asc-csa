@@ -1,0 +1,6 @@
+{% set anchor_type = anchor_type or obj_type %}
+{% if following or am_following %}
+  <a href="javascript:;" class="btn btn-default" hx-post="{{ h.url_for(obj_type + '.unfollow', id=obj_id) }}" hx-target="#{{ anchor_type }}-info"><span class="fa fa-minus"></span> {{ _('Unfollow') }}</a>
+{% else %}
+  <a href="javascript:;" class="btn btn-primary" hx-post="{{ h.url_for(obj_type + '.follow', id=obj_id) }}" hx-target="#{{ anchor_type }}-info"><span class="fa fa-plus"></span> {{ _('Follow') }}</a>
+{% endif %}

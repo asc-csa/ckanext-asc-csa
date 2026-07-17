@@ -11,7 +11,7 @@ Example:
 {% block package_info %}
   {% if pkg %}
   <!--template/package/snippets/info.html start-->
-
+  <section id="package-info">
           {% block package_info_inner %}
             {% block heading %}
               <!-- <h2 class="heading">{{ h.dataset_display_name(pkg) }}</h2> -->
@@ -21,9 +21,19 @@ Example:
 
             {% endblock %}
 
+            {% block follow_button %}
+              {% if current_user.is_authenticated %}
+                {% if error_message %}
+                  <div class="alert alert-danger">{{ error_message }}</div>
+                {% endif %}
+                <div class="mrgn-bttm-md">
+                  {% snippet 'snippets/follow_button.html', am_following=am_following, obj_type='dataset', obj_id=pkg.id, anchor_type='package' %}
+                </div>
+              {% endif %}
+            {% endblock %}
+
           {% endblock %}
-
-
+  </section>
 
   {% endif %}
   <!--template/package/info.html end-->
