@@ -40,23 +40,19 @@
         {% endif %}
       {% endblock %}
     {% block publisher_info %}
-    <div class="row mrgn-tp-sm">
-      <div class="col-md-3">{{ _('Organization') }}: </div>
-      <div class="col-md-9">{{ cr.org_field(package, h.lang()) }}</div>
-    </div>
     {% set issuing_org = h.scheming_language_text(package.get('org_title_at_publication')) %}
     {% if issuing_org and package.jurisdiction != 'federal' %}
     <div class="row">
-      <div class="col-md-3">{{ _('Issued by') }}:</div>
-      <div class="col-md-9">{{ issuing_org }}</div>
+      <div class="col-md-4">{{ _('Issued by') }}:</div>
+      <div class="col-md-8">{{ issuing_org }}</div>
     </div>
     {% endif %}
     {% endblock %}
 
     {% block resources_outer %}
       <div class="row">
-        <div class="col-md-3">{{ _('Resource Formats') }}:</div>
-        <div class="col-md-9">
+        <div class="col-md-4">{{ _('Resource Formats') }}:</div>
+        <div class="col-md-8">
           <ul class="list-inline list-unstyled">
             {% for resource in h.dict_list_reduce(package.resources, 'format') %}
             {%if resource=='other' and h.lang()=='fr'%}
