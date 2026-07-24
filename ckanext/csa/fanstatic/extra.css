@@ -151,3 +151,71 @@ select.form-control {
 .activity .item .date {
     margin-left: 0;
 }
+
+.gcweb-menu > .container {
+    position: relative;
+}
+.csa-account {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 51px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.2;
+}
+.csa-account .csa-account-user {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+}
+.csa-account .csa-account-user:hover .csa-account-name {
+    text-decoration: underline;
+}
+.csa-account .csa-account-user img {
+    border-radius: 50%;
+    vertical-align: middle;
+}
+.csa-account-link,
+.csa-account-logout button {
+    display: inline;
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
+    color: #284162;
+    text-decoration: underline;
+    font-size: inherit;
+    line-height: inherit;
+    cursor: pointer;
+}
+.csa-account-link:hover,
+.csa-account-logout button:hover {
+    color: #0535d2;
+}
+.csa-account-logout {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+.csa-account-signin .glyphicon {
+    font-size: 0.9em;
+}
+.csa-account-sep {
+    color: #ccc;
+}
+@media (max-width: 767px) {
+    .csa-account {
+        position: static;
+        height: auto;
+        justify-content: flex-start;
+        padding: 8px 0;
+    }
+}

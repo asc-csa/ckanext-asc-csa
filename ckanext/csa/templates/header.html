@@ -116,6 +116,32 @@
 				<li role="presentation"><a role="menuitem" href="{{ _('https://www.canada.ca/en/services/finance.html') }}">{{ _("Money and finances") }}</a></li>
 				<li role="presentation"><a role="menuitem" href="{{ _('https://www.canada.ca/en/services/science.html') }}">{{ _("Science and innovation") }}</a></li>
 			</ul>
+			<div class="csa-account" role="navigation" aria-label="{{ _('User account') }}">
+				<h2 class="wb-inv">{{ _('User account') }}</h2>
+				{% if c.userobj %}
+					<a class="csa-account-user" href="{{ h.url_for('user.read', id=c.userobj.name) }}" title="{{ _('View profile') }}">
+						{{ h.user_image(c.user, size=24) }}
+						<span class="csa-account-name">{{ c.userobj.display_name }}</span>
+					</a>
+					<span class="csa-account-sep" aria-hidden="true">|</span>
+					{% if c.userobj.sysadmin %}
+						<a class="csa-account-link" href="{{ h.url_for('admin.index') }}">{{ _('Admin') }}</a>
+					{% endif %}
+					<a class="csa-account-link" href="{{ h.url_for('activity.dashboard') }}">{{ _('Dashboard') }}</a>
+					<form class="csa-account-logout" action="{{ h.url_for('user.logout') }}" method="post">
+						{{ h.csrf_input() }}
+						<button type="submit" class="csa-account-link">{{ _('Sign out') }}</button>
+					</form>
+				{% else %}
+					<a class="csa-account-link csa-account-signin" href="{{ h.url_for('user.login') }}">
+						<span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ _('Sign in') }}
+					</a>
+					{% if h.check_access('user_create') %}
+						<span class="csa-account-sep" aria-hidden="true">|</span>
+						<a class="csa-account-link" href="{{ h.url_for('user.register') }}">{{ _('Register') }}</a>
+					{% endif %}
+				{% endif %}
+			</div>
 		</div>
 	</nav>
 <!-- Static header ends -->
