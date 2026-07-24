@@ -219,9 +219,9 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
         @bp.route("/")
         def index():
             """
-            Redirects the root URL to the dataset page.
+            Renders the home landing page.
             """
-            return tk.redirect_to("dataset.search")
+            return tk.render("home/index.html")
         
         @bp.route("/api-help")
         def api_help():

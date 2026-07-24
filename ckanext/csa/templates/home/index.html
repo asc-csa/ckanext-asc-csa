@@ -1,2 +1,61 @@
 {% ckan_extends %}
 
+{% block primary_content %}
+  <div class="container csa-home">
+
+    <section class="csa-home-search">
+      <h1 class="mrgn-tp-md">
+        {%- if h.lang() == 'fr' -%}Portail de données et information ouvertes{%- else -%}Open data and information Portal{%- endif -%}
+      </h1>
+      <p class="csa-home-lead">{{ _('Search datasets, information and resources from the Canadian Space Agency.') }}</p>
+      <form class="csa-home-search-form" action="{{ h.url_for('dataset.search') }}" method="get" role="search">
+        <label for="csa-home-q" class="wb-inv">{{ _('Search datasets') }}</label>
+        <div class="input-group input-group-lg">
+          <input type="search" id="csa-home-q" name="q" class="form-control" placeholder="{{ _('Search datasets...') }}">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> {{ _('Search') }}</button>
+          </span>
+        </div>
+      </form>
+    </section>
+
+    {# TODO: mocked spotlight items — replace link/text/image with real content. #}
+    {% set spotlight = [
+      {
+        'title': _('Flood Mapping'),
+        'url': '#',
+        'image': h.url_for_static('/images/splash/sp-bg-4.jpg'),
+        'text': _('Canadian federal, provincial and territorial government geospatial data providers collaborate to provide tools and resources to help Canadians plan and prepare for floods.')
+      },
+      {
+        'title': _('GeoAI'),
+        'url': '#',
+        'image': h.url_for_static('/csa-org.jpg'),
+        'text': _('Discover the GeoAI Data Series, the time enabled geospatial features created using artificial intelligence (AI).')
+      },
+      {
+        'title': _('Canadian Hydrospatial Network'),
+        'url': '#',
+        'image': h.url_for_static('/images/splash/sp-bg-4.jpg'),
+        'text': _("Discover Canada's new, higher-resolution hydrographic network. The network enables geospatial analyses to model surface water flow.")
+      }
+    ] %}
+
+    <section class="csa-spotlight">
+      <h2 class="mrgn-tp-0">{{ _('In the Spotlight') }}</h2>
+      <p>{{ _('Find new releases and key geospatial information, initiatives and communities.') }}</p>
+      <div class="csa-spotlight-grid">
+        {% for item in spotlight %}
+          <div class="csa-spotlight-card">
+            <a href="{{ item.url }}" class="csa-spotlight-img" tabindex="-1" aria-hidden="true">
+              <img src="{{ item.image }}" alt="">
+            </a>
+            <h3 class="csa-spotlight-title"><a href="{{ item.url }}">{{ item.title }}</a></h3>
+            <p>{{ item.text }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+  </div>
+{% endblock %}
