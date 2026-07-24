@@ -1,5 +1,3 @@
-
-
 .module-heading {
     margin: 0;
     padding: 10px 25px;
@@ -238,4 +236,16 @@ select.form-control {
 .page-header .content_action {
     order: 1;
     flex-shrink: 0;
+}
+
+.csa-facet-clear {
+    padding: 12px 12px 8px;
+}
+.csa-facet-controls {
+    display: flex;
+    gap: 8px;
+    padding: 0 12px 12px;
+}
+.csa-facet-controls .btn {
+    flex: 1;
 }
