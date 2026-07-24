@@ -1,3 +1,22 @@
+main {
+    font-size: 1rem;
+}
+
+.panel-title {
+    font-size: 1.6rem;
+}
+
+.search-result-count {
+    font-size: 1.7rem;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#dataset-search-form {
+    margin-bottom: 1rem;
+    padding-bottom: 0;
+}
+
 .module-heading {
     margin: 0;
     padding: 10px 25px;
