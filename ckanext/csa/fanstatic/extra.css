@@ -219,3 +219,23 @@ select.form-control {
         padding: 8px 0;
     }
 }
+
+.page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.page-header::after {
+    display: none;
+}
+.page-header .nav-tabs,
+.page-header .content_action {
+    float: none;
+}
+.page-header .nav-tabs {
+    min-width: 0;
+}
+.page-header .content_action {
+    order: 1;
+    flex-shrink: 0;
+}
