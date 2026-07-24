@@ -255,6 +255,13 @@ select.form-control {
 .page-header .content_action {
     order: 1;
     flex-shrink: 0;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.page-header .content_action #package-info,
+.page-header .content_action #package-info .mrgn-bttm-md {
+    margin: 0;
 }
 
 .csa-facet-clear {

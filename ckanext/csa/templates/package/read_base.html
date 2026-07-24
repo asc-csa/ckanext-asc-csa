@@ -18,6 +18,9 @@
   {% if h.check_access('package_update', {'id':pkg.id }) %}
     {% link_for _('Manage'), named_route=pkg.type ~ '.edit', id=pkg.name, class_='btn btn-default', icon='wrench' %}
   {% endif %}
+  {% if current_user.is_authenticated %}
+    {% snippet 'package/snippets/info.html', pkg=pkg, am_following=am_following %}
+  {% endif %}
 {% endblock %}
 
 {% block content_primary_nav %}
@@ -49,9 +52,7 @@
     {% snippet "feedback/snippets/rating_widget.html", pkg=pkg %}
   {% endblock %}
 
-  {% block package_info %}
-    {% snippet 'package/snippets/info.html', pkg=pkg, am_following=am_following %}
-  {% endblock %}
+  {% block package_info %}{% endblock %}
 
   <div class="panel panel-primary" style="word-wrap: break-word;">
         <div class="panel-heading">
