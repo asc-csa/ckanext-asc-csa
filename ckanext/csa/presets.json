@@ -487,7 +487,7 @@
             "fr": "Description du jeu de données, en anglais. La description peut comprendre un résumé, une table des matières ou un texte libre."
           }
         },
-        "required": true,
+        "required": false,
         "form_snippet": "fluent_markdown.html",
         "display_snippet": "fluent_markdown.html",
         "error_snippet": "fluent_text.html",

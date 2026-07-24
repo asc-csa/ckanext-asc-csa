@@ -90,18 +90,24 @@ pip install --upgrade pip setuptools wheel
 
 ```bash
 pip install -e 'git+https://github.com/ckan/ckan.git@ckan-2.11.0#egg=ckan[requirements]'
+OR
+pip install -e 'ckan[requirements] @ git+https://github.com/ckan/ckan.git@ckan-2.11.0'
 ```
 
 ### 4. Install the CSA Extension and Dependencies
 
 ```bash
-cd /usr/lib/ckan/default/src
+cd /usr/lib/ckan
 git clone https://github.com/asc-csa/ckanext-asc-csa.git
 OR
+cd /usr/lib/ckan
 git clone --branch cleanups --single-branch https://github.com/asc-csa/ckanext-asc-csa.git
 cd ckanext-asc-csa
 pip install -r requirements.txt
 pip install -e .
+cd /usr/lib/ckan/default/src
+pip install geomet==0.2.0.post2
+pip install pandas==3.0.0
 ```
 
 
@@ -173,10 +179,10 @@ sudo -u solr /opt/solr/bin/solr create -c ckan
 Copy the CSA-specific Solr configuration files:
 
 ```bash
-sudo cp /usr/lib/ckan/default/src/ckanext-asc-csa/my_conf/schema.xml /var/solr/data/ckan/conf/
-sudo cp /usr/lib/ckan/default/src/ckanext-asc-csa/my_conf/solrconfig.xml /var/solr/data/ckan/conf/
-sudo cp -r /usr/lib/ckan/default/src/ckanext-asc-csa/my_conf/lang /var/solr/data/ckan/conf/
-sudo cp /usr/lib/ckan/default/src/ckanext-asc-csa/my_conf/*.txt /var/solr/data/ckan/conf/
+sudo cp /usr/lib/ckan/default/src/ckanext-asc-csa/misc/schema.xml /var/solr/data/ckan/conf/
+sudo cp /usr/lib/ckan/default/src/ckanext-asc-csa/misc/solrconfig.xml /var/solr/data/ckan/conf/
+sudo cp -r /usr/lib/ckan/default/src/ckanext-asc-csa/misc/lang /var/solr/data/ckan/conf/
+sudo cp /usr/lib/ckan/default/src/ckanext-asc-csa/misc/*.txt /var/solr/data/ckan/conf/
 sudo chown -R solr:solr /var/solr/data/ckan
 ```
 
@@ -255,6 +261,9 @@ If you have imported existing data:
 ```bash
 source /usr/lib/ckan/default/bin/activate
 ckan -c /etc/ckan/default/ckan.ini search-index rebuild
+OR
+source /usr/lib/ckan/default/bin/activate
+ckan --config /etc/ckan/default/ckan.ini search-index rebuild
 ```
 
 
