@@ -1,7 +1,7 @@
 
 {% extends "package/base.html" %}
 <!--template/package/read_base.html start-->
-{% set pkg = c.pkg_dict %}
+{% set pkg = pkg_dict if pkg_dict is defined else c.pkg_dict %}
 {% set schema = h.scheming_get_dataset_schema(pkg.type) %}
 {% set default_group_type = h.default_group_type('group') %}
 
@@ -23,6 +23,7 @@
 {% block content_primary_nav %}
   {{ h.build_nav_icon(dataset_type ~ '.read', _('Dataset'),  id=pkg.name, icon='sitemap') }}
   {{ h.build_nav_icon(dataset_type ~ '.groups', h.humanize_entity_type('group', default_group_type, 'content tab') or _('Groups'), id=pkg.name, icon='users') }}
+  {{ h.build_nav_icon('activity.package_activity', _('Activity Stream'), id=pkg.name, icon='clock') }}
 {% endblock %}
 
 {% block primary_content_inner %}
@@ -49,10 +50,10 @@
   {% endblock %}
 
   {% block package_info %}
-    {% snippet 'package/snippets/info.html', pkg=pkg %}
+    {% snippet 'package/snippets/info.html', pkg=pkg, am_following=am_following %}
   {% endblock %}
 
-  <div class="panel panel-primary" style="-ms-word-wrap: break-word;">
+  <div class="panel panel-primary" style="word-wrap: break-word;">
         <div class="panel-heading">
           <div class="panel-title">
             {{ _('Additional information') }}

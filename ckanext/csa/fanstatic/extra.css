@@ -113,3 +113,41 @@ select.form-control {
     -moz-appearance: auto;
     appearance: auto;
 }
+
+.activity {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border-left: 1px dotted #ccc;
+}
+.activity .item {
+    position: relative;
+    margin: 0;
+    padding: 10px 0 10px 52px;
+    min-height: 44px;
+}
+.activity .item .fa-stack,
+.activity .item .fa-stack .fa-stack-1x,
+.activity .item .fa-stack .fa-stack-2x {
+    padding: 0;
+}
+.activity .item .fa-stack {
+    position: absolute;
+    left: -18px;
+    top: 8px;
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    line-height: 36px;
+}
+.activity .item .fa-stack .fa-inverse {
+    color: #fff;
+}
+.activity .item .user-image {
+    margin: 0 6px 0 0;
+    vertical-align: text-bottom;
+}
+.activity .item .date {
+    margin-left: 0;
+}
