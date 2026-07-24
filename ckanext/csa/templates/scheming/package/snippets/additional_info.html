@@ -1,5 +1,8 @@
 {% extends "package/snippets/additional_info.html" %}
 
+{#- The second group in exclude_fields below mirrors include_labels in
+    package/read_base.html (fields shown in the sidebar) so they aren't
+    duplicated in this table. Keep the two lists in sync. -#}
 {%- set exclude_fields = [
     'id',
     'title',
@@ -9,6 +12,62 @@
     'license_id',
     'owner_org',
     'title_translated',
-    'notes_translated'
+    'notes_translated',
+
+    'creator',
+    'maintainer_email',
+    'keywords',
+    'subject',
+    'topic_category',
+    'audience',
+    'place_of_publication',
+    'series_title',
+    'series_issue_id',
+    'program_page_url',
+    'data_series_name',
+    'data_series_issue_identification',
+    'edition',
+    'series_publication_dates',
+    'digital_object_identifier',
+    'isbn',
+    'issn',
+    'gc_catalogue_number',
+    'frequency',
+    'issuance',
+    'issuance_frequency',
+    'spatial_representation_type',
+    'status',
+    'date_published',
+    'date_created',
+    'date_captured',
+    'date_modified',
+    'link_language'
     ] -%}
+
+{% block package_additional_info %}
+  {%- for field in schema.dataset_fields -%}
+    {%- if field.field_name not in exclude_fields
+        and field.display_snippet is not none -%}
+      {% set value %}{%- snippet 'scheming/snippets/display_field.html',
+        field=field, data=pkg_dict, schema=schema -%}{% endset %}
+      {#- Skip fields whose display snippet rendered no visible content
+          (empty/missing value) so we don't emit blank rows. -#}
+      {%- if value|striptags|trim -%}
+        <tr>
+          <th scope="row" class="dataset-label">{{
+            h.scheming_language_text(field.label) }}</th>
+          <td class="dataset-details"{%
+            if field.display_property %} property="{{ field.display_property
+            }}"{% endif %}>{{ value }}</td>
+        </tr>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {% if h.check_access('package_update',{'id':pkg_dict.id}) %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("State") }}</th>
+      <td class="dataset-details">{{ _(pkg_dict.state) }}</td>
+    </tr>
+  {% endif %}
+{% endblock %}
 

@@ -3,6 +3,7 @@
 <!--template/package/additional_info.html start-->
 <section class="additional-info">
    <h2>{{ _('More on this record') }}:</h2>
+  <div class="additional-info-body" id="additional-info-body">
   <table class="table table-bordered">
     {# <thead>
       <tr>
@@ -83,5 +84,36 @@
       {% endblock %}
     </tbody>
   </table>
+  </div>
+  <button type="button" class="btn btn-link additional-info-toggle" aria-controls="additional-info-body" aria-expanded="true" hidden>
+    <span class="additional-info-more">{{ _('Show more') }}</span>
+    <span class="additional-info-less">{{ _('Show less') }}</span>
+    <span class="glyphicon glyphicon-chevron-down additional-info-caret" aria-hidden="true"></span>
+  </button>
+  <script>
+  (function () {
+    function init() {
+      var body = document.getElementById('additional-info-body');
+      var btn = document.querySelector('.additional-info-toggle');
+      if (!body || !btn) { return; }
+      // Progressive enhancement: only collapse when there is meaningfully more
+      // content than the peek height, so short tables stay fully shown.
+      var peek = parseFloat(getComputedStyle(body).fontSize) * 13.5;
+      if (body.scrollHeight <= peek + 24) { return; }
+      body.classList.add('is-collapsed');
+      btn.hidden = false;
+      btn.setAttribute('aria-expanded', 'false');
+      btn.addEventListener('click', function () {
+        var collapsed = body.classList.toggle('is-collapsed');
+        btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+  </script>
 </section>
 <!--template/package/additional_info.html end-->

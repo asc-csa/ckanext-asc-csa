@@ -327,3 +327,36 @@ select.form-control {
         grid-template-columns: 1fr;
     }
 }
+
+/* "More on this record" collapsible peek (accessible disclosure).
+   The .is-collapsed class is only added by JS, so with JS off the full
+   table is shown and the toggle button stays hidden. */
+.additional-info-body.is-collapsed {
+    max-height: 13.5em;
+    overflow: hidden;
+    position: relative;
+}
+.additional-info-body.is-collapsed::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3em;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
+    pointer-events: none;
+}
+.additional-info-toggle {
+    padding-left: 0;
+}
+.additional-info-toggle .additional-info-caret {
+    margin-left: .3em;
+    font-size: .8em;
+}
+.additional-info-toggle[aria-expanded="true"] .additional-info-more,
+.additional-info-toggle[aria-expanded="false"] .additional-info-less {
+    display: none;
+}
+.additional-info-toggle[aria-expanded="true"] .additional-info-caret {
+    transform: rotate(180deg);
+}
