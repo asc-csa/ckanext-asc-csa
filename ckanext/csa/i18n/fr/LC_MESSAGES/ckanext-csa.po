@@ -18,6 +18,70 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
+#: ckanext/csa/templates/home/index.html
+msgid "Search datasets, information and resources from the Canadian Space Agency."
+msgstr "Recherchez des jeux de données, de l'information et des ressources de l'Agence spatiale canadienne."
+
+#: ckanext/csa/templates/home/index.html
+msgid "In the Spotlight"
+msgstr "En vedette"
+
+#: ckanext/csa/templates/home/index.html
+msgid "Find new releases and key geospatial information, initiatives and communities."
+msgstr "Trouvez les nouveautés, l'information géospatiale clé, les initiatives et les communautés."
+
+#: ckanext/csa/templates/home/index.html
+msgid "Community Spotlight"
+msgstr "Communauté en vedette"
+
+#: ckanext/csa/templates/home/index.html
+msgid "Discover projects and stories built with Canadian Space Agency data."
+msgstr "Découvrez des projets et des récits réalisés à partir des données de l'Agence spatiale canadienne."
+
+#: ckanext/csa/templates/admin/spotlight.html
+msgid "Spotlight"
+msgstr "En vedette"
+
+#: ckanext/csa/templates/admin/spotlight.html
+msgid "Shown as a three-card row near the top of the home page."
+msgstr "Affiché sous forme d'une rangée de trois cartes près du haut de la page d'accueil."
+
+#: ckanext/csa/templates/admin/spotlight.html
+msgid "Projects built with CSA data, shown as alternating image / content rows."
+msgstr "Projets réalisés à partir de données de l'ASC, affichés en rangées alternées image / contenu."
+
+#: ckanext/csa/templates/admin/spotlight.html
+msgid "Add spotlight item"
+msgstr "Ajouter un élément en vedette"
+
+#: ckanext/csa/templates/admin/spotlight.html
+msgid "Add community item"
+msgstr "Ajouter un élément communautaire"
+
+#: ckanext/csa/templates/admin/snippets/spotlight_row.html
+msgid "Untitled item"
+msgstr "Élément sans titre"
+
+#: ckanext/csa/templates/admin/snippets/spotlight_row.html
+msgid "Image URL"
+msgstr "URL de l'image"
+
+#: ckanext/csa/templates/admin/snippets/spotlight_row.html
+msgid "Link"
+msgstr "Lien"
+
+#: ckanext/csa/templates/admin/snippets/spotlight_row.html
+msgid "Title"
+msgstr "Titre"
+
+#: ckanext/csa/templates/admin/snippets/spotlight_row.html
+msgid "Text"
+msgstr "Texte"
+
+#: ckanext/csa/templates/admin/spotlight.html
+msgid "Save"
+msgstr "Enregistrer"
+
 #: ckanext/csa/plugin.py:231
 msgid "Search Tips"
 msgstr "Astuces de recherche"

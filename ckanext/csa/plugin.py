@@ -138,6 +138,10 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             "get_translated_t": helpers.get_translated_t,
             "header_embeds_exists": helpers.header_embeds_exists,
             "footer_embeds_exists": helpers.footer_embeds_exists,
+            "csa_spotlight": helpers.csa_spotlight,
+            "csa_community_spotlight": helpers.csa_community_spotlight,
+            "csa_bilingual_text": helpers.csa_bilingual_text,
+            "csa_bilingual_get": helpers.csa_bilingual_get,
         }
 
     # IFacets
@@ -236,6 +240,48 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             Renders the search tips page.
             """
             return tk.render("content/search_tips.html")
+
+        @bp.route("/ckan-admin/spotlight", methods=["GET", "POST"])
+        def spotlight_admin():
+            """
+            Sysadmin page to manage the home page spotlight sections. Items are
+            stored in the system_info table (no migration) via helpers.
+            """
+            if not (tk.g.userobj and tk.g.userobj.sysadmin):
+                return tk.abort(
+                    403, _("Need to be system administrator to administer"))
+
+            def _parse(prefix):
+                gl = request.form.getlist
+                rows = zip(
+                    gl(prefix + "-title-en"), gl(prefix + "-title-fr"),
+                    gl(prefix + "-url-en"), gl(prefix + "-url-fr"),
+                    gl(prefix + "-image"),
+                    gl(prefix + "-text-en"), gl(prefix + "-text-fr"),
+                )
+                items = []
+                for t_en, t_fr, u_en, u_fr, image, x_en, x_fr in rows:
+                    parts = [t_en, t_fr, u_en, u_fr, image, x_en, x_fr]
+                    if not any(part.strip() for part in parts):
+                        continue
+                    items.append({
+                        "title": {"en": t_en.strip(), "fr": t_fr.strip()},
+                        "url": {"en": u_en.strip(), "fr": u_fr.strip()},
+                        "image": image.strip(),
+                        "text": {"en": x_en.strip(), "fr": x_fr.strip()},
+                    })
+                return items
+
+            if request.method == "POST":
+                helpers.save_spotlight(_parse("spotlight"))
+                helpers.save_community_spotlight(_parse("community"))
+                tk.h.flash_success(_("Spotlight sections updated."))
+                return tk.redirect_to("csa.spotlight_admin")
+
+            return tk.render("admin/spotlight.html", {
+                "spotlight": helpers.csa_spotlight(),
+                "community": helpers.csa_community_spotlight(),
+            })
 
         return bp
 

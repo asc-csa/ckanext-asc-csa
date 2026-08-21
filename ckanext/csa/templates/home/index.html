@@ -19,43 +19,48 @@
       </form>
     </section>
 
-    {# TODO: mocked spotlight items — replace link/text/image with real content. #}
-    {% set spotlight = [
-      {
-        'title': _('Flood Mapping'),
-        'url': '#',
-        'image': h.url_for_static('/images/splash/sp-bg-4.jpg'),
-        'text': _('Canadian federal, provincial and territorial government geospatial data providers collaborate to provide tools and resources to help Canadians plan and prepare for floods.')
-      },
-      {
-        'title': _('GeoAI'),
-        'url': '#',
-        'image': h.url_for_static('/csa-org.jpg'),
-        'text': _('Discover the GeoAI Data Series, the time enabled geospatial features created using artificial intelligence (AI).')
-      },
-      {
-        'title': _('Canadian Hydrospatial Network'),
-        'url': '#',
-        'image': h.url_for_static('/images/splash/sp-bg-4.jpg'),
-        'text': _("Discover Canada's new, higher-resolution hydrographic network. The network enables geospatial analyses to model surface water flow.")
-      }
-    ] %}
-
+    {% set spotlight = h.csa_spotlight() %}
+    {% if spotlight %}
     <section class="csa-spotlight">
       <h2 class="mrgn-tp-0">{{ _('In the Spotlight') }}</h2>
       <p>{{ _('Find new releases and key geospatial information, initiatives and communities.') }}</p>
       <div class="csa-spotlight-grid">
         {% for item in spotlight %}
+          {% set item_url = h.csa_bilingual_text(item.url) or '#' %}
           <div class="csa-spotlight-card">
-            <a href="{{ item.url }}" class="csa-spotlight-img" tabindex="-1" aria-hidden="true">
-              <img src="{{ item.image }}" alt="">
-            </a>
-            <h3 class="csa-spotlight-title"><a href="{{ item.url }}">{{ item.title }}</a></h3>
-            <p>{{ item.text }}</p>
+            {% if item.image %}
+              <a href="{{ item_url }}" class="csa-spotlight-img" tabindex="-1" aria-hidden="true">
+                <img src="{{ item.image }}" alt="">
+              </a>
+            {% endif %}
+            <h3 class="csa-spotlight-title"><a href="{{ item_url }}">{{ h.csa_bilingual_text(item.title) }}</a></h3>
+            <p>{{ h.csa_bilingual_text(item.text) }}</p>
           </div>
         {% endfor %}
       </div>
     </section>
+    {% endif %}
+
+    {% set community = h.csa_community_spotlight() %}
+    {% if community %}
+    <section class="csa-community">
+      <h2>{{ _('Community Spotlight') }}</h2>
+      <p>{{ _('Discover projects and stories built with Canadian Space Agency data.') }}</p>
+      {% for item in community %}
+        <div class="csa-community-row{% if loop.index0 is odd %} csa-community-reverse{% endif %}">
+          {% if item.image %}
+            <div class="csa-community-img">
+              <img src="{{ item.image }}" alt="">
+            </div>
+          {% endif %}
+          <div class="csa-community-content">
+            <h3 class="csa-community-title"><a href="{{ h.csa_bilingual_text(item.url) or '#' }}">{{ h.csa_bilingual_text(item.title) }}</a></h3>
+            <p>{{ h.csa_bilingual_text(item.text) }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </section>
+    {% endif %}
 
   </div>
 {% endblock %}
