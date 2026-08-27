@@ -12,7 +12,7 @@ Example:
 
 
 {% block resource_list %}
-<!--template/package/resource_list.html start-->
+<!--template/package/resources_list.html start-->
 <br><br>
 {% if resources %}
 
@@ -20,8 +20,7 @@ Example:
     {% set has_data_dictionaries = resources | selectattr('is_data_dictionary', 'defined') | selectattr('is_data_dictionary', 'equalto', 'yes') | list | length > 0 %}
 
     {% if pkg.resources %}
-    {% block resource_list_inner %}
-      <section>
+      <section class="mrgn-tp-lg">
         <table class="table table-striped resource-list">
           <caption class="wb-inv">{{_('Resource list table') }}</caption>
           <thead>
@@ -43,7 +42,6 @@ Example:
 
         </table>
       </section>
-    {% endblock %}
     {% endif %}
 
     {% if has_data_dictionaries %}
@@ -108,4 +106,4 @@ Example:
   </p>
 {% endif %}
 {% endblock %}
-<!--template/package/resource_list.html end-->
+<!--template/package/resources_list.html end-->
