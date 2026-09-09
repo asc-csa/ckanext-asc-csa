@@ -1,5 +1,5 @@
 ﻿
-# Portail de données et information ouvertes de l'ASC (CKAN)  
+# Portail des données et informations ouvertes de l'ASC (CKAN)  
 L'objectif de ce projet était de développer et de soutenir l'évolution continue d'un portail Web pour les données et les informations de l'ASC. Il s'agit d'un élément clé de la réalisation par l'ASC de la Directive sur le gouvernement ouvert (2013), de la Feuille de route pour la science ouverte (2020), ainsi que de la Stratégie de données de l'ASC.
 
 Vous pouvez accéder au portail en direct au https://donnees-data.asc-csa.gc.ca/fr/dataset.

@@ -5,9 +5,9 @@
 
     <section class="csa-home-search">
       <h1 class="mrgn-tp-md">
-        {%- if h.lang() == 'fr' -%}Portail de données et information ouvertes{%- else -%}Open data and information Portal{%- endif -%}
+        {%- if h.lang() == 'fr' -%}Portail des données et informations ouvertes{%- else -%}Open data and information Portal{%- endif -%}
       </h1>
-      <p class="csa-home-lead">{{ _('Search datasets, information and resources from the Canadian Space Agency.') }}</p>
+      <p class="csa-home-lead">{{ _('Search for data and information from the Canadian Space Agency.') }}</p>
       <form class="csa-home-search-form" action="{{ h.url_for('dataset.search') }}" method="get" role="search">
         <label for="csa-home-q" class="wb-inv">{{ _('Search datasets') }}</label>
         <div class="input-group input-group-lg">
@@ -23,7 +23,7 @@
     {% if spotlight %}
     <section class="csa-spotlight">
       <h2 class="mrgn-tp-0">{{ _('In the Spotlight') }}</h2>
-      <p>{{ _('Find new releases and key geospatial information, initiatives and communities.') }}</p>
+      <p>{{ _('Discover the latest geospatial data releases, featured initiatives, and thriving communities.') }}</p>
       <div class="csa-spotlight-grid">
         {% for item in spotlight %}
           {% set item_url = h.csa_bilingual_text(item.url) or '#' %}
@@ -45,7 +45,7 @@
     {% if community %}
     <section class="csa-community">
       <h2>{{ _('Community Spotlight') }}</h2>
-      <p>{{ _('Discover projects and stories built with Canadian Space Agency data.') }}</p>
+      <p>{{ _('Explore projects, stories, and real-world applications built using Canadian Space Agency data.') }}</p>
       {% for item in community %}
         <div class="csa-community-row{% if loop.index0 is odd %} csa-community-reverse{% endif %}">
           {% if item.image %}

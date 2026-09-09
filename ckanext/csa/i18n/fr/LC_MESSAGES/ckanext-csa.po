@@ -19,24 +19,24 @@ msgstr ""
 "Generated-By: Babel 2.8.0\n"
 
 #: ckanext/csa/templates/home/index.html
-msgid "Search datasets, information and resources from the Canadian Space Agency."
-msgstr "Recherchez des jeux de données, de l'information et des ressources de l'Agence spatiale canadienne."
+msgid "Search for data and information from the Canadian Space Agency."
+msgstr "Recherchez des données et informations de l'Agence spatiale canadienne."
 
 #: ckanext/csa/templates/home/index.html
 msgid "In the Spotlight"
 msgstr "En vedette"
 
 #: ckanext/csa/templates/home/index.html
-msgid "Find new releases and key geospatial information, initiatives and communities."
-msgstr "Trouvez les nouveautés, l'information géospatiale clé, les initiatives et les communautés."
+msgid "Discover the latest geospatial data releases, featured initiatives, and thriving communities."
+msgstr "Découvrez les plus récentes données géospatiales, les initiatives à l'honneur et les communautés qui les font vivre."
 
 #: ckanext/csa/templates/home/index.html
 msgid "Community Spotlight"
 msgstr "Communauté en vedette"
 
 #: ckanext/csa/templates/home/index.html
-msgid "Discover projects and stories built with Canadian Space Agency data."
-msgstr "Découvrez des projets et des récits réalisés à partir des données de l'Agence spatiale canadienne."
+msgid "Explore projects, stories, and real-world applications built using Canadian Space Agency data."
+msgstr "Explorez des projets, des récits et des applications concrètes réalisés grâce aux données de l’Agence spatiale canadienne."
 
 #: ckanext/csa/templates/admin/spotlight.html
 msgid "Spotlight"
