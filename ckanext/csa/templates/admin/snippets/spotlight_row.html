@@ -1,0 +1,53 @@
+{% set t_en = h.csa_bilingual_get(item.title, 'en') if item else '' %}
+{% set t_fr = h.csa_bilingual_get(item.title, 'fr') if item else '' %}
+{% set u_en = h.csa_bilingual_get(item.url, 'en') if item else '' %}
+{% set u_fr = h.csa_bilingual_get(item.url, 'fr') if item else '' %}
+{% set x_en = h.csa_bilingual_get(item.text, 'en') if item else '' %}
+{% set x_fr = h.csa_bilingual_get(item.text, 'fr') if item else '' %}
+{% set img = item.image if item else '' %}
+<div class="csa-sl-item">
+  <div class="csa-sl-item__bar">
+    <span class="csa-sl-item__name" data-name>{{ t_en or _('Untitled item') }}</span>
+    <button type="button" class="csa-sl-item__remove" data-remove>
+      <i class="fa fa-trash" aria-hidden="true"></i> {{ _('Remove') }}
+    </button>
+  </div>
+  <div class="csa-sl-item__body">
+    <div class="csa-sl-media">
+      <span class="csa-sl-thumb" data-thumb>
+        {% if img %}<img src="{{ img }}" alt="">{% else %}<i class="fa fa-picture-o" aria-hidden="true"></i>{% endif %}
+      </span>
+      <div class="csa-sl-field csa-sl-field--grow">
+        <label>{{ _('Image URL') }}</label>
+        <input type="text" name="{{ prefix }}-image" class="form-control" value="{{ img }}" data-thumb-src placeholder="https://… or /images/…">
+      </div>
+    </div>
+
+    <div class="csa-sl-grid">
+      <div class="csa-sl-field">
+        <label>{{ _('Title') }} <span class="csa-sl-lang csa-sl-lang--en">EN</span></label>
+        <input type="text" name="{{ prefix }}-title-en" class="form-control" value="{{ t_en }}" data-title>
+      </div>
+      <div class="csa-sl-field">
+        <label>{{ _('Title') }} <span class="csa-sl-lang csa-sl-lang--fr">FR</span></label>
+        <input type="text" name="{{ prefix }}-title-fr" class="form-control" value="{{ t_fr }}">
+      </div>
+      <div class="csa-sl-field">
+        <label>{{ _('Link') }} <span class="csa-sl-lang csa-sl-lang--en">EN</span></label>
+        <input type="text" name="{{ prefix }}-url-en" class="form-control" value="{{ u_en }}" placeholder="https://…">
+      </div>
+      <div class="csa-sl-field">
+        <label>{{ _('Link') }} <span class="csa-sl-lang csa-sl-lang--fr">FR</span></label>
+        <input type="text" name="{{ prefix }}-url-fr" class="form-control" value="{{ u_fr }}" placeholder="https://…">
+      </div>
+      <div class="csa-sl-field">
+        <label>{{ _('Text') }} <span class="csa-sl-lang csa-sl-lang--en">EN</span></label>
+        <textarea name="{{ prefix }}-text-en" class="form-control" rows="3">{{ x_en }}</textarea>
+      </div>
+      <div class="csa-sl-field">
+        <label>{{ _('Text') }} <span class="csa-sl-lang csa-sl-lang--fr">FR</span></label>
+        <textarea name="{{ prefix }}-text-fr" class="form-control" rows="3">{{ x_fr }}</textarea>
+      </div>
+    </div>
+  </div>
+</div>

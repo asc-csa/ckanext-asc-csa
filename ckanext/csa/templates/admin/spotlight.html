@@ -1,0 +1,93 @@
+{% extends "admin/base.html" %}
+
+{% block subtitle %}{{ _('Spotlight') }} - {{ _('Administration') }}{% endblock %}
+
+{% block primary_content_inner %}
+  <div class="csa-sl-admin">
+    <form method="post">
+      {{ h.csrf_input() }}
+
+      <section class="csa-sl-section">
+        <div class="csa-sl-section__head">
+          <h2>{{ _('In the Spotlight') }}</h2>
+          <p>{{ _('Shown as a three-card row near the top of the home page.') }}</p>
+        </div>
+        <div data-repeat="spotlight">
+          {% for item in spotlight %}
+            {% snippet 'admin/snippets/spotlight_row.html', prefix='spotlight', item=item %}
+          {% endfor %}
+        </div>
+        <button type="button" class="btn btn-default csa-sl-add" data-add="spotlight">
+          <i class="fa fa-plus" aria-hidden="true"></i> {{ _('Add spotlight item') }}
+        </button>
+      </section>
+
+      <section class="csa-sl-section">
+        <div class="csa-sl-section__head">
+          <h2>{{ _('Community Spotlight') }}</h2>
+          <p>{{ _('Projects built with CSA data, shown as alternating image / content rows.') }}</p>
+        </div>
+        <div data-repeat="community">
+          {% for item in community %}
+            {% snippet 'admin/snippets/spotlight_row.html', prefix='community', item=item %}
+          {% endfor %}
+        </div>
+        <button type="button" class="btn btn-default csa-sl-add" data-add="community">
+          <i class="fa fa-plus" aria-hidden="true"></i> {{ _('Add community item') }}
+        </button>
+      </section>
+
+      <div class="csa-sl-actions">
+        <button type="submit" class="btn btn-primary btn-lg">{{ _('Save') }}</button>
+      </div>
+    </form>
+
+    <template id="csa-row-spotlight">{% snippet 'admin/snippets/spotlight_row.html', prefix='spotlight', item=None %}</template>
+    <template id="csa-row-community">{% snippet 'admin/snippets/spotlight_row.html', prefix='community', item=None %}</template>
+  </div>
+
+  <script>
+    (function () {
+      function untitled() { return {{ _('Untitled item') | tojson }}; }
+
+      document.addEventListener('click', function (e) {
+        var add = e.target.closest('[data-add]');
+        if (add) {
+          var key = add.getAttribute('data-add');
+          var tmpl = document.getElementById('csa-row-' + key);
+          var container = document.querySelector('[data-repeat="' + key + '"]');
+          if (tmpl && container) {
+            container.appendChild(tmpl.content.cloneNode(true));
+            var rows = container.querySelectorAll('.csa-sl-item');
+            var last = rows[rows.length - 1];
+            if (last) { var f = last.querySelector('input, textarea'); if (f) { f.focus(); } }
+          }
+          return;
+        }
+        var rm = e.target.closest('[data-remove]');
+        if (rm) {
+          var row = rm.closest('.csa-sl-item');
+          if (row) { row.remove(); }
+        }
+      });
+
+      document.addEventListener('input', function (e) {
+        var el = e.target;
+        var item = el.closest('.csa-sl-item');
+        if (!item) { return; }
+        if (el.hasAttribute('data-thumb-src')) {
+          var thumb = item.querySelector('[data-thumb]');
+          if (thumb) {
+            thumb.innerHTML = el.value
+              ? '<img src="' + el.value.replace(/"/g, '&quot;') + '" alt="">'
+              : '<i class="fa fa-picture-o" aria-hidden="true"></i>';
+          }
+        }
+        if (el.hasAttribute('data-title')) {
+          var name = item.querySelector('[data-name]');
+          if (name) { name.textContent = el.value || untitled(); }
+        }
+      });
+    })();
+  </script>
+{% endblock %}

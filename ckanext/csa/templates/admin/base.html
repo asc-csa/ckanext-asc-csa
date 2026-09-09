@@ -1,0 +1,9 @@
+{% ckan_extends %}
+
+{% block content_primary_nav %}
+  {{ super() }}
+  {{ h.build_nav_icon('csa.spotlight_admin', _('Spotlight'), icon='star') }}
+{% endblock %}
+
+{% block secondary %}{% endblock %}
+{% block wrapper_class %} csa-admin-full{% endblock %}
