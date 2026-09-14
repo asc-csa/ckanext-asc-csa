@@ -12,3 +12,4 @@
 -e git+https://github.com/asc-csa/ckanext-similar-datasets.git#egg=ckanext-similar-datasets
 -e git+https://github.com/asc-csa/ckanext-link.git#egg=ckanext-link
 -e git+https://github.com/asc-csa/ckanext-feedback.git#egg=ckanext-feedback
+-e git+https://github.com/TkTech/ckanext-search-export.git#egg=ckanext-search-export
