@@ -1007,3 +1007,92 @@ msgid ""
 "Please try again.</p>"
 msgstr ""
 
+# CsaCatalogPlugin (data catalogue)
+msgid "Governance status"
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Not set"
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Change governance status"
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Update"
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Reports"
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Dataset status report"
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Lists every dataset with its governance status, data steward and link. The report is generated on demand from the current catalogue contents and is dated in its title."
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Download CSV"
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Open as HTML"
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Status definitions"
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Number of datasets"
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Total"
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Download search results"
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Export search results"
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Invalid governance status."
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+#, python-format
+msgid "Could not update the governance status: %s"
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Governance status updated."
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Unknown report format"
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+#, python-brace-format
+msgid "Generated on {date} from {site}"
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Name of the dataset"
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Status"
+msgstr ""
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Data steward"
+msgstr ""

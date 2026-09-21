@@ -1,0 +1,11 @@
+{% ckan_extends %}
+
+{#- Data catalogue: flag the governance status in search results so deprecated
+    datasets are visible before anyone opens them (#242). -#}
+{% block heading_meta %}
+  {{ super() }}
+  {% set status = h.csa_governance_status(package.governance_status) %}
+  {% if status %}
+    <span class="csa-gov-badge">{% snippet 'catalog/snippets/status_label.html', status=status %}</span>
+  {% endif %}
+{% endblock %}

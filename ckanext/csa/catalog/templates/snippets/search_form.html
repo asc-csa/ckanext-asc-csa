@@ -1,0 +1,13 @@
+{% ckan_extends %}
+
+{#- Data catalogue: "Download search results" beside "Search Tips" (#243).
+    Rendered only when ckanext-search-export is loaded; that plugin decides
+    whether the current user and dataset type may export. -#}
+{% block search_tips %}
+  <div class="csa-search-tools">
+    {{ super() }}
+    {% if h.plugin_loaded('search_export') %}
+      {% snippet 'snippets/search_export_link.html', query=query, count=count, type=type, fields=fields %}
+    {% endif %}
+  </div>
+{% endblock %}

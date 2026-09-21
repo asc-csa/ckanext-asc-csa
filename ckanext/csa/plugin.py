@@ -11,6 +11,8 @@ from ckan.plugins.toolkit import _, request
 from ckanext.bulk.interfaces import IBulk
 
 from ckanext.csa import helpers, loader, validators, bulk_entity_managers
+from ckanext.csa.catalog import status as catalog_status
+from ckanext.csa.catalog import views as catalog_views
 
 
 class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
@@ -226,7 +228,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
             Renders the home landing page.
             """
             return tk.render("home/index.html")
-        
+
         @bp.route("/api-help")
         def api_help():
             """
@@ -344,3 +346,58 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
         """
         default_entity_managers['dataset'] = bulk_entity_managers.SchemingDatasetEntityManager
         return default_entity_managers
+
+
+class CsaCatalogPlugin(CsaPlugin):
+    """
+    The internal CSA data catalogue: the public theme plus administrative
+    features (governance status, status reports, search export placement).
+
+    Deploy it *instead of* ``csa``, never alongside it: it re-registers the
+    parent's helpers, facets and routes, and CKAN's SingletonPlugin would hand
+    this class the parent's instance if both were loaded.
+    """
+
+    # IConfigurer
+    def update_config(self, config_):
+        super().update_config(config_)
+        # Added after the parent's directory, so it is searched first and the
+        # catalogue templates can ckan_extends the public ones.
+        tk.add_template_directory(config_, "catalog/templates")
+
+    # ITranslation
+    def i18n_domain(self):
+        # DefaultTranslation derives the domain from the entry point name
+        # (csa_catalog); the .mo files are shared with the parent.
+        return "ckanext-csa"
+
+    # ITemplateHelpers
+    def get_helpers(self):
+        helpers_ = super().get_helpers()
+        helpers_.update({
+            "csa_governance_status": catalog_status.get_status,
+            "csa_governance_statuses": catalog_status.all_statuses,
+            "csa_governance_status_label": catalog_status.status_label,
+        })
+        return helpers_
+
+    # IFacets
+    def dataset_facets(self, facets_dict, package_type):
+        facets_dict = super().dataset_facets(facets_dict, package_type)
+        facets_dict["governance_status"] = _("Governance status")
+        return facets_dict
+
+    def group_facets(self, facets_dict, group_type, package_type):
+        facets_dict = super().group_facets(facets_dict, group_type, package_type)
+        facets_dict["governance_status"] = _("Governance status")
+        return facets_dict
+
+    def organization_facets(self, facets_dict, organization_type, package_type):
+        facets_dict = super().organization_facets(
+            facets_dict, organization_type, package_type)
+        facets_dict["governance_status"] = _("Governance status")
+        return facets_dict
+
+    # IBlueprint
+    def get_blueprint(self):
+        return [super().get_blueprint(), catalog_views.blueprint]

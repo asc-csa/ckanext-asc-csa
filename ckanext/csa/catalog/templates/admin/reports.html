@@ -1,0 +1,30 @@
+{% extends "admin/base.html" %}
+
+{% block subtitle %}{{ _('Reports') }} - {{ _('Administration') }}{% endblock %}
+
+{% block primary_content_inner %}
+  <div class="csa-reports">
+    <section class="csa-report">
+      <h2>{{ _('Dataset status report') }}</h2>
+      <p>
+        {{ _('Lists every dataset with its governance status, data steward and link. The report is generated on demand from the current catalogue contents and is dated in its title.') }}
+      </p>
+      <p class="csa-report__actions">
+        <a class="btn btn-primary" href="{{ h.url_for('csa_catalog.status_report', fmt='csv') }}">
+          <i class="fa fa-download" aria-hidden="true"></i> {{ _('Download CSV') }}
+        </a>
+        <a class="btn btn-default" href="{{ h.url_for('csa_catalog.status_report', fmt='html') }}" target="_blank" rel="noopener">
+          <i class="fa fa-external-link" aria-hidden="true"></i> {{ _('Open as HTML') }}
+        </a>
+      </p>
+
+      <h3>{{ _('Status definitions') }}</h3>
+      <dl class="csa-status-definitions">
+        {% for status in statuses %}
+          <dt>{% snippet 'catalog/snippets/status_label.html', status=status %}</dt>
+          <dd>{{ status.description_for(h.lang()) }}</dd>
+        {% endfor %}
+      </dl>
+    </section>
+  </div>
+{% endblock %}

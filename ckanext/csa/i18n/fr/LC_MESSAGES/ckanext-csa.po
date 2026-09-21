@@ -2179,3 +2179,93 @@ msgstr "le dictionnaire de données nommé :"
 
 msgid "the tutorial named:"
 msgstr "le tutoriel nommé :"
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Governance status"
+msgstr "Statut de gouvernance"
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Not set"
+msgstr "Non défini"
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Change governance status"
+msgstr "Modifier le statut de gouvernance"
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Update"
+msgstr "Mettre à jour"
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Reports"
+msgstr "Rapports"
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Dataset status report"
+msgstr "Rapport sur le statut des jeux de données"
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Lists every dataset with its governance status, data steward and link. The report is generated on demand from the current catalogue contents and is dated in its title."
+msgstr "Liste tous les jeux de données avec leur statut de gouvernance, leur responsable des données et leur lien. Le rapport est généré sur demande à partir du contenu actuel du catalogue et sa date figure dans son titre."
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Download CSV"
+msgstr "Télécharger le CSV"
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Open as HTML"
+msgstr "Ouvrir en HTML"
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Status definitions"
+msgstr "Définitions des statuts"
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Number of datasets"
+msgstr "Nombre de jeux de données"
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Total"
+msgstr "Total"
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Download search results"
+msgstr "Télécharger les résultats de recherche"
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Export search results"
+msgstr "Exporter les résultats de recherche"
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Invalid governance status."
+msgstr "Statut de gouvernance invalide."
+
+# CsaCatalogPlugin (data catalogue)
+#, python-format
+msgid "Could not update the governance status: %s"
+msgstr "Impossible de mettre à jour le statut de gouvernance : %s"
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Governance status updated."
+msgstr "Statut de gouvernance mis à jour."
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Unknown report format"
+msgstr "Format de rapport inconnu"
+
+# CsaCatalogPlugin (data catalogue)
+#, python-brace-format
+msgid "Generated on {date} from {site}"
+msgstr "Généré le {date} à partir de {site}"
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Name of the dataset"
+msgstr "Nom du jeu de données"
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Status"
+msgstr "Statut"
+
+# CsaCatalogPlugin (data catalogue)
+msgid "Data steward"
+msgstr "Responsable des données"

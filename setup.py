@@ -65,6 +65,7 @@ setup(
     entry_points="""
         [ckan.plugins]
         csa=ckanext.csa.plugin:CsaPlugin
+        csa_catalog=ckanext.csa.plugin:CsaCatalogPlugin
 
         [babel.extractors]
         ckan = ckan.lib.extract:extract_ckan

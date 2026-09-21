@@ -525,3 +525,61 @@ select.form-control {
 .csa-admin-full .primary {
     width: 100%;
 }
+
+/***
+ * Data catalogue (CsaCatalogPlugin): governance status, reports, search tools.
+ ***/
+
+.csa-gov-status .label {
+    display: inline-block;
+    font-size: 100%;
+    padding: .35em .7em;
+    vertical-align: middle;
+}
+.csa-gov-status .glyphicon,
+.csa-gov-badge .glyphicon {
+    margin-right: .3em;
+    top: 1px;
+}
+.csa-gov-status-desc {
+    margin: .5em 0 0;
+    font-size: 90%;
+    color: #555;
+}
+.csa-gov-status-form {
+    display: flex;
+    gap: .5em;
+    align-items: center;
+    margin-top: .75em;
+}
+.csa-gov-status-form select {
+    flex: 1 1 auto;
+    width: auto;
+}
+.csa-gov-badge {
+    margin-left: .5em;
+    vertical-align: middle;
+    font-weight: normal;
+}
+.csa-gov-badge .label {
+    font-size: 70%;
+}
+.csa-search-tools {
+    display: flex;
+    align-items: center;
+    gap: 1.25em;
+    flex-wrap: wrap;
+}
+.csa-reports h2 {
+    margin-top: 0;
+}
+.csa-report__actions .btn {
+    margin: 0 .5em .5em 0;
+}
+.csa-status-definitions dt {
+    margin-top: .75em;
+}
+.csa-status-definitions dd {
+    margin-left: 0;
+    color: #555;
+}

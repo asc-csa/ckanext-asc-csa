@@ -1,0 +1,14 @@
+{#
+Data catalogue styling of ckanext-search-export's button: a plain link that
+sits in the search toolbar next to "Search Tips". Takes effect when
+csa_catalog is listed before search_export in ckan.plugins.
+#}
+{% block search_export_link %}
+  {% if count > 0 and h.search_export_allowed(type) %}
+    <a class="csa-search-export-link"
+       href="{{ h.url_for('search_export.search_export_new', q=query or '', filters=(fields or [])|tojson) }}"
+       title="{{ _('Export search results') }}">
+      <i class="fa fa-download"></i> {{ _('Download search results') }}
+    </a>
+  {% endif %}
+{% endblock %}

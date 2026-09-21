@@ -1,0 +1,9 @@
+{#
+WET-style label for a governance status.
+
+status - a GovernanceStatus (see ckanext.csa.catalog.status)
+#}
+<span class="{{ status.css_class }}" title="{{ status.description_for(h.lang()) }}">
+  <span class="glyphicon {{ status.icon }}" aria-hidden="true"></span>
+  {{ status.label_for(h.lang()) }}
+</span>

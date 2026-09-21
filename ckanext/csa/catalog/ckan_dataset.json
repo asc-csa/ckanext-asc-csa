@@ -1,0 +1,1411 @@
+{
+  "scheming_version": 1,
+  "dataset_type": "dataset",
+  "about": "A reimplementation of the default CKAN dataset schema",
+  "about_url": "http://github.com/ckan/ckanext-scheming",
+  "dataset_fields": [
+    {
+      "preset": "canada_collection"
+    },
+    {
+      "preset": "canada_title"
+    },
+    {
+      "field_name": "name",
+      "label": "URL",
+      "preset": "dataset_slug",
+      "form_placeholder": "eg. my-dataset"
+    },
+    {
+      "preset": "canada_owner_org"
+    },
+    {
+      "preset": "canada_org_title_at_publication"
+    },
+    {
+      "preset": "canada_org_section_name"
+    },
+    {
+      "preset": "canada_creator"
+    },
+    {
+      "field_name": "metadata_contact",
+      "label": {
+        "en": "Metadata contact",
+        "fr": "Contact métadonnée"
+      },
+      "preset": "fluent_text",
+      "form_snippet": null
+    },
+    {
+      "field_name": "parent_id",
+      "label": {
+        "en": "Parent identifier",
+        "fr": "Identifiant parent"
+      },
+      "form_snippet": null
+    },
+    {
+      "field_name": "hierarchy_level",
+      "label": {
+        "en": "Hierarchy level",
+        "fr": "Portée hiérarchique"
+      },
+      "form_snippet": null
+    },
+    {
+      "field_name": "file_id",
+      "label": {
+        "en": "File Identifier",
+        "fr": "Identifiant métadonnées"
+      },
+      "form_snippet": null
+    },
+    {
+      "field_name": "short_key",
+      "label": {
+        "en": "Short Key",
+        "fr": "Identifiant court"
+      },
+      "form_snippet": null
+    },
+    {
+      "field_name": "tag_string",
+      "label": "Tags",
+      "preset": "tag_string_autocomplete",
+      "form_placeholder": "eg. economy, mental health, government"
+    },
+    {
+      "preset": "canada_license_id"
+    },
+    {
+      "field_name": "version",
+      "label": "Version",
+      "validators": "ignore_missing package_version_validator",
+      "form_placeholder": "1.0"
+    },
+    {
+      "field_name": "language_support",
+      "label": {
+        "en": "Language Support",
+        "fr": "Soutien linguistique"
+      },
+      "required": "false",
+      "preset": "select",
+      "choices": [
+        {
+          "value": "english",
+          "label": "English"
+        },
+        {
+          "value": "french",
+          "label": "French"
+        },
+        {
+          "value": "bilingual",
+          "label": "Bilingual"
+        },
+        {
+          "value": "no_linguistic_content_not_applicable",
+          "label": "No linguistic content ; Not applicable"
+        },
+        {
+          "value": "others",
+          "label": "Others"
+        }
+      ],
+      "validators": "ignore_missing"
+    },
+    {
+      "field_name": "language_support_specify",
+      "label": {
+        "en": "Language Support Specify",
+        "fr": "Précisions par rapport au soutien linguistique "
+      },
+      "required": "false",
+      "validators": "ignore_missing"
+    },
+    {
+      "field_name": "data_steward",
+      "label": {
+        "en": "Data Steward",
+        "fr": "Responsable des données"
+      },
+      "required": "false",
+      "validators": "ignore_missing"
+    },
+    {
+      "field_name": "manager_or_supervisor",
+      "label": {
+        "en":"Manager or Supervisor",
+        "fr": "Gestionnaire ou superviseur"
+        },
+      "required": "false",
+      "validators": "ignore_missing"
+    },
+    {
+      "field_name": "diids_no",
+      "label": "DIIDS No",
+      "required": "false",
+      "validators": "ignore_missing"
+    },
+    {
+      "field_name": "directorate",
+      "required": false,
+      "validators": "scheming_required",
+      "label": {
+        "en": "Directorate",
+        "fr": "Direction"
+      },
+      "preset": "select",
+      "choices": [
+        {
+          "value": "communications",
+          "label": "Communications"
+        },
+        {
+          "value": "corporate_services_and_hr",
+          "label": "Corporate Services and Human Resources"
+        },
+        {
+          "value": "finance",
+          "label": "Finance"
+        },
+        {
+          "value": "human_resources",
+          "label": "Human Resources"
+        },
+        {
+          "value": "policy",
+          "label": "Policy"
+        },
+        {
+          "value": "programs_and_integrated_planning",
+          "label": "Programs and Integrated Planning"
+        },
+        {
+          "value": "information_management_and_technology_management",
+          "label": "Information Management and Technology Management"
+        },
+        {
+          "value": "policy",
+          "label": "Policy"
+        },
+        {
+          "value": "space_exploration",
+          "label": "Space Exploration"
+        },
+        {
+          "value": "space_science_and_technology",
+          "label": "Space Science and Technology"
+        },
+        {
+          "value": "space_utilization",
+          "label": "Space Utilization"
+        },
+        {
+          "value": "vicepresidents_office",
+          "label": "Vice President's Office"
+        }
+      ]
+    },
+{
+      "field_name": "science_admin",
+      "label": {
+        "en" :"CSA Science category",
+        "fr" : "Catégorie des sciences ASC"
+      },
+      "preset": "select",
+      "choices": [
+        {
+          "value": "True",
+          "label": {
+            "en" :"Science",
+            "fr" : "Sciences"
+            }
+        },
+        {
+          "value": "False",
+          "label": {
+            "en" :"Management/operations",
+            "fr" : "Gestion/opérations"
+        }
+      }
+      ]
+    },
+    {
+          "field_name": "portal_type",
+          "label": {
+            "en" :"Portal type",
+            "fr" : "Type de portail"
+          },
+          "preset": "select",
+          "choices": [
+            {
+              "value": "data",
+              "label": {
+                "en" :"Open Data",
+                "fr" :"Données ouvertes"
+                }
+            },
+            {
+              "value": "info",
+              "label": {
+                "en" :"Open Information",
+                "fr" : "Information ouverte"
+            }
+          }
+          ]
+        },
+    {
+      "field_name": "dataset_status",
+      "required": false,
+      "validators": "scheming_required",
+      "label": {
+        "en": "Dataset Status",
+        "fr": "Statut de l'ensemble de données"
+      },
+      "preset": "select",
+      "choices": [
+        {
+          "value": "completed_form_od",
+          "label": {
+            "en": "Completed Form (OD)",
+            "fr": "Formulaire complété  (OD)"
+          }
+        },
+        {
+          "value": "assigned_to_an_expert",
+          "label": {
+            "en": "Assigned to an expert",
+            "fr": "Assigné à un expert"
+          }
+        },
+        {
+          "value": "completed_by_the_expert",
+          "label": {
+            "en": "Completed by the expert",
+            "fr": "Complété par l'expert"
+          }
+        },
+        {
+          "value": "new_dataset",
+          "label": {
+            "en": "New dataset",
+            "fr": "Nouveau jeu de données"
+          }
+        },
+        {
+          "value": "modified_by_the_expert",
+          "label": {
+            "en": "Modified by the expert",
+            "fr": "Modifié par l'expert"
+          }
+        }
+      ]
+    },
+    {
+      "field_name": "division",
+      "label": "Division",
+      "preset": "select",
+      "required": false,
+      "validators": "scheming_required",
+      "choices": [
+        {
+          "value": "cio_acces_to_information_and_open_data",
+          "label": "CIO - Access to information and Open Data"
+        },
+        {
+          "value": "com_public_affairs",
+          "label": "COM - Public Affairs"
+        },
+        {
+          "value": "corh_security_and_facilities",
+          "label": "CORH - Security and Facilities"
+        },
+        {
+          "value": "expl_astronauts_life_sciences_and_space_medicine",
+          "label": "EXPL - Astronauts, Life Sciences and Space Medicine"
+        },
+        {
+          "value": "expl_director_generals_office",
+          "label": "EXPL - Director General's Office"
+        },
+        {
+          "value": "expl_space_exploration_development",
+          "label": "EXPL - Space Exploration Development"
+        },
+        {
+          "value": "expl_space_exploration_operations_and_infrastructure",
+          "label": "EXPL - Space Exploration Operations and Infrastructure"
+        },
+        {
+          "value": "fin_accounting_policies_and_financial_systems",
+          "label": "FIN - Accounting, Policies and Financial Systems"
+        },
+        {
+          "value": "fin_planning_and_management_financial_resources",
+          "label": "FIN - Planning and Management Financial Resources"
+        },
+        {
+          "value": "fin_procurement_and_contract_administration_and_material_management",
+          "label": "FIN - Procurement and Contract Administration, and Material Management"
+        },
+        {
+          "value": "pcy_director_general_office",
+          "label": "PCY - Director General Office"
+        },
+        {
+          "value": "pcy_economic_analysis_international_and_regulatory_affairs",
+          "label": "PCY - Economic Analysis, International and Regulatory Affairs"
+        },
+        {
+          "value": "pcy_strategic_policy_and_domestic_affairs",
+          "label": "PCY - Strategic Policy and Domestic Affairs"
+        },
+        {
+          "value": "pip_director_generals_office",
+          "label": "PIP - Director General's Office"
+        },
+        {
+          "value": "st_david_florida_laboratory",
+          "label": "S&T - David Florida Laboratory"
+        },
+        {
+          "value": "sst_intellectual_property",
+          "label": "SST - Intellectual Property"
+        },
+        {
+          "value": "st_engineering_development",
+          "label": "S&T - Engineering Development"
+        },
+        {
+          "value": "util_satellite_operations_infrastructure_and_applications",
+          "label": "UTIL - Satellite Operations, Infrastructure and Applications"
+        },
+        {
+          "value": "util_space_exploitation",
+          "label": "UTIL - Space Exploitation"
+        },
+        {
+          "value": "util_sunearth_system_sciences",
+          "label": "UTIL - Sun-Earth System Sciences"
+        },
+        {
+          "value": "corh_information_management_and_technology_management",
+          "label": "CORH - Information Management and Technology Management"
+        },
+        {
+          "value": "rh_staff_relations_and_pay_and_benefits",
+          "label": "RH - Staff Relations and Pay and Benefits"
+        },
+        {
+          "value": "rh_staffing_and_systems",
+          "label": "RH - Staffing and Systems"
+        },
+        {
+           "value": "vp_corporate_services_and_human_resources",
+          "label": "VP - Corporate Services and Human Resources"
+        }
+      ]
+    },
+    {
+      "field_name": "data_owner",
+      "label": {
+        "en": "Data Owner",
+        "fr": "Propriétaire des données"
+        },
+      "preset": "select",
+      "choices": [
+        {
+          "value": "csa",
+          "label": {
+            "en":"CSA",
+            "fr":"ASC"
+          }
+        },
+        {
+          "value": "jointly_specify",
+          "label": {
+            "en": "Jointly (specify)",
+            "fr": "En commun (préciser)"
+          }
+        },
+        {
+          "value": "third_party",
+          "label": {
+            "en": "Third Party",
+            "fr": "Tierce partie"
+            }
+        },
+        {
+          "value": "third_party_specify",
+          "label": "Third Party Specify"
+        }
+      ],
+      "required": "false",
+      "validators": "ignore_missing"
+    },
+    {
+      "field_name": "security_classification",
+      "label": "Security Classification",
+      "required": false,
+      "validators": "scheming_required",
+      "preset": "select",
+      "choices": [
+        {
+          "value": "unclassified",
+          "label": "Unclassified"
+        },
+        {
+          "value": "protected_a",
+          "label": "Protected A"
+        },
+        {
+          "value": "protected_b",
+          "label": "Protected B"
+        },
+        {
+          "value": "confidential",
+          "label": "Confidential"
+        },
+        {
+          "value": "secret",
+          "label": "Secret"
+        }
+      ]
+    },
+    {
+      "field_name": "data_owner_specify",
+      "label": "Data Owner (specify)",
+      "required": "false",
+      "validators": "ignore_missing"
+    },
+    {
+      "field_name": "registered_on_the_open_data_site",
+      "required": false,
+      "validators": "scheming_required",
+      "label":{
+        "en": "Registered on the Open Data Site",
+        "fr": "Enregistré sur le site Open Data"
+      },
+      "preset": "select",
+      "choices": [
+        {
+          "value": "True",
+          "label": "Yes"
+        },
+        {
+          "value": "False",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "field_name": "date_released_on_opencanadaca",
+      "label": "Date released on open.canada.ca",
+      "preset": "date"
+    },
+    {
+      "field_name": "data_is_publicly_availible_within_another_site",
+      "label": "Data is publicly availible within another site",
+      "required": false,
+      "validators": "scheming_required",
+      "preset": "select",
+      "choices": [
+        {
+          "value": "True",
+          "label": "Yes"
+        },
+        {
+          "value": "False",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "field_name": "date_published_on_another_site",
+      "label": "Date published on another site",
+      "preset": "date"
+    },
+    {
+      "field_name": "publisher_translated",
+      "preset": "fluent_text",
+      "label": {
+        "en": "Publisher",
+        "fr": "Publisher"
+      },
+      "form_languages": ["en", "fr"]
+    },
+    {
+      "field_name": "personal_information",
+      "label": "Personal Information",
+      "required": false,
+      "validators": "scheming_required",
+      "preset": "select",
+      "choices": [
+        {
+          "value": "True",
+          "label": "Yes"
+        },
+        {
+          "value": "False",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "field_name": "eligible_for_release",
+      "label": "Eligible for Release",
+      "required": false,
+      "validators": "scheming_required",
+      "preset": "select",
+      "choices": [
+        {
+          "value": "True",
+          "label": "Yes"
+        },
+        {
+          "value": "False",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "field_name": "format_of_source_data",
+      "label": "Format of source data",
+      "required": "false",
+      "validators": "ignore_missing"
+    },
+    {
+      "field_name": "format_of_source_data_details",
+      "label": "Format of source data (details)",
+      "required": "false",
+      "validators": "ignore_missing"
+    },
+    {
+      "field_name": "size",
+      "label": "Size of Dataset",
+      "required": "false",
+      "validators": "ignore_missing"
+    },
+    {
+      "preset": "canada_contributor"
+    },
+    {
+      "preset": "canada_maintainer_email"
+    },
+    {
+      "preset": "canada_notes"
+    },
+    {
+      "preset": "canada_keywords"
+    },
+    {
+      "preset": "canada_subject"
+    },
+    {
+      "preset": "canada_project"
+    },
+    {
+      "preset": "canada_audience"
+    },
+    {
+      "field_name": "place_of_publication",
+      "label": {
+        "en": "Place of Publication",
+        "fr": "Endroit de publication"
+      },
+      "help_text": {
+        "en": "The region where the dataset was originally published. You may select or deselect multiple options (Ctrl+Click) ",
+        "fr": "La région où le jeu de données a été publié initialement. Vous pouvez sélectionner ou désélectionner de multiples options (Ctrl+Clic)"
+      },
+      "preset": "canada_geographic_region"
+    },
+    {
+      "preset": "canada_imso_approval"
+    },
+    {
+      "preset": "canada_restrictions"
+    },
+    {
+      "preset": "canada_jurisdiction"
+    },
+    {
+      "preset": "canada_ready_to_publish"
+    },
+    {
+      "preset": "canada_portal_release_date"
+    },
+    {
+      "preset": "canada_spatial"
+    },
+    {
+      "preset": "canada_geographic_region"
+    },
+    {
+      "preset": "canada_time_period_coverage_start"
+    },
+    {
+      "preset": "canada_time_period_coverage_end"
+    },
+    {
+      "preset": "canada_frequency"
+    },
+    {
+      "preset": "canada_date_published"
+    },
+    {
+      "preset": "canada_date_modified"
+    },
+    {
+      "preset": "canada_program_page_url"
+    },
+    {
+
+    "field_name": "link_language",
+    "label": {
+        "en": "Homepage Link Language",
+        "fr": "Langue de la page d'accueil"
+      },
+      "help_text": {
+        "en": "Is the homepage language bilingual",
+        "fr": "Est-ce que la page d'accueil est bilingue"
+      },
+      "required": false,
+      "validators": "scheming_required",
+      "preset": "select",
+      "choices": [
+        {
+          "label": {
+            "en": "English only",
+            "fr": "Anglais seulement"
+          },
+          "value": "english"
+        },
+        {
+          "label": {
+            "en": "French only",
+            "fr": "Francais seulement"
+          },
+          "value": "french"
+        },
+
+        {
+          "label": {
+            "en": "Bilingual",
+            "fr": "Bilingue"
+          },
+          "value": "bilingual"
+
+        }]
+      },
+    {
+    "field_name": "preview",
+
+
+      "label": {
+        "en": "Data Visualisation",
+        "fr": "Visualisation des données"
+      },
+      "help_text": {
+        "en": "This attribute will allow the access to the previsualisation of the data when set to 'true'. This feature is experimental ",
+        "fr": "Cet attribut activera la prévisualisation des données lorsque la valeur est 'vrai'. Cette fonctionnalité est expérimentale"
+      },
+      "required": false,
+      "validators": "scheming_required",
+      "preset": "select",
+      "choices": [
+        {
+          "label": {
+            "en": "True",
+            "fr": "Vrai"
+          },
+          "value": "True"
+        },
+        {
+          "label": {
+            "en": "False",
+            "fr": "Faux"
+          },
+          "value": "False"
+        }]
+
+      },
+    {
+      "preset": "canada_data_series_name"
+    },
+    {
+      "preset": "canada_data_series_issue_identification"
+    },
+    {
+      "preset": "canada_digital_object_identifier"
+    },
+    {
+      "field_name": "position_name",
+      "label": {
+        "en": "Position Name",
+        "fr": "Nom position"
+      },
+      "preset": "fluent_text",
+      "form_snippet": null
+    },
+    {
+      "field_name": "responsible_role",
+      "label": {
+        "en": "Role",
+        "fr": "Rôle"
+      },
+      "form_snippet": null
+    },
+    {
+      "field_name": "contact_information",
+      "label": {
+        "en": "Contact Information",
+        "fr": "Information contact"
+      },
+      "form_snippet": null
+    },
+    {
+      "field_name": "topic_category",
+      "label": {
+        "en": "Topic category",
+        "fr": "Catégorie thématique"
+      },
+      "form_snippet": null,
+      "display_snippet": "list_inline.html",
+      "validators": "scheming_multiple_choice",
+      "output_validators": "scheming_multiple_choice_output",
+      "choices": [
+        {
+          "label": {
+            "en": "Farming",
+            "fr": "Agriculture"
+          },
+          "value": "farming"
+        },
+        {
+          "label": {
+            "en": "Biota",
+            "fr": "Biote"
+          },
+          "value": "biota"
+        },
+        {
+          "label": {
+            "en": "Boundaries",
+            "fr": "Frontières"
+          },
+          "value": "boundaries"
+        },
+        {
+          "label": {
+            "en": "Climatology Meteorology Atmosphere",
+            "fr": "Climatologie Météorologie Atmosphère"
+          },
+          "value": "climatology_meterology_atmosphere"
+        },
+        {
+          "label": {
+            "en": "Economy",
+            "fr": "Économie"
+          },
+          "value": "economy"
+        },
+        {
+          "label": {
+            "en": "Elevation",
+            "fr": "Élévation"
+          },
+          "value": "elevation"
+        },
+        {
+          "label": {
+            "en": "Environment",
+            "fr": "Environnement"
+          },
+          "value": "environment"
+        },
+        {
+          "label": {
+            "en": "Geoscientific information",
+            "fr": "Information géoscientifique"
+          },
+          "value": "geoscientific_information"
+        },
+        {
+          "label": {
+            "en": "Health",
+            "fr": "Santé"
+          },
+          "value": "health"
+        },
+        {
+          "label": {
+            "en": "Imagery Base Maps Earth Cover",
+            "fr": "Imagerie carte de base couverture terrestre"
+          },
+          "value": "imagery_base_maps_earth_cover"
+        },
+        {
+          "label": {
+            "en": "Intelligence Military",
+            "fr": "Renseignements militaires"
+          },
+          "value": "intelligence_military"
+        },
+        {
+          "label": {
+            "en": "Inland Waters",
+            "fr": "Eaux intérieures"
+          },
+          "value": "inland_waters"
+        },
+        {
+          "label": {
+            "en": "Location",
+            "fr": "Localisation"
+          },
+          "value": "location"
+        },
+        {
+          "label": {
+            "en": "Oceans",
+            "fr": "Océans"
+          },
+          "value": "oceans"
+        },
+        {
+          "label": {
+            "en": "Planning Cadastre",
+            "fr": "Aménagement cadastre"
+          },
+          "value": "planning_cadastre"
+        },
+        {
+          "label": {
+            "en": "Society",
+            "fr": "Société"
+          },
+          "value": "society"
+        },
+        {
+          "label": {
+            "en": "Structure",
+            "fr": "Structures"
+          },
+          "value": "structure"
+        },
+        {
+          "label": {
+            "en": "Transportation",
+            "fr": "Transport"
+          },
+          "value": "transport"
+        },
+        {
+          "label": {
+            "en": "Utilities Communication",
+            "fr": "Services communication"
+          },
+          "value": "utilities_communication"
+        }
+      ]
+    },
+    {
+      "field_name": "reference_system_information",
+      "label": {
+        "en": "Reference System Information",
+        "fr": "Information système référence"
+      },
+      "form_snippet": null
+    },
+    {
+      "field_name": "distributor",
+      "label": {
+        "en": "Distributor",
+        "fr": "Distributeur"
+      },
+      "form_snippet": null
+    },
+    {
+      "field_name": "status",
+      "label": {
+        "en": "Status",
+        "fr": "État"
+      },
+      "form_snippet": null,
+      "choices": [
+        {
+          "label": {
+            "en": "Completed",
+            "fr": "Complété"
+          },
+          "value": "completed"
+        },
+        {
+          "label": {
+            "en": "Historical Archive",
+            "fr": "Aarchive historique"
+          },
+          "value": "historical_archive"
+        },
+        {
+          "label": {
+            "en": "Obsolete",
+            "fr": "Périmé"
+          },
+          "value": "obsolete"
+        },
+        {
+          "label": {
+            "en": "Ongoing",
+            "fr": "En continue"
+          },
+          "value": "ongoing"
+        },
+        {
+          "label": {
+            "en": "Planned",
+            "fr": "Planifié"
+          },
+          "value": "planned"
+        },
+        {
+          "label": {
+            "en": "Required",
+            "fr": "Requis"
+          },
+          "value": "required"
+        },
+        {
+          "label": {
+            "en": "Under Development",
+            "fr": "En production"
+          },
+          "value": "under_development"
+        },
+        {
+          "label": {
+            "en": "Proposed",
+            "fr": "Proposé"
+          },
+          "value": "proposed"
+        }
+      ],
+      "display_snippet": "select.html",
+      "validators": "scheming_required scheming_choices"
+    },
+    {
+      "field_name": "association_type",
+      "label": {
+        "en": "Association Type",
+        "fr": "Type association"
+      },
+      "validators": "scheming_multiple_choice",
+      "output_validators": "scheming_multiple_choice_output",
+      "form_snippet": null,
+      "choices": [
+        {
+          "label": {
+            "en": "Cross Reference",
+            "fr": "Référence croisée"
+          },
+          "value": "cross_reference"
+        },
+        {
+          "label": {
+            "en": "Larger Work Citation",
+            "fr": "Référence générique"
+          },
+          "value": "larger_work_citation"
+        },
+        {
+          "label": {
+            "en": "Part of Seamless Database",
+            "fr": "Partie de base de données continue"
+          },
+          "value": "part_of_seamless_database"
+        },
+        {
+          "label": {
+            "en": "Source",
+            "fr": "Source"
+          },
+          "value": "source"
+        },
+        {
+          "label": {
+            "en": "Stereo Mate",
+            "fr": "Stéréo associée"
+          },
+          "value": "stereo_mate"
+        },
+        {
+          "label": {
+            "en": "Is Composed Of",
+            "fr": "Est composé de"
+          },
+          "value": "is_composed_of"
+        }
+      ]
+    },
+    {
+      "field_name": "aggregate_identifier",
+      "label": {
+        "en": "Aggregate dataset identifier",
+        "fr": "Identifiant jeu données aggrégées"
+      },
+      "form_snippet": null
+    },
+    {
+      "preset": "canada_spatial_representation_type"
+    },
+    {
+      "field_name": "presentation_form",
+      "label": {
+        "en": "Presentation Form",
+        "fr": "Type de représentation spatiale"
+      },
+      "help_text": {
+        "en": "The form in which the resource is available",
+        "fr": "Le format dans lequel la ressource est disponible"
+      },
+      "choices": [
+        {
+          "label": {
+            "en": "Document Digital",
+            "fr": "Document numérique"
+          },
+          "value": "document_digital"
+        },
+        {
+          "label": {
+            "en": "Document Hardcopy",
+            "fr": "Document papier"
+          },
+          "value": "document_hardcopy"
+        },
+        {
+          "label": {
+            "en": "Image Digital",
+            "fr": "Image numérique"
+          },
+          "value": "image_digital"
+        },
+        {
+          "label": {
+            "en": "Image Hardcopy",
+            "fr": "Image papier"
+          },
+          "value": "image_hardcopy"
+        },
+        {
+          "label": {
+            "en": "Map Digital",
+            "fr": "Carte numérique"
+          },
+          "value": "map_digital"
+        },
+        {
+          "label": {
+            "en": "Map Hardcopy",
+            "fr": "Carte papier"
+          },
+          "value": "map_hardcopy"
+        },
+        {
+          "label": {
+            "en": "Model Digital",
+            "fr": "Modèle numérique"
+          },
+          "value": "model_digital"
+        },
+        {
+          "label": {
+            "en": "Model Hardcopy",
+            "fr": "Maquette"
+          },
+          "value": "model_hardcopy"
+        },
+        {
+          "label": {
+            "en": "Profile Digital",
+            "fr": "Profil numérique"
+          },
+          "value": "profile_digital"
+        },
+        {
+          "label": {
+            "en": "Profile Hardcopy",
+            "fr": "Profil papier"
+          },
+          "value": "profile_hardcopy"
+        },
+        {
+          "label": {
+            "en": "Table Digital",
+            "fr": "Table numérique"
+          },
+          "value": "table_digital"
+        },
+        {
+          "label": {
+            "en": "Table Hardcopy",
+            "fr": "Table papier"
+          },
+          "value": "table_hardcopy"
+        },
+        {
+          "label": {
+            "en": "Video Digital",
+            "fr": "Vidéo numérique"
+          },
+          "value": "video_digital"
+        },
+        {
+          "label": {
+            "en": "Video Hardcopy",
+            "fr": "Vidéo film"
+          },
+          "value": "video_hardcopy"
+        },
+        {
+          "label": {
+            "en": "Audio Digital",
+            "fr": "Audio numérique"
+          },
+          "value": "audio_digital"
+        },
+        {
+          "label": {
+            "en": "Audio Hardcopy",
+            "fr": "Audio analogique"
+          },
+          "value": "audio_hardcopy"
+        },
+        {
+          "label": {
+            "en": "Multimedia Digital",
+            "fr": "Multimédia numérique"
+          },
+          "value": "multimedia_digital"
+        },
+        {
+          "label": {
+            "en": "Multimedia Hardcopy",
+            "fr": "Multimédia analogique"
+          },
+          "value": "multimedia_hardcopy"
+        },
+        {
+          "label": {
+            "en": "Diagram Digital",
+            "fr": "Diagramme numérique"
+          },
+          "value": "diagram_digital"
+        },
+        {
+          "label": {
+            "en": "Diagram Hardcopy",
+            "fr": "Diagramme papier"
+          },
+          "value": "diagram_hardcopy"
+        }
+      ],
+      "form_snippet": null,
+      "display_snippet": "select.html",
+      "validators": "scheming_required scheming_choices"
+    },
+    {
+      "field_name": "display_flags",
+      "label": {
+        "en": "Display Flags"
+      },
+      "form_snippet": null,
+      "display_snippet": null,
+      "validators": "scheming_multiple_choice",
+      "output_validators": "scheming_multiple_choice_output",
+      "choices": [
+        {
+          "label": {
+            "en": "FGP viewer is supported"
+          },
+          "value": "fgp_viewer"
+        }
+      ]
+    },
+    {
+      "field_name": "governance_status",
+      "label": {
+        "en": "Governance status",
+        "fr": "Statut de gouvernance"
+      },
+      "help_text": {
+        "en": "Governance maturity and trust level of this dataset. Set from the dataset page in the data catalogue.",
+        "fr": "Niveau de maturité et de confiance de la gouvernance de ce jeu de données. Défini à partir de la page du jeu de données dans le catalogue de données."
+      },
+      "required": false,
+      "form_snippet": null,
+      "display_snippet": null,
+      "validators": "ignore_missing scheming_choices",
+      "choices": [
+        {
+          "value": "draft",
+          "label": {
+            "en": "Draft",
+            "fr": "Ébauche"
+          }
+        },
+        {
+          "value": "in_review",
+          "label": {
+            "en": "In review",
+            "fr": "En révision"
+          }
+        },
+        {
+          "value": "validated",
+          "label": {
+            "en": "Validated",
+            "fr": "Validé"
+          }
+        },
+        {
+          "value": "paused_from_disposal",
+          "label": {
+            "en": "Paused from disposal",
+            "fr": "Disposition suspendue"
+          }
+        },
+        {
+          "value": "deprecated",
+          "label": {
+            "en": "Deprecated",
+            "fr": "Obsolète"
+          }
+        }
+      ]
+    }
+
+
+  ],
+  "resource_fields": [
+    {
+      "preset": "canada_resource_name"
+    },
+    {
+      "preset": "canada_notes"
+    },
+    {
+      "preset": "canada_resource_unique_identifier"
+    },
+    {
+      "preset": "canada_resource_related_relationship"
+    },
+    {
+      "preset": "canada_resource_related_type"
+    },
+    {
+      "preset": "canada_resource_date_published"
+    },
+    {
+      "preset": "canada_resource_type",
+      "form_restrict_choices_to": [
+        "application",
+        "api",
+        "dataset",
+        "guide",
+        "faq",
+        "specification",
+        "terminology",
+        "tool",
+        "website"
+      ]
+    },
+    {
+      "preset": "canada_resource_size"
+    },
+    {
+      "preset": "canada_resource_character_set"
+    },
+    {
+      "preset": "canada_resource_format"
+    },
+    {
+      "preset": "canada_resource_language"
+    },
+    {
+      "preset": "canada_resource_url"
+    },
+    {
+      "preset": "canada_resource_data_quality"
+    },
+    {
+      "field_name": "is_tutorial",
+      "label": {
+        "en": "Is Tutorial",
+        "fr": "Est un tutoriel"
+      },
+      "help_text": {
+        "en": "Mark this resource as a tutorial. Tutorials are displayed in a separate section below the resources list.",
+        "fr": "Marquer cette ressource comme tutoriel. Les tutoriels sont affichés dans une section distincte sous la liste des ressources."
+      },
+      "form_snippet": "select.html",
+      "display_snippet": "select.html",
+      "validators": "ignore_missing scheming_choices",
+      "required": false,
+      "form_include_blank_choice": true,
+      "form_panel": "resource",
+      "choices": [
+        {
+          "label": {
+            "en": "Yes",
+            "fr": "Oui"
+          },
+          "value": "yes"
+        },
+        {
+          "label": {
+            "en": "No",
+            "fr": "Non"
+          },
+          "value": "no"
+        }
+      ]
+    },
+    {
+      "field_name": "is_data_dictionary",
+      "label": {
+        "en": "Is Data Dictionary",
+        "fr": "Est un dictionnaire de données"
+      },
+      "help_text": {
+        "en": "Mark this resource as a data dictionary. Data dictionaries are displayed in a separate section below the resources list.",
+        "fr": "Marquer cette ressource comme dictionnaire de données. Les dictionnaires de données sont affichés dans une section distincte sous la liste des ressources."
+      },
+      "form_snippet": "select.html",
+      "display_snippet": "select.html",
+      "validators": "ignore_missing scheming_choices",
+      "required": false,
+      "form_include_blank_choice": true,
+      "form_panel": "resource",
+      "choices": [
+        {
+          "label": {
+            "en": "Yes",
+            "fr": "Oui"
+          },
+          "value": "yes"
+        },
+        {
+          "label": {
+            "en": "No",
+            "fr": "Non"
+          },
+          "value": "no"
+        }
+      ]
+    }
+  ]
+}

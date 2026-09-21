@@ -1,0 +1,24 @@
+{% ckan_extends %}
+
+{#- The search export button lives next to "Search Tips" (see
+    snippets/search_form.html), so drop the one ckanext-search-export puts in
+    the primary action area. -#}
+{% block page_primary_action %}
+  {% if h.check_access('package_create') %}
+    <div class="page_primary_action">
+      {% snippet 'snippets/add_dataset.html', dataset_type=dataset_type %}
+    </div>
+  {% endif %}
+{% endblock %}
+
+{#- Governance status facet (#242). -#}
+{% block extra_facets %}
+  {% set schema = h.scheming_get_dataset_schema(dataset_type or 'dataset') %}
+  {% set field = h.scheming_field_by_name(schema.dataset_fields, 'governance_status') if schema else none %}
+  {% snippet 'snippets/facet_list.html',
+    title=facet_titles.get('governance_status') or _('Governance status'),
+    name='governance_status',
+    scheming_choices=h.scheming_field_choices(field) if field else none,
+    extras=extras,
+    search_facets=search_facets %}
+{% endblock %}
