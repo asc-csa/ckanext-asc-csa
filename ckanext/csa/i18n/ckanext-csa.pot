@@ -21,6 +21,19 @@ msgstr ""
 msgid "Alt Text"
 msgstr ""
 
+#: ckanext/csa/templates/admin/snippets/spotlight_row.html
+msgid "Move up"
+msgstr ""
+
+#: ckanext/csa/templates/admin/snippets/spotlight_row.html
+msgid "Move down"
+msgstr ""
+
+#: ckanext/csa/templates/admin/spotlight.html
+#, python-brace-format
+msgid "Item moved to position {position} of {count}."
+msgstr ""
+
 #: ckanext/csa/plugin.py:149
 msgid "Data or information"
 msgstr ""

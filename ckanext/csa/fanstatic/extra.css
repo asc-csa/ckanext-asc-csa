@@ -442,13 +442,28 @@ select.form-control {
     text-overflow: ellipsis;
     color: #333;
 }
+.csa-sl-item__move,
 .csa-sl-item__remove {
     background: none;
     border: none;
-    color: #b0413e;
     padding: 4px 9px;
     cursor: pointer;
     border-radius: 4px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+.csa-sl-item__move {
+    color: #333;
+}
+.csa-sl-item__move:hover:not(:disabled) {
+    background: #e3e3e3;
+}
+.csa-sl-item__move:disabled {
+    color: #999;
+    cursor: default;
+}
+.csa-sl-item__remove {
+    color: #b0413e;
 }
 .csa-sl-item__remove:hover {
     background: #f3dede;
@@ -517,6 +532,9 @@ select.form-control {
     padding-top: 20px;
 }
 @media (max-width: 600px) {
+    .csa-sl-item__move span {
+        display: none;
+    }
     .csa-sl-grid {
         grid-template-columns: 1fr;
     }

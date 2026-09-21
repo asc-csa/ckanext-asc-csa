@@ -6,6 +6,7 @@
   <div class="csa-sl-admin">
     <form method="post">
       {{ h.csrf_input() }}
+      <div class="wb-inv" role="status" data-reorder-status></div>
 
       <section class="csa-sl-section">
         <div class="csa-sl-section__head">
@@ -50,6 +51,16 @@
     (function () {
       function untitled() { return {{ _('Untitled item') | tojson }}; }
 
+      function updateMoveButtons(container) {
+        var rows = container.querySelectorAll('.csa-sl-item');
+        rows.forEach(function (row, index) {
+          row.querySelector('[data-move="up"]').disabled = index === 0;
+          row.querySelector('[data-move="down"]').disabled = index === rows.length - 1;
+        });
+      }
+
+      document.querySelectorAll('.csa-sl-admin [data-repeat]').forEach(updateMoveButtons);
+
       document.addEventListener('click', function (e) {
         var add = e.target.closest('[data-add]');
         if (add) {
@@ -58,16 +69,42 @@
           var container = document.querySelector('[data-repeat="' + key + '"]');
           if (tmpl && container) {
             container.appendChild(tmpl.content.cloneNode(true));
+            updateMoveButtons(container);
             var rows = container.querySelectorAll('.csa-sl-item');
             var last = rows[rows.length - 1];
             if (last) { var f = last.querySelector('input, textarea'); if (f) { f.focus(); } }
           }
           return;
         }
+        var move = e.target.closest('.csa-sl-item__move');
+        if (move) {
+          var item = move.closest('.csa-sl-item');
+          var container = item.parentElement;
+          var up = move.getAttribute('data-move') === 'up';
+          var sibling = up ? item.previousElementSibling : item.nextElementSibling;
+          if (!sibling) { return; }
+          if (up) { container.insertBefore(item, sibling); }
+          else { container.insertBefore(sibling, item); }
+          updateMoveButtons(container);
+          var focus = move.disabled
+            ? item.querySelector('[data-move="' + (up ? 'down' : 'up') + '"]')
+            : move;
+          focus.focus();
+          var rows = Array.from(container.querySelectorAll('.csa-sl-item'));
+          document.querySelector('[data-reorder-status]').textContent =
+            {{ _('Item moved to position {position} of {count}.') | tojson }}
+              .replace('{position}', rows.indexOf(item) + 1)
+              .replace('{count}', rows.length);
+          return;
+        }
         var rm = e.target.closest('[data-remove]');
         if (rm) {
           var row = rm.closest('.csa-sl-item');
-          if (row) { row.remove(); }
+          if (row) {
+            var container = row.parentElement;
+            row.remove();
+            updateMoveButtons(container);
+          }
         }
       });
 

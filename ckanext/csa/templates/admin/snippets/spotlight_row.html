@@ -10,6 +10,12 @@
 <div class="csa-sl-item">
   <div class="csa-sl-item__bar">
     <span class="csa-sl-item__name" data-name>{{ t_en or _('Untitled item') }}</span>
+    <button type="button" class="csa-sl-item__move" data-move="up" aria-label="{{ _('Move up') }}" title="{{ _('Move up') }}">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i> <span>{{ _('Move up') }}</span>
+    </button>
+    <button type="button" class="csa-sl-item__move" data-move="down" aria-label="{{ _('Move down') }}" title="{{ _('Move down') }}">
+      <i class="fa fa-arrow-down" aria-hidden="true"></i> <span>{{ _('Move down') }}</span>
+    </button>
     <button type="button" class="csa-sl-item__remove" data-remove>
       <i class="fa fa-trash" aria-hidden="true"></i> {{ _('Remove') }}
     </button>

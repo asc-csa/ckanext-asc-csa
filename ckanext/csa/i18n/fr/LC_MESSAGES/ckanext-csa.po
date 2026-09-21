@@ -75,6 +75,19 @@ msgid "Alt Text"
 msgstr "Texte alternatif"
 
 #: ckanext/csa/templates/admin/snippets/spotlight_row.html
+msgid "Move up"
+msgstr "Monter"
+
+#: ckanext/csa/templates/admin/snippets/spotlight_row.html
+msgid "Move down"
+msgstr "Descendre"
+
+#: ckanext/csa/templates/admin/spotlight.html
+#, python-brace-format
+msgid "Item moved to position {position} of {count}."
+msgstr "Élément déplacé à la position {position} sur {count}."
+
+#: ckanext/csa/templates/admin/snippets/spotlight_row.html
 msgid "Title"
 msgstr "Titre"
 
