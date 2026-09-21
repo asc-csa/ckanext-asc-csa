@@ -255,6 +255,8 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
 
             def _parse(prefix):
                 gl = request.form.getlist
+                alt_en = gl(prefix + "-alt-en")
+                alt_fr = gl(prefix + "-alt-fr")
                 rows = zip(
                     gl(prefix + "-title-en"), gl(prefix + "-title-fr"),
                     gl(prefix + "-url-en"), gl(prefix + "-url-fr"),
@@ -262,14 +264,19 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
                     gl(prefix + "-text-en"), gl(prefix + "-text-fr"),
                 )
                 items = []
-                for t_en, t_fr, u_en, u_fr, image, x_en, x_fr in rows:
-                    parts = [t_en, t_fr, u_en, u_fr, image, x_en, x_fr]
+                for index, row in enumerate(rows):
+                    t_en, t_fr, u_en, u_fr, image, x_en, x_fr = row
+                    # Forms opened before this field was added omit these lists.
+                    a_en = alt_en[index].strip() if index < len(alt_en) else ""
+                    a_fr = alt_fr[index].strip() if index < len(alt_fr) else ""
+                    parts = [t_en, t_fr, u_en, u_fr, image, a_en, a_fr, x_en, x_fr]
                     if not any(part.strip() for part in parts):
                         continue
                     items.append({
                         "title": {"en": t_en.strip(), "fr": t_fr.strip()},
                         "url": {"en": u_en.strip(), "fr": u_fr.strip()},
                         "image": image.strip(),
+                        "alt": {"en": a_en, "fr": a_fr},
                         "text": {"en": x_en.strip(), "fr": x_fr.strip()},
                     })
                 return items

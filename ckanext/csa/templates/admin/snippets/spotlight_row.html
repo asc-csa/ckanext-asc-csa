@@ -2,6 +2,8 @@
 {% set t_fr = h.csa_bilingual_get(item.title, 'fr') if item else '' %}
 {% set u_en = h.csa_bilingual_get(item.url, 'en') if item else '' %}
 {% set u_fr = h.csa_bilingual_get(item.url, 'fr') if item else '' %}
+{% set a_en = h.csa_bilingual_get(item.get('alt', ''), 'en') if item else '' %}
+{% set a_fr = h.csa_bilingual_get(item.get('alt', ''), 'fr') if item else '' %}
 {% set x_en = h.csa_bilingual_get(item.text, 'en') if item else '' %}
 {% set x_fr = h.csa_bilingual_get(item.text, 'fr') if item else '' %}
 {% set img = item.image if item else '' %}
@@ -39,6 +41,14 @@
       <div class="csa-sl-field">
         <label>{{ _('Link') }} <span class="csa-sl-lang csa-sl-lang--fr">FR</span></label>
         <input type="text" name="{{ prefix }}-url-fr" class="form-control" value="{{ u_fr }}" placeholder="https://…">
+      </div>
+      <div class="csa-sl-field">
+        <label>{{ _('Alt Text') }} <span class="csa-sl-lang csa-sl-lang--en">EN</span></label>
+        <input type="text" name="{{ prefix }}-alt-en" class="form-control" value="{{ a_en }}" aria-label="{{ _('Alt Text') }} EN">
+      </div>
+      <div class="csa-sl-field">
+        <label>{{ _('Alt Text') }} <span class="csa-sl-lang csa-sl-lang--fr">FR</span></label>
+        <input type="text" name="{{ prefix }}-alt-fr" class="form-control" value="{{ a_fr }}" aria-label="{{ _('Alt Text') }} FR">
       </div>
       <div class="csa-sl-field">
         <label>{{ _('Text') }} <span class="csa-sl-lang csa-sl-lang--en">EN</span></label>

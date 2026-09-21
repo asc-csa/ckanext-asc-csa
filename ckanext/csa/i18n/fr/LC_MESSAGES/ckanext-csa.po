@@ -71,6 +71,10 @@ msgid "Link"
 msgstr "Lien"
 
 #: ckanext/csa/templates/admin/snippets/spotlight_row.html
+msgid "Alt Text"
+msgstr "Texte alternatif"
+
+#: ckanext/csa/templates/admin/snippets/spotlight_row.html
 msgid "Title"
 msgstr "Titre"
 
