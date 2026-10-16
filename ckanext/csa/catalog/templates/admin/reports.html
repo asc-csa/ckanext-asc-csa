@@ -22,7 +22,7 @@
       <dl class="csa-status-definitions">
         {% for status in statuses %}
           <dt>{% snippet 'catalog/snippets/status_label.html', status=status %}</dt>
-          <dd>{{ status.description_for(h.lang()) }}</dd>
+          <dd>{{ h.scheming_language_text(status.description) }}</dd>
         {% endfor %}
       </dl>
     </section>

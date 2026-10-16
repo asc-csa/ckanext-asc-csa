@@ -1,9 +1,9 @@
 {#
 WET-style label for a governance status.
 
-status - a GovernanceStatus (see ckanext.csa.catalog.status)
+status - a choice from the catalogue schema's governance_status field
 #}
-<span class="{{ status.css_class }}" title="{{ status.description_for(h.lang()) }}">
+<span class="label label-{{ status.style }}" title="{{ h.scheming_language_text(status.description) }}">
   <span class="glyphicon {{ status.icon }}" aria-hidden="true"></span>
-  {{ status.label_for(h.lang()) }}
+  {{ h.scheming_language_text(status.label) }}
 </span>

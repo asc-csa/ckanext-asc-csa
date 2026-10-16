@@ -3,7 +3,7 @@ Dataset status report for administrators (issue #245).
 
 One row per dataset: name, governance status, data steward and URL, rendered
 as CSV or a standalone HTML document. The row collection talks to CKAN;
-everything else is pure so it can be unit-tested.
+status labels and defaults come from the active catalogue schema.
 """
 from __future__ import annotations
 
@@ -11,6 +11,8 @@ import csv
 import io
 from dataclasses import dataclass
 from typing import Any, Callable, Iterable, Iterator, Mapping, Optional, Sequence
+
+from ckanext.scheming.helpers import scheming_language_text
 
 from ckanext.csa.catalog import status as governance
 
@@ -53,11 +55,12 @@ def row_from_package(
     lang: Optional[str],
     url_for_dataset: Callable[[str], str],
 ) -> StatusReportRow:
-    value = pkg.get(governance.FIELD_NAME) or ""
+    choice = governance.get_status(pkg.get(governance.FIELD_NAME))
+    value = choice["value"] if choice else pkg.get(governance.FIELD_NAME)
     return StatusReportRow(
         title=dataset_title(pkg, lang),
         status=str(value),
-        status_label=governance.status_label(value, lang),
+        status_label=scheming_language_text(choice["label"], lang) if choice else "",
         steward=str(pkg.get("data_steward") or "").strip(),
         url=url_for_dataset(str(pkg.get("name") or pkg.get("id") or "")),
     )
@@ -110,7 +113,8 @@ def summarize(rows: Iterable[StatusReportRow], lang: Optional[str], unset_label:
     for row in rows:
         counts[row.status] = counts.get(row.status, 0) + 1
     summary = [
-        (status.label_for(lang), counts.pop(status.value, 0)) for status in governance.STATUSES
+        (scheming_language_text(choice["label"], lang), counts.pop(choice["value"], 0))
+        for choice in governance.all_statuses()
     ]
     unset = sum(counts.values())
     if unset:

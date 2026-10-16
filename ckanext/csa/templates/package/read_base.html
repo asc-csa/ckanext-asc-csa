@@ -61,6 +61,7 @@
           </div>
         </div>
         <ul class="list-group">
+          {% block additional_information_extra %}{% endblock %}
           {% set include_labels = [
             "creator",
             "maintainer_email",

@@ -1,7 +1,7 @@
 {% ckan_extends %}
 
-{#- Data catalogue: governance status in the "About this record" panel (#242). -#}
-{% block about_record_extra %}
+{#- Data catalogue: governance status in the "Additional information" panel (#242). -#}
+{% block additional_information_extra %}
   {{ super() }}
   {% snippet 'catalog/snippets/status_item.html', pkg=pkg %}
 {% endblock %}

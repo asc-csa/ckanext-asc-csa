@@ -1,5 +1,5 @@
 {#
-"About this record" entry showing the governance status, with a control to
+"Additional information" entry showing the governance status, with a control to
 change it for users who may update the dataset.
 
 pkg - the package dict
@@ -11,18 +11,15 @@ pkg - the package dict
     <strong>{{ _('Governance status') }}:</strong>
     {% if status %}
       {% snippet 'catalog/snippets/status_label.html', status=status %}
-      <p class="csa-gov-status-desc">{{ status.description_for(h.lang()) }}</p>
-    {% else %}
-      <span class="text-muted">{{ _('Not set') }}</span>
+      <p class="csa-gov-status-desc">{{ h.scheming_language_text(status.description) }}</p>
     {% endif %}
     {% if can_edit %}
       <form method="post" action="{{ h.url_for('csa_catalog.update_governance_status', id=pkg.id) }}" class="csa-gov-status-form">
         {{ h.csrf_input() }}
         <label for="csa-gov-status-select" class="wb-inv">{{ _('Change governance status') }}</label>
         <select id="csa-gov-status-select" name="governance_status" class="form-control input-sm">
-          <option value=""{% if not status %} selected{% endif %}>{{ _('Not set') }}</option>
           {% for candidate in h.csa_governance_statuses() %}
-            <option value="{{ candidate.value }}"{% if status and candidate.value == status.value %} selected{% endif %}>{{ candidate.label_for(h.lang()) }}</option>
+            <option value="{{ candidate.value }}"{% if status and candidate.value == status.value %} selected{% endif %}>{{ h.scheming_language_text(candidate.label) }}</option>
           {% endfor %}
         </select>
         <button type="submit" class="btn btn-default btn-sm">{{ _('Update') }}</button>

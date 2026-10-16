@@ -1248,6 +1248,7 @@
       "required": false,
       "form_snippet": null,
       "display_snippet": null,
+      "create_validators": "csa_catalog_default scheming_choices",
       "validators": "ignore_missing scheming_choices",
       "choices": [
         {
@@ -1255,37 +1256,68 @@
           "label": {
             "en": "Draft",
             "fr": "Ébauche"
-          }
+          },
+          "description": {
+            "en": "Dataset is new or incomplete. Documentation may be partial or missing. Ownership or definitions not finalized.",
+            "fr": "Le jeu de données est nouveau ou incomplet. La documentation peut être partielle ou manquante. La propriété ou les définitions ne sont pas finalisées."
+          },
+          "style": "default",
+          "icon": "glyphicon-pencil"
         },
         {
           "value": "in_review",
           "label": {
             "en": "In review",
             "fr": "En révision"
-          }
+          },
+          "description": {
+            "en": "Dataset structure exists. Business context and definitions are being reviewed. Governance checks (quality, compliance) may be in progress.",
+            "fr": "La structure du jeu de données existe. Le contexte opérationnel et les définitions sont en cours de révision. Des vérifications de gouvernance (qualité, conformité) peuvent être en cours."
+          },
+          "style": "info",
+          "icon": "glyphicon-eye-open"
         },
         {
           "value": "validated",
           "label": {
             "en": "Validated",
             "fr": "Validé"
-          }
+          },
+          "description": {
+            "en": "Dataset has been reviewed and approved. Key metadata is complete. Owner and steward identified.",
+            "fr": "Le jeu de données a été révisé et approuvé. Les métadonnées clés sont complètes. Le propriétaire et le responsable des données sont identifiés."
+          },
+          "style": "success",
+          "icon": "glyphicon-ok"
         },
         {
           "value": "paused_from_disposal",
           "label": {
             "en": "Paused from disposal",
             "fr": "Disposition suspendue"
-          }
+          },
+          "description": {
+            "en": "Dataset is paused from being disposed of. Key metadata is complete. Owner and steward identified.",
+            "fr": "La disposition du jeu de données est suspendue. Les métadonnées clés sont complètes. Le propriétaire et le responsable des données sont identifiés."
+          },
+          "style": "warning",
+          "icon": "glyphicon-pause"
         },
         {
           "value": "deprecated",
           "label": {
             "en": "Deprecated",
             "fr": "Obsolète"
-          }
+          },
+          "description": {
+            "en": "Dataset should no longer be used. Still documented for lineage and audit purposes. Clearly flagged to prevent accidental reuse.",
+            "fr": "Le jeu de données ne devrait plus être utilisé. Il demeure documenté à des fins de traçabilité et d'audit. Clairement signalé afin d'éviter toute réutilisation accidentelle."
+          },
+          "style": "danger",
+          "icon": "glyphicon-ban-circle"
         }
-      ]
+      ],
+      "default": "draft"
     }
 
 

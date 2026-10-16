@@ -29,7 +29,7 @@ def _require_sysadmin():
 
 @blueprint.route("/dataset/<id>/governance-status", methods=["POST"])
 def update_governance_status(id):
-    """Set or clear a dataset's governance status from its sidebar."""
+    """Set a dataset's governance status from its sidebar."""
     context = {"user": tk.g.user}
     try:
         tk.check_access("package_update", context, {"id": id})
@@ -37,13 +37,12 @@ def update_governance_status(id):
         return tk.abort(403, _("Unauthorized to update dataset"))
 
     value = (request.form.get(governance.FIELD_NAME) or "").strip()
-    if value and governance.get_status(value) is None:
+    if not value or governance.get_status(value) is None:
         return tk.abort(400, _("Invalid governance status."))
 
     try:
-        # ``None`` drops the extra; an empty string would fail choice validation.
         pkg = tk.get_action("package_patch")(
-            context, {"id": id, governance.FIELD_NAME: value or None}
+            context, {"id": id, governance.FIELD_NAME: value}
         )
     except tk.ObjectNotFound:
         return tk.abort(404, _("Dataset not found"))
@@ -60,7 +59,7 @@ def update_governance_status(id):
 def reports():
     """Administrator landing page for the catalogue reports."""
     _require_sysadmin()
-    return tk.render("admin/reports.html", {"statuses": governance.STATUSES})
+    return tk.render("admin/reports.html", {"statuses": governance.all_statuses()})
 
 
 @blueprint.route("/ckan-admin/reports/status.<fmt>")

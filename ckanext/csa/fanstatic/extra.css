@@ -566,13 +566,13 @@ select.form-control {
 }
 .csa-gov-status-form {
     display: flex;
+    flex-direction: column;
     gap: .5em;
-    align-items: center;
+    align-items: flex-start;
     margin-top: .75em;
 }
 .csa-gov-status-form select {
-    flex: 1 1 auto;
-    width: auto;
+    width: 100%;
 }
 .csa-gov-badge {
     margin-left: .5em;

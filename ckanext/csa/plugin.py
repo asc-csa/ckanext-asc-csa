@@ -384,9 +384,14 @@ class CsaCatalogPlugin(CsaPlugin):
         helpers_.update({
             "csa_governance_status": catalog_status.get_status,
             "csa_governance_statuses": catalog_status.all_statuses,
-            "csa_governance_status_label": catalog_status.status_label,
         })
         return helpers_
+
+    # IValidators
+    def get_validators(self):
+        validators_ = super().get_validators()
+        validators_["csa_catalog_default"] = catalog_status.default_status
+        return validators_
 
     # IFacets
     def dataset_facets(self, facets_dict, package_type):
