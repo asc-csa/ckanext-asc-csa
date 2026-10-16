@@ -32,18 +32,13 @@ class SchemingDatasetEntityManager(DatasetEntityManager):
 
         Returns field items with proper labels from the scheming schema when available.
         """
-        if fields := cls.get_fields_from_redis():
-            return fields
-
         try:
             from ckanext.scheming import helpers as scheming_helpers
 
             schema = scheming_helpers.scheming_get_dataset_schema(cls.entity_type)
 
             if schema and 'dataset_fields' in schema:
-                fields = cls._get_fields_from_schema(schema)
-                cls.cache_fields_to_redis(fields)
-                return fields
+                return cls._get_fields_from_schema(schema)
         except (ImportError, AttributeError) as e:
             log.warning(f"Could not load scheming schema: {e}. Falling back to default field detection.")
 
@@ -71,10 +66,7 @@ class SchemingDatasetEntityManager(DatasetEntityManager):
                 continue
 
             label = field_def.get('label', field_name)
-            if isinstance(label, dict):
-                label_text = label.get('en', label.get('fr', field_name))
-            else:
-                label_text = scheming_helpers.scheming_language_text(label) if label else field_name
+            label_text = scheming_helpers.scheming_language_text(label) if label else field_name
 
             fields.append(
                 base.FieldItem(
@@ -212,10 +204,7 @@ class SchemingDatasetEntityManager(DatasetEntityManager):
                 value = choice.get('value', '')
                 label = choice.get('label', value)
 
-                if isinstance(label, dict):
-                    label_text = label.get('en', label.get('fr', value))
-                else:
-                    label_text = scheming_helpers.scheming_language_text(label) if label else value
+                label_text = scheming_helpers.scheming_language_text(label) if label else value
 
                 result.append({
                     'value': str(value),
