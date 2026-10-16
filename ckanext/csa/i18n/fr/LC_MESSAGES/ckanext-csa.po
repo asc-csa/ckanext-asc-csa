@@ -1924,6 +1924,10 @@ msgstr "Organisation "
 msgid "Issued by"
 msgstr "Publiée par"
 
+#: ckanext/csa/templates/snippets/package_item.html:54
+msgid "Number of resources"
+msgstr "Nombre de ressources"
+
 #: ckanext/csa/templates/snippets/package_item.html:60
 msgid "Resource Formats"
 msgstr "Formats des ressources "

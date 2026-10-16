@@ -51,6 +51,10 @@
 
     {% block resources_outer %}
       <div class="row">
+        <div class="col-md-4">{{ _('Number of resources') }}:</div>
+        <div class="col-md-8">{{ package.get('num_resources', package.get('resources', [])|length) }}</div>
+      </div>
+      <div class="row">
         <div class="col-md-4">{{ _('Resource Formats') }}:</div>
         <div class="col-md-8">
           <ul class="list-inline list-unstyled">

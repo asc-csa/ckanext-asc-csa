@@ -982,6 +982,10 @@ msgstr ""
 msgid "Issued by"
 msgstr ""
 
+#: ckanext/csa/templates/snippets/package_item.html:54
+msgid "Number of resources"
+msgstr ""
+
 #: ckanext/csa/templates/snippets/package_item.html:58
 msgid "Resource Formats"
 msgstr ""
