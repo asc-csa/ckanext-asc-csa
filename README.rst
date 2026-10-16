@@ -58,7 +58,7 @@ dans ``ckanext/csa/catalog/templates/``; le module public ne les charge jamais.
 Le schéma de jeu de données interne est ``ckanext.csa.catalog:ckan_dataset.json``.
 Utilisez-le dans ``scheming.dataset_schemas`` à la place de
 ``ckanext.csa:ckan_dataset.json``. Il s'agit d'une copie du schéma public avec
-les champs internes supplémentaires, actuellement ``governance_status``.
+les champs internes de gouvernance et de conservation.
 Les modifications du schéma public doivent aussi être reportées dans cette copie.
 
 
@@ -113,5 +113,12 @@ Catalogue-specific code lives in ``ckanext/csa/catalog/`` and its templates in
 ``ckanext/csa/catalog/templates/``; the public plugin never loads them.
 Use ``ckanext.csa.catalog:ckan_dataset.json`` in ``scheming.dataset_schemas``
 instead of ``ckanext.csa:ckan_dataset.json`` for the internal dataset schema,
-which copies the public schema and adds internal fields, currently
-``governance_status``. Apply changes to the public schema to this copy as well.
+which copies the public schema and adds governance and retention fields.
+Apply changes to the public schema to this copy as well.
+
+For retention processing, run ``ckan -c internal.ini csa-catalog expire`` from
+cron with a CKAN worker running; ``--dry-run`` previews the work. Configure SMTP,
+``ckanext.csa.retention.fallback_email`` (DET). Active sysadmins with an email
+address also receive notifications. Expiry occurs after the
+end date in ``ckanext.csa.retention.timezone`` (default ``UTC``), except during
+disposal holds.

@@ -1,0 +1,10 @@
+{{ title }}
+ID: {{ package_id }}
+{{ dataset_url }}
+
+The retention period ended on {{ end_date }}. The dataset has been moved to the catalogue trash, not permanently deleted.
+
+La période de conservation a pris fin le {{ end_date }}. Le jeu de données a été placé dans la corbeille du catalogue, sans suppression définitive.
+
+--
+{{ site_title }} ({{ site_url }})

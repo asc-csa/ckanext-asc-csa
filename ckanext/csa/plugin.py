@@ -365,6 +365,18 @@ class CsaCatalogPlugin(CsaPlugin):
     this class the parent's instance if both were loaded.
     """
 
+    p.implements(p.IClick)
+    p.implements(p.IConfigDeclaration)
+
+    def get_commands(self):
+        from ckanext.csa.catalog.cli import catalog
+        return [catalog]
+
+    def declare_config_options(self, declaration, key):
+        options = key.ckanext.csa.retention
+        declaration.declare(options.timezone, "UTC")
+        declaration.declare(options.fallback_email, "")
+
     # IConfigurer
     def update_config(self, config_):
         super().update_config(config_)
@@ -389,8 +401,11 @@ class CsaCatalogPlugin(CsaPlugin):
 
     # IValidators
     def get_validators(self):
+        from ckanext.csa.catalog import retention
         validators_ = super().get_validators()
         validators_["csa_catalog_default"] = catalog_status.default_status
+        validators_["csa_retention_date"] = retention.retention_date
+        validators_["csa_retention_end"] = retention.retention_end
         return validators_
 
     # IFacets

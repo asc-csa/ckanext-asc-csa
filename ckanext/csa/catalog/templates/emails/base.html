@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{{ site_title }}{% endblock %}</title>
+  </head>
+  <body style="margin: 0; padding: 24px; background-color: #f5f5f5; color: #333; font-family: Arial, sans-serif; line-height: 1.5;">
+    <div style="max-width: 600px; margin: 0 auto; padding: 24px; background-color: #fff;">
+      {% block content %}{% endblock %}
+      {% block footer %}
+        <hr>
+        <p><a href="{{ site_url }}">{{ site_title }}</a></p>
+      {% endblock %}
+    </div>
+  </body>
+</html>

@@ -135,6 +135,17 @@
       "validators": "ignore_missing"
     },
     {
+      "field_name": "data_steward_email",
+      "label": {
+        "en": "Data steward email",
+        "fr": "Courriel du responsable des données"
+      },
+      "required": false,
+      "validators": "ignore_empty strip_value email_validator",
+      "form_snippet": "text.html",
+      "display_snippet": "email.html"
+    },
+    {
       "field_name": "manager_or_supervisor",
       "label": {
         "en":"Manager or Supervisor",
@@ -1234,6 +1245,32 @@
           "value": "fgp_viewer"
         }
       ]
+    },
+    {
+      "field_name": "retention_start_date",
+      "label": {
+        "en": "Retention start date",
+        "fr": "Début de la période de conservation"
+      },
+      "required": false,
+      "validators": "ignore_empty csa_retention_date",
+      "form_snippet": "date.html",
+      "display_snippet": "date.html"
+    },
+    {
+      "field_name": "retention_end_date",
+      "label": {
+        "en": "Retention end date",
+        "fr": "Fin de la période de conservation"
+      },
+      "help_text": {
+        "en": "The dataset is retained through this date, then moved to trash unless disposal is paused.",
+        "fr": "Le jeu de données est conservé jusqu’à cette date, puis placé dans la corbeille, sauf si sa disposition est suspendue."
+      },
+      "required": false,
+      "validators": "ignore_empty csa_retention_end",
+      "form_snippet": "date.html",
+      "display_snippet": "date.html"
     },
     {
       "field_name": "governance_status",

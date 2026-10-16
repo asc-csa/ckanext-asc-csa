@@ -1,0 +1,17 @@
+{% extends "emails/base.html" %}
+
+{% block title %}Dataset retention expired / Fin de conservation{% endblock %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+  <p>ID: {{ package_id }}</p>
+  <div lang="en">
+    <p>The retention period ended on {{ end_date }}. The dataset has been moved to the catalogue trash, not permanently deleted.</p>
+    <p><a href="{{ dataset_url }}">View dataset</a></p>
+  </div>
+  <hr>
+  <div lang="fr">
+    <p>La période de conservation a pris fin le {{ end_date }}. Le jeu de données a été placé dans la corbeille du catalogue, sans suppression définitive.</p>
+    <p><a href="{{ dataset_url }}">Voir le jeu de données</a></p>
+  </div>
+{% endblock %}
