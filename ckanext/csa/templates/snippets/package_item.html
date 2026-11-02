@@ -50,9 +50,12 @@
     {% endblock %}
 
     {% block resources_outer %}
+      {% set regular_resources = package.get('resources', [])
+        | rejectattr('is_tutorial', 'equalto', 'yes')
+        | rejectattr('is_data_dictionary', 'equalto', 'yes') | list %}
       <div class="row">
         <div class="col-md-4">{{ _('Number of resources') }}:</div>
-        <div class="col-md-8">{{ package.get('num_resources', package.get('resources', [])|length) }}</div>
+        <div class="col-md-8">{{ regular_resources|length }}</div>
       </div>
       <div class="row">
         <div class="col-md-4">{{ _('Resource Formats') }}:</div>
