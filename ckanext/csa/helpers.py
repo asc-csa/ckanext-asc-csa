@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
+from urllib.parse import urlsplit
 from ckan.model import Package
 import ckan.model as model
 import unicodedata
@@ -167,14 +168,55 @@ def csa_spotlight():
     return _load_spotlight(SPOTLIGHT_KEY, DEFAULT_SPOTLIGHT)
 
 
-def csa_community_spotlight():
-    """Items for the home page 'Community Spotlight' section."""
-    return _load_spotlight(COMMUNITY_SPOTLIGHT_KEY, DEFAULT_COMMUNITY_SPOTLIGHT)
+def csa_community_spotlight(dataset_id=None):
+    key = COMMUNITY_SPOTLIGHT_KEY
+    if dataset_id:
+        key += "." + dataset_id
+    return _load_spotlight(key, DEFAULT_COMMUNITY_SPOTLIGHT)
 
 
 def save_spotlight(items):
     model.set_system_info(SPOTLIGHT_KEY, json.dumps(items))
 
 
-def save_community_spotlight(items):
-    model.set_system_info(COMMUNITY_SPOTLIGHT_KEY, json.dumps(items))
+def save_community_spotlight(items, dataset_id=None):
+    key = COMMUNITY_SPOTLIGHT_KEY
+    if dataset_id:
+        key += "." + dataset_id
+    model.set_system_info(key, json.dumps(items))
+
+
+def parse_spotlight(form, prefix):
+    fields = ("title-en", "title-fr", "url-en", "url-fr", "image",
+              "text-en", "text-fr")
+    alt_en = form.getlist(prefix + "-alt-en")
+    alt_fr = form.getlist(prefix + "-alt-fr")
+    items = []
+    rows = zip(*(form.getlist(prefix + "-" + field) for field in fields))
+    for index, row in enumerate(rows):
+        t_en, t_fr, u_en, u_fr, image, x_en, x_fr = (v.strip() for v in row)
+        a_en = alt_en[index].strip() if index < len(alt_en) else ""
+        a_fr = alt_fr[index].strip() if index < len(alt_fr) else ""
+        if not any((t_en, t_fr, u_en, u_fr, image, x_en, x_fr, a_en, a_fr)):
+            continue
+        items.append({
+            "title": {"en": t_en, "fr": t_fr},
+            "url": {"en": u_en, "fr": u_fr},
+            "image": image,
+            "alt": {"en": a_en, "fr": a_fr},
+            "text": {"en": x_en, "fr": x_fr},
+        })
+    return items
+
+
+def validate_spotlight_urls(items):
+    for item in items:
+        for value in (item["image"], *item["url"].values()):
+            try:
+                if urlsplit(value).scheme.lower() in ("", "http", "https"):
+                    continue
+            except ValueError:
+                pass
+            raise ValueError(_(
+                "Use http://, https:// or a relative URL for spotlight links and images."
+            ))

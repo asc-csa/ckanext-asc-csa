@@ -1,0 +1,14 @@
+<section class="csa-sl-section">
+  <div class="csa-sl-section__head">
+    <h2>{{ _('Community Spotlight') }}</h2>
+    <p>{{ _('Projects built with CSA data, shown as alternating image / content rows.') }}</p>
+  </div>
+  <div data-repeat="community">
+    {% for item in community %}
+      {% snippet 'admin/snippets/spotlight_row.html', prefix='community', item=item %}
+    {% endfor %}
+  </div>
+  <button type="button" class="btn btn-default csa-sl-add" data-add="community">
+    <i class="fa fa-plus" aria-hidden="true"></i> {{ _('Add community item') }}
+  </button>
+</section>

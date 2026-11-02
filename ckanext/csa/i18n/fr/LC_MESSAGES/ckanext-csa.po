@@ -2290,3 +2290,15 @@ msgstr "Statut"
 # CsaCatalogPlugin (data catalogue)
 msgid "Data steward"
 msgstr "Responsable des données"
+
+#: ckanext/csa/helpers.py ckanext/csa/plugin.py
+msgid "Community spotlight updated."
+msgstr "La communauté en vedette a été mise à jour."
+
+#: ckanext/csa/helpers.py ckanext/csa/plugin.py
+msgid "Spotlight sections updated."
+msgstr "Les sections en vedette ont été mises à jour."
+
+#: ckanext/csa/helpers.py ckanext/csa/plugin.py
+msgid "Use http://, https:// or a relative URL for spotlight links and images."
+msgstr "Utilisez http://, https:// ou une URL relative pour les liens et les images en vedette."

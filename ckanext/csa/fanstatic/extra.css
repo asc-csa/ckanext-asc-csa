@@ -364,6 +364,11 @@ select.form-control {
 .csa-community {
     margin-top: 45px;
 }
+.dataset-spotlight-image {
+    width: 80px;
+    max-height: 80px;
+    object-fit: contain;
+}
 .csa-community-row {
     display: flex;
     align-items: center;

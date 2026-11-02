@@ -52,6 +52,12 @@
     {% snippet "package/snippets/resources_list.html", pkg=pkg, resources=pkg.resources, is_activity_archive=is_activity_archive %}
   {% endblock %}
 
+  {% block package_community_spotlight %}
+    {% if not is_activity_archive %}
+      {% snippet 'package/snippets/community_spotlight.html', community=h.csa_community_spotlight(pkg.id) %}
+    {% endif %}
+  {% endblock %}
+
   {% block package_similar_datasets %}
     {% set similar_limit = h.similar_datasets_get_config('.max_num', 5) %}
     {% set similar_list = h.similar_datasets(pkg.id, similar_limit) %}

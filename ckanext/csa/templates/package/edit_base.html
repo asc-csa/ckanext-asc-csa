@@ -1,0 +1,6 @@
+{% ckan_extends %}
+
+{% block content_primary_nav %}
+  {{ super() }}
+  {{ h.build_nav_icon('csa.dataset_spotlight', _('Community Spotlight'), id=pkg.name, icon='star') }}
+{% endblock %}

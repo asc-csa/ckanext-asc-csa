@@ -1,0 +1,24 @@
+{% if community %}
+<section class="panel panel-default dataset-spotlight" style="margin-top: 15px;">
+  <div class="panel-heading">
+    <h2 class="panel-title">{{ _('Community Spotlight') }}</h2>
+  </div>
+  <ul class="list-group">
+    {% for item in community %}
+      <li class="list-group-item">
+        <div class="media">
+          {% if item.image %}
+            <div class="media-left">
+              <img class="media-object dataset-spotlight-image" src="{{ item.image }}" alt="{{ h.csa_bilingual_text(item.get('alt', '')) }}">
+            </div>
+          {% endif %}
+          <div class="media-body">
+            <a href="{{ h.csa_bilingual_text(item.url) or '#' }}">{{ h.csa_bilingual_text(item.title) }}</a>
+            <p class="text-muted small">{{ h.csa_bilingual_text(item.text) }}</p>
+          </div>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}

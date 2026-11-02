@@ -248,52 +248,66 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
 
         @bp.route("/ckan-admin/spotlight", methods=["GET", "POST"])
         def spotlight_admin():
-            """
-            Sysadmin page to manage the home page spotlight sections. Items are
-            stored in the system_info table (no migration) via helpers.
-            """
+            """Manage the homepage spotlight sections."""
             if not (tk.g.userobj and tk.g.userobj.sysadmin):
                 return tk.abort(
                     403, _("Need to be system administrator to administer"))
 
-            def _parse(prefix):
-                gl = request.form.getlist
-                alt_en = gl(prefix + "-alt-en")
-                alt_fr = gl(prefix + "-alt-fr")
-                rows = zip(
-                    gl(prefix + "-title-en"), gl(prefix + "-title-fr"),
-                    gl(prefix + "-url-en"), gl(prefix + "-url-fr"),
-                    gl(prefix + "-image"),
-                    gl(prefix + "-text-en"), gl(prefix + "-text-fr"),
-                )
-                items = []
-                for index, row in enumerate(rows):
-                    t_en, t_fr, u_en, u_fr, image, x_en, x_fr = row
-                    # Forms opened before this field was added omit these lists.
-                    a_en = alt_en[index].strip() if index < len(alt_en) else ""
-                    a_fr = alt_fr[index].strip() if index < len(alt_fr) else ""
-                    parts = [t_en, t_fr, u_en, u_fr, image, a_en, a_fr, x_en, x_fr]
-                    if not any(part.strip() for part in parts):
-                        continue
-                    items.append({
-                        "title": {"en": t_en.strip(), "fr": t_fr.strip()},
-                        "url": {"en": u_en.strip(), "fr": u_fr.strip()},
-                        "image": image.strip(),
-                        "alt": {"en": a_en, "fr": a_fr},
-                        "text": {"en": x_en.strip(), "fr": x_fr.strip()},
-                    })
-                return items
-
+            spotlight = helpers.csa_spotlight()
+            community = helpers.csa_community_spotlight()
+            status = 200
             if request.method == "POST":
-                helpers.save_spotlight(_parse("spotlight"))
-                helpers.save_community_spotlight(_parse("community"))
-                tk.h.flash_success(_("Spotlight sections updated."))
-                return tk.redirect_to("csa.spotlight_admin")
+                spotlight = helpers.parse_spotlight(request.form, "spotlight")
+                community = helpers.parse_spotlight(request.form, "community")
+                try:
+                    helpers.validate_spotlight_urls(spotlight + community)
+                except ValueError as exc:
+                    tk.h.flash_error(str(exc))
+                    status = 400
+                else:
+                    helpers.save_spotlight(spotlight)
+                    helpers.save_community_spotlight(community)
+                    tk.h.flash_success(_("Spotlight sections updated."))
+                    return tk.redirect_to("csa.spotlight_admin")
 
             return tk.render("admin/spotlight.html", {
-                "spotlight": helpers.csa_spotlight(),
-                "community": helpers.csa_community_spotlight(),
-            })
+                "spotlight": spotlight,
+                "community": community,
+            }), status
+
+        @bp.route("/dataset/<id>/spotlight", methods=["GET", "POST"])
+        def dataset_spotlight(id):
+            context = {"user": tk.g.user}
+            try:
+                pkg = tk.get_action("package_show")(context, {"id": id})
+                tk.check_access("package_update", context, {"id": pkg["id"]})
+            except tk.ObjectNotFound:
+                return tk.abort(404, _("Dataset not found"))
+            except tk.NotAuthorized:
+                return tk.abort(403, _("Unauthorized to update dataset"))
+
+            community = helpers.csa_community_spotlight(pkg["id"])
+            status = 200
+            if request.method == "POST":
+                from ckan.config.middleware.flask_app import csrf
+                if tk.config.get("WTF_CSRF_ENABLED"):
+                    csrf.protect()
+                community = helpers.parse_spotlight(request.form, "community")
+                try:
+                    helpers.validate_spotlight_urls(community)
+                except ValueError as exc:
+                    tk.h.flash_error(str(exc))
+                    status = 400
+                else:
+                    helpers.save_community_spotlight(community, pkg["id"])
+                    tk.h.flash_success(_("Community spotlight updated."))
+                    return tk.redirect_to("csa.dataset_spotlight", id=pkg["name"])
+
+            return tk.render("package/spotlight.html", {
+                "pkg_dict": pkg,
+                "dataset_type": pkg["type"],
+                "community": community,
+            }), status
 
         return bp
 

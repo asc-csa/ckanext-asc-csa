@@ -1117,3 +1117,15 @@ msgstr ""
 # CsaCatalogPlugin (data catalogue)
 msgid "Data steward"
 msgstr ""
+
+#: ckanext/csa/helpers.py ckanext/csa/plugin.py
+msgid "Community spotlight updated."
+msgstr ""
+
+#: ckanext/csa/helpers.py ckanext/csa/plugin.py
+msgid "Spotlight sections updated."
+msgstr ""
+
+#: ckanext/csa/helpers.py ckanext/csa/plugin.py
+msgid "Use http://, https:// or a relative URL for spotlight links and images."
+msgstr ""

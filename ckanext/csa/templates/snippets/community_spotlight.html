@@ -1,0 +1,19 @@
+{% if community %}
+<section class="csa-community">
+  <h2>{{ _('Community Spotlight') }}</h2>
+  <p>{{ _('Explore projects, stories, and real-world applications built using Canadian Space Agency data.') }}</p>
+  {% for item in community %}
+    <div class="csa-community-row{% if loop.index0 is odd %} csa-community-reverse{% endif %}">
+      {% if item.image %}
+        <div class="csa-community-img">
+          <img src="{{ item.image }}" alt="{{ h.csa_bilingual_text(item.get('alt', '')) }}">
+        </div>
+      {% endif %}
+      <div class="csa-community-content">
+        <h3 class="csa-community-title"><a href="{{ h.csa_bilingual_text(item.url) or '#' }}">{{ h.csa_bilingual_text(item.title) }}</a></h3>
+        <p>{{ h.csa_bilingual_text(item.text) }}</p>
+      </div>
+    </div>
+  {% endfor %}
+</section>
+{% endif %}
