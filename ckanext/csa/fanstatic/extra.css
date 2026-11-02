@@ -81,8 +81,89 @@ main {
     display: inline-block;
 }
 
-.resource-list {
+.resource-table {
+    position: relative;
+    margin-top: 24px;
+    overflow-x: auto;
+    border: 1px solid #2572b4;
+    border-radius: 4px;
+}
+.resource-table:focus-visible {
+    outline: 2px solid #2572b4;
+    outline-offset: 2px;
+}
+.resource-table .resource-list {
     margin: 0;
+    min-width: 680px;
+    table-layout: fixed;
+}
+.resource-list > caption.wb-inv {
+    top: 0;
+    left: 0;
+    padding: 0;
+}
+.resource-table .resource-list > thead,
+.resource-table .resource-list > tbody {
+    border: 0;
+}
+.resource-list > thead > tr > th {
+    padding: 10px 15px;
+    color: #fff;
+    background: #2572b4;
+    border: 0;
+    vertical-align: middle;
+}
+.resource-list > tbody > tr > th,
+.resource-list > tbody > tr > td {
+    padding: 16px;
+    border-top: 1px solid #d6e0e8;
+    vertical-align: middle;
+    font-weight: normal;
+    overflow-wrap: anywhere;
+}
+.resource-list > tbody > tr:nth-of-type(odd) {
+    background-color: #f3f6f9;
+}
+.resource-table .resource-list > tbody > tr:last-child > th,
+.resource-table .resource-list > tbody > tr:last-child > td {
+    border-bottom: 0;
+}
+.resource-list .resource-name { width: 34%; }
+.resource-list .resource-type { width: 20%; }
+.resource-list .resource-format-cell { width: 12%; text-align: center; }
+.resource-list .resource-language { width: 14%; }
+.resource-list .resource-links { width: 20%; }
+.resource-table .resource-list--supporting { min-width: 520px; }
+.resource-list--supporting .resource-name { width: 60%; }
+.resource-list--supporting .resource-language { width: 20%; }
+.resource-format {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+.resource-format-icon {
+    display: block;
+    width: 32px;
+    height: 35px;
+    overflow: hidden;
+}
+.resource-list .resource-format .format-label {
+    display: block;
+    margin: 0;
+    transform-origin: top left;
+}
+.resource-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+}
+.resource-actions .btn {
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    white-space: normal;
 }
 
 /* The WET/GCWeb theme has word-break rules that can mess with link button styling. */
@@ -237,30 +318,86 @@ select.form-control {
     }
 }
 
-.page-header {
+.module-content.page-header {
     display: flex;
-    align-items: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
     justify-content: space-between;
+    gap: 8px;
+    padding: 0 8px;
+    background: #2572b4;
+    border: 0;
+    border-radius: 6px;
 }
-.page-header::after {
+.module-content.page-header::after {
     display: none;
 }
-.page-header .nav-tabs,
-.page-header .content_action {
+.module-content.page-header .nav-tabs,
+.module-content.page-header .content_action {
     float: none;
 }
-.page-header .nav-tabs {
+.module-content.page-header .nav-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
     min-width: 0;
+    align-self: flex-end;
+    padding-top: 8px;
+    margin: 0;
+    border: 0;
 }
-.page-header .content_action {
+.module-content.page-header .nav-tabs > li {
+    float: none;
+    margin: 0;
+}
+.module-content.page-header .nav-tabs > li > a {
+    margin: 0;
+    padding: 10px 14px;
+    color: #fff;
+    background: transparent;
+    border: 0;
+    border-radius: 4px 4px 0 0;
+    transition: none;
+}
+.module-content.page-header .nav-tabs > li > a:hover {
+    color: #fff;
+    background: #1c578a;
+    border: 0;
+}
+.module-content.page-header .nav-tabs > li.active > a,
+.module-content.page-header .nav-tabs > li > a:focus {
+    color: #1c578a;
+    background: #fff;
+    border: 0;
+}
+.module-content.page-header a:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+.module-content.page-header .content_action {
     order: 1;
     flex-shrink: 0;
     display: flex;
     gap: 8px;
     align-items: center;
+    margin: 8px 0 8px auto;
 }
-.page-header .content_action #package-info,
-.page-header .content_action #package-info .mrgn-bttm-md {
+.module-content.page-header .content_action .btn {
+    margin: 0;
+    color: #fff;
+    background: transparent;
+    border: 1px solid #fff;
+    box-shadow: none;
+    transition: none;
+}
+.module-content.page-header .content_action .btn:hover,
+.module-content.page-header .content_action .btn:focus {
+    color: #1c578a;
+    /* CKAN's default button hover background also uses !important. */
+    background-color: #fff !important;
+}
+.module-content.page-header .content_action #package-info,
+.module-content.page-header .content_action #package-info .mrgn-bttm-md {
     margin: 0;
 }
 
@@ -331,6 +468,30 @@ select.form-control {
 /* "More on this record" collapsible peek (accessible disclosure).
    The .is-collapsed class is only added by JS, so with JS off the full
    table is shown and the toggle button stays hidden. */
+.additional-info .table {
+    margin: 0;
+    table-layout: fixed;
+    border: 0;
+}
+.additional-info .table > tbody {
+    border: 0;
+}
+.additional-info .table > tbody > tr > th,
+.additional-info .table > tbody > tr > td {
+    padding: 12px 15px;
+    border: 0;
+    border-top: 1px solid #d6e0e8;
+    overflow-wrap: anywhere;
+}
+.additional-info .table > tbody > tr:first-child > * {
+    border-top: 0;
+}
+.additional-info .table > tbody > tr:last-child > * {
+    border-bottom: 0;
+}
+.additional-info .dataset-label {
+    width: 32%;
+}
 .additional-info-body.is-collapsed {
     max-height: 13.5em;
     overflow: hidden;

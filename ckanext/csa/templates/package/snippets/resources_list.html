@@ -13,25 +13,32 @@ Example:
 
 {% block resource_list %}
 <!--template/package/resources_list.html start-->
-<br><br>
+
 {% if resources %}
 
     {% set has_tutorials = resources | selectattr('is_tutorial', 'defined') | selectattr('is_tutorial', 'equalto', 'yes') | list | length > 0 %}
     {% set has_data_dictionaries = resources | selectattr('is_data_dictionary', 'defined') | selectattr('is_data_dictionary', 'equalto', 'yes') | list | length > 0 %}
 
-    {% if pkg.resources %}
-      <section class="mrgn-tp-lg">
+    {% set regular_resources = [] %}
+    {% for resource in resources %}
+      {% if resource.get('is_tutorial') != 'yes' and resource.get('is_data_dictionary') != 'yes' %}
+        {% do regular_resources.append(resource) %}
+      {% endif %}
+    {% endfor %}
+    {% if regular_resources %}
+      <section class="resource-table" role="region" aria-label="{{ _('Resource list table') }}" tabindex="0">
         <table class="table table-striped resource-list">
           <caption class="wb-inv">{{_('Resource list table') }}</caption>
           <thead>
             <tr>
-              <th scope="col" class="td-center-nowrap">{{ _('Resource name') }}</th>
-              <th scope="col" class="td-center-nowrap">{{ _('Resource type') }}</th>
-              <th scope="col" class="td-center-nowrap">{{ _('Format') }}</th>
-              <th scope="col" class="td-center-nowrap">{{ _('Language') }}</th>
-              <th scope="col" class="td-center-nowrap">{{ _('Links') }}</th>
+              <th scope="col" class="resource-name">{{ _('Resource name') }}</th>
+              <th scope="col" class="resource-type">{{ _('Resource type') }}</th>
+              <th scope="col" class="resource-format-cell">{{ _('Format') }}</th>
+              <th scope="col" class="resource-language">{{ _('Language') }}</th>
+              <th scope="col" class="resource-links">{{ _('Links') }}</th>
             </tr>
           </thead>
+          <tbody>
 
         {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
         {% for resource in resources %}
@@ -40,24 +47,24 @@ Example:
           {% endif %}
         {% endfor %}
 
+          </tbody>
         </table>
       </section>
     {% endif %}
 
     {% if has_data_dictionaries %}
-	  <br><br>
-      <section class="mrgn-tp-lg">
-        <table class="table table-striped resource-list">
+
+      <section class="resource-table" role="region" aria-label="{{ _('Data dictionary list table') }}" tabindex="0">
+        <table class="table table-striped resource-list resource-list--supporting">
           <caption class="wb-inv">{{ _('Data dictionary list table') }}</caption>
           <thead>
           <tr>
-            <th scope="col" class="td-center-nowrap">{{ _('Dictionary name') }}</th>
-            <th scope="col" class="td-center-nowrap"></th>
-            <th scope="col" class="td-center-nowrap"></th>
-            <th scope="col" class="td-center-nowrap">{{ _('Language') }}</th>
-            <th scope="col" class="td-center-nowrap">{{ _('Links') }}</th>
+            <th scope="col" class="resource-name">{{ _('Dictionary name') }}</th>
+            <th scope="col" class="resource-language">{{ _('Language') }}</th>
+            <th scope="col" class="resource-links">{{ _('Links') }}</th>
           </tr>
           </thead>
+          <tbody>
 
           {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
           {% for resource in resources %}
@@ -66,24 +73,24 @@ Example:
             {% endif %}
           {% endfor %}
 
+          </tbody>
         </table>
       </section>
     {% endif %}
 
     {% if has_tutorials %}
-	  <br><br>
-      <section class="mrgn-tp-lg">
-        <table class="table table-striped resource-list">
+
+      <section class="resource-table" role="region" aria-label="{{ _('Tutorial list table') }}" tabindex="0">
+        <table class="table table-striped resource-list resource-list--supporting">
           <caption class="wb-inv">{{ _('Tutorial list table') }}</caption>
           <thead>
             <tr>
-              <th scope="col" class="td-center-nowrap">{{ _('Tutorial name') }}</th>
-              <th scope="col" class="td-center-nowrap"></th>
-              <th scope="col" class="td-center-nowrap"></th>
-              <th scope="col" class="td-center-nowrap">{{ _('Language') }}</th>
-              <th scope="col" class="td-center-nowrap">{{ _('Links') }}</th>
+              <th scope="col" class="resource-name">{{ _('Tutorial name') }}</th>
+              <th scope="col" class="resource-language">{{ _('Language') }}</th>
+              <th scope="col" class="resource-links">{{ _('Links') }}</th>
             </tr>
           </thead>
+          <tbody>
 
         {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
         {% for resource in resources %}
@@ -92,18 +99,17 @@ Example:
           {% endif %}
         {% endfor %}
 
+          </tbody>
         </table>
-		<br><br>
+
       </section>
     {% endif %}
 
 {% else %}
-  <p>
-    {# Comment out "add some" as action doesn't exist yet #}
-    {% trans url=h.url_for(controller='dataset', action='resources', id=pkg.name) %}
-      <p class="empty">This dataset has no data, <a href="{{ url }}">why not add some?</a>
+
+    {% trans url=h.url_for(pkg.type ~ '.resources', id=pkg.name) %}
+      <p class="empty">This dataset has no data, <a href="{{ url }}">why not add some?</a></p>
     {% endtrans %}
-  </p>
 {% endif %}
 {% endblock %}
 <!--template/package/resources_list.html end-->

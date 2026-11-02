@@ -1,10 +1,12 @@
 {% set pkg = c.pkg_dict %}
 {% set client_lang = h.lang() %}
 <!--template/package/additional_info.html start-->
-<section class="additional-info">
-   <h2>{{ _('More on this record') }}:</h2>
+<section class="panel panel-primary additional-info">
+  <div class="panel-heading">
+    <h2 class="panel-title">{{ _('More on this record') }}</h2>
+  </div>
   <div class="additional-info-body" id="additional-info-body">
-  <table class="table table-bordered">
+  <table class="table">
     {# <thead>
       <tr>
         <th scope="col">{{ _('Field') }}</th>
@@ -85,7 +87,7 @@
     </tbody>
   </table>
   </div>
-  <button type="button" class="btn btn-link additional-info-toggle" aria-controls="additional-info-body" aria-expanded="true" hidden>
+  <button type="button" class="btn btn-link mrgn-lft-md additional-info-toggle" aria-controls="additional-info-body" aria-expanded="true" hidden>
     <span class="additional-info-more">{{ _('Show more') }}</span>
     <span class="additional-info-less">{{ _('Show less') }}</span>
     <span class="glyphicon glyphicon-chevron-down additional-info-caret" aria-hidden="true"></span>

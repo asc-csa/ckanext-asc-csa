@@ -3,7 +3,7 @@
 {% set lang_field = h.scheming_field_by_name(schema.resource_fields, 'language') %}
 
 <tr>
-  <td style="width:30%">
+  <th scope="row" class="resource-name">
     {% set name, machine_translated = h.get_translated_t(res, 'name') %}
     {% if ' ' not in name %}
       <span class="wrapall">{{ name }}</span>
@@ -13,16 +13,13 @@
     {% if machine_translated %}
        <i class="fa fa-language text-muted mrgn-lft-sm" title="{{ _("This third party metadata element has been translated using an automated translation tool (DeepL).  To report any discrepancies please contact open-ouvert@tbs-sct.gc.ca") }}"></i>
     {% endif %}
-  </td>
-  <td class="td-center" style="width:15%">
-  </td>
-  <td class="td-center" style="width:15%">
-  </td>
-  <td class="td-center" style="width:20%">
+  </th>
+  <td class="resource-language">
     {% snippet 'scheming/snippets/display_field.html',
       field=lang_field, data=res, entity_type='dataset', object_type=pkg.type %}
   </td>
-  <td class="td-center" style="width:20%">
+  <td class="resource-links">
+    <div class="resource-actions">
     {# Build a language string so a screen reader can distinguish two
        data dictionaries that share a display name (issue #231). #}
     {% set res_lang_value = res.language %}
@@ -43,6 +40,7 @@
     {% if can_edit %}
       {% link_for _('Edit'), controller='dataset_resource', action='edit', id=pkg.name, resource_id=res.id, class_='btn btn-default' %}
     {% endif %}
+    </div>
   </td>
 </tr>
 <!--template/package/snippets/data_dictionary_item.html end-->

@@ -1,5 +1,4 @@
 <!--template/package/snippets/resource_item.html start-->
-{% import 'macros/csa_read.html' as cr %}
 
 {% set url_action = 'edit' if url_is_edit and can_edit else 'read' %}
 {% set url = h.url_for(controller='dataset_resource', action=url_action, id=pkg.name, resource_id=res.id) %}
@@ -18,44 +17,13 @@
 </li>
 {% else %}
 
-{# Previous variables from Open Maps, delete if no issue #}
-
 {% set schema = h.scheming_get_dataset_schema(pkg.type) %}
-{% set name_field = h.scheming_field_by_name(schema.resource_fields, 'name_translated') %}
 {% set type_field = h.scheming_field_by_name(schema.resource_fields, 'resource_type') %}
 {% set format_field = h.scheming_field_by_name(schema.resource_fields, 'format') %}
 {% set lang_field = h.scheming_field_by_name(schema.resource_fields, 'language') %}
 
-
-
-{# FIXME: using tables for formatting #}
-
-
-
-{% set pkg = c.pkg_dict %}
-{% set schema = h.scheming_get_dataset_schema(pkg.type) %}
-{% set custom_variables={"preview" : False} %}
-
-
-          {%for field_to_show in ["preview"]%}
-
-                      {% set field = h.scheming_field_by_name(schema.dataset_fields, field_to_show) %}
-
-                      {% set field_title = h.scheming_language_text(field.label) %}
-
-                      {% if field_title %}
-                      {%if pkg[field.field_name]%}
-                        {% set field_value = pkg[field.field_name] %}
-                          {%set dummy=custom_variables.update({"preview" : field_value})%}
-                        {%endif%}
-                        {%endif%}
-
-              {%endfor%}
-
-
-
 <tr>
-  <td class="" style="width:30%">
+  <th scope="row" class="resource-name">
     {% set name, machine_translated = h.get_translated_t(res, 'name') %}
     {% if ' ' not in name %}
       <span class="wrapall">{{ name }}</span>
@@ -65,20 +33,28 @@
     {% if machine_translated %}
        <i class="fa fa-language text-muted mrgn-lft-sm" title="{{ _("This third party metadata element has been translated using an automated translation tool (DeepL).  To report any discrepancies please contact open-ouvert@tbs-sct.gc.ca") }}"></i>
     {% endif %}
-  </td>
-  <td class="td-center" style="width:15%">
+  </th>
+  <td class="resource-type">
     {% snippet 'scheming/snippets/display_field.html',
       field=type_field, data=res, entity_type='dataset', object_type=pkg.type %}
   </td>
-  <td  class="td-center" style="width:15%">
-    {% snippet 'scheming/snippets/display_field.html',
-      field=format_field, data=res, entity_type='dataset', object_type=pkg.type %} &nbsp; <span class="format-label" property="dc:format" data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span>
+  <td class="resource-format-cell">
+    <div class="resource-format">
+      <div property="dc:format">
+        {% snippet 'scheming/snippets/display_field.html',
+          field=format_field, data=res, entity_type='dataset', object_type=pkg.type %}
+      </div>
+      <span class="resource-format-icon" aria-hidden="true">
+        <span class="format-label" data-format="{{ res.format.lower() or 'data' }}"></span>
+      </span>
+    </div>
   </td>
-  <td class="td-center" style="width:20%">
+  <td class="resource-language">
     {% snippet 'scheming/snippets/display_field.html',
       field=lang_field, data=res, entity_type='dataset', object_type=pkg.type %}
   </td>
-  <td class="td-center" style="width:20%">
+  <td class="resource-links">
+    <div class="resource-actions">
       {# Build a language string for the wb-inv text. When two resources
          share the same display name (e.g. an EN and FR copy), the language
          is what differentiates them for a screen reader (issue #231). #}
@@ -97,21 +73,14 @@
            the screen reader already reads the visible text, so the hidden
            text continues the sentence rather than restarting it. #}
         <span class="wb-inv">{{ _('the resource named:') }} {{ name }}{% if res_lang_text %} ({{ res_lang_text }}){% endif %}</span>
-        </a>
-        <br>
-
-        {% if res.has_views %}
-        {% if res.format.lower() != "other" %}
-        {%if custom_variables['preview']=="True" or can_edit %}
-
-        <a href="{{ url }}" class="btn btn-default" >{{ _('Preview')}} {{_("(experimental)") }} </a>
-        {% endif %}
-        {% endif %}
-        {% endif %}
-        {% if can_edit%}
+      </a>
+      {% if res.has_views and res.format.lower() != 'other' and (pkg.get('preview') == 'True' or can_edit) %}
+        <a href="{{ url }}" class="btn btn-default">{{ _('Preview') }} {{ _('(experimental)') }}</a>
+      {% endif %}
+      {% if can_edit %}
         {% link_for _('Edit'), controller='dataset_resource', action='edit', id=pkg.name, resource_id=res.id, class_='btn btn-default' %}
-
-    {% endif %}
+      {% endif %}
+    </div>
   </td>
 </tr>
 {% endif %}
