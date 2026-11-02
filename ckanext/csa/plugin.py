@@ -108,6 +108,8 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
         pkg_dict["title_string"] = titles.get("en", "")
 
         validated_data_dict = json.loads(pkg_dict.get("validated_data_dict"))
+        # An unset preview field also disables the public preview link.
+        pkg_dict["preview"] = "True" if pkg_dict.get("preview") == "True" else "False"
         res_name_fr = []
         if validated_data_dict:
             resources = validated_data_dict.get("resources")
@@ -160,6 +162,7 @@ class CsaPlugin(p.SingletonPlugin, DefaultTranslation):
                 "keywords": _("Keywords"),
                 "project": _("CSA Science category"),
                 "res_format": _("Format"),
+                "preview": _("Preview"),
                 "frequency": _("Maintenance and update frequency"),
                 "topic_category": _("Topic categories"),
                 "spatial_representation_type": _("Spatial representation type"),
